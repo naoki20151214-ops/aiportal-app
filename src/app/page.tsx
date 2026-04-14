@@ -26,21 +26,21 @@ const tools: Tool[] = [
     id: "1",
     category: "最新",
     title: "Gemini 1.5 Pro",
-    description: "Googleが提供する最新の高性能AI。長大な文書や動画も一瞬で理解します。",
+    description: "Googleが提供する最新の高性能AI。長い文章や動画を一瞬で理解して、質問に答えてくれます。",
     icon: "💎",
   },
   {
     id: "2",
     category: "最新",
     title: "Claude 3.5 Sonnet",
-    description: "非常に自然な日本語と、プログラミングや分析における高い知性を備えています。",
+    description: "人間のように自然な日本語で、複雑な悩み相談やプログラミングを助けてくれるAIです。",
     icon: "🎭",
   },
   {
     id: "3",
     category: "最新",
     title: "GPT-4o",
-    description: "OpenAIのフラッグシップモデル。音声・視覚・テキストを統合した万能型AIです。",
+    description: "OpenAIの最新モデル。話したり、見せたりしたものを理解して会話ができる、最も有名なAIです。",
     icon: "⚡",
   },
   // AIエージェント
@@ -48,21 +48,21 @@ const tools: Tool[] = [
     id: "4",
     category: "AIエージェント",
     title: "AutoGPT",
-    description: "目標を設定するだけで、AIが自律的にタスクを細分化して実行します。",
+    description: "やりたいことを伝えるだけで、AIが自分で考えて複数のステップを実行してくれる自律型AIです。",
     icon: "🤖",
   },
   {
     id: "5",
     category: "AIエージェント",
     title: "AgentGPT",
-    description: "ブラウザ上で簡単にAIエージェントを作成・実行できる初心者向けツール。",
+    description: "ブラウザ上で簡単に自分専用のAIアシスタントを作って、目標達成まで働かせることができます。",
     icon: "🌐",
   },
   {
     id: "6",
     category: "AIエージェント",
     title: "BabyAGI",
-    description: "シンプルなタスク管理と実行に特化した、自律型AIの先駆け的システム。",
+    description: "タスクの管理と実行をAIが自動で繰り返す、非常にシンプルな自律型エージェントの仕組みです。",
     icon: "👶",
   },
   // Claude Code
@@ -70,14 +70,14 @@ const tools: Tool[] = [
     id: "7",
     category: "Claude Code",
     title: "Claude Desktop",
-    description: "PC上で直接動作し、ファイルの読み書きや分析をシームレスに行えます。",
+    description: "パソコンにインストールして、ファイルの内容を分析したり要約したりできる便利なアプリです。",
     icon: "💻",
   },
   {
     id: "8",
     category: "Claude Code",
     title: "Claude API",
-    description: "開発者向け。独自のアプリケーションにClaudeの知能を組み込むことができます。",
+    description: "自分のアプリやサービスに、賢いAI「Claude」の知能を組み込むことができる仕組みです。",
     icon: "🔌",
   },
   // ChatGPT
@@ -85,14 +85,14 @@ const tools: Tool[] = [
     id: "9",
     category: "ChatGPT",
     title: "ChatGPT Free",
-    description: "誰でも無料で始められる、世界で最も有名な対話型AIの基本プラン。",
+    description: "誰でも無料で始められる、対話型AIの基本プラン。日常のちょっとした調べ物に最適です。",
     icon: "💬",
   },
   {
     id: "10",
     category: "ChatGPT",
     title: "ChatGPT Plus",
-    description: "最新モデルや画像生成、データ分析機能が使える有料プレミアムプラン。",
+    description: "最新の機能や画像生成、データ分析などを制限なしでたっぷり使いたい人向けの有料プラン。",
     icon: "🌟",
   },
   // Gemini
@@ -100,14 +100,14 @@ const tools: Tool[] = [
     id: "11",
     category: "Gemini",
     title: "Gemini Advanced",
-    description: "Google Workspaceとの連携も強力な、Google最高峰のAIサービス。",
+    description: "Googleの最高レベルのAI。Googleマップやメール、Googleドキュメントとの連携が強力です。",
     icon: "🚀",
   },
   {
     id: "12",
     category: "Gemini",
-    title: "Gemini for Google Workspace",
-    description: "ドキュメントやメール作成を、Googleのアプリ内で直接AIが手助けします。",
+    title: "Gemini for Workspace",
+    description: "Googleのドキュメントやスプレッドシートの中で、AIが直接文章作成を手伝ってくれます。",
     icon: "📧",
   },
   // AI画像動画生成
@@ -115,21 +115,21 @@ const tools: Tool[] = [
     id: "13",
     category: "AI画像動画生成",
     title: "Midjourney",
-    description: "言葉（プロンプト）を入力するだけで、芸術的な画像を生み出すAI。",
+    description: "言葉を入力するだけで、驚くほど芸術的で美しい画像を作り出してくれるクリエイティブAIです。",
     icon: "🎨",
   },
   {
     id: "14",
     category: "AI画像動画生成",
     title: "Luma Dream Machine",
-    description: "高品質な動画をテキストや画像から生成できる、次世代の動画AI。",
+    description: "テキストや1枚の画像から、映画のような高品質なショート動画を生成できる最新ツール。",
     icon: "🎬",
   },
   {
     id: "15",
     category: "AI画像動画生成",
     title: "Stable Diffusion",
-    description: "自由度が高く、自分好みの画像生成環境を構築できるオープンソースAI。",
+    description: "自分で好みの設定を細かく調整して、思い通りの画像を生成できる自由度の高いAIです。",
     icon: "⚙️",
   },
   // AIツール
@@ -137,21 +137,21 @@ const tools: Tool[] = [
     id: "16",
     category: "AIツール",
     title: "Notion AI",
-    description: "メモやドキュメント作成をAIが加速。文章の要約や構成案もお任せ。",
+    description: "人気のメモアプリNotion内で、文章の要約や翻訳、アイデア出しをAIがサポートしてくれます。",
     icon: "📝",
   },
   {
     id: "17",
     category: "AIツール",
     title: "Perplexity",
-    description: "「検索の再発明」。知りたいことに、出典付きで正確に答えてくれる検索AI。",
+    description: "調べたいことを入力すると、ネット上の信頼できる情報源から回答をまとめてくれる検索AI。",
     icon: "🔍",
   },
   {
     id: "18",
     category: "AIツール",
     title: "Canva AI",
-    description: "デザイン未経験でも、AIの力でおしゃれなバナーや資料が簡単に作れます。",
+    description: "デザインの知識がなくても、AIの力でおしゃれなバナーや資料を簡単に作れるツールです。",
     icon: "🖼️",
   },
 ];
@@ -162,41 +162,52 @@ export default function Home() {
   const filteredTools = tools.filter((tool) => tool.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
+    <div className="min-h-screen bg-[#fbfbfd] text-gray-900 font-sans selection:bg-blue-100">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-100/50 px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">A</span>
+            <span className="text-white font-bold text-lg">A</span>
           </div>
-          <h1 className="text-xl font-bold tracking-tight">AIポータル</h1>
+          <h1 className="text-xl font-bold tracking-tight text-black">AIポータル</h1>
         </div>
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-500">
+        <nav className="flex gap-6 text-sm font-medium text-gray-500">
           <a href="#" className="hover:text-black transition-colors">
-            ホーム
+            Home
           </a>
           <a href="#" className="hover:text-black transition-colors">
-            ランキング
-          </a>
-          <a href="#" className="hover:text-black transition-colors">
-            ガイド
+            About
           </a>
         </nav>
       </header>
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-6 py-12">
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        {/* Title Section */}
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight text-gray-900 leading-tight">
+            AIで、あなたの毎日を
+            <br className="md:hidden" />
+            もっとスマートに。
+          </h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            最新のAIツールから、初心者に最適なものを厳選。
+            <br />
+            まずは使ってみることから始めましょう。
+          </p>
+        </div>
+
         {/* Navigation Tabs */}
-        <div className="mb-12">
-          <div className="flex overflow-x-auto pb-4 gap-2 no-scrollbar -mx-6 px-6 scroll-smooth">
+        <div className="mb-12 sticky top-20 z-40 bg-[#fbfbfd]/80 backdrop-blur-md py-2 -mx-6 px-6">
+          <div className="flex overflow-x-auto pb-1 gap-2 no-scrollbar scroll-smooth focus-visible:outline-none">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveTab(category)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-2xl text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
                   activeTab === category
-                    ? "bg-black text-white shadow-lg shadow-black/10 scale-105"
-                    : "bg-gray-50 text-gray-500 hover:bg-gray-100"
+                    ? "bg-black text-white shadow-md scale-100"
+                    : "bg-white text-gray-500 hover:bg-gray-100 border border-gray-100"
                 }`}
               >
                 {category}
@@ -205,36 +216,22 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero Section */}
-        <div className="mb-16 text-center md:text-left">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-            AIで、あなたの毎日を
-            <br />
-            もっとシンプルに。
-          </h2>
-          <p className="text-lg text-gray-500 max-w-2xl leading-relaxed">
-            世界中の最新AIツールから、初心者に最適なものを厳選。
-            <br className="hidden md:block" />
-            難しい設定なしで、今日から使える知能を体験しましょう。
-          </p>
-        </div>
-
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredTools.map((tool) => (
             <div
               key={tool.id}
-              className="group bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:shadow-gray-200 transition-all duration-500 hover:-translate-y-1 flex flex-col h-full"
+              className="group bg-white border border-gray-100/80 rounded-[2.5rem] p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1.5 flex flex-col h-full"
             >
-              <div className="text-4xl mb-6 bg-gray-50 w-16 h-16 flex items-center justify-center rounded-2xl group-hover:scale-110 transition-transform duration-500">
+              <div className="text-5xl mb-8 bg-gray-50/50 w-20 h-20 flex items-center justify-center rounded-3xl group-hover:scale-105 transition-transform duration-500">
                 {tool.icon}
               </div>
-              <h3 className="text-xl font-bold mb-3">{tool.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
+              <h3 className="text-xl font-bold mb-3 tracking-tight">{tool.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-10 flex-grow font-medium">
                 {tool.description}
               </p>
-              <button className="w-full bg-gray-50 text-gray-900 font-semibold py-3 px-6 rounded-xl hover:bg-black hover:text-white transition-all duration-300 text-sm">
-                詳細を見る
+              <button className="w-full bg-gray-50 text-gray-900 font-bold py-4 px-6 rounded-2xl hover:bg-black hover:text-white transition-all duration-300 text-sm active:scale-[0.98]">
+                使ってみる
               </button>
             </div>
           ))}
@@ -242,32 +239,28 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-50 border-t border-gray-100 py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-gray-400 text-sm">
-            © 2026 AIポータル. All rights reserved.
+      <footer className="py-20 px-6 border-t border-gray-100 mt-20">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center gap-2 text-gray-400">
+             <div className="w-6 h-6 bg-gray-200 rounded-md flex items-center justify-center text-[10px] font-bold text-gray-400">A</div>
+             <span className="text-xs font-semibold uppercase tracking-widest">AI Portal</span>
           </div>
-          <div className="flex gap-8 text-gray-400 text-sm">
-            <a href="#" className="hover:text-black">
+          <div className="flex gap-8 text-gray-400 text-xs font-medium">
+            <a href="#" className="hover:text-black transition-colors">
               プライバシーポリシー
             </a>
-            <a href="#" className="hover:text-black">
+            <a href="#" className="hover:text-black transition-colors">
+              利用規約
+            </a>
+            <a href="#" className="hover:text-black transition-colors">
               お問い合わせ
             </a>
           </div>
+          <div className="text-gray-300 text-xs font-medium">
+            © 2026 AI Portal. Designed for simplicity.
+          </div>
         </div>
       </footer>
-
-      {/* Custom Styles for hiding scrollbar */}
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 }
