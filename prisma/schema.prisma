@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 model Category {
@@ -28,3 +28,17 @@ model Post {
   updatedAt  DateTime   @updatedAt
   categories Category[]
 }
+
+model Tool {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  description String
+  url         String
+  icon        String
+  rating      Int
+  createdAt   DateTime @default(now())
+}
+
+
+
