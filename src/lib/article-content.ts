@@ -1,13 +1,16 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { parseDocument } from "yaml";
-import type { Article, ArticleMetadata } from "../types/article";
+import type { Article, ArticleMetadata, ArticleStatus, ArticleType } from "../types/article";
 import { isContentCategory } from "./categories";
 
 const requiredTextFields = [
   "title", "slug", "description", "category", "publishedAt",
   "updatedAt", "author", "thumbnail",
 ] as const;
+
+const articleStatuses: ArticleStatus[] = ["draft", "review", "ready", "scheduled", "published"];
+const articleTypes: ArticleType[] = ["concept", "mechanism", "practice", "comparison", "news", "reference"];
 
 function validDate(value: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -40,6 +43,34 @@ export function parseArticle(source: string, filename: string): Article {
     (tag) => typeof tag !== "string" || !tag.trim(),
   )) return fail("tagsは文字列の配列で指定してください（例: [\"AI\", \"入門\"]）。");
 
+  const status: ArticleStatus = fields.status === undefined
+    ? "published"
+    : typeof fields.status === "string" && articleStatuses.includes(fields.status as ArticleStatus)
+      ? fields.status as ArticleStatus
+      : fail("statusはdraft、review、ready、scheduled、publishedのいずれかで指定してください。");
+
+  if (fields.status !== undefined) {
+    if (typeof fields.id !== "string" || !/^(BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}$/.test(fields.id)) {
+      return fail("statusを指定する記事はRegistry形式のidが必要です。");
+    }
+    if (!Number.isInteger(fields.level) || (fields.level as number) < 0 || (fields.level as number) > 5) {
+      return fail("statusを指定する記事は0〜5のlevelが必要です。");
+    }
+    if (typeof fields.type !== "string" || !articleTypes.includes(fields.type as ArticleType)) {
+      return fail("statusを指定する記事は有効なtypeが必要です。");
+    }
+  }
+
+  if (fields.publishAt !== undefined) {
+    if (typeof fields.publishAt !== "string" || Number.isNaN(Date.parse(fields.publishAt))) {
+      return fail("publishAtはタイムゾーンを含むISO 8601日時で指定してください。");
+    }
+    if (status !== "scheduled") return fail("publishAtはstatusがscheduledのときだけ指定できます。");
+  }
+  if (status === "scheduled" && fields.publishAt === undefined) {
+    return fail("scheduled記事にはpublishAtが必要です。");
+  }
+
   if (fields.affiliateCampaign !== undefined &&
       (typeof fields.affiliateCampaign !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fields.affiliateCampaign))) {
     return fail("affiliateCampaignは案件IDを半角英小文字・数字・ハイフンで指定してください。");
@@ -50,7 +81,7 @@ export function parseArticle(source: string, filename: string): Article {
 
   const metadata = Object.fromEntries(
     requiredTextFields.map((field) => [field, (fields[field] as string).trim()]),
-  ) as Omit<ArticleMetadata, "tags">;
+  ) as unknown as Omit<ArticleMetadata, "tags" | "status">;
   if (!isContentCategory(metadata.category)) {
     return fail("categoryはAIニュース、AI基礎・技術、生成AI、AIエージェント、フィジカルAI・ロボティクス、AI開発・インフラ、AI活用・社会のいずれかで指定してください。");
   }
@@ -75,24 +106,39 @@ export function parseArticle(source: string, filename: string): Article {
   if (!match[2].trim()) return fail("frontmatterの下にMarkdown本文が必要です。");
   return {
     ...metadata,
+    status,
     tags: [...new Set((fields.tags as string[]).map((tag) => tag.trim()))],
+    ...(fields.id !== undefined ? { id: fields.id as string } : {}),
+    ...(fields.level !== undefined ? { level: fields.level as number } : {}),
+    ...(fields.type !== undefined ? { type: fields.type as ArticleType } : {}),
+    ...(fields.publishAt !== undefined ? { publishAt: fields.publishAt as string } : {}),
     ...(fields.affiliateCampaign !== undefined ? { affiliateCampaign: fields.affiliateCampaign as string } : {}),
     ...(fields.adPolicy !== undefined ? { adPolicy: fields.adPolicy as ArticleMetadata["adPolicy"] } : {}),
     content: match[2].trim(),
   };
 }
 
-export function readArticles(directory: string): Article[] {
+export function readAllArticles(directory: string): Article[] {
   const slugs = new Set<string>();
-  const articles = readdirSync(directory, { withFileTypes: true })
+  const ids = new Set<string>();
+  return readdirSync(directory, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
     .map((entry) => {
       const article = parseArticle(readFileSync(path.join(directory, entry.name), "utf8"), entry.name);
       if (slugs.has(article.slug)) throw new Error(`記事 ${entry.name}: slug「${article.slug}」が重複しています。`);
       slugs.add(article.slug);
+      if (article.id) {
+        if (ids.has(article.id)) throw new Error(`記事 ${entry.name}: id「${article.id}」が重複しています。`);
+        ids.add(article.id);
+      }
       return article;
     });
-  return articles.sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
-  );
+}
+
+export function readArticles(directory: string): Article[] {
+  return readAllArticles(directory)
+    .filter((article) => article.status === "published")
+    .sort((a, b) =>
+      b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
+    );
 }

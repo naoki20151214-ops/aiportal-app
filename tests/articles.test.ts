@@ -3,7 +3,7 @@ import { mkdtempSync, readdirSync, rmdirSync, unlinkSync, writeFileSync } from "
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { parseArticle, readArticles } from "../src/lib/article-content";
+import { parseArticle, readAllArticles, readArticles } from "../src/lib/article-content";
 import { getCategories } from "../src/lib/categories";
 
 function fixture(overrides: Record<string, unknown> = {}, body = "## 基礎\n\n本文です。") {
@@ -47,6 +47,47 @@ test("URLに使えないslugと危険な画像URLを拒否する", () => {
 
 test("定義外のカテゴリーを拒否する", () => {
   assert.throws(() => parseArticle(fixture({ category: "ChatGPT" }), "category.md"), /category/);
+});
+
+test("status付き記事はRegistryメタ情報を要求し、reviewは公開一覧に出さない", () => {
+  const review = parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "review",
+  }), "review.md");
+  assert.equal(review.status, "review");
+  assert.equal(review.id, "BAS-0001");
+
+  for (const overrides of [
+    { status: "review" },
+    { status: "review", id: "bad", level: 0, type: "concept" },
+    { status: "review", id: "BAS-0001", level: 9, type: "concept" },
+    { status: "review", id: "BAS-0001", level: 0, type: "unknown" },
+  ]) {
+    assert.throws(() => parseArticle(fixture(overrides), "status.md"), /記事 status\.md:/);
+  }
+
+  const directory = mkdtempSync(path.join(os.tmpdir(), "aiportal-status-"));
+  try {
+    writeFileSync(path.join(directory, "published.md"), fixture({ slug: "published" }));
+    writeFileSync(path.join(directory, "review.md"), fixture({
+      slug: "review", id: "BAS-0001", level: 0, type: "concept", status: "review",
+    }));
+    assert.equal(readAllArticles(directory).length, 2);
+    assert.deepEqual(readArticles(directory).map((article) => article.slug), ["published"]);
+  } finally {
+    for (const filename of readdirSync(directory)) unlinkSync(path.join(directory, filename));
+    rmdirSync(directory);
+  }
+});
+
+test("scheduled記事はpublishAtを要求し、自動では公開しない", () => {
+  assert.throws(() => parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "scheduled",
+  }), "scheduled.md"), /publishAt/);
+  const article = parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "scheduled",
+    publishAt: "2026-10-10T08:00:00+09:00",
+  }), "scheduled.md");
+  assert.equal(article.publishAt, "2026-10-10T08:00:00+09:00");
 });
 
 test("壊れたYAML、キー重複、空の本文、誤ったtags形式を拒否する", () => {

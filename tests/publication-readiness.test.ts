@@ -1,17 +1,18 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
+import { readArticles } from "../src/lib/article-content";
 
 test("公開記事にサンプル表記や仮本文が残っていない", () => {
   const directory = path.join(process.cwd(), "content/articles");
-  const files = readdirSync(directory).filter((name) => name.endsWith(".md"));
-  assert.equal(files.length, 8);
-  for (const filename of files) {
-    const content = readFileSync(path.join(directory, filename), "utf8");
+  const articles = readArticles(directory);
+  assert.equal(articles.length, 8);
+  for (const article of articles) {
+    const content = [article.title, article.description, article.content].join("\n");
     assert.doesNotMatch(content, /サンプル記事|本文は仮|正式な解説や具体的な活用例は今後追加/);
     assert.doesNotMatch(content, /["']サンプル["']/);
-    assert.ok(content.length >= 1800, `${filename} の本文が短すぎます`);
+    assert.ok(article.content.length >= 1800, `${article.slug} の本文が短すぎます`);
   }
 });
 
