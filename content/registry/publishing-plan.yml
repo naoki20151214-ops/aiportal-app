@@ -1,0 +1,40 @@
+schemaVersion: 1
+timezone: "Asia/Tokyo"
+
+automation:
+  enabled: false
+  strategy: "staged"
+  note: "公開自動化はRegistryと品質ゲートが安定してから有効化する"
+
+candidateCadence:
+  maxPerDay: 10
+  spacingMinutes: 60
+  localTimes:
+    - "08:00"
+    - "09:00"
+    - "10:00"
+    - "11:00"
+    - "12:00"
+    - "13:00"
+    - "14:00"
+    - "15:00"
+    - "16:00"
+    - "17:00"
+
+releasePrinciples:
+  - "SEO目的だけで公開間隔を分けない"
+  - "基礎ノードを先に公開し、その上に応用ノードを積む"
+  - "prerequisitesが公開済みのノードを優先する"
+  - "同一テーマの薄い記事を大量公開しない"
+  - "公開後に内部リンクと404を自動検証する"
+  - "ニュースは時刻優先、エバーグリーンは知識依存順を優先する"
+
+qualityGate:
+  required:
+    - "Center Questionに回答している"
+    - "必要な前提知識への導線がある"
+    - "重要な事実の一次情報を確認している"
+    - "重複記事がない"
+    - "内部参照IDがすべて存在する"
+    - "公開済みリンクに404がない"
+  wordCountRule: "固定しない"
