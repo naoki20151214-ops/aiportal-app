@@ -1,0 +1,50 @@
+schemaVersion: 1
+
+categories:
+  - "AIニュース"
+  - "AI基礎・技術"
+  - "生成AI"
+  - "AIエージェント"
+  - "フィジカルAI・ロボティクス"
+  - "AI開発・インフラ"
+  - "AI活用・社会"
+
+levels:
+  0: "完全初心者"
+  1: "基礎"
+  2: "仕組み"
+  3: "実践"
+  4: "専門"
+  5: "研究・設計"
+
+types:
+  - "concept"
+  - "mechanism"
+  - "practice"
+  - "comparison"
+  - "news"
+  - "reference"
+
+statuses:
+  - "planned"
+  - "draft"
+  - "review"
+  - "ready"
+  - "scheduled"
+  - "published"
+
+priorities:
+  - "A"
+  - "B"
+  - "C"
+
+linkPolicy:
+  published: "通常の内部リンクとして表示する"
+  unpublished: "URLリンクは生成しない。必要な場合のみ準備中として非リンク表示する"
+  missing: "CIエラー"
+
+contentPolicy:
+  oneCenterQuestionPerNode: true
+  fixedWordCount: false
+  primarySourcesPreferred: true
+  newsMustConnectToEvergreen: true
