@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 268
+nodeCount: 330
 
 nodes:
   - id: "BAS-0001"
@@ -3220,3 +3220,747 @@ nodes:
     children: []
     related: []
     priority: "A"
+  - id: "AGT-0017"
+    title: "Agent Loopとは？"
+    slug: "agent-loop"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Agent Loopとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0018"
+    title: "Perceive・Think・Actとは？"
+    slug: "perceive-think-act"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Perceive・Think・Actとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0019"
+    title: "ObservationとActionとは？"
+    slug: "agent-observation-action"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "ObservationとActionとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0020"
+    title: "AIエージェントのState Management"
+    slug: "agent-state-management"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "AIエージェントのState ManagementはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0021"
+    title: "Agent Checkpointとは？"
+    slug: "agent-checkpoint"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Agent Checkpointとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0020"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0022"
+    title: "AIエージェントのRetry設計"
+    slug: "agent-retry"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのRetry設計はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0020"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0023"
+    title: "Idempotencyとは？AIエージェントで重要な理由"
+    slug: "agent-idempotency"
+    category: "AIエージェント"
+    level: 4
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Idempotencyとは？AIエージェントで重要な理由はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0022"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0024"
+    title: "Tool Selectionとは？"
+    slug: "agent-tool-selection"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Tool Selectionとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0025"
+    title: "Tool Schemaとは？"
+    slug: "tool-schema"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Tool Schemaとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0004"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0026"
+    title: "AIエージェントの権限設計"
+    slug: "agent-permissions"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントの権限設計はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0015"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0027"
+    title: "Sandboxとは？AIエージェントを隔離する仕組み"
+    slug: "agent-sandbox"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Sandboxとは？AIエージェントを隔離する仕組みはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0028"
+    title: "Human-in-the-Loopとは？"
+    slug: "human-in-the-loop-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Human-in-the-Loopとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0029"
+    title: "Approval Gateとは？"
+    slug: "agent-approval-gate"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Approval Gateとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0028"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0030"
+    title: "AIエージェントの評価方法"
+    slug: "agent-evaluation"
+    category: "AIエージェント"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントの評価方法はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0031"
+    title: "Agent Trajectory Evaluationとは？"
+    slug: "agent-trajectory-evaluation"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Agent Trajectory Evaluationとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0030"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0032"
+    title: "Task Completion Rateとは？"
+    slug: "agent-task-completion-rate"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Task Completion Rateとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0030"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0033"
+    title: "AIエージェントのハルシネーション"
+    slug: "agent-hallucination"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントのハルシネーションはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["GEN-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0034"
+    title: "AIエージェントとPrompt Injection"
+    slug: "agent-prompt-injection"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントとPrompt InjectionはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["SOC-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0035"
+    title: "AIエージェントのData Exfiltrationリスク"
+    slug: "agent-data-exfiltration"
+    category: "AIエージェント"
+    level: 4
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントのData ExfiltrationリスクはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0034"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0036"
+    title: "AIエージェントのIdentityとは？"
+    slug: "agent-identity"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントのIdentityとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0037"
+    title: "AIエージェントのSecrets管理"
+    slug: "agent-secrets-management"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのSecrets管理はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0038"
+    title: "AIエージェントとOAuth"
+    slug: "agent-oauth"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントとOAuthはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0036"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0039"
+    title: "AIエージェントのRate Limit設計"
+    slug: "agent-rate-limits"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのRate Limit設計はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0024"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0040"
+    title: "AIエージェントのコスト管理"
+    slug: "agent-cost-control"
+    category: "AIエージェント"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのコスト管理はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0041"
+    title: "Agent Budgetとは？"
+    slug: "agent-budget"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Agent Budgetとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0040"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0042"
+    title: "AIエージェントのTimeout設計"
+    slug: "agent-timeout"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのTimeout設計はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0020"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0043"
+    title: "AIエージェントのCancel・Abort設計"
+    slug: "agent-cancellation"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIエージェントのCancel・Abort設計はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0042"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0044"
+    title: "Background Agentとは？"
+    slug: "background-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Background Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0045"
+    title: "Scheduled Agentとは？"
+    slug: "scheduled-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Scheduled Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0044"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0046"
+    title: "Event-driven Agentとは？"
+    slug: "event-driven-agent"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Event-driven Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0044"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0047"
+    title: "WebhookでAIエージェントを動かす仕組み"
+    slug: "agent-webhooks"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "WebhookでAIエージェントを動かす仕組みはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0046"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0048"
+    title: "Queueを使ったAgent実行"
+    slug: "agent-queue"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Queueを使ったAgent実行はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0044"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0049"
+    title: "Agent Orchestrationとは？"
+    slug: "agent-orchestration"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Agent Orchestrationとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0050"
+    title: "Supervisor Agent Patternとは？"
+    slug: "supervisor-agent-pattern"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Supervisor Agent Patternとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0049"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0051"
+    title: "Router Agent Patternとは？"
+    slug: "router-agent-pattern"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Router Agent Patternとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0049"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0052"
+    title: "Planner-Executor Patternとは？"
+    slug: "planner-executor-pattern"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Planner-Executor Patternとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0053"
+    title: "Critic-Refiner Patternとは？"
+    slug: "critic-refiner-pattern"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Critic-Refiner Patternとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0049"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0054"
+    title: "Reflectionとは？AIエージェントの振り返り"
+    slug: "agent-reflection"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Reflectionとは？AIエージェントの振り返りはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0053"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0055"
+    title: "AIエージェントのSelf-Correction"
+    slug: "agent-self-correction"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "AIエージェントのSelf-CorrectionはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0054"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0056"
+    title: "Short-term Memoryとは？"
+    slug: "agent-short-term-memory"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Short-term Memoryとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0008"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0057"
+    title: "Long-term Memoryとは？"
+    slug: "agent-long-term-memory"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Long-term Memoryとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0008"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0058"
+    title: "Episodic Memoryとは？"
+    slug: "agent-episodic-memory"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Episodic Memoryとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0057"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0059"
+    title: "Semantic Memoryとは？"
+    slug: "agent-semantic-memory"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Semantic Memoryとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0057"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0060"
+    title: "Vector Memoryとは？"
+    slug: "agent-vector-memory"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Vector Memoryとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0057"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0061"
+    title: "Context Engineering for Agentsとは？"
+    slug: "agent-context-engineering"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Context Engineering for Agentsとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0062"
+    title: "Artifact-based Agent Workflowとは？"
+    slug: "artifact-based-agent-workflow"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Artifact-based Agent Workflowとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0020"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0063"
+    title: "Code Execution Agentとは？"
+    slug: "code-execution-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Code Execution Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0064"
+    title: "Shell Agentとは？"
+    slug: "shell-agent"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Shell Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0063"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0065"
+    title: "Data Analysis Agentとは？"
+    slug: "data-analysis-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Data Analysis Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0066"
+    title: "Research Agentとは？"
+    slug: "research-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Research Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0067"
+    title: "Customer Support Agentとは？"
+    slug: "customer-support-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Customer Support Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0068"
+    title: "Sales Agentとは？"
+    slug: "sales-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Sales Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0069"
+    title: "Web Research Agentとは？"
+    slug: "web-research-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Web Research Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0070"
+    title: "Enterprise AI Agentとは？"
+    slug: "enterprise-ai-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Enterprise AI Agentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0071"
+    title: "Multi-Agent Communicationとは？"
+    slug: "multi-agent-communication"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Multi-Agent Communicationとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0009"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0072"
+    title: "Agent Delegationとは？"
+    slug: "agent-delegation"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Agent Delegationとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0009"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0073"
+    title: "Agent Handoffとは？"
+    slug: "agent-handoff"
+    category: "AIエージェント"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Agent Handoffとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0072"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0074"
+    title: "Subagentとは？"
+    slug: "subagent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Subagentとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0009"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0075"
+    title: "Swarm型AIエージェントとは？"
+    slug: "agent-swarm"
+    category: "AIエージェント"
+    level: 4
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Swarm型AIエージェントとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0009"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "AGT-0076"
+    title: "WorkflowとAIエージェントの違い"
+    slug: "workflow-vs-agent"
+    category: "AIエージェント"
+    level: 1
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "WorkflowとAIエージェントの違いはAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "AGT-0077"
+    title: "Agentic Workflowとは？"
+    slug: "agentic-workflow"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Agentic Workflowとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0076"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "AGT-0078"
+    title: "Agent Observabilityとは？"
+    slug: "agent-observability"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Agent Observabilityとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
+    prerequisites: ["AGT-0030"]
+    children: []
+    related: []
+    priority: "C"
