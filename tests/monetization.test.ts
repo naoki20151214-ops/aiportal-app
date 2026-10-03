@@ -16,13 +16,13 @@ import AffiliateSlot from "../src/components/monetization/affiliate-slot";
 import ArticleBody from "../src/components/article-body";
 
 const article: ArticleMetadata = {
-  title: "AIの基礎", slug: "basics", description: "基礎", category: "AI入門", tags: ["生成AI"],
+  title: "AIの基礎", slug: "basics", description: "基礎", category: "AI基礎・技術", tags: ["生成AI"],
   author: "編集部", thumbnail: "/images/article-placeholder.svg", publishedAt: "2026-10-01", updatedAt: "2026-10-01",
 };
 // Test-only fixtures; the production campaign list remains empty.
 const campaign: AffiliateCampaign = {
   id: "learning", enabled: true, provider: "other", title: "学習サービス", description: "紹介文",
-  href: "https://example.com/learning", cta: "詳細を見る", positions: ["article-end"], categories: ["AI入門"],
+  href: "https://example.com/learning", cta: "詳細を見る", positions: ["article-end"], categories: ["AI基礎・技術"],
 };
 const unit: DisplayAdUnit = { id: "unit", enabled: true, provider: "custom", type: "rectangle", width: 300, height: 250 };
 const element = (tagName: string, length: number): Element => ({
