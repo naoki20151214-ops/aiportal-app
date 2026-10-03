@@ -4,7 +4,7 @@ generatedFrom: "AI Portal Master Content Registry v1"
 nodeCount: 121
 
 nodes:
-  - id: undefined
+  - id: "BAS-0001"
     title: "AIとは何か？"
     slug: "what-is-ai"
     category: "AI基礎・技術"
