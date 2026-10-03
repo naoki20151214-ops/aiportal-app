@@ -2,7 +2,7 @@
 title: "ChatGPT Searchとは？ウェブ検索・出典表示・従来検索との違い"
 slug: "chatgpt-search"
 description: "ChatGPTのウェブ検索機能について、検索が使われる場面、出典の見方、通常の検索エンジンとの違い、注意点を解説します。"
-category: "ChatGPT"
+category: "生成AI"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"
