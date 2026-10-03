@@ -60,7 +60,7 @@ test("Knowledge NodeのID・slugは一意で、固定語彙だけを使う", () 
   const registry = load<KnowledgeRegistry>("knowledge-nodes.yml");
   assert.equal(registry.schemaVersion, 1);
   assert.equal(registry.nodeCount, registry.nodes.length);
-  assert.ok(registry.nodes.length >= 100);
+  assert.ok(registry.nodes.length >= 500);
 
   const ids = new Set<string>();
   const slugs = new Set<string>();
