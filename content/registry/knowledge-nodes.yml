@@ -670,36 +670,36 @@ nodes:
     category: "生成AI"
     level: 2
     type: "practice"
-    status: "ChatGPTのウェブ検索は何ができ、出典をどう確認すべきか？"
-    centerQuestion: ["GEN-0019","GEN-0022"]
-    prerequisites: []
-    children: ["GEN-0008"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "ChatGPTのウェブ検索は何ができ、出典をどう確認すべきか？"
+    prerequisites: ["GEN-0019","GEN-0022"]
+    children: []
+    related: ["GEN-0008"]
+    priority: "A"
   - id: "GEN-0091"
     title: "Geminiの長いコンテキストとは？100万トークン級で何が変わるのか"
     slug: "gemini-long-context"
     category: "生成AI"
     level: 2
     type: "mechanism"
-    status: "Geminiの長いコンテキストは大量資料の扱い方をどう変えるのか？"
-    centerQuestion: ["GEN-0021","GEN-0023"]
-    prerequisites: []
-    children: ["BAS-0023"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "Geminiの長いコンテキストは大量資料の扱い方をどう変えるのか？"
+    prerequisites: ["GEN-0021","GEN-0023"]
+    children: []
+    related: ["BAS-0023"]
+    priority: "A"
   - id: "GEN-0092"
     title: "Luma Dream Machine入門｜AI動画生成でできること・プロンプトの基本"
     slug: "luma-dream-machine"
     category: "生成AI"
     level: 2
     type: "practice"
-    status: "Luma Dream Machineで動画生成を制御するには何を理解すべきか？"
-    centerQuestion: ["GEN-0017"]
-    prerequisites: []
-    children: ["GEN-0003"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "Luma Dream Machineで動画生成を制御するには何を理解すべきか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: ["GEN-0003"]
+    priority: "B"
   - id: "AGT-0001"
     title: "AIエージェントとは？"
     slug: "what-is-ai-agent"
@@ -898,24 +898,24 @@ nodes:
     category: "AIエージェント"
     level: 3
     type: "practice"
-    status: "Claude Codeに安全にリファクタリングを任せるにはどんな工程が必要か？"
-    centerQuestion: ["AGT-0013"]
-    prerequisites: []
-    children: ["AGT-0015"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "Claude Codeに安全にリファクタリングを任せるにはどんな工程が必要か？"
+    prerequisites: ["AGT-0013"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "A"
   - id: "AGT-0091"
     title: "Devinとは？AIソフトウェアエンジニアに任せられる仕事と人間の役割"
     slug: "devin-ai-engineer"
     category: "AIエージェント"
     level: 2
     type: "concept"
-    status: "Devinにどんな仕事を任せ、人間はどこを担うべきか？"
-    centerQuestion: ["AGT-0014"]
-    prerequisites: []
-    children: ["AGT-0015"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "Devinにどんな仕事を任せ、人間はどこを担うべきか？"
+    prerequisites: ["AGT-0014"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "A"
   - id: "PHY-0001"
     title: "フィジカルAIとは？"
     slug: "what-is-physical-ai"
@@ -1426,12 +1426,12 @@ nodes:
     category: "AI活用・社会"
     level: 1
     type: "practice"
-    status: "AIツールを目的・根拠・権限・コストでどう選べばよいか？"
-    centerQuestion: ["SOC-0012"]
-    prerequisites: []
-    children: ["SOC-0001","GEN-0019","GEN-0020","GEN-0021"]
-    related: "published"
-    priority: []
+    status: "published"
+    centerQuestion: "AIツールを目的・根拠・権限・コストでどう選べばよいか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: ["SOC-0001","GEN-0019","GEN-0020","GEN-0021"]
+    priority: "A"
   - id: "NEWS-0090"
     title: "Apple Intelligenceは何が変わった？Siri AIと次世代機能を整理【2026年版】"
     slug: "apple-intelligence-update"
