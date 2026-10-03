@@ -2,7 +2,7 @@
 title: "GPT-5からGPT-6.1へ｜OpenAIモデルの進化を追うときに見るべきポイント"
 slug: "openai-gpt5-training"
 description: "GPT-5の登場からGPT-6 Astra、GPT-6.1 Solまでの流れを公式情報で整理し、モデル更新を追うときに性能・速度・コスト・提供場所をどう見るか解説します。"
-category: "最新"
+category: "AIニュース"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"
