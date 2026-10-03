@@ -2,7 +2,7 @@
 title: "Luma Dream Machine入門｜AI動画生成でできること・プロンプトの基本"
 slug: "luma-dream-machine"
 description: "Luma Dream Machineの動画生成を初心者向けに解説。テキスト・画像からの生成、キーフレーム、Extend、修正しやすいプロンプト設計を整理します。"
-category: "AI画像動画生成"
+category: "生成AI"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"
