@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/article-body";
 import RelatedArticles from "@/components/related-articles";
+import SiteFooter from "@/components/site-footer";
 import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
 import { formatArticleDate } from "@/lib/dates";
@@ -79,9 +80,7 @@ export default async function ArticlePage({ params }: Props) {
           <Link href="/" className="text-sm font-bold text-blue-700 hover:underline">← トップへ戻る</Link>
         </div>
       </main>
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4 text-xs">© {new Date().getFullYear()} AI PORTAL. All rights reserved.</div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
