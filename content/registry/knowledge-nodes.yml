@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 191
+nodeCount: 268
 
 nodes:
   - id: "BAS-0001"
@@ -2296,3 +2296,927 @@ nodes:
     children: []
     related: []
     priority: "B"
+  - id: "GEN-0026"
+    title: "Decodingとは？"
+    slug: "llm-decoding"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Decodingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0027"
+    title: "Temperatureとは？"
+    slug: "llm-temperature"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Temperatureとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0028"
+    title: "Top-pとは？"
+    slug: "top-p"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Top-pとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0029"
+    title: "Top-kとは？"
+    slug: "top-k"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Top-kとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0030"
+    title: "Samplingとは？"
+    slug: "llm-sampling"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Samplingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0031"
+    title: "Greedy Decodingとは？"
+    slug: "greedy-decoding"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Greedy Decodingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0032"
+    title: "Beam Searchとは？"
+    slug: "beam-search"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Beam Searchとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0033"
+    title: "Structured Outputとは？"
+    slug: "structured-output"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Structured Outputとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0034"
+    title: "JSON SchemaでAI出力を固定する方法"
+    slug: "json-schema-ai-output"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "JSON SchemaでAI出力を固定する方法は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0033"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0035"
+    title: "Zero-shot Promptingとは？"
+    slug: "zero-shot-prompting"
+    category: "生成AI"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Zero-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0036"
+    title: "Few-shot Promptingとは？"
+    slug: "few-shot-prompting"
+    category: "生成AI"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Few-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0037"
+    title: "Example-based Promptingとは？"
+    slug: "example-based-prompting"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Example-based Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0036"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0038"
+    title: "Chain-of-Thoughtとは？"
+    slug: "chain-of-thought"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Chain-of-Thoughtとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0039"
+    title: "Self-Consistencyとは？"
+    slug: "self-consistency-reasoning"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Self-Consistencyとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0038"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0040"
+    title: "Reasoning Modelとは？"
+    slug: "reasoning-model"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Reasoning Modelとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0041"
+    title: "Test-time Computeとは？"
+    slug: "test-time-compute"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Test-time Computeとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0040"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0042"
+    title: "Verifier Modelとは？"
+    slug: "verifier-model"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Verifier Modelとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0040"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0043"
+    title: "Context Compressionとは？"
+    slug: "context-compression"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Context Compressionとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["BAS-0023"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0044"
+    title: "Prompt Cachingとは？"
+    slug: "prompt-caching"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Prompt Cachingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0045"
+    title: "Context Cachingとは？"
+    slug: "context-caching"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Context Cachingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["BAS-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0046"
+    title: "Groundingとは？"
+    slug: "ai-grounding"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Groundingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0004"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0047"
+    title: "AI回答のCitationとは？"
+    slug: "ai-citations"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI回答のCitationとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0046"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0048"
+    title: "Web Groundingとは？"
+    slug: "web-grounding"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Web Groundingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0046"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0049"
+    title: "File Searchとは？"
+    slug: "ai-file-search"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "File Searchとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0050"
+    title: "RAGのQuery Rewritingとは？"
+    slug: "rag-query-rewriting"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "RAGのQuery Rewritingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0051"
+    title: "Multi-query Retrievalとは？"
+    slug: "multi-query-retrieval"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Multi-query Retrievalとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0011"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0052"
+    title: "Metadata Filteringとは？"
+    slug: "metadata-filtering-rag"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Metadata Filteringとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0011"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0053"
+    title: "HyDEとは？"
+    slug: "hyde-rag"
+    category: "生成AI"
+    level: 4
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "HyDEとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0011"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0054"
+    title: "Graph RAGとは？"
+    slug: "graph-rag"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Graph RAGとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0055"
+    title: "Agentic RAGとは？"
+    slug: "agentic-rag"
+    category: "生成AI"
+    level: 4
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Agentic RAGとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0056"
+    title: "RAG Evaluationとは？"
+    slug: "rag-evaluation"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "RAG Evaluationとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0057"
+    title: "Multimodal Embeddingとは？"
+    slug: "multimodal-embedding"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Multimodal Embeddingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0058"
+    title: "Vision-Language Modelとは？"
+    slug: "vision-language-model"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Vision-Language Modelとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0059"
+    title: "画像Tokenizationとは？"
+    slug: "image-tokenization"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "画像Tokenizationとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0058"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0060"
+    title: "VLMによるOCRとは？"
+    slug: "vlm-ocr"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "VLMによるOCRとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0058"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0061"
+    title: "Latent Diffusionとは？"
+    slug: "latent-diffusion"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Latent Diffusionとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0062"
+    title: "VAEとは？"
+    slug: "variational-autoencoder"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "VAEとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["BAS-0096"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0063"
+    title: "Classifier-Free Guidanceとは？"
+    slug: "classifier-free-guidance"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Classifier-Free Guidanceとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0061"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0064"
+    title: "画像生成AIのSeedとは？"
+    slug: "image-generation-seed"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "画像生成AIのSeedとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0065"
+    title: "Inpaintingとは？"
+    slug: "inpainting"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Inpaintingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0066"
+    title: "Outpaintingとは？"
+    slug: "outpainting"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Outpaintingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0067"
+    title: "Image-to-Imageとは？"
+    slug: "image-to-image"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Image-to-Imageとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0068"
+    title: "ControlNetとは？"
+    slug: "controlnet"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ControlNetとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0067"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0069"
+    title: "画像生成AIのLoRAとは？"
+    slug: "image-lora"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "画像生成AIのLoRAとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0070"
+    title: "AI画像アップスケールとは？"
+    slug: "ai-image-upscaling"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI画像アップスケールとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0071"
+    title: "画像生成AIで一貫性を保つ方法"
+    slug: "image-consistency-ai"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "画像生成AIで一貫性を保つ方法は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0016"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0072"
+    title: "AI動画のTemporal Consistencyとは？"
+    slug: "video-temporal-consistency"
+    category: "生成AI"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI動画のTemporal Consistencyとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0073"
+    title: "Text-to-Videoとは？"
+    slug: "text-to-video"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Text-to-Videoとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0074"
+    title: "Image-to-Videoとは？"
+    slug: "image-to-video"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Image-to-Videoとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0075"
+    title: "Video-to-Videoとは？"
+    slug: "video-to-video"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Video-to-Videoとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0076"
+    title: "AI動画のKeyframe Controlとは？"
+    slug: "video-keyframe-control"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI動画のKeyframe Controlとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0077"
+    title: "AI動画のCamera Controlとは？"
+    slug: "video-camera-control"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI動画のCamera Controlとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0078"
+    title: "AI動画のMotion Controlとは？"
+    slug: "video-motion-control"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI動画のMotion Controlとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0079"
+    title: "AI Lip Syncとは？"
+    slug: "ai-lip-sync"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Lip Syncとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0080"
+    title: "Text-to-Speechとは？"
+    slug: "text-to-speech"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Text-to-Speechとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0081"
+    title: "Speech-to-Textとは？"
+    slug: "speech-to-text"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Speech-to-Textとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0082"
+    title: "Voice Cloningとは？"
+    slug: "voice-cloning"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Voice Cloningとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0083"
+    title: "Speech-to-Speech AIとは？"
+    slug: "speech-to-speech-ai"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Speech-to-Speech AIとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0084"
+    title: "AI音楽生成とは？"
+    slug: "ai-music-generation"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI音楽生成とは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0018"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0085"
+    title: "Open-weight LLMとは？"
+    slug: "open-weight-llm"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Open-weight LLMとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0086"
+    title: "クローズドモデルとOpen-weightモデルの違い"
+    slug: "closed-vs-open-weight-models"
+    category: "生成AI"
+    level: 2
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "クローズドモデルとOpen-weightモデルの違いは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0085"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0087"
+    title: "Small Language Modelとは？"
+    slug: "small-language-model"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Small Language Modelとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "GEN-0088"
+    title: "Model Routingとは？"
+    slug: "model-routing"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Model Routingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0089"
+    title: "AIモデルのVersion管理"
+    slug: "ai-model-versioning"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIモデルのVersion管理は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0093"
+    title: "System・User・Assistant Roleの違い"
+    slug: "chat-message-roles"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "System・User・Assistant Roleの違いは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0094"
+    title: "Prompt Templateとは？"
+    slug: "prompt-template"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Prompt Templateとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0095"
+    title: "Prompt Chainingとは？"
+    slug: "prompt-chaining"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Prompt Chainingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0096"
+    title: "AI出力に制約をかける方法"
+    slug: "constrained-generation"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI出力に制約をかける方法は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0033"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0097"
+    title: "Model Fallbackとは？"
+    slug: "model-fallback"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Model Fallbackとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0088"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0098"
+    title: "Streaming Responseとは？"
+    slug: "streaming-response"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Streaming Responseとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0099"
+    title: "Batch Generationとは？"
+    slug: "batch-generation"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Batch Generationとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0100"
+    title: "生成AIのTokenコストを理解する"
+    slug: "llm-token-cost"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "生成AIのTokenコストを理解するは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["BAS-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0101"
+    title: "Prompt Versioningとは？"
+    slug: "prompt-versioning"
+    category: "生成AI"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Prompt Versioningとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0094"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "GEN-0102"
+    title: "GroundingとRAGの違い"
+    slug: "grounding-vs-rag"
+    category: "生成AI"
+    level: 2
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "GroundingとRAGの違いは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0046"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0103"
+    title: "Fine-tuningとRAGの違い"
+    slug: "fine-tuning-vs-rag"
+    category: "生成AI"
+    level: 2
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "Fine-tuningとRAGの違いは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0005"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0104"
+    title: "Long ContextとRAGの違い"
+    slug: "long-context-vs-rag"
+    category: "生成AI"
+    level: 2
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "Long ContextとRAGの違いは何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "GEN-0105"
+    title: "生成AIモデルの選び方"
+    slug: "choose-generative-ai-model"
+    category: "生成AI"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "生成AIモデルの選び方は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    prerequisites: ["GEN-0001"]
+    children: []
+    related: []
+    priority: "A"
