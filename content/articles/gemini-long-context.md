@@ -2,7 +2,7 @@
 title: "Geminiの長いコンテキストとは？100万トークン級で何が変わるのか"
 slug: "gemini-long-context"
 description: "Geminiの長いコンテキストウィンドウについて、トークンの意味、長文・PDF・コード・動画での活用、RAGとの違い、注意点を解説します。"
-category: "Gemini"
+category: "生成AI"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"
