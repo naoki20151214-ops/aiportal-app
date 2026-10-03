@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 330
+nodeCount: 378
 
 nodes:
   - id: "BAS-0001"
@@ -3961,6 +3961,582 @@ nodes:
     status: "planned"
     centerQuestion: "Agent Observabilityとは？はAIエージェントの設計・運用・安全性にどのような役割を持つのか？"
     prerequisites: ["AGT-0030"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0013"
+    title: "ロボットのセンサーとは？"
+    slug: "robot-sensors"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボットのセンサーとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0003"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0014"
+    title: "ロボットのCamera Vision"
+    slug: "robot-camera-vision"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボットのCamera Visionはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0015"
+    title: "LiDARとは？ロボットでの使い方"
+    slug: "lidar-robotics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "LiDARとは？ロボットでの使い方はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0016"
+    title: "Radarとは？ロボットでの使い方"
+    slug: "radar-robotics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Radarとは？ロボットでの使い方はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0017"
+    title: "Force・Torque Sensorとは？"
+    slug: "force-torque-sensor"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Force・Torque Sensorとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0018"
+    title: "Proprioceptionとは？"
+    slug: "robot-proprioception"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Proprioceptionとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0019"
+    title: "Sensor Fusionとは？"
+    slug: "sensor-fusion-robotics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Sensor Fusionとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0020"
+    title: "Robot Localizationとは？"
+    slug: "robot-localization"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robot Localizationとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0019"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0021"
+    title: "SLAMとは？"
+    slug: "slam"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "SLAMとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0020"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0022"
+    title: "ロボットのMappingとは？"
+    slug: "robot-mapping"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "ロボットのMappingとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0021"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0023"
+    title: "Path Planningとは？"
+    slug: "robot-path-planning"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Path Planningとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0020"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0024"
+    title: "Motion Planningとは？"
+    slug: "robot-motion-planning"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Motion Planningとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0025"
+    title: "Trajectory Planningとは？"
+    slug: "robot-trajectory-planning"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Trajectory Planningとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0024"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0026"
+    title: "ロボット制御とは？"
+    slug: "robot-control-systems"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボット制御とは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0027"
+    title: "PID制御とは？"
+    slug: "pid-control"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "PID制御とは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0028"
+    title: "Model Predictive Controlとは？"
+    slug: "model-predictive-control"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Model Predictive Controlとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0029"
+    title: "Inverse Kinematicsとは？"
+    slug: "inverse-kinematics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Inverse Kinematicsとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0030"
+    title: "Forward Kinematicsとは？"
+    slug: "forward-kinematics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Forward Kinematicsとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0026"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0031"
+    title: "Robot Graspingとは？"
+    slug: "robot-grasping"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robot Graspingとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0032"
+    title: "Robot Manipulationとは？"
+    slug: "robot-manipulation"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robot Manipulationとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0031"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0033"
+    title: "Robot Locomotionとは？"
+    slug: "robot-locomotion"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robot Locomotionとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0034"
+    title: "二足歩行ロボットの仕組み"
+    slug: "bipedal-locomotion"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "二足歩行ロボットの仕組みはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0033"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0035"
+    title: "ロボット強化学習とは？"
+    slug: "robot-reinforcement-learning"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボット強化学習とは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["BAS-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0036"
+    title: "Imitation Learningとは？"
+    slug: "imitation-learning-robotics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Imitation Learningとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0035"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0037"
+    title: "Behavior Cloningとは？"
+    slug: "behavior-cloning"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Behavior Cloningとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0036"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0038"
+    title: "Teleoperationとは？"
+    slug: "robot-teleoperation"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Teleoperationとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0039"
+    title: "ロボット学習用データ収集"
+    slug: "robot-data-collection"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "ロボット学習用データ収集はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0038"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0040"
+    title: "Domain Randomizationとは？"
+    slug: "domain-randomization"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Domain Randomizationとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0012"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0041"
+    title: "ロボティクスのDomain Adaptation"
+    slug: "robot-domain-adaptation"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "ロボティクスのDomain Adaptationはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0012"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0042"
+    title: "VLA Modelとは？"
+    slug: "vision-language-action-model"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "VLA Modelとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0043"
+    title: "Vision-Language-Actionの仕組み"
+    slug: "vision-language-action"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Vision-Language-Actionの仕組みはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0042"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0044"
+    title: "Robotics Transformerとは？"
+    slug: "robotics-transformer"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robotics Transformerとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0042"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0045"
+    title: "Robot Policyとは？"
+    slug: "robot-policy"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Robot Policyとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0035"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0046"
+    title: "ロボットのSafety Constraintとは？"
+    slug: "robot-safety-constraints"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボットのSafety Constraintとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0026"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0047"
+    title: "Collision Avoidanceとは？"
+    slug: "collision-avoidance"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Collision Avoidanceとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0048"
+    title: "Human-Robot Interactionとは？"
+    slug: "human-robot-interaction"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Human-Robot Interactionとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0049"
+    title: "協働ロボットとは？"
+    slug: "collaborative-robot"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "協働ロボットとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0048"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0050"
+    title: "倉庫ロボットとは？"
+    slug: "warehouse-robot"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "倉庫ロボットとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0010"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0051"
+    title: "AMRとは？"
+    slug: "autonomous-mobile-robot"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AMRとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0050"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0052"
+    title: "AMRの自律ナビゲーション"
+    slug: "amr-navigation"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "AMRの自律ナビゲーションはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0051"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0053"
+    title: "産業用Cobotsとは？"
+    slug: "industrial-cobots"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "産業用Cobotsとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0049"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0054"
+    title: "農業ロボットとAI"
+    slug: "agricultural-robotics-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "農業ロボットとAIはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0055"
+    title: "医療ロボットとAI"
+    slug: "medical-robotics-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "医療ロボットとAIはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0056"
+    title: "家庭用ロボットとAI"
+    slug: "home-robotics-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "家庭用ロボットとAIはロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0057"
+    title: "Robot Fleet Managementとは？"
+    slug: "robot-fleet-management"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Robot Fleet Managementとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0051"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "PHY-0058"
+    title: "ROSとは？"
+    slug: "robot-operating-system"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ROSとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "PHY-0059"
+    title: "NVIDIA Isaacとは？"
+    slug: "nvidia-isaac"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "NVIDIA Isaacとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0060"
+    title: "ロボットのBenchmarkとは？"
+    slug: "robot-benchmarks"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ロボットのBenchmarkとは？はロボットが現実世界を認識・判断・制御するうえでどんな役割を持つのか？"
+    prerequisites: ["PHY-0011"]
     children: []
     related: []
     priority: "C"
