@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { parseDocument } from "yaml";
 import type { Article, ArticleMetadata } from "../types/article";
+import { isContentCategory } from "./categories";
 
 const requiredTextFields = [
   "title", "slug", "description", "category", "publishedAt",
@@ -50,6 +51,9 @@ export function parseArticle(source: string, filename: string): Article {
   const metadata = Object.fromEntries(
     requiredTextFields.map((field) => [field, (fields[field] as string).trim()]),
   ) as Omit<ArticleMetadata, "tags">;
+  if (!isContentCategory(metadata.category)) {
+    return fail("categoryはAIニュース、AI基礎・技術、生成AI、AIエージェント、フィジカルAI・ロボティクス、AI開発・インフラ、AI活用・社会のいずれかで指定してください。");
+  }
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(metadata.slug)) {
     return fail("slugは半角英小文字・数字・ハイフンで指定してください。");
   }

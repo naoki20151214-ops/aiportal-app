@@ -2,7 +2,7 @@
 title: "2026年版 AIツールの選び方｜用途別に迷わないための実践ガイド"
 slug: "ai-tools-2026"
 description: "ChatGPT、Gemini、Claude Code、Devin、Lumaなどを例に、AIツールを目的・根拠・権限・コストで選ぶ考え方を整理します。"
-category: "AIツール"
+category: "AI活用・社会"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"

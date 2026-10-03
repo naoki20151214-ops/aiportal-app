@@ -2,7 +2,7 @@
 title: "Claude Codeで安全にリファクタリングする方法｜計画→差分→テストの実践手順"
 slug: "claude-code-refactoring"
 description: "Claude Codeにリファクタリングを任せるときの実践手順を、コード理解、計画、差分確認、テスト、ロールバックまで順番に解説します。"
-category: "Claude Code"
+category: "AIエージェント"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"

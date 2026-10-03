@@ -2,7 +2,7 @@
 title: "Apple Intelligenceは何が変わった？Siri AIと次世代機能を整理【2026年版】"
 slug: "apple-intelligence-update"
 description: "2026年に提供が始まった次世代Apple IntelligenceとSiri AIについて、できること、プライバシー設計、日本語対応の状況を公式情報から整理します。"
-category: "最新"
+category: "AIニュース"
 publishedAt: "2026-10-03"
 updatedAt: "2026-10-03"
 author: "AI Portal編集部"
