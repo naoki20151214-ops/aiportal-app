@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 121
+nodeCount: 191
 
 nodes:
   - id: "BAS-0001"
@@ -1456,4 +1456,843 @@ nodes:
     children: []
     related: ["GEN-0002","BAS-0027"]
     priority: "A"
-
+  - id: "BAS-0031"
+    title: "AIの歴史"
+    slug: "ai-history"
+    category: "AI基礎・技術"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの歴史を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0032"
+    title: "シンボリックAIとは？"
+    slug: "symbolic-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "シンボリックAIとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0031"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0033"
+    title: "エキスパートシステムとは？"
+    slug: "expert-systems"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "エキスパートシステムとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0032"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0034"
+    title: "統計的機械学習とは？"
+    slug: "statistical-machine-learning"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "統計的機械学習とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0035"
+    title: "分類問題とは？"
+    slug: "classification-task"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "分類問題とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0005"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0036"
+    title: "回帰問題とは？"
+    slug: "regression-task"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "回帰問題とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0005"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0037"
+    title: "クラスタリングとは？"
+    slug: "clustering"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "クラスタリングとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0006"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0038"
+    title: "次元削減とは？"
+    slug: "dimensionality-reduction"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "次元削減とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0039"
+    title: "特徴量エンジニアリングとは？"
+    slug: "feature-engineering"
+    category: "AI基礎・技術"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "特徴量エンジニアリングとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0040"
+    title: "訓練・検証・テストデータの違い"
+    slug: "train-validation-test-split"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "訓練・検証・テストデータの違いを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0041"
+    title: "交差検証とは？"
+    slug: "cross-validation"
+    category: "AI基礎・技術"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "交差検証とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0040"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0042"
+    title: "ハイパーパラメータとは？"
+    slug: "hyperparameters"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ハイパーパラメータとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0043"
+    title: "最適化とは？"
+    slug: "optimization-ai"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "最適化とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0044"
+    title: "Learning Rateとは？"
+    slug: "learning-rate"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Learning Rateとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0045"
+    title: "Batch・Epoch・Stepとは？"
+    slug: "batch-epoch-step"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Batch・Epoch・Stepとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0046"
+    title: "Regularizationとは？"
+    slug: "regularization"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Regularizationとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0028"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0047"
+    title: "Dropoutとは？"
+    slug: "dropout"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Dropoutとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0046"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0048"
+    title: "Normalizationとは？"
+    slug: "normalization-neural-network"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Normalizationとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0049"
+    title: "活性化関数とは？"
+    slug: "activation-function"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "活性化関数とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0050"
+    title: "ReLUとは？"
+    slug: "relu"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "ReLUとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0049"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0051"
+    title: "SigmoidとSoftmaxとは？"
+    slug: "sigmoid-softmax"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "SigmoidとSoftmaxとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0049"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0052"
+    title: "Backpropagationとは？"
+    slug: "backpropagation"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Backpropagationとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0010"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0053"
+    title: "計算グラフとは？"
+    slug: "computational-graph"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "計算グラフとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0052"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0054"
+    title: "行列計算とAI"
+    slug: "matrix-multiplication-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "行列計算とAIを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0055"
+    title: "Tensorとは？"
+    slug: "tensor-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Tensorとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0054"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0056"
+    title: "AIに必要な確率の基礎"
+    slug: "probability-for-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIに必要な確率の基礎を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0057"
+    title: "確率分布とは？"
+    slug: "probability-distribution"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "確率分布とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0056"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0058"
+    title: "Entropyとは？"
+    slug: "entropy-ai"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Entropyとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0056"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0059"
+    title: "Cross Entropyとは？"
+    slug: "cross-entropy"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Cross Entropyとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0058"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0060"
+    title: "KL Divergenceとは？"
+    slug: "kl-divergence"
+    category: "AI基礎・技術"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "KL Divergenceとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0058"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0061"
+    title: "情報理論とAI"
+    slug: "information-theory-ai"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "情報理論とAIを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0058"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0062"
+    title: "AI評価指標の基礎"
+    slug: "model-metrics"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI評価指標の基礎を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0026"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0063"
+    title: "Precision・Recall・F1とは？"
+    slug: "precision-recall-f1"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Precision・Recall・F1とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0062"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0064"
+    title: "ROC・AUCとは？"
+    slug: "roc-auc"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ROC・AUCとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0062"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0065"
+    title: "Confusion Matrixとは？"
+    slug: "confusion-matrix"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Confusion Matrixとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0062"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0066"
+    title: "モデルのCalibrationとは？"
+    slug: "model-calibration"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "モデルのCalibrationとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0062"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0067"
+    title: "Data Leakageとは？"
+    slug: "data-leakage"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Data Leakageとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0040"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0068"
+    title: "AIにおけるデータ品質"
+    slug: "data-quality-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIにおけるデータ品質を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0069"
+    title: "データラベリングとは？"
+    slug: "data-labeling"
+    category: "AI基礎・技術"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "データラベリングとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0005"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0070"
+    title: "Dataset Shiftとは？"
+    slug: "dataset-shift"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Dataset Shiftとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0029"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0071"
+    title: "Concept Driftとは？"
+    slug: "concept-drift"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Concept Driftとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0070"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0072"
+    title: "モデルのRobustnessとは？"
+    slug: "model-robustness"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "モデルのRobustnessとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0029"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0073"
+    title: "Adversarial Exampleとは？"
+    slug: "adversarial-examples"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Adversarial Exampleとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0072"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0074"
+    title: "AIの不確実性とは？"
+    slug: "ai-uncertainty"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの不確実性とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0056"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0075"
+    title: "Explainable AIとは？"
+    slug: "explainable-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Explainable AIとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0076"
+    title: "Interpretabilityとは？"
+    slug: "model-interpretability"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Interpretabilityとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0075"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0077"
+    title: "Feature Importanceとは？"
+    slug: "feature-importance"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Feature Importanceとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0076"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0078"
+    title: "SHAPとは？"
+    slug: "shap-ai"
+    category: "AI基礎・技術"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "SHAPとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0077"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0079"
+    title: "因果推論とは？"
+    slug: "causal-inference"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "因果推論とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0034"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0080"
+    title: "相関と因果の違い"
+    slug: "correlation-vs-causation"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "相関と因果の違いを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0079"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0081"
+    title: "Bayesian Inferenceとは？"
+    slug: "bayesian-inference"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Bayesian Inferenceとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0056"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0082"
+    title: "Transfer Learningとは？"
+    slug: "transfer-learning"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Transfer Learningとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0083"
+    title: "Foundation Modelとは？"
+    slug: "foundation-model"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Foundation Modelとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "BAS-0084"
+    title: "Pre-trainingとは？"
+    slug: "pre-training"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Pre-trainingとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0085"
+    title: "Scaling Lawとは？"
+    slug: "scaling-laws"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Scaling Lawとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0083"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0086"
+    title: "Emergent Abilityとは？"
+    slug: "emergent-abilities"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Emergent Abilityとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0085"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0087"
+    title: "Knowledge Distillationとは？"
+    slug: "knowledge-distillation"
+    category: "AI基礎・技術"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Knowledge Distillationとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0083"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0088"
+    title: "モデルのSparsityとは？"
+    slug: "model-sparsity"
+    category: "AI基礎・技術"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "モデルのSparsityとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0083"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0089"
+    title: "Mixture of Expertsとは？"
+    slug: "mixture-of-experts"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Mixture of Expertsとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0083"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0090"
+    title: "MoE Routingとは？"
+    slug: "moe-routing"
+    category: "AI基礎・技術"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "MoE Routingとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0089"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0091"
+    title: "Sequence Modelingとは？"
+    slug: "sequence-modeling"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Sequence Modelingとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0012"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0092"
+    title: "RNNとは？"
+    slug: "recurrent-neural-network"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "RNNとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0091"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0093"
+    title: "LSTMとは？"
+    slug: "lstm"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "LSTMとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0092"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0094"
+    title: "CNNとは？"
+    slug: "convolutional-neural-network"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "CNNとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0095"
+    title: "Diffusion Modelとは？"
+    slug: "diffusion-model"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Diffusion Modelとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0096"
+    title: "Autoencoderとは？"
+    slug: "autoencoder"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Autoencoderとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0097"
+    title: "GANとは？"
+    slug: "generative-adversarial-network"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "GANとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0098"
+    title: "強化学習の状態・行動・報酬"
+    slug: "rl-state-action-reward"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "強化学習の状態・行動・報酬を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0007"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0099"
+    title: "Markov Decision Processとは？"
+    slug: "markov-decision-process"
+    category: "AI基礎・技術"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Markov Decision Processとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0098"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "BAS-0100"
+    title: "探索と活用のトレードオフ"
+    slug: "exploration-vs-exploitation"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "探索と活用のトレードオフを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    prerequisites: ["BAS-0007"]
+    children: []
+    related: []
+    priority: "B"
