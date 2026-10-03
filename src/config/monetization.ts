@@ -15,5 +15,5 @@ export const monetizationConfig: {
     middleMinCharacters: 2800,
     minSeparationCharacters: 700,
   },
-  disclosure: {},
+  disclosure: { policyUrl: "/advertising" },
 };
