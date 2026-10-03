@@ -27,6 +27,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Article typography shares the portal's white, gray, and blue palette. */
+.article-body {
+  color: #374151;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.article-body > * + * { margin-top: 1.25rem; }
+.article-body h1, .article-body h2, .article-body h3, .article-body h4 {
+  color: #111827;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-top: 2rem;
+}
+.article-body h1 { font-size: 1.75rem; }
+.article-body h2 { font-size: 1.4rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.4rem; }
+.article-body h3 { font-size: 1.15rem; }
+.article-body a { color: #1d4ed8; text-decoration: underline; }
+.article-body ul, .article-body ol { padding-left: 1.5rem; }
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li + li { margin-top: 0.4rem; }
+.article-body li > ul, .article-body li > ol { margin-top: 0.4rem; }
+.article-body blockquote { border-left: 4px solid #2563eb; background: #f9fafb; padding: 1rem; font-size: 0.875rem; }
+.article-body pre { overflow-x: auto; padding: 1rem; border-radius: 0.5rem; background: #111827; color: #f9fafb; }
+.article-body code { font-size: 0.875em; background: #f3f4f6; padding: 0.15rem 0.35rem; border-radius: 0.25rem; }
+.article-body pre code { background: transparent; padding: 0; }
+.article-body table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.article-body th, .article-body td { border: 1px solid #e5e7eb; padding: 0.5rem 0.75rem; }
+.article-body th { background: #f9fafb; font-weight: 700; }
+.article-body img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+.article-body hr { border-color: #e5e7eb; }
+
 /* Custom utilities */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
