@@ -81,7 +81,7 @@ export function parseArticle(source: string, filename: string): Article {
 
   const metadata = Object.fromEntries(
     requiredTextFields.map((field) => [field, (fields[field] as string).trim()]),
-  ) as Omit<ArticleMetadata, "tags" | "status">;
+  ) as unknown as Omit<ArticleMetadata, "tags" | "status">;
   if (!isContentCategory(metadata.category)) {
     return fail("categoryはAIニュース、AI基礎・技術、生成AI、AIエージェント、フィジカルAI・ロボティクス、AI開発・インフラ、AI活用・社会のいずれかで指定してください。");
   }
