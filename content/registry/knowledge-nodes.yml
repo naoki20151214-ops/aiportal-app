@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 438
+nodeCount: 500
 
 nodes:
   - id: "BAS-0001"
@@ -5260,3 +5260,747 @@ nodes:
     children: []
     related: []
     priority: "B"
+  - id: "SOC-0016"
+    title: "AI Ethicsとは？"
+    slug: "ai-ethics"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Ethicsとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0017"
+    title: "Responsible AIとは？"
+    slug: "responsible-ai"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Responsible AIとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0016"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0018"
+    title: "AIのTransparencyとは？"
+    slug: "ai-transparency"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIのTransparencyとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0019"
+    title: "AIのAccountabilityとは？"
+    slug: "ai-accountability"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIのAccountabilityとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0020"
+    title: "Human Oversightとは？"
+    slug: "human-oversight-ai"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Human Oversightとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0019"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0021"
+    title: "AI Safetyとは？"
+    slug: "ai-safety"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Safetyとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0022"
+    title: "Alignment Problemとは？"
+    slug: "alignment-problem"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Alignment Problemとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0021"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0023"
+    title: "Value Alignmentとは？"
+    slug: "value-alignment"
+    category: "AI活用・社会"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Value Alignmentとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0022"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "SOC-0024"
+    title: "AI Red Teamingとは？"
+    slug: "ai-red-teaming"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Red Teamingとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0021"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0025"
+    title: "Model Cardとは？"
+    slug: "model-card"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Model Cardとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0026"
+    title: "System Cardとは？"
+    slug: "system-card"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "System Cardとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0027"
+    title: "AI Risk Assessmentとは？"
+    slug: "ai-risk-assessment"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Risk Assessmentとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0009"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0028"
+    title: "AI Incident Responseとは？"
+    slug: "ai-incident-response"
+    category: "AI活用・社会"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Incident Responseとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0027"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "SOC-0029"
+    title: "AI Auditとは？"
+    slug: "ai-audit"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Auditとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0009"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0030"
+    title: "AI Procurementとは？"
+    slug: "ai-procurement"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Procurementとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0031"
+    title: "AI Vendor Evaluationとは？"
+    slug: "ai-vendor-evaluation"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Vendor Evaluationとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0030"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0032"
+    title: "社内AIポリシーの作り方"
+    slug: "internal-ai-policy"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "社内AIポリシーの作り方は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0009"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0033"
+    title: "Acceptable Use Policyとは？"
+    slug: "ai-acceptable-use-policy"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Acceptable Use Policyとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0032"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0034"
+    title: "Shadow AIとは？"
+    slug: "shadow-ai"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Shadow AIとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0003"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0035"
+    title: "AI Data Governanceとは？"
+    slug: "ai-data-governance"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Data Governanceとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0009"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0036"
+    title: "AIとData Retention"
+    slug: "ai-data-retention"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIとData Retentionは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0005"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0037"
+    title: "AIと機密情報の扱い"
+    slug: "ai-confidential-data"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIと機密情報の扱いは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0005"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0038"
+    title: "AI Complianceとは？"
+    slug: "ai-compliance"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Complianceとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0010"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0039"
+    title: "EU AI Actとは？"
+    slug: "eu-ai-act"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "EU AI Actとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0010"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0040"
+    title: "日本のAIガバナンス政策"
+    slug: "japan-ai-governance"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "日本のAIガバナンス政策は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0010"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0041"
+    title: "米国のAI規制を理解する"
+    slug: "us-ai-regulation"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "米国のAI規制を理解するは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0010"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0042"
+    title: "生成AIへの入力と著作権"
+    slug: "ai-input-copyright"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIへの入力と著作権は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0043"
+    title: "AI生成物と著作権"
+    slug: "ai-output-copyright"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI生成物と著作権は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0044"
+    title: "AIとライセンス"
+    slug: "ai-licensing"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIとライセンスは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0045"
+    title: "AIによる作風模倣をどう考える？"
+    slug: "ai-style-imitation"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIによる作風模倣をどう考える？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0046"
+    title: "Deepfake Policyとは？"
+    slug: "deepfake-policy"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Deepfake Policyとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0014"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0047"
+    title: "AI Watermarkingとは？"
+    slug: "ai-watermarking"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Watermarkingとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0048"
+    title: "C2PAとは？"
+    slug: "c2pa"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "C2PAとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0049"
+    title: "Content Provenanceの仕組み"
+    slug: "content-provenance"
+    category: "AI活用・社会"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Content Provenanceの仕組みは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0015"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "SOC-0050"
+    title: "AI生成の偽情報を検証する方法"
+    slug: "verify-ai-misinformation"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI生成の偽情報を検証する方法は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0014"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0051"
+    title: "教育でAIを使うには？"
+    slug: "ai-in-education"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "教育でAIを使うには？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0052"
+    title: "医療でAIを使うには？"
+    slug: "ai-in-healthcare"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "医療でAIを使うには？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0053"
+    title: "金融でAIを使うには？"
+    slug: "ai-in-finance"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "金融でAIを使うには？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0054"
+    title: "法律業務でAIを使うには？"
+    slug: "ai-in-legal-work"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "法律業務でAIを使うには？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0055"
+    title: "行政・公共分野のAI"
+    slug: "ai-in-government"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "行政・公共分野のAIは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0056"
+    title: "人事・採用でAIを使うには？"
+    slug: "ai-in-hr"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "人事・採用でAIを使うには？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0057"
+    title: "カスタマーサポートでAIを使う"
+    slug: "ai-customer-support"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "カスタマーサポートでAIを使うは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0058"
+    title: "マーケティングでAIを使う"
+    slug: "ai-marketing"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "マーケティングでAIを使うは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0059"
+    title: "クリエイティブ産業とAI"
+    slug: "ai-creative-industry"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "クリエイティブ産業とAIは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0060"
+    title: "AIによる生産性向上をどう測る？"
+    slug: "measure-ai-productivity"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIによる生産性向上をどう測る？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0061"
+    title: "AI導入のROIとは？"
+    slug: "ai-roi"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI導入のROIとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0060"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0062"
+    title: "AI導入のChange Management"
+    slug: "ai-change-management"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI導入のChange Managementは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0063"
+    title: "社員向けAI研修の設計"
+    slug: "employee-ai-training"
+    category: "AI活用・社会"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "社員向けAI研修の設計は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0064"
+    title: "組織のAI Literacyとは？"
+    slug: "organizational-ai-literacy"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "組織のAI Literacyとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0065"
+    title: "AIと雇用喪失をどう考える？"
+    slug: "ai-job-displacement"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIと雇用喪失をどう考える？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0066"
+    title: "AI Augmentationとは？"
+    slug: "ai-augmentation"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Augmentationとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0067"
+    title: "AI時代のSkill Shift"
+    slug: "ai-skill-shift"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI時代のSkill Shiftは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0068"
+    title: "AIと経済格差"
+    slug: "ai-inequality"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIと経済格差は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0069"
+    title: "AIとAccessibility"
+    slug: "ai-accessibility"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIとAccessibilityは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "SOC-0070"
+    title: "AIと言語格差"
+    slug: "ai-language-inclusion"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIと言語格差は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0068"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0071"
+    title: "AIのCO2排出をどう考える？"
+    slug: "ai-carbon-emissions"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIのCO2排出をどう考える？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0072"
+    title: "AIデータセンターの水使用"
+    slug: "ai-data-center-water-use"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIデータセンターの水使用は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0073"
+    title: "AI Supply Chainとは？"
+    slug: "ai-supply-chain"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Supply Chainとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0011"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0074"
+    title: "AIをめぐる地政学"
+    slug: "ai-geopolitics"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIをめぐる地政学は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0010"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0075"
+    title: "Sovereign AIとは？"
+    slug: "sovereign-ai"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Sovereign AIとは？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0074"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0076"
+    title: "Open Source AIのガバナンス"
+    slug: "open-source-ai-governance"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Open Source AIのガバナンスは個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0077"
+    title: "AIの未来シナリオをどう考える？"
+    slug: "ai-future-scenarios"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの未来シナリオをどう考える？は個人・企業・社会がAIを安全かつ有効に使ううえで何を意味するのか？"
+    prerequisites: ["SOC-0002"]
+    children: []
+    related: []
+    priority: "A"
