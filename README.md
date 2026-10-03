@@ -52,10 +52,18 @@ npm run dev -- --hostname 127.0.0.1
 ```bash
 npm test
 npm run build
-npm start -- --hostname 127.0.0.1
+npx wrangler pages dev out --port 3217
 ```
 
 `npm test`は記事の入力検証と自動読み込みを確認します。`npm run build`では全記事詳細、トップ、サイトマップ、robots.txtを静的生成します。
+
+Static Exportの出力先は`out/`です。上のプレビューコマンドで`http://localhost:3217`を開けます。`output: "export"`では`next start`は使いません。
+
+## Cloudflare Pagesのデプロイ設定
+
+新規PagesプロジェクトをGitHubの`naoki20151214-ops/aiportal-app`へ接続し、production branchを`main`、Framework presetを`Next.js (Static HTML Export)`、build commandを`npm run build`、output directoryを`out`、Node.jsを`24.14.1`に設定します。ビルド環境変数は`SITE_URL=https://aiportal.blog`、`ADS_ENABLED=false`、`AFFILIATES_ENABLED=false`です。これは設定手順であり、接続済みであることを示すものではありません。
+
+最初は`*.pages.dev`でトップ・全記事・カテゴリー切り替え・スマートフォン・SEO・404を確認し、正常確認後にだけ`aiportal.blog`を接続します。旧Astroプロジェクトは新版の本番確認が完了するまで保持してください。Git連携後は`main`へのpushで自動ビルド・デプロイされます。
 
 ## SEOと公開URL
 
