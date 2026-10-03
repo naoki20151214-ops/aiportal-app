@@ -163,3 +163,68 @@ test("公開計画はタイムゾーンと段階公開ルールを保持する",
   assert.ok(plan.qualityGate.required.length > 0);
   assert.equal(plan.qualityGate.wordCountRule, "固定しない");
 });
+
+type CoreCurriculum = {
+  targetArticleCount: number;
+  bridgeNodes: string[];
+  days: Array<{ day: number; nodes: string[] }>;
+};
+
+test("Core Curriculumは100記事で、前提依存順とPriorityルールを満たす", () => {
+  const registry = load<KnowledgeRegistry>("knowledge-nodes.yml");
+  const core = load<CoreCurriculum>("core-curriculum.yml");
+  const byId = new Map(registry.nodes.map((node) => [node.id, node]));
+
+  assert.equal(core.targetArticleCount, 100);
+  assert.equal(core.days.length, 10);
+  assert.deepEqual(core.days.map((day) => day.day), [1,2,3,4,5,6,7,8,9,10]);
+  for (const day of core.days) assert.equal(day.nodes.length, 10, `day ${day.day} must contain 10 nodes`);
+
+  const ordered = core.days.flatMap((day) => day.nodes);
+  assert.equal(ordered.length, 100);
+  assert.equal(new Set(ordered).size, 100);
+
+  const bridge = new Set(core.bridgeNodes);
+  const seen = new Set<string>();
+
+  for (const id of ordered) {
+    const node = byId.get(id);
+    assert.ok(node, `core node does not exist: ${id}`);
+    assert.notEqual(node.category, "AIニュース", `news must not enter evergreen core: ${id}`);
+    assert.ok(node.priority === "A" || bridge.has(id), `core node must be Priority A or bridge: ${id}`);
+
+    for (const prerequisiteId of node.prerequisites) {
+      const prerequisite = byId.get(prerequisiteId);
+      assert.ok(prerequisite, `missing prerequisite: ${id} -> ${prerequisiteId}`);
+      assert.ok(
+        prerequisite.status === "published" || seen.has(prerequisiteId),
+        `prerequisite must be published or earlier in core: ${id} -> ${prerequisiteId}`,
+      );
+    }
+    seen.add(id);
+  }
+
+  for (const bridgeId of bridge) assert.ok(ordered.includes(bridgeId), `unused bridge node: ${bridgeId}`);
+});
+
+test("公開計画はCore Curriculumを自動公開せずQuality Gate後に出す", () => {
+  const plan = load<{
+    coreCurriculum: {
+      file: string;
+      targetArticleCount: number;
+      batchCount: number;
+      articlesPerBatch: number;
+      ordering: string;
+      autoSchedule: boolean;
+      releaseGate: string;
+    };
+  }>("publishing-plan.yml");
+
+  assert.equal(plan.coreCurriculum.file, "core-curriculum.yml");
+  assert.equal(plan.coreCurriculum.targetArticleCount, 100);
+  assert.equal(plan.coreCurriculum.batchCount, 10);
+  assert.equal(plan.coreCurriculum.articlesPerBatch, 10);
+  assert.equal(plan.coreCurriculum.ordering, "dependency-first");
+  assert.equal(plan.coreCurriculum.autoSchedule, false);
+  assert.match(plan.coreCurriculum.releaseGate, /ready|scheduled/);
+});

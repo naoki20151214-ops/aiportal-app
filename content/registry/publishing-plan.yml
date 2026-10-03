@@ -38,3 +38,14 @@ qualityGate:
     - "内部参照IDがすべて存在する"
     - "公開済みリンクに404がない"
   wordCountRule: "固定しない"
+
+coreCurriculum:
+  file: "core-curriculum.yml"
+  targetArticleCount: 100
+  batchCount: 10
+  articlesPerBatch: 10
+  ordering: "dependency-first"
+  autoSchedule: false
+  note: "Core Curriculumの100記事は制作順を定義する。公開日時はQuality Gate通過後に別途決定する"
+  unpublishedLinkPolicy: "URLリンクを生成せず、必要時のみ準備中として非リンク表示する"
+  releaseGate: "readyまたはscheduledのノードだけを公開対象にする"
