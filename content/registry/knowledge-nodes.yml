@@ -1,0 +1,1459 @@
+schemaVersion: 1
+
+generatedFrom: "AI Portal Master Content Registry v1"
+nodeCount: 121
+
+nodes:
+  - id: "BAS-0001"
+    title: "AIとは何か？"
+    slug: "what-is-ai"
+    category: "AI基礎・技術"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIとは何で、人間の知能や通常のソフトウェアと何が違うのか？"
+    prerequisites: []
+    children: ["BAS-0002","GEN-0001","AGT-0001","PHY-0001"]
+    related: ["SOC-0012"]
+    priority: "A"
+  - id: "BAS-0002"
+    title: "機械学習とは？"
+    slug: "what-is-machine-learning"
+    category: "AI基礎・技術"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "機械学習はルールを直接書くプログラムと何が違うのか？"
+    prerequisites: ["BAS-0001"]
+    children: ["BAS-0003","BAS-0005","BAS-0006","BAS-0007"]
+    related: []
+    priority: "A"
+  - id: "BAS-0003"
+    title: "ディープラーニングとは？"
+    slug: "what-is-deep-learning"
+    category: "AI基礎・技術"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ディープラーニングは機械学習の中で何を変えたのか？"
+    prerequisites: ["BAS-0002"]
+    children: ["BAS-0004"]
+    related: []
+    priority: "A"
+  - id: "BAS-0004"
+    title: "ニューラルネットワークとは？"
+    slug: "what-is-neural-network"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ニューラルネットワークは入力から出力をどう計算するのか？"
+    prerequisites: ["BAS-0003"]
+    children: ["BAS-0008","BAS-0009","BAS-0010","BAS-0011"]
+    related: []
+    priority: "A"
+  - id: "BAS-0005"
+    title: "教師あり学習とは？"
+    slug: "supervised-learning"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "正解ラベルを使う学習はどのようにモデルを改善するのか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["BAS-0006","BAS-0007"]
+    priority: "B"
+  - id: "BAS-0006"
+    title: "教師なし学習とは？"
+    slug: "unsupervised-learning"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "正解ラベルなしでデータの構造を見つけるとはどういうことか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["BAS-0005","BAS-0007"]
+    priority: "B"
+  - id: "BAS-0007"
+    title: "強化学習とは？"
+    slug: "reinforcement-learning"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "報酬を使って行動方針を学ぶとはどういうことか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["GEN-0007"]
+    priority: "B"
+  - id: "BAS-0008"
+    title: "AIモデルのパラメータとは？"
+    slug: "model-parameters"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIモデルのパラメータは何を表し、なぜ数が注目されるのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: ["BAS-0009"]
+    priority: "B"
+  - id: "BAS-0009"
+    title: "重みとバイアスとは？"
+    slug: "weights-and-biases"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "ニューラルネットワークの重みとバイアスは何を調整しているのか？"
+    prerequisites: ["BAS-0004","BAS-0008"]
+    children: []
+    related: ["BAS-0010","BAS-0011"]
+    priority: "B"
+  - id: "BAS-0010"
+    title: "損失関数とは？"
+    slug: "loss-function"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "モデルの間違いをどのように数値化して学習へ使うのか？"
+    prerequisites: ["BAS-0004"]
+    children: []
+    related: ["BAS-0011"]
+    priority: "B"
+  - id: "BAS-0011"
+    title: "勾配降下法とは？"
+    slug: "gradient-descent"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "損失を小さくする方向をどう見つけて重みを更新するのか？"
+    prerequisites: ["BAS-0009","BAS-0010"]
+    children: []
+    related: ["BAS-0024"]
+    priority: "B"
+  - id: "BAS-0012"
+    title: "言語モデルとは？"
+    slug: "what-is-language-model"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "言語モデルは文章の続きをどのように予測するのか？"
+    prerequisites: ["BAS-0001"]
+    children: ["BAS-0013","GEN-0002"]
+    related: []
+    priority: "A"
+  - id: "BAS-0013"
+    title: "トークンとは？"
+    slug: "what-is-token"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIが文章を文字や単語そのものではなくトークンで扱うのはなぜか？"
+    prerequisites: ["BAS-0012"]
+    children: ["BAS-0014"]
+    related: ["BAS-0023"]
+    priority: "A"
+  - id: "BAS-0014"
+    title: "トークナイゼーションとは？"
+    slug: "tokenization"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "文章をトークンへ分割する方式でモデルの挙動はどう変わるのか？"
+    prerequisites: ["BAS-0013"]
+    children: []
+    related: ["BAS-0015"]
+    priority: "B"
+  - id: "BAS-0015"
+    title: "Embeddingとは？"
+    slug: "what-is-embedding"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "言葉やデータの意味をベクトルで表すとはどういうことか？"
+    prerequisites: ["BAS-0012"]
+    children: ["BAS-0016"]
+    related: ["GEN-0008","GEN-0010"]
+    priority: "A"
+  - id: "BAS-0016"
+    title: "ベクトルとは？AIで使う意味を解説"
+    slug: "vectors-for-ai"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIでいうベクトルは何で、類似度計算にどう使われるのか？"
+    prerequisites: ["BAS-0015"]
+    children: []
+    related: ["GEN-0010"]
+    priority: "A"
+  - id: "BAS-0017"
+    title: "Transformerとは？"
+    slug: "what-is-transformer"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Transformerは従来のニューラルネットワークと何が違い、なぜLLMの基盤になったのか？"
+    prerequisites: ["BAS-0004","BAS-0012"]
+    children: ["BAS-0018","BAS-0019","BAS-0020","BAS-0021","BAS-0022"]
+    related: ["GEN-0002"]
+    priority: "A"
+  - id: "BAS-0018"
+    title: "Attentionとは？"
+    slug: "what-is-attention"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Attentionは入力のどこを重要視するかをどう計算するのか？"
+    prerequisites: ["BAS-0017"]
+    children: ["BAS-0019"]
+    related: []
+    priority: "A"
+  - id: "BAS-0019"
+    title: "Self-Attentionとは？"
+    slug: "self-attention"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Self-Attentionは同じ入力内の要素同士の関係をどう捉えるのか？"
+    prerequisites: ["BAS-0018"]
+    children: ["BAS-0020"]
+    related: []
+    priority: "A"
+  - id: "BAS-0020"
+    title: "Multi-Head Attentionとは？"
+    slug: "multi-head-attention"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "複数のAttention Headを並行して使うと何ができるのか？"
+    prerequisites: ["BAS-0019"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0021"
+    title: "Positional Encodingとは？"
+    slug: "positional-encoding"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Transformerは単語の順序をどのように理解するのか？"
+    prerequisites: ["BAS-0017"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "BAS-0022"
+    title: "EncoderとDecoderとは？"
+    slug: "encoder-decoder"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "TransformerのEncoderとDecoderはそれぞれ何を担当するのか？"
+    prerequisites: ["BAS-0017"]
+    children: []
+    related: ["GEN-0002"]
+    priority: "B"
+  - id: "BAS-0023"
+    title: "コンテキストウィンドウとは？"
+    slug: "context-window"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが一度に参照できる情報量とは何で、長くなると何が変わるのか？"
+    prerequisites: ["BAS-0013"]
+    children: []
+    related: ["GEN-0023","GEN-0091"]
+    priority: "A"
+  - id: "BAS-0024"
+    title: "AIの学習・Trainingとは？"
+    slug: "ai-training"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIモデルは大量データからどのようにパターンを学ぶのか？"
+    prerequisites: ["BAS-0004"]
+    children: ["GEN-0005","GEN-0006","GEN-0007"]
+    related: ["BAS-0025"]
+    priority: "A"
+  - id: "BAS-0025"
+    title: "AIの推論・Inferenceとは？"
+    slug: "ai-inference"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "学習済みモデルが入力から回答を生成する処理とは何か？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: ["INF-0006","INF-0007"]
+    priority: "A"
+  - id: "BAS-0026"
+    title: "AIモデルの評価とは？"
+    slug: "ai-evaluation"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの性能を正しく評価するには何を測ればよいのか？"
+    prerequisites: ["BAS-0001"]
+    children: ["BAS-0027"]
+    related: ["SOC-0013"]
+    priority: "B"
+  - id: "BAS-0027"
+    title: "AIベンチマークとは？"
+    slug: "ai-benchmarks"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ベンチマークの点数は何を意味し、どこまで信頼できるのか？"
+    prerequisites: ["BAS-0026"]
+    children: []
+    related: ["SOC-0013"]
+    priority: "B"
+  - id: "BAS-0028"
+    title: "過学習とは？"
+    slug: "overfitting"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "訓練データには強いのに未知データで弱くなるのはなぜか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["BAS-0029"]
+    priority: "B"
+  - id: "BAS-0029"
+    title: "汎化とは？"
+    slug: "generalization"
+    category: "AI基礎・技術"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが未知のデータにも対応できる能力はどう考えるのか？"
+    prerequisites: ["BAS-0028"]
+    children: []
+    related: ["BAS-0026"]
+    priority: "B"
+  - id: "BAS-0030"
+    title: "マルチモーダルとは？"
+    slug: "what-is-multimodal"
+    category: "AI基礎・技術"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: ["GEN-0015"]
+    priority: "A"
+  - id: "GEN-0001"
+    title: "生成AIとは何か？"
+    slug: "what-is-generative-ai"
+    category: "生成AI"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIは従来の識別・予測AIと何が違い、何を生成できるのか？"
+    prerequisites: ["BAS-0001"]
+    children: ["GEN-0002","GEN-0016","GEN-0017","GEN-0018"]
+    related: ["SOC-0001"]
+    priority: "A"
+  - id: "GEN-0002"
+    title: "LLMとは何か？"
+    slug: "what-is-llm"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "大規模言語モデルは何を学び、なぜ自然な文章を生成できるのか？"
+    prerequisites: ["BAS-0012","BAS-0017"]
+    children: ["GEN-0003","GEN-0004","GEN-0005","GEN-0008"]
+    related: ["GEN-0019","GEN-0020","GEN-0021"]
+    priority: "A"
+  - id: "GEN-0003"
+    title: "プロンプトとは？"
+    slug: "what-is-prompt"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIへの指示は回答品質にどう影響するのか？"
+    prerequisites: ["GEN-0001"]
+    children: ["GEN-0024","GEN-0025"]
+    related: []
+    priority: "A"
+  - id: "GEN-0004"
+    title: "ハルシネーションとは？"
+    slug: "ai-hallucination"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIがもっともらしい誤情報を作るのはなぜで、どう確認すべきか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: ["SOC-0012","SOC-0013"]
+    priority: "A"
+  - id: "GEN-0005"
+    title: "Fine-tuningとは？"
+    slug: "fine-tuning"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "既存モデルを特定用途向けに追加学習するとはどういうことか？"
+    prerequisites: ["BAS-0024","GEN-0002"]
+    children: []
+    related: ["GEN-0006","GEN-0007"]
+    priority: "B"
+  - id: "GEN-0006"
+    title: "Instruction Tuningとは？"
+    slug: "instruction-tuning"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "モデルに指示へ従う能力を学ばせるには何をするのか？"
+    prerequisites: ["GEN-0005"]
+    children: []
+    related: ["GEN-0007"]
+    priority: "B"
+  - id: "GEN-0007"
+    title: "RLHFとは？"
+    slug: "rlhf"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "人間のフィードバックを使ってAIの応答を調整するとはどういうことか？"
+    prerequisites: ["BAS-0007","GEN-0006"]
+    children: []
+    related: ["SOC-0008"]
+    priority: "B"
+  - id: "GEN-0008"
+    title: "RAGとは？"
+    slug: "what-is-rag"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "外部情報を検索してから回答するRAGはハルシネーションや知識更新にどう役立つのか？"
+    prerequisites: ["GEN-0002","BAS-0015"]
+    children: ["GEN-0009","GEN-0010","GEN-0011","GEN-0012","GEN-0013"]
+    related: ["GEN-0022"]
+    priority: "A"
+  - id: "GEN-0009"
+    title: "Chunkingとは？"
+    slug: "rag-chunking"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "文書を検索単位へ分割する大きさと方法はRAG品質にどう影響するのか？"
+    prerequisites: ["GEN-0008"]
+    children: []
+    related: ["GEN-0011"]
+    priority: "A"
+  - id: "GEN-0010"
+    title: "Vector Databaseとは？"
+    slug: "vector-database"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Embeddingを保存・検索するVector Databaseは何をしているのか？"
+    prerequisites: ["BAS-0015","BAS-0016","GEN-0008"]
+    children: []
+    related: ["GEN-0011"]
+    priority: "A"
+  - id: "GEN-0011"
+    title: "Retrievalとは？"
+    slug: "rag-retrieval"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "質問に関連する情報をRAGがどう探し出すのか？"
+    prerequisites: ["GEN-0008","GEN-0010"]
+    children: ["GEN-0012","GEN-0013"]
+    related: []
+    priority: "A"
+  - id: "GEN-0012"
+    title: "Rerankingとは？"
+    slug: "rag-reranking"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "検索候補を再評価して回答に使う文書を絞ると何が改善するのか？"
+    prerequisites: ["GEN-0011"]
+    children: []
+    related: ["GEN-0013"]
+    priority: "B"
+  - id: "GEN-0013"
+    title: "Hybrid Searchとは？"
+    slug: "hybrid-search"
+    category: "生成AI"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "キーワード検索とベクトル検索を組み合わせると何が強くなるのか？"
+    prerequisites: ["GEN-0011"]
+    children: []
+    related: ["GEN-0012"]
+    priority: "B"
+  - id: "GEN-0014"
+    title: "Synthetic Dataとは？"
+    slug: "synthetic-data"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIで人工的にデータを生成して学習へ使う利点と危険性は何か？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: ["SOC-0008"]
+    priority: "B"
+  - id: "GEN-0015"
+    title: "マルチモーダルAIとは？"
+    slug: "multimodal-ai"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "複数のモダリティを理解・生成するAIはどう使われるのか？"
+    prerequisites: ["BAS-0030","GEN-0001"]
+    children: ["GEN-0016","GEN-0017","GEN-0018"]
+    related: []
+    priority: "A"
+  - id: "GEN-0016"
+    title: "画像生成AIとは？"
+    slug: "image-generation-ai"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "テキストから画像を生成するAIはどのような仕組みと用途を持つのか？"
+    prerequisites: ["GEN-0001","GEN-0015"]
+    children: []
+    related: ["SOC-0004"]
+    priority: "A"
+  - id: "GEN-0017"
+    title: "動画生成AIとは？"
+    slug: "video-generation-ai"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "テキストや画像から動画を作るAIは何ができ、どこが難しいのか？"
+    prerequisites: ["GEN-0001","GEN-0015"]
+    children: []
+    related: ["GEN-0092"]
+    priority: "A"
+  - id: "GEN-0018"
+    title: "音声生成AIとは？"
+    slug: "audio-generation-ai"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "音声合成・音声生成AIはどのように声や音を作るのか？"
+    prerequisites: ["GEN-0001","GEN-0015"]
+    children: []
+    related: ["SOC-0004"]
+    priority: "B"
+  - id: "GEN-0019"
+    title: "ChatGPTとは？"
+    slug: "what-is-chatgpt"
+    category: "生成AI"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "ChatGPTは何ができ、どんな仕組みと制約を持つAIサービスなのか？"
+    prerequisites: ["GEN-0001","GEN-0002"]
+    children: []
+    related: ["GEN-0020","GEN-0021","GEN-0090"]
+    priority: "A"
+  - id: "GEN-0020"
+    title: "Claudeとは？"
+    slug: "what-is-claude"
+    category: "生成AI"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Claudeは何ができ、ChatGPTなどとどう使い分けられるのか？"
+    prerequisites: ["GEN-0001","GEN-0002"]
+    children: []
+    related: ["GEN-0019","GEN-0021","AGT-0013"]
+    priority: "A"
+  - id: "GEN-0021"
+    title: "Geminiとは？"
+    slug: "what-is-gemini"
+    category: "生成AI"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Geminiは何ができ、Googleのサービス群とどうつながるのか？"
+    prerequisites: ["GEN-0001","GEN-0002"]
+    children: []
+    related: ["GEN-0019","GEN-0020","GEN-0091"]
+    priority: "A"
+  - id: "GEN-0022"
+    title: "AI検索とは？"
+    slug: "ai-search"
+    category: "生成AI"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIとウェブ検索を組み合わせると従来検索と何が変わるのか？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: ["GEN-0008","GEN-0090"]
+    priority: "A"
+  - id: "GEN-0023"
+    title: "Long Contextとは？"
+    slug: "long-context"
+    category: "生成AI"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "非常に長い入力を一度に扱う能力は何に役立ち、何が限界になるのか？"
+    prerequisites: ["BAS-0023","GEN-0002"]
+    children: []
+    related: ["GEN-0091"]
+    priority: "B"
+  - id: "GEN-0024"
+    title: "Prompt Engineeringとは？"
+    slug: "prompt-engineering"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "生成AIへの指示を再現性高く設計するには何を考えるべきか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: ["GEN-0025"]
+    priority: "B"
+  - id: "GEN-0025"
+    title: "System Promptとは？"
+    slug: "system-prompt"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "System PromptはAIの役割・制約・優先順位をどう定義するのか？"
+    prerequisites: ["GEN-0003"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "B"
+  - id: "GEN-0090"
+    title: "ChatGPT Searchとは？ウェブ検索・出典表示・従来検索との違い"
+    slug: "chatgpt-search"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "published"
+    centerQuestion: "ChatGPTのウェブ検索は何ができ、出典をどう確認すべきか？"
+    prerequisites: ["GEN-0019","GEN-0022"]
+    children: []
+    related: ["GEN-0008"]
+    priority: "A"
+  - id: "GEN-0091"
+    title: "Geminiの長いコンテキストとは？100万トークン級で何が変わるのか"
+    slug: "gemini-long-context"
+    category: "生成AI"
+    level: 2
+    type: "mechanism"
+    status: "published"
+    centerQuestion: "Geminiの長いコンテキストは大量資料の扱い方をどう変えるのか？"
+    prerequisites: ["GEN-0021","GEN-0023"]
+    children: []
+    related: ["BAS-0023"]
+    priority: "A"
+  - id: "GEN-0092"
+    title: "Luma Dream Machine入門｜AI動画生成でできること・プロンプトの基本"
+    slug: "luma-dream-machine"
+    category: "生成AI"
+    level: 2
+    type: "practice"
+    status: "published"
+    centerQuestion: "Luma Dream Machineで動画生成を制御するには何を理解すべきか？"
+    prerequisites: ["GEN-0017"]
+    children: []
+    related: ["GEN-0003"]
+    priority: "B"
+  - id: "AGT-0001"
+    title: "AIエージェントとは？"
+    slug: "what-is-ai-agent"
+    category: "AIエージェント"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIエージェントは通常のチャットAIと何が違い、どうやって目標を達成するのか？"
+    prerequisites: ["BAS-0001","GEN-0001"]
+    children: ["AGT-0002","AGT-0003","AGT-0007","AGT-0008"]
+    related: ["AGT-0011"]
+    priority: "A"
+  - id: "AGT-0002"
+    title: "Agentic AIとは？"
+    slug: "agentic-ai"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが受動的に答えるだけでなく、自律的に計画・実行するとはどういうことか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: ["AGT-0007","AGT-0016"]
+    priority: "A"
+  - id: "AGT-0003"
+    title: "Tool Useとは？"
+    slug: "ai-tool-use"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが検索・計算・外部サービスなどの道具を使う仕組みとは何か？"
+    prerequisites: ["AGT-0001"]
+    children: ["AGT-0004"]
+    related: ["AGT-0010"]
+    priority: "A"
+  - id: "AGT-0004"
+    title: "Function Callingとは？"
+    slug: "function-calling"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "AIモデルが外部関数を安全に呼び出すにはどのような入出力が必要か？"
+    prerequisites: ["AGT-0003"]
+    children: []
+    related: ["AGT-0010"]
+    priority: "A"
+  - id: "AGT-0005"
+    title: "Computer Useとは？"
+    slug: "computer-use-ai"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが画面を見てクリック・入力などの操作を行うとはどういうことか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: ["AGT-0006","AGT-0015"]
+    priority: "A"
+  - id: "AGT-0006"
+    title: "ブラウザ操作AIとは？"
+    slug: "browser-agent"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIがブラウザでウェブ作業を実行する際に何が起こっているのか？"
+    prerequisites: ["AGT-0005"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "B"
+  - id: "AGT-0007"
+    title: "AIエージェントのPlanningとは？"
+    slug: "agent-planning"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "大きな目標を小さなステップへ分解して実行順を決めるには何が必要か？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: ["AGT-0016"]
+    priority: "A"
+  - id: "AGT-0008"
+    title: "AIエージェントのMemoryとは？"
+    slug: "agent-memory"
+    category: "AIエージェント"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "エージェントが過去の情報や状態を保持して次の行動へ使うにはどうするのか？"
+    prerequisites: ["AGT-0001"]
+    children: []
+    related: ["AGT-0009"]
+    priority: "B"
+  - id: "AGT-0009"
+    title: "Multi-Agentとは？"
+    slug: "multi-agent-ai"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "複数のAIエージェントを役割分担させると何ができ、何が難しくなるのか？"
+    prerequisites: ["AGT-0001","AGT-0008"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "B"
+  - id: "AGT-0010"
+    title: "MCPとは？"
+    slug: "model-context-protocol"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "MCPはAIと外部データ・ツールをどのように接続するための仕組みなのか？"
+    prerequisites: ["AGT-0003"]
+    children: []
+    related: ["AGT-0004"]
+    priority: "A"
+  - id: "AGT-0011"
+    title: "コーディングAIエージェントとは？"
+    slug: "coding-agent"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "コードを生成するだけでなく、調査・編集・テストまで行うAIは何が違うのか？"
+    prerequisites: ["AGT-0001"]
+    children: ["AGT-0012","AGT-0013","AGT-0014"]
+    related: ["AGT-0015"]
+    priority: "A"
+  - id: "AGT-0012"
+    title: "OpenAI Codexとは？"
+    slug: "what-is-codex"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Codexはソフトウェア開発タスクをどこまで自律的に実行できるのか？"
+    prerequisites: ["AGT-0011"]
+    children: []
+    related: ["AGT-0013","AGT-0014"]
+    priority: "A"
+  - id: "AGT-0013"
+    title: "Claude Codeとは？"
+    slug: "what-is-claude-code"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Claude Codeはターミナルとコードベースを使ってどのように開発作業を支援するのか？"
+    prerequisites: ["AGT-0011","GEN-0020"]
+    children: []
+    related: ["AGT-0090"]
+    priority: "A"
+  - id: "AGT-0014"
+    title: "Devinとは？"
+    slug: "what-is-devin"
+    category: "AIエージェント"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "DevinはAIソフトウェアエンジニアとしてどんな作業を自律実行できるのか？"
+    prerequisites: ["AGT-0011"]
+    children: []
+    related: ["AGT-0091"]
+    priority: "A"
+  - id: "AGT-0015"
+    title: "AIエージェントの安全性"
+    slug: "agent-safety"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "外部操作権限を持つAIエージェントを安全に運用するには何が必要か？"
+    prerequisites: ["AGT-0003","AGT-0005"]
+    children: []
+    related: ["SOC-0006","SOC-0007"]
+    priority: "A"
+  - id: "AGT-0016"
+    title: "長時間動くAIエージェントとは？"
+    slug: "long-running-agents"
+    category: "AIエージェント"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "数分ではなく長時間タスクを継続するAIにはどんな状態管理と監督が必要か？"
+    prerequisites: ["AGT-0002","AGT-0007"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "B"
+  - id: "AGT-0090"
+    title: "Claude Codeで安全にリファクタリングする方法｜計画→差分→テストの実践手順"
+    slug: "claude-code-refactoring"
+    category: "AIエージェント"
+    level: 3
+    type: "practice"
+    status: "published"
+    centerQuestion: "Claude Codeに安全にリファクタリングを任せるにはどんな工程が必要か？"
+    prerequisites: ["AGT-0013"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "A"
+  - id: "AGT-0091"
+    title: "Devinとは？AIソフトウェアエンジニアに任せられる仕事と人間の役割"
+    slug: "devin-ai-engineer"
+    category: "AIエージェント"
+    level: 2
+    type: "concept"
+    status: "published"
+    centerQuestion: "Devinにどんな仕事を任せ、人間はどこを担うべきか？"
+    prerequisites: ["AGT-0014"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "A"
+  - id: "PHY-0001"
+    title: "フィジカルAIとは？"
+    slug: "what-is-physical-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが現実世界を認識し、物理的に行動するとはどういうことか？"
+    prerequisites: ["BAS-0001"]
+    children: ["PHY-0002","PHY-0003","PHY-0004","PHY-0005"]
+    related: []
+    priority: "A"
+  - id: "PHY-0002"
+    title: "Embodied AIとは？"
+    slug: "embodied-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "身体を持つAIが環境との相互作用から学ぶとはどういうことか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: ["PHY-0004"]
+    priority: "A"
+  - id: "PHY-0003"
+    title: "ロボットはどうやって周囲を認識する？"
+    slug: "robot-perception"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "カメラ・LiDAR・力覚などのセンサー情報をロボットはどう統合するのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: ["PHY-0004","PHY-0008"]
+    priority: "A"
+  - id: "PHY-0004"
+    title: "ヒューマノイドロボットとは？"
+    slug: "humanoid-robot"
+    category: "フィジカルAI・ロボティクス"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "人型ロボットはなぜ注目され、どんなAI技術が必要なのか？"
+    prerequisites: ["PHY-0001","PHY-0003"]
+    children: []
+    related: ["PHY-0011"]
+    priority: "A"
+  - id: "PHY-0005"
+    title: "World Modelとは？"
+    slug: "world-model"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIが環境の変化を内部モデルとして予測するとはどういうことか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: ["PHY-0006","PHY-0011"]
+    priority: "A"
+  - id: "PHY-0006"
+    title: "ロボットシミュレーションとは？"
+    slug: "robot-simulation"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "現実のロボットを動かす前に仮想環境で学習・検証するのはなぜか？"
+    prerequisites: ["PHY-0005"]
+    children: []
+    related: ["PHY-0012","PHY-0007"]
+    priority: "B"
+  - id: "PHY-0007"
+    title: "Digital Twinとは？"
+    slug: "digital-twin-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "現実の設備や工場をデジタル空間に再現すると何ができるのか？"
+    prerequisites: ["PHY-0006"]
+    children: []
+    related: ["PHY-0010"]
+    priority: "B"
+  - id: "PHY-0008"
+    title: "自動運転とAIの仕組み"
+    slug: "autonomous-driving-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "自動運転は認識・予測・計画・制御をどう組み合わせるのか？"
+    prerequisites: ["PHY-0003"]
+    children: []
+    related: ["PHY-0005"]
+    priority: "A"
+  - id: "PHY-0009"
+    title: "ドローンとAI"
+    slug: "drone-ai"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIはドローンの認識・飛行・自律判断にどう使われるのか？"
+    prerequisites: ["PHY-0001","PHY-0003"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "PHY-0010"
+    title: "工場で使われるAI・ロボティクス"
+    slug: "industrial-ai-robotics"
+    category: "フィジカルAI・ロボティクス"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "製造現場でAIとロボットは品質・搬送・保全・自動化にどう使われるのか？"
+    prerequisites: ["PHY-0001"]
+    children: []
+    related: ["PHY-0007","INF-0013"]
+    priority: "A"
+  - id: "PHY-0011"
+    title: "Robot Foundation Modelとは？"
+    slug: "robot-foundation-model"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "多様なロボットタスクを1つの基盤モデルで扱うとはどういうことか？"
+    prerequisites: ["PHY-0004","PHY-0005"]
+    children: []
+    related: ["PHY-0012"]
+    priority: "B"
+  - id: "PHY-0012"
+    title: "Sim-to-Realとは？"
+    slug: "sim-to-real"
+    category: "フィジカルAI・ロボティクス"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "シミュレーションで学んだ能力を現実のロボットへ移すには何が難しいのか？"
+    prerequisites: ["PHY-0006"]
+    children: []
+    related: ["PHY-0011"]
+    priority: "B"
+  - id: "INF-0001"
+    title: "GPUとは？なぜAIに必要なのか"
+    slug: "what-is-gpu-for-ai"
+    category: "AI開発・インフラ"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "GPUはCPUと何が違い、なぜAI計算で強いのか？"
+    prerequisites: ["BAS-0001"]
+    children: ["INF-0002","INF-0005"]
+    related: ["INF-0014"]
+    priority: "A"
+  - id: "INF-0002"
+    title: "AI半導体とは？"
+    slug: "ai-semiconductor"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI向け半導体は通常のプロセッサと何が違うのか？"
+    prerequisites: ["INF-0001"]
+    children: ["INF-0003"]
+    related: ["INF-0014"]
+    priority: "A"
+  - id: "INF-0003"
+    title: "AI Acceleratorとは？"
+    slug: "ai-accelerator"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "GPU・TPU・NPUなどのAIアクセラレータは何を高速化しているのか？"
+    prerequisites: ["INF-0002"]
+    children: []
+    related: ["INF-0013"]
+    priority: "B"
+  - id: "INF-0004"
+    title: "AIデータセンターとは？"
+    slug: "ai-data-center"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "巨大AIモデルを学習・推論するデータセンターには何が必要なのか？"
+    prerequisites: ["INF-0001"]
+    children: []
+    related: ["INF-0014","INF-0015"]
+    priority: "A"
+  - id: "INF-0005"
+    title: "CUDAとは？"
+    slug: "what-is-cuda"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "CUDAはGPU計算とAI開発のエコシステムでどんな役割を持つのか？"
+    prerequisites: ["INF-0001"]
+    children: []
+    related: ["INF-0006"]
+    priority: "B"
+  - id: "INF-0006"
+    title: "Model Servingとは？"
+    slug: "model-serving"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "学習済みモデルを実サービスから呼び出せる状態にするには何が必要か？"
+    prerequisites: ["BAS-0025"]
+    children: ["INF-0007"]
+    related: ["INF-0008"]
+    priority: "B"
+  - id: "INF-0007"
+    title: "AI推論サーバーとは？"
+    slug: "ai-inference-server"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "多数のAIリクエストを高速に処理する推論サーバーはどう設計されるのか？"
+    prerequisites: ["BAS-0025","INF-0006"]
+    children: []
+    related: ["INF-0008","INF-0009"]
+    priority: "A"
+  - id: "INF-0008"
+    title: "Quantizationとは？"
+    slug: "model-quantization"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "モデルの数値精度を下げて軽量化・高速化するとなぜ動くのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: ["INF-0011"]
+    priority: "B"
+  - id: "INF-0009"
+    title: "KV Cacheとは？"
+    slug: "kv-cache"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "LLM推論で過去のAttention計算を再利用すると何が速くなるのか？"
+    prerequisites: ["BAS-0019","BAS-0025"]
+    children: []
+    related: ["INF-0010"]
+    priority: "B"
+  - id: "INF-0010"
+    title: "Speculative Decodingとは？"
+    slug: "speculative-decoding"
+    category: "AI開発・インフラ"
+    level: 4
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "小さなモデルの予測を使って大きなモデルの生成を高速化するとはどういうことか？"
+    prerequisites: ["BAS-0025","INF-0009"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0011"
+    title: "ローカルLLMとは？"
+    slug: "local-llm"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "クラウドへ送らず端末や自社サーバーでLLMを動かす利点と制約は何か？"
+    prerequisites: ["GEN-0002"]
+    children: []
+    related: ["INF-0012","INF-0008"]
+    priority: "A"
+  - id: "INF-0012"
+    title: "クラウドAIとローカルAIの違い"
+    slug: "cloud-vs-local-ai"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "AIをクラウドで使う場合とローカルで動かす場合は何が違うのか？"
+    prerequisites: ["INF-0011"]
+    children: []
+    related: ["SOC-0005"]
+    priority: "A"
+  - id: "INF-0013"
+    title: "Edge AIとは？"
+    slug: "edge-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "端末や機械の近くでAI推論を行うと何が変わるのか？"
+    prerequisites: ["BAS-0025"]
+    children: []
+    related: ["PHY-0010"]
+    priority: "B"
+  - id: "INF-0014"
+    title: "HBMとは？AIで重要な理由"
+    slug: "hbm-for-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "HBMの帯域幅がAIアクセラレータ性能を左右するのはなぜか？"
+    prerequisites: ["INF-0001","INF-0002"]
+    children: []
+    related: ["INF-0004"]
+    priority: "A"
+  - id: "INF-0015"
+    title: "AIクラスタのネットワークとは？"
+    slug: "ai-cluster-networking"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "多数のGPUを接続するネットワーク性能がAI学習を左右するのはなぜか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: ["INF-0014"]
+    priority: "B"
+  - id: "SOC-0001"
+    title: "仕事でAIを使うには？"
+    slug: "ai-at-work"
+    category: "AI活用・社会"
+    level: 0
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIを仕事へ導入するとき、最初にどの業務から試すべきか？"
+    prerequisites: ["GEN-0001"]
+    children: []
+    related: ["SOC-0003","SOC-0090"]
+    priority: "A"
+  - id: "SOC-0002"
+    title: "AIで仕事はどう変わる？"
+    slug: "how-ai-changes-work"
+    category: "AI活用・社会"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIは人間の仕事を奪うだけなのか、それとも仕事の分担を変えるのか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: ["SOC-0001","SOC-0003"]
+    priority: "A"
+  - id: "SOC-0003"
+    title: "企業のAI導入とは？"
+    slug: "enterprise-ai-adoption"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "企業がAIを実務へ導入するとき、技術以外に何を設計する必要があるのか？"
+    prerequisites: ["SOC-0001"]
+    children: []
+    related: ["SOC-0005","SOC-0006","SOC-0009"]
+    priority: "A"
+  - id: "SOC-0004"
+    title: "AIと著作権"
+    slug: "ai-copyright"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIの学習・入力・出力と著作権はどのように関係するのか？"
+    prerequisites: ["GEN-0001"]
+    children: []
+    related: ["GEN-0016","GEN-0017","GEN-0018"]
+    priority: "A"
+  - id: "SOC-0005"
+    title: "AIと個人情報・プライバシー"
+    slug: "ai-privacy"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIへ個人情報や機密情報を入力するとき何に注意すべきか？"
+    prerequisites: ["GEN-0001"]
+    children: []
+    related: ["SOC-0003","SOC-0006"]
+    priority: "A"
+  - id: "SOC-0006"
+    title: "AIセキュリティ入門"
+    slug: "ai-security"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIやAIエージェント特有のセキュリティリスクには何があるのか？"
+    prerequisites: ["GEN-0001"]
+    children: ["SOC-0007"]
+    related: ["AGT-0015"]
+    priority: "A"
+  - id: "SOC-0007"
+    title: "Prompt Injectionとは？"
+    slug: "prompt-injection"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "外部コンテンツの悪意ある指示でAIの挙動が変わるのはなぜ危険なのか？"
+    prerequisites: ["SOC-0006","GEN-0003"]
+    children: []
+    related: ["AGT-0015"]
+    priority: "A"
+  - id: "SOC-0008"
+    title: "AIのバイアスと公平性"
+    slug: "ai-bias-fairness"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの判断に偏りが生まれる原因と公平性をどう評価するのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: ["SOC-0009"]
+    priority: "B"
+  - id: "SOC-0009"
+    title: "AIガバナンスとは？"
+    slug: "ai-governance"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "組織がAIの利用ルール・責任・監督を設計するとはどういうことか？"
+    prerequisites: ["SOC-0003"]
+    children: []
+    related: ["SOC-0010","SOC-0008"]
+    priority: "A"
+  - id: "SOC-0010"
+    title: "AI規制とは？"
+    slug: "ai-regulation"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "各国のAI規制は何を対象にし、企業や利用者へ何を求めるのか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: ["SOC-0009"]
+    priority: "A"
+  - id: "SOC-0011"
+    title: "AIと電力・環境負荷"
+    slug: "ai-energy-environment"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIの学習・推論・データセンターはどれほど電力や資源を必要とするのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "SOC-0012"
+    title: "AIリテラシーとは？"
+    slug: "ai-literacy"
+    category: "AI活用・社会"
+    level: 0
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIを安全かつ有効に使うために一般利用者は何を理解すべきか？"
+    prerequisites: ["BAS-0001"]
+    children: []
+    related: ["GEN-0004","SOC-0005","SOC-0006"]
+    priority: "A"
+  - id: "SOC-0013"
+    title: "AIの回答をどう検証する？"
+    slug: "verify-ai-output"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIの回答を鵜呑みにせず、根拠・出典・再現性をどう確認するのか？"
+    prerequisites: ["SOC-0012","GEN-0004"]
+    children: []
+    related: ["BAS-0026","BAS-0027"]
+    priority: "A"
+  - id: "SOC-0014"
+    title: "AIと偽情報・ディープフェイク"
+    slug: "ai-misinformation-deepfake"
+    category: "AI活用・社会"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "生成AIが偽情報や偽画像・偽動画を作りやすくする問題へどう向き合うか？"
+    prerequisites: ["GEN-0015"]
+    children: []
+    related: ["SOC-0015"]
+    priority: "B"
+  - id: "SOC-0015"
+    title: "AI生成物の来歴・Provenanceとは？"
+    slug: "ai-content-provenance"
+    category: "AI活用・社会"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "画像や動画がどこから来たかを証明する仕組みはなぜ必要なのか？"
+    prerequisites: ["SOC-0014"]
+    children: []
+    related: ["SOC-0004"]
+    priority: "B"
+  - id: "SOC-0090"
+    title: "2026年版 AIツールの選び方｜用途別に迷わないための実践ガイド"
+    slug: "ai-tools-2026"
+    category: "AI活用・社会"
+    level: 1
+    type: "practice"
+    status: "published"
+    centerQuestion: "AIツールを目的・根拠・権限・コストでどう選べばよいか？"
+    prerequisites: ["SOC-0012"]
+    children: []
+    related: ["SOC-0001","GEN-0019","GEN-0020","GEN-0021"]
+    priority: "A"
+  - id: "NEWS-0090"
+    title: "Apple Intelligenceは何が変わった？Siri AIと次世代機能を整理【2026年版】"
+    slug: "apple-intelligence-update"
+    category: "AIニュース"
+    level: 1
+    type: "news"
+    status: "published"
+    centerQuestion: "Apple IntelligenceとSiri AIの2026年時点の変化は何か？"
+    prerequisites: []
+    children: []
+    related: ["GEN-0015","SOC-0005"]
+    priority: "A"
+  - id: "NEWS-0091"
+    title: "GPT-5からGPT-6.1へ｜OpenAIモデルの進化を追うときに見るべきポイント"
+    slug: "openai-gpt5-training"
+    category: "AIニュース"
+    level: 1
+    type: "news"
+    status: "published"
+    centerQuestion: "OpenAIモデルの世代交代をどの観点で追えばよいか？"
+    prerequisites: []
+    children: []
+    related: ["GEN-0002","BAS-0027"]
+    priority: "A"
+
