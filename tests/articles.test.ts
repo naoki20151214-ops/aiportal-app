@@ -45,7 +45,11 @@ test("URLに使えないslugと危険な画像URLを拒否する", () => {
   }
 });
 
-test("定義外のカテゴリーを拒否する", () => {\n  assert.throws(() => parseArticle(fixture({ category: "ChatGPT" }), "category.md"), /category/);\n});\n\ntest("壊れたYAML、キー重複、空の本文、誤ったtags形式を拒否する", () => {
+test("定義外のカテゴリーを拒否する", () => {
+  assert.throws(() => parseArticle(fixture({ category: "ChatGPT" }), "category.md"), /category/);
+});
+
+test("壊れたYAML、キー重複、空の本文、誤ったtags形式を拒否する", () => {
   assert.throws(() => parseArticle("本文のみ", "broken.md"), /frontmatter/);
   assert.throws(() => parseArticle("---\ntitle: [\n---\n本文", "broken.md"));
   assert.throws(() => parseArticle(fixture().replace("title:", "slug: other\ntitle:"), "duplicate.md"));
