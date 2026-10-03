@@ -8,6 +8,8 @@ export type ArticleMetadata = {
   author: string;
   thumbnail: string;
   tags: string[];
+  affiliateCampaign?: string;
+  adPolicy?: "auto" | "reduced" | "off";
 };
 
 export type Article = ArticleMetadata & { content: string };

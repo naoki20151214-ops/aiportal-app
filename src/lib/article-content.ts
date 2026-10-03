@@ -39,6 +39,14 @@ export function parseArticle(source: string, filename: string): Article {
     (tag) => typeof tag !== "string" || !tag.trim(),
   )) return fail("tagsは文字列の配列で指定してください（例: [\"AI\", \"入門\"]）。");
 
+  if (fields.affiliateCampaign !== undefined &&
+      (typeof fields.affiliateCampaign !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(fields.affiliateCampaign))) {
+    return fail("affiliateCampaignは案件IDを半角英小文字・数字・ハイフンで指定してください。");
+  }
+  if (fields.adPolicy !== undefined && (typeof fields.adPolicy !== "string" || !["auto", "reduced", "off"].includes(fields.adPolicy))) {
+    return fail("adPolicyはauto、reduced、offのいずれかで指定してください。");
+  }
+
   const metadata = Object.fromEntries(
     requiredTextFields.map((field) => [field, (fields[field] as string).trim()]),
   ) as Omit<ArticleMetadata, "tags">;
@@ -64,6 +72,8 @@ export function parseArticle(source: string, filename: string): Article {
   return {
     ...metadata,
     tags: [...new Set((fields.tags as string[]).map((tag) => tag.trim()))],
+    ...(fields.affiliateCampaign !== undefined ? { affiliateCampaign: fields.affiliateCampaign as string } : {}),
+    ...(fields.adPolicy !== undefined ? { adPolicy: fields.adPolicy as ArticleMetadata["adPolicy"] } : {}),
     content: match[2].trim(),
   };
 }

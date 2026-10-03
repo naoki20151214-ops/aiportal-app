@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ArticlePortal from "@/components/article-portal";
+import AdSlot from "@/components/monetization/ad-slot";
 import { getAllArticles } from "@/lib/articles";
 import { getCategories } from "@/lib/categories";
 import { absoluteUrl, siteName, siteDescription } from "@/lib/site";
@@ -15,5 +16,5 @@ export const metadata: Metadata = {
 export default function Home() {
   const articles = getAllArticles();
   const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date());
-  return <ArticlePortal articles={articles} categories={getCategories(articles)} today={today} />;
+  return <ArticlePortal articles={articles} categories={getCategories(articles)} today={today} sidebarSlot={<AdSlot position="sidebar" />} />;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, type ReactNode } from "react";
 
 import Link from "next/link";
 import type { ArticleMetadata } from "@/types/article";
@@ -18,9 +18,9 @@ const ranking = [
 // キーワードデータ
 const keywords = ["LLM", "RAG", "エージェント", "GPU", "NVIDIA", "Python", "TypeScript", "プロンプト"];
 
-type Props = { articles: ArticleMetadata[]; categories: string[]; today: string };
+type Props = { articles: ArticleMetadata[]; categories: string[]; today: string; sidebarSlot?: ReactNode };
 
-export default function ArticlePortal({ articles, categories, today }: Props) {
+export default function ArticlePortal({ articles, categories, today, sidebarSlot }: Props) {
   const [activeTab, setActiveTab] = useState("最新");
   const [visibleCount, setVisibleCount] = useState(20);
 
@@ -188,10 +188,7 @@ export default function ArticlePortal({ articles, categories, today }: Props) {
               </div>
             </section>
 
-            {/* Banner Placeholder */}
-            <div className="w-full aspect-[4/3] bg-gray-100 flex items-center justify-center rounded border border-gray-200">
-              <span className="text-xs font-bold text-gray-400 italic">ADVERTISEMENT</span>
-            </div>
+            {sidebarSlot}
 
           </aside>
         </div>

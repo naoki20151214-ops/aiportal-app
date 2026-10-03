@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/article-body";
+import RelatedArticles from "@/components/related-articles";
+import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
 import { formatArticleDate } from "@/lib/dates";
 import { absoluteUrl, siteName } from "@/lib/site";
@@ -65,13 +67,14 @@ export default async function ArticlePage({ params }: Props) {
             </div>
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
-          <ArticleBody content={article.content} />
+          <ArticleBody content={article.content} article={article} />
           {article.tags.length > 0 && (
             <ul aria-label="記事のタグ" className="flex flex-wrap gap-2 mt-8">
               {article.tags.map((tag) => <li key={tag} className="text-xs px-3 py-1 border border-gray-200 rounded-full text-gray-600">#{tag}</li>)}
             </ul>
           )}
         </article>
+        <RelatedArticles articles={getRelatedArticles(article, getAllArticles())} />
         <div className="border-t border-gray-200 mt-10 pt-6">
           <Link href="/" className="text-sm font-bold text-blue-700 hover:underline">← トップへ戻る</Link>
         </div>
