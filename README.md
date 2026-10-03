@@ -59,6 +59,8 @@ npx wrangler pages dev out --port 3217
 
 Static Exportの出力先は`out/`です。上のプレビューコマンドで`http://localhost:3217`を開けます。`output: "export"`では`next start`は使いません。
 
+`npm run build`の`postbuild`でWindows上のNext.js 16が階層化して出力するRSCファイル名を、先読みURLと一致するドット区切りに補正します。Linuxの正しい出力は変更せず、記事URL・canonical・prefetch設定も変更しません。
+
 ## Cloudflare Pagesのデプロイ設定
 
 新規PagesプロジェクトをGitHubの`naoki20151214-ops/aiportal-app`へ接続し、production branchを`main`、Framework presetを`Next.js (Static HTML Export)`、build commandを`npm run build`、output directoryを`out`、Node.jsを`24.14.1`に設定します。ビルド環境変数は`SITE_URL=https://aiportal.blog`、`ADS_ENABLED=false`、`AFFILIATES_ENABLED=false`です。これは設定手順であり、接続済みであることを示すものではありません。

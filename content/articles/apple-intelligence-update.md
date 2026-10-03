@@ -6,7 +6,7 @@ category: "最新"
 publishedAt: "2026-04-14"
 updatedAt: "2026-04-14"
 author: "AI Portal編集部"
-thumbnail: "https://images.unsplash.com/photo-1611186871348-b1ec696e52c9?w=200&h=150&fit=crop"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["AI","サンプル"]
 ---
 
