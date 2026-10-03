@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 378
+nodeCount: 438
 
 nodes:
   - id: "BAS-0001"
@@ -4540,3 +4540,723 @@ nodes:
     children: []
     related: []
     priority: "C"
+  - id: "INF-0016"
+    title: "CPUとGPUの違い"
+    slug: "cpu-vs-gpu-ai"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "CPUとGPUの違いはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0001"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0017"
+    title: "TPUとは？"
+    slug: "tpu"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "TPUとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0018"
+    title: "NPUとは？"
+    slug: "npu"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "NPUとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0002"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0019"
+    title: "AI向けASICとは？"
+    slug: "ai-asic"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI向けASICとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0002"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0020"
+    title: "HBMの帯域幅とは？"
+    slug: "hbm-bandwidth"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "HBMの帯域幅とは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0014"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0021"
+    title: "AI計算のMemory Hierarchy"
+    slug: "ai-memory-hierarchy"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI計算のMemory HierarchyはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0022"
+    title: "VRAMとは？"
+    slug: "vram-ai"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "VRAMとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0021"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0023"
+    title: "AI Accelerator Interconnectとは？"
+    slug: "ai-interconnect"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Accelerator Interconnectとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0024"
+    title: "NVLinkとは？"
+    slug: "nvlink"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "NVLinkとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0025"
+    title: "InfiniBandとは？"
+    slug: "infiniband-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "InfiniBandとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0026"
+    title: "AIクラスタのEthernet"
+    slug: "ethernet-ai-cluster"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIクラスタのEthernetはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0023"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0027"
+    title: "RDMAとは？"
+    slug: "rdma-ai"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "RDMAとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0023"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0028"
+    title: "Distributed Trainingとは？"
+    slug: "distributed-training"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Distributed Trainingとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0029"
+    title: "Data Parallelismとは？"
+    slug: "data-parallelism"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Data Parallelismとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0028"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0030"
+    title: "Model Parallelismとは？"
+    slug: "model-parallelism"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Model Parallelismとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0028"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0031"
+    title: "Tensor Parallelismとは？"
+    slug: "tensor-parallelism"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Tensor Parallelismとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0030"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0032"
+    title: "Pipeline Parallelismとは？"
+    slug: "pipeline-parallelism"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Pipeline Parallelismとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0030"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0033"
+    title: "Expert Parallelismとは？"
+    slug: "expert-parallelism"
+    category: "AI開発・インフラ"
+    level: 4
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Expert Parallelismとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["BAS-0089"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0034"
+    title: "All-Reduceとは？"
+    slug: "all-reduce"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "All-Reduceとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0029"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0035"
+    title: "Collective Communicationとは？"
+    slug: "collective-communication"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Collective Communicationとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0028"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0036"
+    title: "Training Checkpointとは？"
+    slug: "training-checkpoint"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "Training Checkpointとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0028"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0037"
+    title: "分散学習のFault Tolerance"
+    slug: "distributed-training-fault-tolerance"
+    category: "AI開発・インフラ"
+    level: 4
+    type: "practice"
+    status: "planned"
+    centerQuestion: "分散学習のFault ToleranceはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0036"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0038"
+    title: "Mixed Precision Trainingとは？"
+    slug: "mixed-precision-training"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Mixed Precision Trainingとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["BAS-0024"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0039"
+    title: "FP16とは？"
+    slug: "fp16-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "FP16とは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0038"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0040"
+    title: "BF16とは？"
+    slug: "bf16-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "BF16とは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0038"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0041"
+    title: "FP8とは？"
+    slug: "fp8-ai"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "FP8とは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0038"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0042"
+    title: "INT8・INT4 Quantizationとは？"
+    slug: "int8-int4-quantization"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "INT8・INT4 Quantizationとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0008"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0043"
+    title: "Model Pruningとは？"
+    slug: "model-pruning"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Model Pruningとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["BAS-0088"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0044"
+    title: "AI Model Compilationとは？"
+    slug: "ai-model-compilation"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Model Compilationとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0045"
+    title: "GPU Kernelとは？"
+    slug: "gpu-kernel"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "GPU Kernelとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0005"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0046"
+    title: "FlashAttentionとは？"
+    slug: "flash-attention"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "FlashAttentionとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["BAS-0019"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0047"
+    title: "Inference Batchingとは？"
+    slug: "inference-batching"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Inference Batchingとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0048"
+    title: "Continuous Batchingとは？"
+    slug: "continuous-batching"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Continuous Batchingとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0047"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0049"
+    title: "PagedAttentionとは？"
+    slug: "paged-attention"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "PagedAttentionとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0009"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0050"
+    title: "AI推論のAuto Scaling"
+    slug: "inference-autoscaling"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI推論のAuto ScalingはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0051"
+    title: "LatencyとThroughputの違い"
+    slug: "latency-vs-throughput-ai"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "comparison"
+    status: "planned"
+    centerQuestion: "LatencyとThroughputの違いはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0052"
+    title: "Time to First Tokenとは？"
+    slug: "time-to-first-token"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Time to First Tokenとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0051"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0053"
+    title: "Tokens per Secondとは？"
+    slug: "tokens-per-second"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Tokens per Secondとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0051"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0054"
+    title: "AI推論のConcurrencyとは？"
+    slug: "inference-concurrency"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI推論のConcurrencyとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0055"
+    title: "AI推論のCache設計"
+    slug: "inference-cache"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI推論のCache設計はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0056"
+    title: "Prefix Cacheとは？"
+    slug: "prefix-cache"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Prefix Cacheとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0055"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0057"
+    title: "Distributed Inferenceとは？"
+    slug: "distributed-inference"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Distributed Inferenceとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0007"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0058"
+    title: "AI推論のLoad Balancing"
+    slug: "inference-load-balancing"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI推論のLoad BalancingはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0057"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0059"
+    title: "GPU Utilizationとは？"
+    slug: "gpu-utilization"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "GPU Utilizationとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0001"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0060"
+    title: "GPU Memory Management"
+    slug: "gpu-memory-management"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "GPU Memory ManagementはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0022"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0061"
+    title: "AI Cluster Schedulerとは？"
+    slug: "ai-cluster-scheduler"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI Cluster Schedulerとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0062"
+    title: "KubernetesでAI Workloadを動かす"
+    slug: "kubernetes-ai-workloads"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "KubernetesでAI Workloadを動かすはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0061"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0063"
+    title: "AIとContainer"
+    slug: "containers-for-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIとContainerはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0064"
+    title: "Serverless AIとは？"
+    slug: "serverless-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Serverless AIとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0065"
+    title: "Edge Inferenceとは？"
+    slug: "edge-inference"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "Edge Inferenceとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0013"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0066"
+    title: "On-device AIとは？"
+    slug: "on-device-ai"
+    category: "AI開発・インフラ"
+    level: 1
+    type: "concept"
+    status: "planned"
+    centerQuestion: "On-device AIとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0013"]
+    children: []
+    related: []
+    priority: "A"
+  - id: "INF-0067"
+    title: "スマートフォンNPUとAI"
+    slug: "mobile-npu-ai"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "スマートフォンNPUとAIはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0018"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0068"
+    title: "AI API Gatewayとは？"
+    slug: "ai-api-gateway"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI API Gatewayとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0069"
+    title: "AI Observabilityとは？"
+    slug: "ai-observability"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Observabilityとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0006"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0070"
+    title: "AI Request Tracingとは？"
+    slug: "ai-request-tracing"
+    category: "AI開発・インフラ"
+    level: 3
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AI Request Tracingとは？はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0069"]
+    children: []
+    related: []
+    priority: "C"
+  - id: "INF-0071"
+    title: "AIインフラのコスト最適化"
+    slug: "ai-infrastructure-cost-optimization"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "practice"
+    status: "planned"
+    centerQuestion: "AIインフラのコスト最適化はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0072"
+    title: "AI計算のEnergy Efficiency"
+    slug: "ai-energy-efficiency"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AI計算のEnergy EfficiencyはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0073"
+    title: "AIデータセンターの冷却"
+    slug: "ai-data-center-cooling"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIデータセンターの冷却はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0074"
+    title: "AIデータセンターのネットワーク"
+    slug: "ai-data-center-networking"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIデータセンターのネットワークはAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0015"]
+    children: []
+    related: []
+    priority: "B"
+  - id: "INF-0075"
+    title: "AIデータセンターの電力供給"
+    slug: "ai-data-center-power"
+    category: "AI開発・インフラ"
+    level: 2
+    type: "concept"
+    status: "planned"
+    centerQuestion: "AIデータセンターの電力供給はAIを学習・推論・運用する計算基盤にどんな影響を与えるのか？"
+    prerequisites: ["INF-0004"]
+    children: []
+    related: []
+    priority: "B"
