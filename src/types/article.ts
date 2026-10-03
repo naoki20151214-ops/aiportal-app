@@ -11,7 +11,7 @@ export type ArticleMetadata = {
   author: string;
   thumbnail: string;
   tags: string[];
-  status: ArticleStatus;
+  status?: ArticleStatus;
   id?: string;
   level?: number;
   type?: ArticleType;
