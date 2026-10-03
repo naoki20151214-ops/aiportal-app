@@ -4,7 +4,7 @@ import path from "node:path";
 import { test } from "node:test";
 import { parse } from "yaml";
 import { contentCategories } from "../src/lib/categories";
-import { readArticles } from "../src/lib/article-content";
+import { readAllArticles, readArticles } from "../src/lib/article-content";
 
 type Taxonomy = {
   categories: string[];
@@ -227,4 +227,22 @@ test("公開計画はCore Curriculumを自動公開せずQuality Gate後に出�
   assert.equal(plan.coreCurriculum.ordering, "dependency-first");
   assert.equal(plan.coreCurriculum.autoSchedule, false);
   assert.match(plan.coreCurriculum.releaseGate, /ready|scheduled/);
+});
+
+
+test("status付き記事はRegistryのid・slug・category・level・type・statusと一致する", () => {
+  const registry = load<KnowledgeRegistry>("knowledge-nodes.yml");
+  const byId = new Map(registry.nodes.map((node) => [node.id, node]));
+  const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
+
+  for (const article of articles) {
+    if (!article.id) continue;
+    const node = byId.get(article.id);
+    assert.ok(node, `Registry node missing for article id: ${article.id}`);
+    assert.equal(node.slug, article.slug, `slug mismatch: ${article.id}`);
+    assert.equal(node.category, article.category, `category mismatch: ${article.id}`);
+    assert.equal(node.level, article.level, `level mismatch: ${article.id}`);
+    assert.equal(node.type, article.type, `type mismatch: ${article.id}`);
+    assert.equal(node.status, article.status, `status mismatch: ${article.id}`);
+  }
 });
