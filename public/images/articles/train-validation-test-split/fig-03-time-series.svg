@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="時系列Dataの分割">
+<rect width="1200" height="675" fill="#f8fcff"/>
+<text x="600" y="75" text-anchor="middle" font-size="46" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">時系列Dataは「未来を先に見ない」</text>
+<text x="600" y="118" text-anchor="middle" font-size="22" fill="#557896" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">予測の世界では、時間の順番そのものがDataの一部</text>
+<line x1="110" y1="335" x2="1090" y2="335" stroke="#9fc9e5" stroke-width="8" stroke-linecap="round"/>
+<g>
+<circle cx="245" cy="335" r="22" fill="#2e86d6"/><circle cx="585" cy="335" r="22" fill="#27a67d"/><circle cx="925" cy="335" r="22" fill="#e77460"/>
+<text x="245" y="275" text-anchor="middle" font-size="30" font-weight="900" fill="#1f6fb5" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">2023</text>
+<text x="585" y="275" text-anchor="middle" font-size="30" font-weight="900" fill="#238367" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">2024</text>
+<text x="925" y="275" text-anchor="middle" font-size="30" font-weight="900" fill="#bd5d50" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">2025</text>
+<rect x="130" y="382" width="230" height="100" rx="22" fill="#e8f4ff"/><rect x="470" y="382" width="230" height="100" rx="22" fill="#eaf8f3"/><rect x="810" y="382" width="230" height="100" rx="22" fill="#fff0e9"/>
+<text x="245" y="425" text-anchor="middle" font-size="24" font-weight="800" fill="#1f6fb5" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Training</text><text x="245" y="458" text-anchor="middle" font-size="18" fill="#5f7992" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">過去で学ぶ</text>
+<text x="585" y="425" text-anchor="middle" font-size="24" font-weight="800" fill="#238367" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Validation</text><text x="585" y="458" text-anchor="middle" font-size="18" fill="#5f7992" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">次の期間で調整</text>
+<text x="925" y="425" text-anchor="middle" font-size="24" font-weight="800" fill="#bd5d50" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Test</text><text x="925" y="458" text-anchor="middle" font-size="18" fill="#5f7992" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">未来で確認</text>
+</g>
+<path d="M102 198 H1098" stroke="#d9e9f4" stroke-width="2"/>
+<g transform="translate(300 150)">
+<path d="M0 40 C160 120 300 0 520 90" fill="none" stroke="#e76f60" stroke-width="7" stroke-dasharray="14 12"/>
+<path d="M505 69 L529 91 L501 106" fill="none" stroke="#e76f60" stroke-width="7"/>
+<text x="270" y="0" text-anchor="middle" font-size="20" fill="#b7574c" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">未来DataがTrainingへ混ざるのはNG</text>
+</g>
+<text x="600" y="592" text-anchor="middle" font-size="23" font-weight="700" fill="#355f87" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">売上・故障・金融などでは、未来情報をTrainingに混ぜると評価が壊れる。</text>
+</svg>
