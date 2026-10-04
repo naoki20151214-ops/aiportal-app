@@ -1462,7 +1462,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "AIの歴史を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0001"]
     children: []
