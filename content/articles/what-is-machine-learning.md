@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/what-is-machine-learning/hero.svg"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["機械学習", "Machine Learning", "AI", "モデル", "入門"]
 ---
 
@@ -21,10 +21,6 @@ ChatGPT、画像認識、推薦システム、不正検知など、多くのAI�
 この記事では、**機械学習は普通のプログラムと何が違うのか**を中心に整理します。
 
 前提として、[AIとは何か？](/articles/what-is-ai)を読んでおくと、AI全体の中での位置づけが分かりやすくなります。
-
-![機械学習はデータからパターンを学んで未知の入力へ使う](/images/articles/what-is-machine-learning/hero.svg)
-
-*機械学習はデータからパターンを学んで未知の入力へ使う。*
 
 ## 最初に結論：人間が判断ルールを全部書く代わりに、データからパターンを学ぶ
 
@@ -45,10 +41,6 @@ NISTは機械学習を、データから適応・学習し、精度を改善す�
 
 何を予測するか、どんなデータを使うか、どのモデルを選ぶか、どう評価するかは人間が設計します。
 
-![ルールを書く方法と、データから学ぶ方法の違い](/images/articles/what-is-machine-learning/fig-1.svg)
-
-*ルールを書く方法と、データから学ぶ方法の違い。*
-
 ## 普通のプログラムとの違い
 
 「商品の送料を計算する」処理なら、ルールは明確です。
@@ -67,10 +59,6 @@ NISTは機械学習を、データから適応・学習し、精度を改善す�
 など、条件の組み合わせが膨大だからです。
 
 機械学習では、多数の猫画像と猫でない画像を使って、分類に役立つパターンをモデルに学習させます。
-
-![データ・訓練・検証・推論の基本サイクル](/images/articles/what-is-machine-learning/fig-2.svg)
-
-*データ・訓練・検証・推論の基本サイクル。*
 
 ## 機械学習の基本サイクル
 
@@ -118,10 +106,6 @@ GoogleのMachine Learning Glossaryでは、モデルを入力データを処理�
 
 モデルが持つ重みなどの値は、訓練によって調整されます。
 
-![モデルを作る工程と、学習済みモデルを使う工程は別](/images/articles/what-is-machine-learning/fig-3.svg)
-
-*モデルを作る工程と、学習済みモデルを使う工程は別。*
-
 ## TrainingとInferenceは違う
 
 初心者が混同しやすいのが、TrainingとInferenceです。
@@ -135,10 +119,6 @@ GoogleのMachine Learning Glossaryでは、モデルを入力データを処理�
 訓練済みモデルを使って、新しい入力への予測を出す工程。
 
 たとえば迷惑メールAIなら、大量のメールで判定器を作るのがTraining、新しく届いたメールを判定するのがInferenceです。
-
-![教師あり・教師なし・強化学習の代表的な違い](/images/articles/what-is-machine-learning/fig-4.svg)
-
-*教師あり・教師なし・強化学習の代表的な違い。*
 
 ## 教師あり学習
 
@@ -184,10 +164,6 @@ GoogleのML Glossaryでも、教師なし学習を通常はラベルなしデー
 ゲーム、ロボット制御、意思決定などで使われます。
 
 教師あり学習のように「各入力の正解」を直接与えるのではなく、行動の結果を評価する点が特徴です。
-
-![訓練データではなく未知データへ一般化できるかが重要](/images/articles/what-is-machine-learning/fig-5.svg)
-
-*訓練データではなく未知データへ一般化できるかが重要。*
 
 ## 良いモデルとは何か
 

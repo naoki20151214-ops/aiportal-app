@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/hyperparameters/hero.svg"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["ハイパーパラメータ", "機械学習", "学習率", "モデル", "AI基礎"]
 ---
 
@@ -21,10 +21,6 @@ tags: ["ハイパーパラメータ", "機械学習", "学習率", "モデル", 
 この記事では、**モデル自身が学ぶ値と、人間側が学習方法を決める値の違い**を整理します。
 
 前提として、[機械学習とは？](/articles/what-is-machine-learning)と[訓練・検証・テストデータの違い](/articles/train-validation-test-split)を読むと理解しやすくなります。
-
-![ハイパーパラメータはモデルの学び方を外側から決める](/images/articles/hyperparameters/hero.svg)
-
-*ハイパーパラメータはモデルの学び方を外側から決める。*
 
 ## 最初に結論：Parameterは学習され、Hyperparameterは学習の外側で決める
 
@@ -38,10 +34,6 @@ GoogleのMachine Learning Glossaryでは、Hyperparameterを、モデルの学�
 - Hyperparameter：学び方を人間や探索アルゴリズムが決める
 
 という違いです。
-
-![Parameterは学習され、Hyperparameterは学習方法を決める](/images/articles/hyperparameters/fig-1.svg)
-
-*Parameterは学習され、Hyperparameterは学習方法を決める。*
 
 ## 例：直線を学ぶモデル
 
@@ -67,10 +59,6 @@ GoogleのMachine Learning Glossaryでは、Hyperparameterを、モデルの学�
 
 これらがHyperparameterです。
 
-![学習率が大きすぎても小さすぎても学習はうまく進まない](/images/articles/hyperparameters/fig-2.svg)
-
-*学習率が大きすぎても小さすぎても学習はうまく進まない。*
-
 ## Learning Rate
 
 代表的なHyperparameterがLearning Rate（学習率）です。
@@ -89,10 +77,6 @@ GoogleのMachine Learning Glossaryでは、Hyperparameterを、モデルの学�
 
 GoogleのGlossaryでもLearning RateはHyperparameterの代表例として挙げられています。
 
-![一度の更新に使うデータ数で計算と挙動が変わる](/images/articles/hyperparameters/fig-3.svg)
-
-*一度の更新に使うデータ数で計算と挙動が変わる。*
-
 ## Batch Size
 
 Batch Sizeは、一度の更新計算に何件の訓練例を使うかを決めます。
@@ -102,10 +86,6 @@ Batch Sizeは、一度の更新計算に何件の訓練例を使うかを決め�
 大きいBatchは計算をまとめやすい一方、多くのメモリを必要とします。
 
 最適な値は、モデル、データ、ハードウェアによって異なります。
-
-![学習率・Batch Size・正則化・深さなどが代表例](/images/articles/hyperparameters/fig-5.svg)
-
-*学習率・Batch Size・正則化・深さなどが代表例。*
 
 ## モデルの複雑さもHyperparameterになる
 
@@ -141,10 +121,6 @@ HyperparameterをTraining Setの成績だけで選ぶと、学習データに最
 という流れです。
 
 これが、Validation Setが必要な大きな理由の一つです。
-
-![候補を試し、Validationで比較して設定を選ぶ](/images/articles/hyperparameters/fig-4.svg)
-
-*候補を試し、Validationで比較して設定を選ぶ。*
 
 ## Hyperparameter Tuningとは何か
 

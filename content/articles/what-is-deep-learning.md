@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/what-is-deep-learning/hero.svg"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["ディープラーニング", "深層学習", "ニューラルネットワーク", "機械学習", "AI"]
 ---
 
@@ -22,10 +22,6 @@ AIという大きな領域の中に機械学習があり、その中の重要な
 
 前提として、[機械学習とは？](/articles/what-is-machine-learning)を読んでおくと理解しやすくなります。
 
-![ディープラーニングは多層ニューラルネットワークで表現を学ぶ](/images/articles/what-is-deep-learning/hero.svg)
-
-*ディープラーニングは多層ニューラルネットワークで表現を学ぶ。*
-
 ## 最初に結論：多層ニューラルネットワークで「特徴そのもの」を学びやすくした
 
 ディープラーニングは、複数の層を持つニューラルネットワークを使って、入力から出力までの複雑な関係を学習する機械学習です。
@@ -35,10 +31,6 @@ AIという大きな領域の中に機械学習があり、その中の重要な
 **人間が特徴を細かく設計しなくても、データから有用な内部表現を段階的に学べるようになったこと**が重要です。
 
 MITのDeep Learning講義やDeep Learning Bookでも、ニューラルネットワーク、表現、学習、最適化がディープラーニングの基礎として扱われています。
-
-![人が特徴を作る方法から、モデルが特徴も学ぶ方法へ](/images/articles/what-is-deep-learning/fig-1.svg)
-
-*人が特徴を作る方法から、モデルが特徴も学ぶ方法へ。*
 
 ## 従来の機械学習ではFeature Engineeringが重要だった
 
@@ -57,10 +49,6 @@ MITのDeep Learning講義やDeep Learning Bookでも、ニューラルネット�
 この作業をFeature Engineeringと呼びます。
 
 良い特徴を作れるかどうかが性能を大きく左右します。
-
-![単純な特徴から抽象的な表現を段階的に作る](/images/articles/what-is-deep-learning/fig-2.svg)
-
-*単純な特徴から抽象的な表現を段階的に作る。*
 
 ## ディープラーニングは表現も学ぶ
 
@@ -99,10 +87,6 @@ MITのDeep Learning講義やDeep Learning Bookでも、ニューラルネット�
 
 ディープラーニングの「Deep」は、多数のHidden Layerを持つネットワークを扱うことに由来します。
 
-![大量データ・GPU・学習技術・フレームワークが同時に進歩した](/images/articles/what-is-deep-learning/fig-4.svg)
-
-*大量データ・GPU・学習技術・フレームワークが同時に進歩した。*
-
 ## なぜ昔からあったニューラルネットワークが急に強くなったのか
 
 ニューラルネットワークの考え方は2010年代に突然生まれたわけではありません。
@@ -125,10 +109,6 @@ Activation、Normalization、Optimization、Regularizationなど、多くの技�
 
 TensorFlowやPyTorchなどのフレームワークによって、大規模モデルの研究・実装がしやすくなりました。
 
-![予測・Loss・Backprop・Weight更新を繰り返す](/images/articles/what-is-deep-learning/fig-3.svg)
-
-*予測・Loss・Backprop・Weight更新を繰り返す。*
-
 ## Trainingでは何が起きるのか
 
 ニューラルネットワークの訓練を単純化すると、
@@ -145,10 +125,6 @@ TensorFlowやPyTorchなどのフレームワークによって、大規模モデ
 この中心にBackpropagationとGradient-based Optimizationがあります。
 
 Day 2以降で、ニューラルネットワーク、損失関数、勾配降下法を個別に詳しく扱います。
-
-![高性能でも計算資源・説明・分布変化などの弱点は残る](/images/articles/what-is-deep-learning/fig-5.svg)
-
-*高性能でも計算資源・説明・分布変化などの弱点は残る。*
 
 ## ディープラーニングが得意な領域
 
