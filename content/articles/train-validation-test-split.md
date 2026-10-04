@@ -2,7 +2,7 @@
 id: "BAS-0040"
 title: "訓練・検証・テストデータの違い｜なぜ3つに分けるのか"
 slug: "train-validation-test-split"
-description: "機械学習で訓練データ・検証データ・テストデータを分ける理由を解説。過学習、データ漏洩、モデル選択との関係まで初心者向けに整理します。"
+description: "機械学習でTraining・Validation・Testを分ける理由を、モデルが練習問題を覚えて本番で失敗する問題から物語として解説。過学習、モデル選択、Data Leakage、時系列分割まで体系的に整理します。"
 category: "AI基礎・技術"
 level: 1
 type: "concept"
@@ -10,201 +10,795 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/article-placeholder.svg"
-tags: ["訓練データ", "検証データ", "テストデータ", "機械学習", "過学習"]
+thumbnail: "/images/articles/train-validation-test-split/hero.svg"
+tags: ["訓練データ", "検証データ", "テストデータ", "機械学習", "過学習", "Data Leakage", "モデル評価"]
 ---
 
-機械学習では、集めたデータをそのまま全部学習に使うのではなく、**訓練・検証・テスト**へ分けるのが基本です。
+あるAI開発者が、画像判定モデルを作ったとします。
 
-なぜわざわざ分けるのでしょうか。
+Training中のAccuracyは99.8%。
 
-理由は、学習に使った問題だけを解けるモデルではなく、**まだ見たことのないデータでも使えるモデルか確認するため**です。
+「かなり良いModelができた」
 
-前提として、[機械学習とは？](/articles/what-is-machine-learning)を読んでおくと理解しやすくなります。
+そう思って実際の現場へ持っていくと、思ったほど当たりません。
 
-## 最初に結論：学ぶデータ、調整するデータ、最後に確認するデータを分ける
+なぜでしょうか。
 
-3つの役割は次の通りです。
+答えは単純です。
 
-- Training Set：モデルのパラメータを学習する
-- Validation Set：モデルやハイパーパラメータを選ぶ
-- Test Set：最終的な性能を確認する
+**そのModelは“問題を解けるようになった”のではなく、“練習問題を覚えただけ”かもしれないからです。**
 
-GoogleのMachine Learning Crash Courseでも、訓練・検証・テストの3分割が説明されています。
+人間でも、同じ問題集を何十回も解けば点数は上がります。
 
-ポイントは、**テストデータを最後まで温存すること**です。
+しかし初めて見る問題でも解けるかどうかは、別の話です。
 
-## Training Set：モデルが学ぶ教材
+Machine Learningでもまったく同じ問題が起きます。
 
-Training Setは、モデルのパラメータを調整するために使います。
+だから研究者や開発者は、
 
-教師あり学習なら、
+> 学習に使うDataと、実力を測るDataを分けなければいけない
 
-- 入力
-- 正解ラベル
+と考えるようになりました。
 
-の組を多数与えます。
+ところが、ここで次の問題が起きます。
 
-たとえば住宅価格予測なら、面積や築年数を入力し、実際の価格を正解として学習します。
+Test結果を見て、
 
-ニューラルネットワークでは、訓練データを何度も使いながら、予測誤差が小さくなるよう重みを更新します。
+> ここが弱いからModelを変えよう
 
-## Validation Set：モデル開発の判断材料
+と何度も調整していると、そのTest Setまで開発に使ったことになります。
 
-Validation Setは、訓練中・開発中のモデルを評価するために使います。
+すると、もうTestは「本番試験」ではありません。
 
-たとえば、
+そこで必要になったのが、
 
-- 学習率をどの値にするか
-- モデルをどれくらい複雑にするか
-- 正則化の強さをどうするか
-- いつ学習を止めるか
+**Training / Validation / Test**
 
-といった判断に使います。
+という3つの役割分担です。
 
-つまりValidation Setは、**モデル開発者が意思決定するための評価データ**です。
+この記事では、この3分割を暗記するのではなく、
 
-ここが非常に重要です。
+**なぜ2つでは足りず、なぜ3つに分ける必要が生まれたのか**
 
-Validation結果を見て設定を変更すると、その時点で人間はValidation Setの情報をモデル開発に使っています。
+という問題解決の流れから理解します。
 
-したがってValidation Setは、完全に未知のデータではなくなっていきます。
+前提として、[機械学習とは？](/articles/what-is-machine-learning)と[統計的機械学習とは？](/articles/statistical-machine-learning)を読んでおくと理解しやすくなります。
 
-## Test Set：最後の試験
+![練習問題では満点なのに、本番では解けないAI](/images/articles/train-validation-test-split/hero.svg)
 
-Test Setは、開発が終わったモデルの性能を最後に確認するために使います。
+*Machine Learningで本当に知りたいのは、「覚えたDataで当たるか」ではなく、「初めて見るDataでも通用するか」です。*
 
-学校の例で考えると、
+## 最初に結論：3つに分けるのは「学習」と「開発判断」と「最終評価」を混ぜないため
 
-- Training Set：教科書と練習問題
+役割はシンプルです。
+
+### Training Set
+
+ModelのParameterを学ぶためのData。
+
+### Validation Set
+
+ModelやHyperparameterを選ぶためのData。
+
+### Test Set
+
+すべての開発が終わったあと、最後に実力を確認するData。
+
+学校にたとえるなら、
+
+- Training Set：教科書・練習問題
 - Validation Set：模擬試験
 - Test Set：本番試験
 
-に近い関係です。
+です。
 
-模試の点数を見ながら勉強法を変えるのは正しいですが、本番試験の問題を何度も見ながら対策したら、公平な最終評価ではなくなります。
+ここで最も重要なのは、
 
-機械学習でも同じです。
+> **Test Setは「最後まで見ない」から価値がある**
 
-## なぜTrainingとTestの2つだけでは不十分なのか
+という点です。
 
-一見すると、
+## 最初の失敗：Training Dataで点数を測ってしまう
 
-Trainingで学習
-→ Testで評価
+Machine Learningの初学者が最初にやりやすいのが、
 
-だけでよさそうです。
+1. Dataを集める
+2. そのDataでTrainingする
+3. 同じDataでAccuracyを測る
 
-しかしTest結果を見て、
+という方法です。
 
-「性能が低いから学習率を変えよう」
-「特徴量を追加しよう」
-「別モデルにしよう」
+しかしこれは、
 
-と何度も改善すると、Test Setに合わせて開発していることになります。
+> 練習した問題を、そのまま試験に出している
 
-Googleの教材でも、同じTest Setを何度もモデル調整に使うと、そのTest Setの特殊性へ暗黙的に過学習する危険があると説明されています。
+状態です。
 
-そこでValidation Setを別に用意します。
+ModelがDataを覚えているだけでも、高いScoreが出ます。
 
-## 典型的な流れ
+### 例：1000件のTraining Data
 
-機械学習開発では次のように進めます。
+Modelが1000件の特徴をほぼ丸暗記できたとします。
 
-1. Training Setで学習
-2. Validation Setで評価
-3. ハイパーパラメータやモデルを調整
-4. 1〜3を繰り返す
-5. 設計を確定
-6. Test Setで最終評価
+Training Accuracy：100%
 
-Test Setの役割は、最後の独立したチェックです。
+でも新しい1000件では、
 
-## 分割比率は70:15:15で決まりなのか
+Test Accuracy：72%
 
-固定ルールではありません。
+かもしれません。
 
-Googleの教材では説明例として70% / 15% / 15%の図が使われていますが、必要な割合はデータ量や問題によって変わります。
+Training Scoreだけ見ていたら、この問題には気づけません。
 
-データが数百万件あれば、Test Setが数%でも十分なサンプル数を持てるかもしれません。
+ここで初めて、
 
-データが少ない場合はCross Validationなど別の方法が必要になることもあります。
+> 学習に使っていないDataを残しておこう
 
-重要なのは割合そのものではなく、**各データセットが役割を果たせるだけの量と代表性を持つこと**です。
+という発想が必要になります。
 
-## 時系列データはランダム分割に注意
+## そこで生まれるHoldoutという考え方
 
-売上予測や設備故障予測など、時間に依存する問題では単純なランダム分割が危険です。
+Dataの一部をTrainingに使わず、評価用に残しておく。
 
-未来のデータがTraining Setに入り、過去をTest Setにすると、実運用では利用できない未来情報を学習してしまう場合があります。
+これが基本的な**Holdout**の考え方です。
 
-そのため、
+たとえば10000件あれば、
 
-過去 → Training  
-その後 → Validation  
-さらに未来 → Test
+- 8000件：Training
+- 2000件：Test
 
-のように時間順に分けることがあります。
+に分けます。
 
-## Data Leakageとは何か
+Modelは8000件だけで学習。
 
-Data Leakageは、本来モデルが利用できない情報が学習や評価に入り込む問題です。
+そして最後に2000件で評価します。
 
-たとえば病気を予測するモデルで、診断後にしか付かない情報を特徴量へ入れたら、異常に高い精度が出るかもしれません。
+これなら、
 
-しかし実際の診断時にはその情報は存在しません。
+> 初めて見るDataにどれくらい通用するか
 
-Leakageがあると、Test性能が高くても実運用では失敗します。
+をより公平に測れます。
 
-## 重複データにも注意
+しかし、ここでまた新しい問題が生まれます。
 
-Training SetとTest Setにほぼ同じデータが入ると、モデルが覚えた例をTestでも解いているだけになる場合があります。
+## 2つに分けただけでは、Testが開発に汚染される
 
-Googleの教材でも、重複例がデータ分割の問題になり得ることが説明されています。
+TrainingとTestの2つだけに分けたとします。
 
-画像や文章の巨大データセットでは、完全一致だけでなく類似データの重複も問題になります。
+Model Aを作る。
 
-## Distributionを合わせる
+Test Accuracy：82%。
 
-Test Setは、将来モデルが使われる現実のデータを代表する必要があります。
+「もう少し改善したい」
 
-たとえば昼間の晴天画像だけで自動運転モデルを評価しても、夜間・雨天・雪道の性能は分かりません。
+Learning Rateを変える。
 
-評価データは「余ったデータ」ではなく、**実運用を再現する設計対象**です。
+Test Accuracy：84%。
 
-## 生成AIでも考え方は同じ
+Model構造を変える。
 
-大規模言語モデルでも、
+Test Accuracy：86%。
 
-- 学習データ
-- 開発用評価
-- 最終ベンチマーク
+Featureを追加する。
 
-を分ける考え方は重要です。
+Test Accuracy：88%。
 
-ベンチマーク問題が学習データへ混入すると、モデルが本当に一般化して解いたのか、問題を記憶していたのか区別しにくくなります。
+一見、Modelがどんどん良くなっています。
 
-この問題はData Contaminationとも呼ばれます。
+でも何が起きているでしょうか。
 
-## まとめ
+開発者は、
 
-Training、Validation、Testを分ける理由は、**モデル開発と最終評価を分離し、未知データへの性能をできるだけ公平に測るため**です。
+> Test結果を見て、次の設計を決めている
 
-- Training：パラメータを学ぶ
-- Validation：開発判断に使う
-- Test：最後に確認する
+のです。
 
-Test Setを何度も見れば、最終試験としての価値が失われます。
+つまりTest Setの情報が、少しずつ開発へ流れ込んでいます。
 
-機械学習ではモデルだけでなく、評価方法そのものを正しく設計することが重要です。
+Test DataそのものをTrainingしていなくても、
+
+**Test Scoreを見て意思決定した時点で、そのTest Setは開発に利用されています。**
+
+これが非常に重要なポイントです。
+
+## 「見ただけ」でも情報は漏れる
+
+たとえば大学入試の本番問題を先生だけが先に見たとします。
+
+生徒には問題そのものを見せない。
+
+しかし先生が、
+
+> 今年は確率が多そうだ  
+> ベクトルを重点的にやろう
+
+と指導を変えたらどうでしょう。
+
+生徒は本番問題を直接見ていません。
+
+でも、本番問題の情報は学習へ入っています。
+
+Machine Learningでも同じです。
+
+Test結果を見てModelを変更すれば、Test Setは完全に未知ではなくなります。
+
+だから、
+
+> Modelを調整するための評価Data
+
+と、
+
+> 最後に公平に測るData
+
+を分ける必要が出てきました。
+
+## そこでValidation Setが必要になる
+
+ここで登場するのがValidation Setです。
+
+役割は、
+
+> **開発中の判断に使うためのData**
+
+です。
+
+開発者はValidation結果を見ながら、
+
+- Model AとBのどちらが良いか
+- Learning Rateはいくつか
+- Regularizationを強くするか
+- Tree Depthはいくつか
+- Trainingをいつ止めるか
+- Featureを追加するか
+
+を決めます。
+
+つまりValidation Setは、
+
+**「見てよい評価Data」**
+
+です。
+
+一方でTest Setは、
+
+**「最後まで見ない評価Data」**
+
+です。
+
+![Training・Validation・Testの役割](/images/articles/train-validation-test-split/fig-01-three-roles.svg)
+
+*Trainingは学習、Validationは開発判断、Testは最後の公平な確認。それぞれ役割が違います。*
+
+## Training Set：Modelが実際に学ぶ場所
+
+Training Setは、ModelのParameter更新に直接使います。
+
+教師あり学習なら、
+
+- Input
+- Label
+
+の組を与えます。
+
+たとえば住宅価格Predictionなら、
+
+Input：
+- 面積
+- 築年数
+- 駅距離
+
+Label：
+- 実際の販売価格
+
+ModelはPredictionとLabelの差をLossとして計算し、そのLossが小さくなるようParameterを更新します。
+
+Neural Networkなら、同じTraining Setを複数Epoch繰り返し使うこともあります。
+
+つまりTraining Setは、
+
+> Modelが一番よく見るData
+
+です。
+
+だからTraining Performanceが良いこと自体は当然です。
+
+重要なのは、それだけで満足しないことです。
+
+## Validation Set：開発者が学ぶ場所
+
+Validation SetはModelではなく、ある意味**開発者が学ぶData**です。
+
+なぜなら、
+
+Validation Score  
+↓  
+設定変更  
+↓  
+再Training  
+↓  
+Validation Score  
+↓  
+また変更
+
+という流れで、開発者が設計を改善するからです。
+
+この点は非常に重要です。
+
+Training SetからはModelが学ぶ。
+
+Validation Setからは開発者が学ぶ。
+
+だからValidationを何十回、何百回も見ていれば、開発全体がValidation Setへ適応していきます。
+
+つまり、
+
+> Validation SetにもOverfittingすることがある
+
+のです。
+
+## Validation Overfittingという問題
+
+たとえば50種類のModelを試し、Validationで一番高いものだけ選んだとします。
+
+偶然Validation Setと相性がよいModelが選ばれることがあります。
+
+さらに、
+
+- Feature変更
+- Data前処理変更
+- Hyperparameter変更
+- Model構造変更
+
+をValidation結果を見ながら何度も繰り返すと、Modelだけでなく**開発プロセス全体**がValidationへ適合します。
+
+だから最後にTest Setが必要です。
+
+## Test Set：最後の封印
+
+Test Setの役割は、最後の独立評価です。
+
+Modelの設計が決まるまで触りません。
+
+理想的には、
+
+1. 問題設定
+2. Data分割
+3. Training
+4. Validationで調整
+5. Model確定
+6. **ここで初めてTest**
+7. 最終性能を報告
+
+という流れです。
+
+Test結果が悪かったからといって、そこでまたModelを調整したらどうなるでしょうか。
+
+その瞬間、そのTest Setはもう「最終評価」ではなくなります。
+
+再び開発Dataの一部になります。
+
+だからTest Setは、**最後の封印**として扱う必要があります。
+
+![Test Setを何度も見ると「本番試験」ではなくなる](/images/articles/train-validation-test-split/fig-02-test-contamination.svg)
+
+*Test結果を見て何度も設計変更すると、Test Setの情報が開発へ流れ込み、公平な最終評価ではなくなります。*
+
+## 典型的な開発フロー
+
+実務では次のように進めます。
+
+### Step 1：最初にDataを分ける
+
+Train / Validation / Testを作る。
+
+### Step 2：Training Setで学習
+
+Parameterを更新する。
+
+### Step 3：Validation Setで比較
+
+Model・Hyperparameter・Feature・前処理を調整。
+
+### Step 4：開発を繰り返す
+
+TrainingとValidationを何度も回す。
+
+### Step 5：設計を固定
+
+「もうこれ以上変えない」と決める。
+
+### Step 6：Test Setを開く
+
+最終性能を一度確認。
+
+この順番は、
+
+**Model開発と性能評価を分離するための仕組み**
+
+です。
+
+## 70:15:15は絶対ルールではない
+
+Train / Validation / Testの比率として、
+
+- 70 / 15 / 15
+- 80 / 10 / 10
+
+などを見かけます。
+
+しかし固定ルールではありません。
+
+重要なのは割合ではなく、
+
+> **それぞれの役割を果たすために十分なDataがあるか**
+
+です。
+
+### Dataが1000件しかない場合
+
+Test 100件では評価が不安定かもしれません。
+
+### Dataが1億件ある場合
+
+Test 1%でも100万件あります。
+
+十分すぎるかもしれません。
+
+だから割合だけ暗記するのではなく、
+
+- Total Data量
+- Taskの難しさ
+- Class Balance
+- 欲しい評価精度
+
+を考えます。
+
+## Dataが少ないときはCross Validation
+
+Dataが少ないと、
+
+> Validation用にDataを取っておくのがもったいない
+
+という問題が起きます。
+
+そこで使われるのがCross Validationです。
+
+たとえば5-fold Cross Validationなら、
+
+Dataを5つに分けて、
+
+- 4つでTraining
+- 1つでValidation
+
+を5回繰り返します。
+
+毎回Validation役を交代させます。
+
+これによって、
+
+> 一回のData分割の偶然
+
+へ依存しにくい評価ができます。
+
+ただし計算回数は増えます。
+
+## 時系列Dataではランダム分割が危険
+
+ここまではDataをランダムに分ける話でした。
+
+しかし時系列Dataでは、それが危険なことがあります。
+
+例：
+
+2023年：Training  
+2024年：Validation  
+2025年：Test
+
+なら自然です。
+
+しかしランダム分割で、
+
+- 2025年DataがTraining
+- 2023年DataがTest
+
+に入ったらどうでしょう。
+
+Modelは未来の情報を見て、過去をPredictionすることになります。
+
+実際の運用ではそんなことはできません。
+
+だから売上予測・故障予測・金融・需要予測などでは、
+
+**時間の順序を守って分割する**
+
+必要があります。
+
+![時系列Dataは「過去→未来」の順番を守って分ける](/images/articles/train-validation-test-split/fig-03-time-series.svg)
+
+*未来DataをTrainingへ混ぜると、実運用では使えない情報を先に見た評価になってしまいます。*
+
+## Data Leakage：答えがこっそり混ざる事故
+
+Data分割で最も危険な問題の一つがData Leakageです。
+
+Leakageとは、
+
+> 本来Prediction時には使えない情報がTrainingやEvaluationへ入ること
+
+です。
+
+### 医療Predictionの例
+
+病気を診断前に予測したいModel。
+
+Featureに、
+
+- 年齢
+- 症状
+- 血液検査
+
+を使うのは自然です。
+
+しかし、
+
+- 診断後に処方された薬
+
+までFeatureへ入れたらどうでしょう。
+
+その薬は、医師が病気を診断したあとに処方したものかもしれません。
+
+つまり、
+
+> 答えを知った後の情報
+
+をModelが使っています。
+
+Scoreは非常に高くなるかもしれません。
+
+でも現場ではPrediction時点にその情報はありません。
+
+![Data Leakage：答えを知った後の情報が混ざる](/images/articles/train-validation-test-split/fig-04-data-leakage.svg)
+
+*Leakageがあると「賢いModel」に見えても、実運用では同じ情報を使えず性能が崩れます。*
+
+## Preprocessing Leakageにも注意
+
+LeakageはFeatureだけではありません。
+
+Data前処理でも起きます。
+
+たとえば全Dataの平均値を計算してStandardizationしたあとでTrain / Testに分けると、
+
+Test Setの情報が平均値計算へ入っています。
+
+正しい流れは、
+
+1. Train Dataだけで平均・標準偏差を計算
+2. その値でTrainを変換
+3. 同じ値でValidation / Testを変換
+
+です。
+
+つまり、
+
+> Data Splitは前処理より先に考える
+
+必要があります。
+
+## Duplicate Leakage：同じ問題が別名で入っている
+
+もう一つ厄介なのが重複Dataです。
+
+Trainingにある画像とほぼ同じ画像がTestにも入っていたら、
+
+Modelが本当にGeneralizeしたのか分かりません。
+
+文章でも、
+
+- 同じ記事の転載
+- 少しだけ編集した文章
+- 同じQuestionの言い換え
+
+がTrainとTestに混ざることがあります。
+
+生成AIのBenchmarkでも重要な問題です。
+
+## LLMではData Contaminationが大問題になる
+
+Large Language Modelは非常に大量のWeb DataをTrainingします。
+
+するとBenchmark問題や解答がTraining Dataへ混ざっている可能性があります。
+
+Modelが高Scoreを取ったとき、
+
+> 本当にReasoningして解いたのか  
+> Trainingで見た問題を覚えていたのか
+
+区別が難しくなります。
+
+この問題はData Contaminationと呼ばれます。
+
+Train / Test分離は、巨大Model時代でもまったく古くなっていません。
+
+むしろDataが巨大になるほど難しくなっています。
+
+## Test Setは「現実世界の代理人」
+
+Test Setはただの余りDataではありません。
+
+役割は、
+
+> **未来の実運用をできるだけ再現すること**
+
+です。
+
+自動運転なら、
+
+- 昼
+- 夜
+- 雨
+- 雪
+- 都市
+- 郊外
+
+が現場にあるなら、Testでもそれを反映する必要があります。
+
+昼の晴天画像ばかりでTestして、
+
+> Accuracy 99%
+
+と言っても、夜の雨で失敗するなら意味がありません。
+
+評価Dataは、
+
+**Modelを採点するだけでなく、現実世界を代表する設計**
+
+です。
+
+## Distribution Shiftも考える
+
+Test Setを正しく作っても、時間が経てば現実は変わります。
+
+- User行動が変わる
+- 商品が変わる
+- Cameraが変わる
+- Sensorが交換される
+- 社会状況が変わる
+
+するとTraining時のDistributionと実運用のDistributionが変わります。
+
+だからProductionでは、
+
+- Monitoring
+- 定期再評価
+- 新しいTest Data
+- 再Training
+
+が必要です。
+
+一度Testで合格したから永遠に安全、ではありません。
+
+## Test Accuracyだけ見ればよいのか
+
+Test Setが正しくても、Metricの選び方を間違えると判断を誤ります。
+
+不良率1%のLineで、
+
+全部「正常」と答えるModel。
+
+Accuracyは99%。
+
+しかし不良を一件も発見していません。
+
+だから、
+
+- Precision
+- Recall
+- F1
+- False Positive
+- False Negative
+
+など、Taskに合ったMetricが必要です。
+
+**公平なData + 適切なMetric**
+
+の両方が必要です。
+
+## 人間の開発でも「本番を見すぎる」と起こる
+
+この考え方はAIだけではありません。
+
+Software開発でも、
+
+- Benchmarkへ最適化しすぎる
+- Competition Leaderboardを見すぎる
+- 同じUser Testだけ繰り返す
+
+と、その評価環境へ適応します。
+
+評価Dataを分けるという考え方は、
+
+> **自分たちの改善が本当にGeneralizeしているかを疑う仕組み**
+
+でもあります。
+
+## 3つの役割を一言で覚えるなら
+
+Training：
+**Modelが学ぶ**
+
+Validation：
+**開発者が学ぶ**
+
+Test：
+**誰も学ばない状態で、最後に測る**
+
+この3行が最も本質に近いです。
+
+## よくある誤解
+
+### 「Test Setは何度見てもいい」
+
+だめです。
+
+Test結果を見て設計変更すれば、そのTestは開発Dataになります。
+
+### 「Validationは完全に未知Data」
+
+開発者が何度も見ているので、完全には未知ではありません。
+
+### 「Split比率は70:15:15が正解」
+
+固定ではありません。
+
+役割を果たせるSample Sizeが重要です。
+
+### 「Random Splitすればいつでも安全」
+
+時系列・同一User・同一装置・同一患者など、Data構造によってはGroupやTimeを考慮する必要があります。
+
+### 「Test Scoreが高ければProductionでも大丈夫」
+
+Testが実運用Distributionを代表しているか確認する必要があります。
+
+## まとめ：なぜ3つに分けるのか
+
+Machine Learning開発で一番怖いのは、
+
+> 自分たちがModelを改善しているつもりで、評価問題に慣れているだけ
+
+という状態です。
+
+最初はTraining Dataで評価して失敗した。
+
+そこでTestを分けた。
+
+しかしTestを見ながら改善すると、そのTestにも適応してしまった。
+
+そこでValidationを作り、
+
+- TrainingでModelを学ばせる
+- Validationで開発判断する
+- Testは最後まで温存する
+
+という3役が必要になりました。
+
+Training / Validation / Testは、単なるData整理ではありません。
+
+**「自分たちは本当に未知の世界で通用するModelを作れているのか？」**
+
+を自分たち自身に問い続けるための仕組みです。
 
 ## 次に読む
 
-- **ハイパーパラメータとは？** — Validation Setを使って何を調整するのか（準備中）
-- **ディープラーニングとは？** — 大規模モデルでもデータ分割が必要な理由（準備中）
+- **ハイパーパラメータとは？** — Validation Setを見ながら何を調整しているのか（準備中）
+- **AIに必要な確率の基礎** — 評価値や不確実性をどう読むか（準備中）
+- **ディープラーニングとは？** — 巨大ModelでもTraining / Validation / Testの原則はなぜ変わらないのか（準備中）
+- **過学習とは？** — 「練習問題を覚えたAI」がなぜ生まれるのか（Core Curriculum後続）
 
 ## 参考資料
 
 - [Google - Datasets: Dividing the original dataset](https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets)
-- [Google - Datasets, generalization, and overfitting](https://developers.google.com/machine-learning/crash-course/overfitting)
+- [Google - Datasets, Generalization, and Overfitting](https://developers.google.com/machine-learning/crash-course/overfitting)
+- [Google - Machine Learning Glossary](https://developers.google.com/machine-learning/glossary/)
 - [Deep Learning Book - Machine Learning Basics](https://www.deeplearningbook.org/contents/ml.html)
