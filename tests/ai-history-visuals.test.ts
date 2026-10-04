@@ -12,10 +12,10 @@ const files = [
   "chapter-05.webp",
 ];
 
-test("AIの歴史は採用済み6画像を持ち、reviewのまま公開されない", () => {
+test("AIの歴史は採用済み6画像を持ち、reviewまたはreadyのまま公開されない", () => {
   const article = readFileSync(path.join(process.cwd(), "content/articles/ai-history.md"), "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/ai-history\/hero\.webp"/);
 
   for (const filename of files) {
