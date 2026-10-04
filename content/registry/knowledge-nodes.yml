@@ -22,7 +22,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "機械学習はルールを直接書くプログラムと何が違うのか？"
     prerequisites: ["BAS-0001"]
     children: ["BAS-0003","BAS-0005","BAS-0006","BAS-0007"]
