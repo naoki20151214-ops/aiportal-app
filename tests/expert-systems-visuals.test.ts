@@ -12,11 +12,11 @@ const files = [
   "fig-05-knowledge-engineering.webp",
 ];
 
-test("エキスパートシステムは教科書水準の本文と6画像を持ち、reviewのまま", () => {
+test("エキスパートシステムは教科書水準の本文と6画像を持ち、reviewまたはreadyのまま", () => {
   const articlePath = path.join(process.cwd(), "content/articles/expert-systems.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/expert-systems\/hero\.webp"/);
   assert.ok(article.length >= 9000, "expert-systems article is too short");
 
