@@ -111,6 +111,10 @@ Training Dataは、Population全体の一部です。
 
 が非常に重要です。
 
+![母集団と標本：手元のDataは現実世界の一部](/images/articles/statistical-machine-learning/fig-02-basic-concept.svg)
+
+*Training DataはPopulation全体ではなく、その一部を切り取ったSampleです。Sampleに偏りがあれば、Modelにも偏りが入ります。*
+
 ## Distributionとは何か
 
 Distribution（分布）は、Dataがどの値・状態・カテゴリにどれくらい存在するかを表します。
@@ -327,6 +331,10 @@ Generalization Errorは、未知Dataに対する誤差です。
 
 詳しくは「訓練・検証・テストデータの違い」で扱います。
 
+![BiasとVariance：ずれとばらつきの違い](/images/articles/statistical-machine-learning/fig-05-methods.svg)
+
+*Biasが大きいと同じ方向へ外れ、Varianceが大きいとTraining Dataの違いで予測が大きく揺れます。*
+
 ## BiasとVariance
 
 Modelの失敗を理解する代表的な考え方に、BiasとVarianceがあります。
@@ -382,10 +390,6 @@ Modelを複雑にすると、
 わけではありません。
 
 未知Dataで最も良い性能になるバランスを探します。
-
-![統計的機械学習で使われる代表的なModel](/images/articles/statistical-machine-learning/fig-05-methods.svg)
-
-*Linear Regression、Logistic Regression、Decision Tree、SVM、k-NNなど、問題に応じて異なるHypothesis Spaceを使います。*
 
 ## Hypothesis Spaceとは何か
 
@@ -648,10 +652,6 @@ Large Language Modelでも、
 Benchmark問題がTraining Dataへ混ざっていれば、高Scoreでも「本当に未知問題を解けた」とは言えません。
 
 統計的な評価視点は、生成AIにもそのまま必要です。
-
-![統計的機械学習の基本イメージ：Data・Model・Prediction](/images/articles/statistical-machine-learning/fig-02-basic-concept.svg)
-
-*実務では「どのDataを使い、どのModelで学び、未知DataへどうPredictionするか」を一貫して設計します。*
 
 ## 実務で重要な6つの問い
 
