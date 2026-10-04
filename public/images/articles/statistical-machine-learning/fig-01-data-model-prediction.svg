@@ -1,3 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="500 80 510 375" role="img" aria-label="DataからModel、Predictionへ">
-  <image href="/images/articles/statistical-machine-learning/master.webp" x="0" y="0" width="1024" height="1536" preserveAspectRatio="xMidYMid meet"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="DataからModel、Predictionへ">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9fcff"/><stop offset="1" stop-color="#e5f5ff"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="7" stdDeviation="12" flood-color="#4c91c9" flood-opacity=".18"/></filter></defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<text x="600" y="72" text-anchor="middle" font-size="46" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Data → Model → Prediction</text>
+<text x="600" y="116" text-anchor="middle" font-size="22" fill="#547899" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">統計的機械学習の基本フロー</text>
+<g filter="url(#s)">
+<rect x="70" y="178" width="295" height="365" rx="34" fill="#fff"/>
+<rect x="452" y="178" width="295" height="365" rx="34" fill="#fff"/>
+<rect x="835" y="178" width="295" height="365" rx="34" fill="#fff"/>
+</g>
+<text x="218" y="230" text-anchor="middle" font-size="31" font-weight="800" fill="#1a6fbd" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Data</text>
+<text x="600" y="230" text-anchor="middle" font-size="31" font-weight="800" fill="#1a6fbd" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Model</text>
+<text x="982" y="230" text-anchor="middle" font-size="31" font-weight="800" fill="#1a6fbd" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Prediction</text>
+<g fill="#39a9e7">
+<circle cx="115" cy="310" r="8"/><circle cx="146" cy="327" r="8"/><circle cx="177" cy="325" r="8"/><circle cx="208" cy="323" r="8"/><circle cx="239" cy="321" r="8"/><circle cx="270" cy="319" r="8"/><circle cx="301" cy="317" r="8"/><circle cx="115" cy="357" r="8"/><circle cx="146" cy="355" r="8"/><circle cx="177" cy="353" r="8"/><circle cx="208" cy="370" r="8"/><circle cx="239" cy="368" r="8"/><circle cx="270" cy="366" r="8"/><circle cx="301" cy="364" r="8"/><circle cx="115" cy="404" r="8"/><circle cx="146" cy="402" r="8"/><circle cx="177" cy="400" r="8"/><circle cx="208" cy="398" r="8"/><circle cx="239" cy="396" r="8"/><circle cx="270" cy="394" r="8"/><circle cx="301" cy="411" r="8"/><circle cx="115" cy="451" r="8"/><circle cx="146" cy="449" r="8"/><circle cx="177" cy="447" r="8"/><circle cx="208" cy="445" r="8"/><circle cx="239" cy="443" r="8"/><circle cx="270" cy="441" r="8"/><circle cx="301" cy="439" r="8"/>
+</g>
+<text x="218" y="493" text-anchor="middle" font-size="19" fill="#607d98" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">観測されたSample</text>
+<rect x="525" y="310" width="150" height="115" rx="22" fill="#e8f5ff" stroke="#4fa9de" stroke-width="4"/>
+<circle cx="575" cy="360" r="26" fill="#2f86d7"/><circle cx="625" cy="380" r="19" fill="#21b7d6"/>
+<path d="M575 320 V297 M575 423 V446 M535 360 H512 M638 380 H662" stroke="#6ba9d0" stroke-width="6"/>
+<text x="600" y="493" text-anchor="middle" font-size="19" fill="#607d98" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">規則性をParameterへ</text>
+<g transform="translate(885 300)">
+  <path d="M0 155 C55 148 105 116 178 48" fill="none" stroke="#ff9c2d" stroke-width="8"/>
+  <g fill="#36a9e7"><circle cx="12" cy="150" r="7"/><circle cx="37" cy="132" r="7"/><circle cx="64" cy="138" r="7"/><circle cx="91" cy="108" r="7"/><circle cx="118" cy="92" r="7"/><circle cx="146" cy="75" r="7"/><circle cx="173" cy="54" r="7"/></g>
+</g>
+<text x="982" y="493" text-anchor="middle" font-size="19" fill="#607d98" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">未知Dataへ適用</text>
+<path d="M372 360 L438 360" stroke="#37a8e8" stroke-width="8"/><path d="M425 344 L447 360 L425 376" fill="none" stroke="#37a8e8" stroke-width="8"/>
+<path d="M754 360 L820 360" stroke="#37a8e8" stroke-width="8"/><path d="M807 344 L829 360 L807 376" fill="none" stroke="#37a8e8" stroke-width="8"/>
+<text x="600" y="611" text-anchor="middle" font-size="23" font-weight="700" fill="#355f87" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">学習の目的は「Dataを覚えること」ではなく、未知Dataにも通用するModelを作ること。</text>
 </svg>
