@@ -6,7 +6,7 @@ description: "統計的機械学習とは何かを、母集団と標本、確率
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
