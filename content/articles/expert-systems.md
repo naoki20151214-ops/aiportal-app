@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/expert-systems/hero.svg"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["エキスパートシステム", "知識ベース", "ルールベース", "シンボリックAI", "AI史"]
 ---
 
@@ -19,10 +19,6 @@ tags: ["エキスパートシステム", "知識ベース", "ルールベース"
 生成AIが広く使われる現在では古い技術に見えるかもしれません。しかし、**知識を明示的に表現し、ルールに基づいて推論する**という設計は、現代の業務システムやAIガバナンスにもつながっています。
 
 前提として、[シンボリックAIとは？](/articles/symbolic-ai)を読むと理解しやすくなります。
-
-![エキスパートシステムは専門家の知識を再利用するAI](/images/articles/expert-systems/hero.svg)
-
-*エキスパートシステムは専門家の知識を再利用するAI。*
 
 ## 最初に結論：専門知識を「知識ベース」と「推論」に分けたAI
 
@@ -45,10 +41,6 @@ tags: ["エキスパートシステム", "知識ベース", "ルールベース"
 
 Stanford HAIは、エキスパートシステムを特定領域の人間専門家の判断を模倣するAIとして説明しています。
 
-![知識ベースと推論エンジンを分けて管理する](/images/articles/expert-systems/fig-1.svg)
-
-*知識ベースと推論エンジンを分けて管理する。*
-
 ## 具体例：設備故障の診断
 
 工場設備の故障診断を例にします。
@@ -69,10 +61,6 @@ Stanford HAIは、エキスパートシステムを特定領域の人間専門�
 
 多数のルールを知識ベースへ蓄積し、入力された症状に応じて推論エンジンが適用します。
 
-![症状を確認し、ルールを照合して原因候補へ進む](/images/articles/expert-systems/fig-2.svg)
-
-*症状を確認し、ルールを照合して原因候補へ進む。*
-
 ## Knowledge Baseとは何か
 
 Knowledge Baseは、システムが対象分野について持つ知識の集合です。
@@ -90,10 +78,6 @@ Knowledge Baseは、システムが対象分野について持つ知識の集合
 重要なのは、知識が**人間が読める形で明示される**ことです。
 
 ニューラルネットワークの重みに埋め込まれた知識とは性質が異なります。
-
-![Forward ChainingとBackward Chainingでは推論方向が異なる](/images/articles/expert-systems/fig-3.svg)
-
-*Forward ChainingとBackward Chainingでは推論方向が異なる。*
 
 ## Inference Engineとは何か
 
@@ -136,10 +120,6 @@ MYCINのようなシステムでは、
 - なぜその助言になったか説明できるか
 
 といった問題が研究対象になりました。
-
-![説明しやすさと保守コストのトレードオフ](/images/articles/expert-systems/fig-4.svg)
-
-*説明しやすさと保守コストのトレードオフ。*
 
 ## エキスパートシステムの強み
 
@@ -193,10 +173,6 @@ MYCINのようなシステムでは、
 ただし現実のシステムでは、どちらか一方だけに限定する必要はありません。
 
 画像認識は機械学習、最終判定条件はルールベース、という組み合わせも可能です。
-
-![専門知識・根拠・外部ルール管理という教訓は今も残る](/images/articles/expert-systems/fig-5.svg)
-
-*専門知識・根拠・外部ルール管理という教訓は今も残る。*
 
 ## 生成AI時代に何を学べるか
 

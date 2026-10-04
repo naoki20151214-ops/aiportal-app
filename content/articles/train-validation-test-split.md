@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/train-validation-test-split/hero.svg"
+thumbnail: "/images/article-placeholder.svg"
 tags: ["訓練データ", "検証データ", "テストデータ", "機械学習", "過学習"]
 ---
 
@@ -21,10 +21,6 @@ tags: ["訓練データ", "検証データ", "テストデータ", "機械学習
 理由は、学習に使った問題だけを解けるモデルではなく、**まだ見たことのないデータでも使えるモデルか確認するため**です。
 
 前提として、[機械学習とは？](/articles/what-is-machine-learning)を読んでおくと理解しやすくなります。
-
-![学ぶ・調整する・最後に確認するデータを分ける](/images/articles/train-validation-test-split/hero.svg)
-
-*学ぶ・調整する・最後に確認するデータを分ける。*
 
 ## 最初に結論：学ぶデータ、調整するデータ、最後に確認するデータを分ける
 
@@ -37,10 +33,6 @@ tags: ["訓練データ", "検証データ", "テストデータ", "機械学習
 GoogleのMachine Learning Crash Courseでも、訓練・検証・テストの3分割が説明されています。
 
 ポイントは、**テストデータを最後まで温存すること**です。
-
-![Training・Validation・Testは役割が異なる](/images/articles/train-validation-test-split/fig-1.svg)
-
-*Training・Validation・Testは役割が異なる。*
 
 ## Training Set：モデルが学ぶ教材
 
@@ -77,10 +69,6 @@ Validation Setは、訓練中・開発中のモデルを評価するために使
 Validation結果を見て設定を変更すると、その時点で人間はValidation Setの情報をモデル開発に使っています。
 
 したがってValidation Setは、完全に未知のデータではなくなっていきます。
-
-![練習問題・模試・本番試験にたとえると理解しやすい](/images/articles/train-validation-test-split/fig-2.svg)
-
-*練習問題・模試・本番試験にたとえると理解しやすい。*
 
 ## Test Set：最後の試験
 
@@ -119,10 +107,6 @@ Googleの教材でも、同じTest Setを何度もモデル調整に使うと、
 
 そこでValidation Setを別に用意します。
 
-![開発判断と最終評価を分離する](/images/articles/train-validation-test-split/fig-3.svg)
-
-*開発判断と最終評価を分離する。*
-
 ## 典型的な流れ
 
 機械学習開発では次のように進めます。
@@ -148,10 +132,6 @@ Googleの教材では説明例として70% / 15% / 15%の図が使われてい�
 
 重要なのは割合そのものではなく、**各データセットが役割を果たせるだけの量と代表性を持つこと**です。
 
-![時系列では過去から未来へ順番を守って分割する](/images/articles/train-validation-test-split/fig-5.svg)
-
-*時系列では過去から未来へ順番を守って分割する。*
-
 ## 時系列データはランダム分割に注意
 
 売上予測や設備故障予測など、時間に依存する問題では単純なランダム分割が危険です。
@@ -165,10 +145,6 @@ Googleの教材では説明例として70% / 15% / 15%の図が使われてい�
 さらに未来 → Test
 
 のように時間順に分けることがあります。
-
-![未来情報や重複が混ざると見かけの精度が高くなる](/images/articles/train-validation-test-split/fig-4.svg)
-
-*未来情報や重複が混ざると見かけの精度が高くなる。*
 
 ## Data Leakageとは何か
 
