@@ -1,3 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 55 1024 420" role="img" aria-label="統計的機械学習とは？">
-  <image href="/images/articles/statistical-machine-learning/master.webp" x="0" y="0" width="1024" height="1536" preserveAspectRatio="xMidYMid meet"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="統計的機械学習とは？">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbff"/><stop offset=".55" stop-color="#e7f5ff"/><stop offset="1" stop-color="#d9eeff"/></linearGradient>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#082c63"/><stop offset="1" stop-color="#0b5fa8"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#6aa8d7" flood-opacity=".22"/></filter>
+  <filter id="glow"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<circle cx="1080" cy="90" r="180" fill="#fff" opacity=".65"/><circle cx="1120" cy="620" r="210" fill="#bde9ff" opacity=".42"/>
+<text x="72" y="78" font-size="24" font-weight="700" fill="#1779d3" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">AI Portal｜AI基礎・技術</text>
+<text x="72" y="160" font-size="62" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">統計的機械学習とは？</text>
+<text x="72" y="214" font-size="31" font-weight="700" fill="#245b93" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">限られたDataから、未知の世界へ一般化する</text>
+<text x="72" y="270" font-size="22" fill="#4d7397" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Sampleのばらつき・Probability・Model・Generalizationをつないで考える。</text>
+<g transform="translate(70 330)" filter="url(#shadow)">
+  <rect width="480" height="235" rx="32" fill="#fff" opacity=".95"/>
+  <text x="34" y="48" font-size="22" font-weight="700" fill="#2d6ba5" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">OBSERVED SAMPLE</text>
+  <g fill="#37a8e8" opacity=".9">
+    <circle cx="70" cy="165" r="8"/><circle cx="103" cy="148" r="8"/><circle cx="137" cy="172" r="8"/><circle cx="170" cy="132" r="8"/>
+    <circle cx="205" cy="145" r="8"/><circle cx="238" cy="110" r="8"/><circle cx="270" cy="124" r="8"/><circle cx="305" cy="92" r="8"/>
+    <circle cx="338" cy="105" r="8"/><circle cx="370" cy="74" r="8"/><circle cx="402" cy="88" r="8"/>
+  </g>
+  <path d="M52 186 C150 176 250 130 420 65" fill="none" stroke="#ff9d2e" stroke-width="8" stroke-linecap="round"/>
+  <text x="320" y="205" font-size="18" fill="#63809e" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Data → Pattern</text>
+</g>
+<g transform="translate(610 322)">
+  <rect x="0" y="0" width="515" height="260" rx="36" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="38" y="52" font-size="22" font-weight="700" fill="#7edcff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">GENERALIZATION</text>
+  <text x="38" y="104" font-size="30" font-weight="800" fill="#fff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Sampleで学び、未知Dataへ使う</text>
+  <path d="M42 186 L165 186" stroke="#64cdf2" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="110" cy="186" r="40" fill="#fff" opacity=".12"/><text x="110" y="194" text-anchor="middle" font-size="21" font-weight="700" fill="#fff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Sample</text>
+  <path d="M170 186 L285 186" stroke="#64cdf2" stroke-width="6"/><path d="M274 170 L296 186 L274 202" fill="none" stroke="#64cdf2" stroke-width="6"/>
+  <circle cx="345" cy="186" r="48" fill="#fff" opacity=".14"/><text x="345" y="194" text-anchor="middle" font-size="21" font-weight="700" fill="#fff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Model</text>
+  <path d="M398 186 L468 186" stroke="#64cdf2" stroke-width="6"/><path d="M457 170 L479 186 L457 202" fill="none" stroke="#64cdf2" stroke-width="6"/>
+  <circle cx="483" cy="186" r="13" fill="#7edcff"/>
+</g>
+<text x="600" y="638" text-anchor="middle" font-size="21" font-weight="700" fill="#315f89" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Training Dataに当たるだけでは足りない。未知Dataへ通用して初めて価値がある。</text>
 </svg>
