@@ -20,7 +20,7 @@ test("訓練・検証・テスト記事はストーリー型本文と6画像を�
   assert.match(article, /thumbnail: "\/images\/articles\/train-validation-test-split\/hero\.svg"/);
   assert.ok(article.length >= 10000, "train/validation/test article is too short");
   assert.match(article, /練習問題では満点/);
-  assert.match(article, /Test Setは、最後の封印/);
+  assert.match(article, /Test Set：最後の封印/);
 
   for (const filename of files) {
     const asset = path.join(process.cwd(), "public/images/articles/train-validation-test-split", filename);
