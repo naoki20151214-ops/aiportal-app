@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/article-placeholder.svg"
+thumbnail: "/images/articles/statistical-machine-learning/hero.svg"
 tags: ["統計的機械学習", "機械学習", "統計", "確率", "一般化", "Bias Variance", "AI基礎"]
 ---
 
@@ -27,6 +27,10 @@ tags: ["統計的機械学習", "機械学習", "統計", "確率", "一般化",
 これは、機械学習を「手元のデータへ当てはめる作業」から「現実世界で使える予測へつなげる作業」へ変える視点です。
 
 前提として、[機械学習とは？](/articles/what-is-machine-learning)を読んでおくと理解しやすくなります。
+
+![統計的機械学習とは？Dataから未知の未来を予測する考え方](/images/articles/statistical-machine-learning/hero.svg)
+
+*統計的機械学習は、手元のDataへ当てはめるだけでなく、未知DataへGeneralizeすることを目指します。*
 
 ## 最初に結論：統計的機械学習は「未知データに通用する規則性」を探す
 
@@ -150,6 +154,10 @@ Distribution（分布）は、Dataがどの値・状態・カテゴリにどれ�
 
 現実には完全なIIDにならないことも多いですが、この考え方がTraining / Validation / Testを分ける理論的な土台の一つになります。
 
+![DataからModelを作り、Predictionへつなぐ流れ](/images/articles/statistical-machine-learning/fig-01-data-model-prediction.svg)
+
+*Dataから規則性を学び、Modelとして表現し、未知の入力へPredictionするのが基本です。*
+
 ## Modelは何をしているのか
 
 統計的機械学習では、ModelはDataの背後にある規則性を近似します。
@@ -176,6 +184,10 @@ Distribution（分布）は、Dataがどの値・状態・カテゴリにどれ�
 などがあるからです。
 
 Modelは、こうしたばらつきを含むDataから、**予測に役立つ関係を推定**します。
+
+![確率・統計・Model・Optimizationの関係](/images/articles/statistical-machine-learning/fig-03-probability-statistics-optimization.svg)
+
+*統計的機械学習は、Dataのばらつきを確率・統計で扱い、ModelをOptimizationして未知Dataへ使います。*
 
 ## なぜ「統計的」なのか
 
@@ -241,6 +253,10 @@ P(Y = 1 | 顧客情報)
 - Regularization
 
 が重要になります。
+
+![ModelがDataへFitしながら未知DataへGeneralizeするイメージ](/images/articles/statistical-machine-learning/fig-04-model-fit-generalization.svg)
+
+*Training Dataへ合わせることと、未知DataへGeneralizeすることは同じではありません。*
 
 ## Training Errorだけを見てはいけない
 
@@ -366,6 +382,10 @@ Modelを複雑にすると、
 わけではありません。
 
 未知Dataで最も良い性能になるバランスを探します。
+
+![統計的機械学習で使われる代表的なModel](/images/articles/statistical-machine-learning/fig-05-methods.svg)
+
+*Linear Regression、Logistic Regression、Decision Tree、SVM、k-NNなど、問題に応じて異なるHypothesis Spaceを使います。*
 
 ## Hypothesis Spaceとは何か
 
@@ -628,6 +648,10 @@ Large Language Modelでも、
 Benchmark問題がTraining Dataへ混ざっていれば、高Scoreでも「本当に未知問題を解けた」とは言えません。
 
 統計的な評価視点は、生成AIにもそのまま必要です。
+
+![統計的機械学習の基本イメージ：Data・Model・Prediction](/images/articles/statistical-machine-learning/fig-02-basic-concept.svg)
+
+*実務では「どのDataを使い、どのModelで学び、未知DataへどうPredictionするか」を一貫して設計します。*
 
 ## 実務で重要な6つの問い
 
