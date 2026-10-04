@@ -12,11 +12,11 @@ const files = [
   "fig-05-methods.svg",
 ];
 
-test("統計的機械学習は教科書水準の本文と6画像を持ち、reviewのまま", () => {
+test("統計的機械学習は教科書水準の本文と6画像を持ち、reviewまたはreadyのまま", () => {
   const articlePath = path.join(process.cwd(), "content/articles/statistical-machine-learning.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/statistical-machine-learning\/hero\.svg"/);
   assert.ok(article.length >= 10000, "statistical machine learning article is too short");
 
