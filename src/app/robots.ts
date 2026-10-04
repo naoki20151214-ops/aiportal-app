@@ -4,6 +4,7 @@ import { absoluteUrl } from "@/lib/site";
 export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
+  // Preview branches are for human review only and must not be indexed.
   const isPreview = process.env.CF_PAGES_BRANCH?.startsWith("preview/") ?? false;
   return isPreview
     ? { rules: { userAgent: "*", disallow: "/" } }
