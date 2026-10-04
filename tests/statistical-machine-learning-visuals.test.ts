@@ -4,7 +4,6 @@ import path from "node:path";
 import { test } from "node:test";
 
 const files = [
-  "master.webp",
   "hero.svg",
   "fig-01-data-model-prediction.svg",
   "fig-02-basic-concept.svg",
@@ -24,14 +23,13 @@ test("統計的機械学習は教科書水準の本文と6画像を持ち、revi
   for (const filename of files) {
     const asset = path.join(process.cwd(), "public/images/articles/statistical-machine-learning", filename);
     assert.ok(existsSync(asset), `missing statistical ML visual: ${filename}`);
-    if (filename === "master.webp") {
-      assert.ok(statSync(asset).size > 100_000, "master visual unexpectedly small");
-    } else {
-      assert.match(readFileSync(asset, "utf8"), /master\.webp/);
-    }
+    assert.ok(statSync(asset).size > 1_000, `visual unexpectedly small: ${filename}`);
+    const svg = readFileSync(asset, "utf8");
+    assert.match(svg, /<svg/);
+    assert.doesNotMatch(svg, /master\.webp/);
   }
 
-  for (const filename of files.filter((name) => name !== "master.webp")) {
+  for (const filename of files) {
     assert.match(
       article,
       new RegExp(`/images/articles/statistical-machine-learning/${filename.replace(".", "\\.")}`),
