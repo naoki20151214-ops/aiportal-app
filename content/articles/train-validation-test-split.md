@@ -622,6 +622,10 @@ Train / Test分離は、巨大Model時代でもまったく古くなっていま
 
 むしろDataが巨大になるほど難しくなっています。
 
+![Test Setは現実世界の代理人](/images/articles/train-validation-test-split/fig-05-real-world.svg)
+
+*Test Setは余ったDataではありません。Productionで出会う昼・夜・雨・特殊条件まで、現実をどれだけ代表できるかが重要です。*
+
 ## Test Setは「現実世界の代理人」
 
 Test Setはただの余りDataではありません。
