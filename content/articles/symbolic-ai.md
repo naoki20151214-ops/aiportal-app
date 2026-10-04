@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
-thumbnail: "/images/article-placeholder.svg"
+thumbnail: "/images/articles/symbolic-ai/hero.webp"
 tags: ["シンボリックAI", "記号AI", "知識表現", "論理", "ルールベース", "AI基礎"]
 ---
 
@@ -31,6 +31,10 @@ tags: ["シンボリックAI", "記号AI", "知識表現", "論理", "ルール�
 この記事では、シンボリックAIとは何かを、**知識表現 → 推論 → 探索 → 機械学習との違い → 現代AIでの使われ方**という順番で整理します。
 
 前提として、[AIとは何か？](/articles/what-is-ai)と[AIの歴史](/articles/ai-history)を読んでおくと位置づけが分かりやすくなります。
+
+![シンボリックAIとエキスパートシステムの全体像](/images/articles/symbolic-ai/hero.webp)
+
+*シンボリックAIは、人の知識を記号・ルール・論理として表し、推論に使うAIの大きな系統です。*
 
 ## 最初に結論：シンボリックAIは「知識を明示し、その知識を使って考えるAI」
 
@@ -63,6 +67,10 @@ tags: ["シンボリックAI", "記号AI", "知識表現", "論理", "ルール�
 シンボリックAIでは、知識が大量の数値パラメータに分散して隠れるのではなく、比較的人間が読める形で表現されます。
 
 Stanford HAIの解説では、初期から発展したTraditional AIの特徴として、明示的にプログラムされたルール、論理、人間が定義した知識を利用する方式が説明されています。
+
+![知識・推論・結論というシンボリックAIの基本構造](/images/articles/symbolic-ai/fig-01-basic.webp)
+
+*知識を明示し、その知識を推論に使って結論へ進むのが基本構造です。*
 
 ## 「Symbol＝記号」とは何を意味するのか
 
@@ -99,6 +107,10 @@ Stanford HAIの解説では、初期から発展したTraditional AIの特徴と
 この分野を**Knowledge Representation（知識表現）**と呼びます。
 
 代表的な方法を見てみましょう。
+
+![シンボリックAIで使われる知識表現の例](/images/articles/symbolic-ai/fig-02-knowledge-representation.webp)
+
+*ルール、論理、意味ネットワーク、Frameなど、知識の持たせ方には複数の方法があります。*
 
 ### 1. ルール
 
@@ -209,6 +221,10 @@ THEN 呼吸器感染症を疑う**
 
 シンボリックAIでは、**判断根拠がルールとして見える**ため、「なぜこのアラームが出たのか」を追跡しやすくなります。
 
+![シンボリックAIの推論イメージ](/images/articles/symbolic-ai/fig-03-inference.webp)
+
+*事実とルールを照合しながら、確認したい結論や次の判断へ進みます。*
+
 ## Forward Chaining：分かっている事実から先へ進む
 
 推論方法の代表例がForward Chaining（前向き推論）です。
@@ -310,6 +326,10 @@ AIはこのような**状態空間**を探索し、目的に近い経路を探�
 
 この考え方はエキスパートシステムへ直接つながります。
 
+![ルールベースシステムのイメージ](/images/articles/symbolic-ai/fig-05-rule-based.webp)
+
+*熟練者の判断をKnowledge BaseとRuleへ落とし込み、再利用できる形にするのがエキスパートシステムにつながります。*
+
 ## シンボリックAIとエキスパートシステムの違い
 
 この2つは同じ意味ではありません。
@@ -333,6 +353,10 @@ AIはこのような**状態空間**を探索し、目的に近い経路を探�
 - Explanation
 
 などを組み合わせて、専門家のような助言や診断を行います。
+
+![エキスパートシステムが使われてきた分野](/images/articles/symbolic-ai/fig-04-expert-applications.webp)
+
+*医療、プラント運転支援、地質探査、故障診断など、専門知識を使う問題で発展しました。*
 
 ## 機械学習との最大の違いは「知識がどこから来るか」
 
