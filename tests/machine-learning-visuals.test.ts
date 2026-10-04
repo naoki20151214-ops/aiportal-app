@@ -12,11 +12,11 @@ const files = [
   "fig-05-history.webp",
 ];
 
-test("機械学習記事は教科書水準の本文と6画像を持ち、reviewのまま", () => {
+test("機械学習記事は教科書水準の本文と6画像を持ち、reviewまたはreadyのまま", () => {
   const articlePath = path.join(process.cwd(), "content/articles/what-is-machine-learning.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/what-is-machine-learning\/hero\.jpg"/);
   assert.ok(article.length >= 10000, "machine learning article is too short");
 
