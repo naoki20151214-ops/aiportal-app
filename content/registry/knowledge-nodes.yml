@@ -10,7 +10,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "AIとは何で、人間の知能や通常のソフトウェアと何が違うのか？"
     prerequisites: []
     children: ["BAS-0002","GEN-0001","AGT-0001","PHY-0001"]
