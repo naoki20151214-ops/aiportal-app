@@ -6,7 +6,7 @@ description: "機械学習でTraining・Validation・Testを分ける理由を�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"
