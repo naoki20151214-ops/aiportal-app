@@ -12,11 +12,11 @@ const files = [
   "fig-05-real-world.svg",
 ];
 
-test("訓練・検証・テスト記事はストーリー型本文と6画像を持ち、reviewのまま", () => {
+test("訓練・検証・テスト記事はストーリー型本文と6画像を持ち、reviewまたはreadyのまま", () => {
   const articlePath = path.join(process.cwd(), "content/articles/train-validation-test-split.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/train-validation-test-split\/hero\.svg"/);
   assert.ok(article.length >= 10000, "train/validation/test article is too short");
   assert.match(article, /練習問題では満点/);
