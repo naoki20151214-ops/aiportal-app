@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="練習では満点なのに本番で失敗するAI">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset=".55" stop-color="#eaf5ff"/><stop offset="1" stop-color="#d9edff"/></linearGradient>
+<linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b4e9a"/><stop offset="1" stop-color="#18a6da"/></linearGradient>
+<linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb37d"/><stop offset="1" stop-color="#f06d5c"/></linearGradient>
+<filter id="s"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#578fbd" flood-opacity=".22"/></filter>
+</defs>
+<rect width="1200" height="675" fill="url(#bg)"/>
+<text x="70" y="76" font-size="24" font-weight="700" fill="#1a72c0" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">AI Portal｜Machine Learning Story</text>
+<text x="70" y="154" font-size="58" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">練習問題では満点。</text>
+<text x="70" y="218" font-size="58" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">なのに本番で解けないAI。</text>
+<text x="70" y="265" font-size="25" fill="#4b7195" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">なぜTraining / Validation / Testを分ける必要が生まれたのか？</text>
+<g transform="translate(70 325)" filter="url(#s)">
+  <rect width="440" height="245" rx="34" fill="#fff"/>
+  <text x="34" y="46" font-size="21" font-weight="700" fill="#2a71b3" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">TRAINING ROOM</text>
+  <rect x="45" y="78" width="160" height="112" rx="18" fill="#ecf6ff" stroke="#6db5e5" stroke-width="3"/>
+  <text x="125" y="116" text-anchor="middle" font-size="20" font-weight="700" fill="#215d95" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">同じ問題を</text>
+  <text x="125" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#215d95" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">何度も練習</text>
+  <circle cx="300" cy="136" r="58" fill="url(#blue)"/>
+  <text x="300" y="148" text-anchor="middle" font-size="44" font-weight="900" fill="#fff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">99.8</text>
+  <text x="300" y="188" text-anchor="middle" font-size="18" fill="#5b7792" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Training Accuracy</text>
+</g>
+<g transform="translate(675 325)" filter="url(#s)">
+  <rect width="455" height="245" rx="34" fill="#fff"/>
+  <text x="34" y="46" font-size="21" font-weight="700" fill="#c45c50" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">REAL WORLD TEST</text>
+  <path d="M58 91 H207 V192 H58 Z" fill="#fff5f2" stroke="#ed9a8f" stroke-width="3"/>
+  <path d="M58 91 L132 145 L207 91" fill="none" stroke="#ed9a8f" stroke-width="3"/>
+  <circle cx="330" cy="138" r="64" fill="url(#red)"/>
+  <text x="330" y="151" text-anchor="middle" font-size="46" font-weight="900" fill="#fff" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">72</text>
+  <text x="330" y="194" text-anchor="middle" font-size="18" fill="#5b7792" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Unseen Data</text>
+</g>
+<path d="M520 448 H645" stroke="#5aa8d8" stroke-width="8" stroke-dasharray="14 12"/>
+<path d="M626 430 L651 448 L626 466" fill="none" stroke="#5aa8d8" stroke-width="8"/>
+<text x="600" y="622" text-anchor="middle" font-size="24" font-weight="700" fill="#355f87" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">「覚えた」のか、「本当に学んだ」のかを見分けるために、Dataを分ける。</text>
+</svg>

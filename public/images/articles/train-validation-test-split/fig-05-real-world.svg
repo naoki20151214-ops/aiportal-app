@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Test Setは現実世界の代理人">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#5e99c1" flood-opacity=".18"/></filter><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dff2ff"/><stop offset="1" stop-color="#bcdcff"/></linearGradient></defs>
+<rect width="1200" height="675" fill="#f8fcff"/>
+<text x="600" y="72" text-anchor="middle" font-size="46" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Test Setは「現実世界の代理人」</text>
+<text x="600" y="116" text-anchor="middle" font-size="22" fill="#557896" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">余ったDataではなく、Productionを再現するための設計対象</text>
+<g transform="translate(55 180)" filter="url(#s)">
+  <rect width="515" height="360" rx="34" fill="#fff"/>
+  <text x="258" y="50" text-anchor="middle" font-size="27" font-weight="800" fill="#1d6fb6" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">悪いTest Set</text>
+  <rect x="55" y="95" width="405" height="190" rx="22" fill="url(#sky)"/>
+  <circle cx="105" cy="135" r="28" fill="#ffd15d"/>
+  <rect x="100" y="225" width="320" height="18" rx="9" fill="#6e8799"/>
+  <rect x="165" y="185" width="155" height="48" rx="12" fill="#3d8dcc"/>
+  <circle cx="195" cy="238" r="18" fill="#294b63"/><circle cx="290" cy="238" r="18" fill="#294b63"/>
+  <text x="258" y="325" text-anchor="middle" font-size="19" fill="#647e94" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">昼・晴天ばかり</text>
+</g>
+<g transform="translate(630 180)" filter="url(#s)">
+  <rect width="515" height="360" rx="34" fill="#fff"/>
+  <text x="258" y="50" text-anchor="middle" font-size="27" font-weight="800" fill="#21856b" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">現実に近いTest Set</text>
+  <rect x="55" y="95" width="125" height="190" rx="18" fill="#d7ecff"/>
+  <circle cx="88" cy="126" r="20" fill="#ffd15d"/><text x="118" y="264" text-anchor="middle" font-size="17" fill="#476b88" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">昼</text>
+  <rect x="195" y="95" width="125" height="190" rx="18" fill="#193b63"/>
+  <circle cx="276" cy="130" r="17" fill="#f4f2cc"/><text x="258" y="264" text-anchor="middle" font-size="17" fill="#476b88" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">夜</text>
+  <rect x="335" y="95" width="125" height="190" rx="18" fill="#95b9d1"/>
+  <line x1="350" y1="120" x2="340" y2="142" stroke="#e8f7ff" stroke-width="4"/><line x1="378" y1="120" x2="368" y2="142" stroke="#e8f7ff" stroke-width="4"/><line x1="406" y1="120" x2="396" y2="142" stroke="#e8f7ff" stroke-width="4"/><line x1="434" y1="120" x2="424" y2="142" stroke="#e8f7ff" stroke-width="4"/><line x1="350" y1="155" x2="340" y2="177" stroke="#e8f7ff" stroke-width="4"/><line x1="378" y1="155" x2="368" y2="177" stroke="#e8f7ff" stroke-width="4"/><line x1="406" y1="155" x2="396" y2="177" stroke="#e8f7ff" stroke-width="4"/><line x1="434" y1="155" x2="424" y2="177" stroke="#e8f7ff" stroke-width="4"/><line x1="350" y1="190" x2="340" y2="212" stroke="#e8f7ff" stroke-width="4"/><line x1="378" y1="190" x2="368" y2="212" stroke="#e8f7ff" stroke-width="4"/><line x1="406" y1="190" x2="396" y2="212" stroke="#e8f7ff" stroke-width="4"/><line x1="434" y1="190" x2="424" y2="212" stroke="#e8f7ff" stroke-width="4"/>
+  <text x="398" y="264" text-anchor="middle" font-size="17" fill="#476b88" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">雨</text>
+</g>
+<text x="600" y="610" text-anchor="middle" font-size="23" font-weight="700" fill="#355f87" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">現場に夜や雨があるなら、Testにも夜や雨が必要。Scoreより「何を代表しているか」が大事。</text>
+</svg>
