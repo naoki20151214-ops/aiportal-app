@@ -1498,7 +1498,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "統計的機械学習とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0002"]
     children: []
