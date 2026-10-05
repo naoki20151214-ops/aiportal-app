@@ -23,7 +23,7 @@ test("BAS-0056は最後までLevel 1初心者向けで、深掘りを後続記�
   assert.match(article, /猫：99%/);
   assert.match(article, /猫：51%/);
   assert.match(article, /確率 = AIが「分からなさ」を数字で扱うためのもの/);
-  assert.match(article, /ここまで理解できれば、BAS-0056としては十分です/);
+  assert.match(article, /ここまで理解できれば、AIで確率を考えるための入口としては十分です/);
 
   assert.doesNotMatch(article, /^## Random Variable/m);
   assert.doesNotMatch(article, /^## Probability Distribution/m);
@@ -35,11 +35,11 @@ test("BAS-0056は最後までLevel 1初心者向けで、深掘りを後続記�
   assert.doesNotMatch(article, /Aleatoric Uncertainty/);
   assert.doesNotMatch(article, /Epistemic Uncertainty/);
 
-  assert.match(article, /確率分布とは？（BAS-0057）/);
-  assert.match(article, /Entropyとは？（BAS-0058）/);
-  assert.match(article, /Cross Entropyとは？（BAS-0059）/);
-  assert.match(article, /モデルのCalibrationとは？（BAS-0066）/);
-  assert.match(article, /Bayesian Inferenceとは？（BAS-0081）/);
+  assert.match(article, /確率分布とは？/);
+  assert.match(article, /Entropyとは？/);
+  assert.match(article, /Cross Entropyとは？/);
+  assert.match(article, /モデルのCalibrationとは？/);
+  assert.match(article, /Bayesian Inferenceとは？/);
 
   for (const filename of usedFiles) {
     const asset = path.join(process.cwd(), "public/images/articles/probability-for-ai", filename);

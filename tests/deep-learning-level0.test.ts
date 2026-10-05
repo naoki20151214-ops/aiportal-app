@@ -17,13 +17,13 @@ test("BAS-0003は最後までLevel 0でDeep Learningの中心を説明する", (
   const article = readFileSync(articlePath, "utf8");
 
   assert.match(article, /level: 0/);
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(review|ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/what-is-deep-learning\/hero\.svg"/);
   assert.ok(article.length >= 6_000, "deep learning article is too short");
 
   assert.match(article, /AIが答えを覚えるだけでなく、答えを出すために何を見ればよいかもDataから学びやすくした/);
   assert.match(article, /Dataから“見分けるための特徴”まで学びやすい機械学習/);
-  assert.match(article, /ここまで理解できれば、BAS-0003としては十分です/);
+  assert.match(article, /ここまで理解できれば、ディープラーニングの入口としては十分です/);
 
   assert.doesNotMatch(article, /^## Backpropagation/m);
   assert.doesNotMatch(article, /^## Gradient/m);

@@ -34,7 +34,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "ディープラーニングは機械学習の中で何を変えたのか？"
     prerequisites: ["BAS-0002"]
     children: ["BAS-0004"]
