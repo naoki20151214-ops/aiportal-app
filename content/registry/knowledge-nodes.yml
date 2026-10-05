@@ -286,10 +286,10 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "AIモデルは大量データからどのようにパターンを学ぶのか？"
+    status: "review"
+    centerQuestion: "AIは予想の間違いを使って、どのように内部のParameterを改善するのか？"
     prerequisites: ["BAS-0004"]
-    children: ["GEN-0005","GEN-0006","GEN-0007"]
+    children: ["BAS-0045","GEN-0005","GEN-0006","GEN-0007"]
     related: ["BAS-0025"]
     priority: "A"
   - id: "BAS-0025"
