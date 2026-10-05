@@ -50,7 +50,7 @@ body {
 .article-body ol { list-style: decimal; }
 .article-body li + li { margin-top: 0.4rem; }
 .article-body li > ul, .article-body li > ol { margin-top: 0.4rem; }
-.article-body blockquote { border-left: 4px solid #2563eb; background: #f9fafb; padding: 1rem; font-size: 1rem; }
+.article-body blockquote { border-left: 4px solid #2563eb; background: #f9fafb; padding: 1rem; font-size: 1em; }
 .article-body pre { overflow-x: auto; padding: 1rem; border-radius: 0.5rem; background: #111827; color: #f9fafb; }
 .article-body code { font-size: 0.875em; background: #f3f4f6; padding: 0.15rem 0.35rem; border-radius: 0.25rem; }
 .article-body pre code { background: transparent; padding: 0; }
@@ -59,6 +59,13 @@ body {
 .article-body th { background: #f9fafb; font-weight: 700; }
 .article-body img { max-width: 100%; height: auto; border-radius: 0.5rem; }
 .article-body hr { border-color: #e5e7eb; }
+
+@media (max-width: 767px) {
+  .article-body {
+    font-size: 1.1875rem;
+    line-height: 1.85;
+  }
+}
 
 /* Custom utilities */
 @layer utilities {
