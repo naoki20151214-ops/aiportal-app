@@ -12,6 +12,7 @@
 - `publishing-plan.yml` — 公開順・公開速度・スケジュール運用ルール
 - `core-curriculum.yml` — 最初に制作する100記事の依存関係順キュー
 - `article-production-standard.md` — 記事本文の構成・出典・内部リンク・品質基準
+- `depth-expansion-plan.md` — LEVEL 0〜5を段階的につなぐ専門・研究層の拡張方針
 
 ## 基本原則
 
