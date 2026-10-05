@@ -26,9 +26,10 @@ test("ハイパーパラメータ記事は初心者が冒頭だけで理解で�
   assert.match(article, /2012年：Random Searchという意外な答え/);
   assert.match(article, /2017年：Trainingしながら設定も変えるPBT/);
 
-  const firstSection = article.slice(0, 4_500);
-  assert.doesNotMatch(firstSection, /Bayesian Optimization/);
-  assert.doesNotMatch(firstSection, /Population Based Training/);
+  const body = article.replace(/^---[\s\S]*?---\s*/, "");
+  const beginnerSection = body.split("\n---\n")[0];
+  assert.doesNotMatch(beginnerSection, /Bayesian Optimization/);
+  assert.doesNotMatch(beginnerSection, /Population Based Training/);
 
   for (const filename of files) {
     const asset = path.join(process.cwd(), "public/images/articles/hyperparameters", filename);
