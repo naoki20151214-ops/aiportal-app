@@ -493,6 +493,7 @@ ChatGPTのようなService**
 ## 参考資料
 
 - [Yann LeCun, Yoshua Bengio, Geoffrey Hinton - Deep learning, Nature 2015](https://www.nature.com/articles/nature14539)
+- [Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton - ImageNet Classification with Deep Convolutional Neural Networks, NeurIPS 2012](https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
 - [Deep Learning Book - Introduction](https://www.deeplearningbook.org/contents/intro.html)
 - [Deep Learning Book - Representation Learning](https://www.deeplearningbook.org/contents/representation.html)
 - [Google for Developers - Neural Networks](https://developers.google.com/machine-learning/crash-course/neural-networks)
