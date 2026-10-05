@@ -32,7 +32,6 @@ test("ニューラルネットワーク記事は初心者向け難易度を維�
   assert.doesNotMatch(article, /^## Chain Rule/m);
   assert.doesNotMatch(article, /^## Jacobian/m);
 
-  const body = article.replace(/^---[\s\S]*?---\s*/, "");
   assert.doesNotMatch(body, /\b(?:BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}\b/);
   assert.doesNotMatch(body, /\b(?:LEVEL|Level)\s*[0-5]\b/);
 
