@@ -12,17 +12,23 @@ const files = [
   "fig-05-pbt.svg",
 ];
 
-test("ハイパーパラメータ記事はストーリー型本文と6画像を持ち、reviewまたはreadyのまま", () => {
+test("ハイパーパラメータ記事は初心者が冒頭だけで理解でき、深掘りと6画像も持つ", () => {
   const articlePath = path.join(process.cwd(), "content/articles/hyperparameters.md");
   const article = readFileSync(articlePath, "utf8");
 
   assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/hyperparameters\/hero\.svg"/);
-  assert.ok(article.length >= 12_000, "hyperparameters article is too short");
-  assert.match(article, /同じTraining Dataを使う/);
-  assert.match(article, /2012年：「全部きれいに試す」より、Randomの方が強いことがある/);
-  assert.match(article, /Trainingしながら設定まで進化させるPBT/);
-  assert.match(article, /TemperatureやTop-pは、厳密には別の話/);
+  assert.ok(article.length >= 8_000, "hyperparameters article is too short");
+  assert.match(article, /AIに、\*\*犬と猫を見分けさせたい\*\*/);
+  assert.match(article, /ハイパーパラメータ = AIの学ばせ方を決める設定/);
+  assert.match(article, /ここまで読めば、いったん十分です/);
+  assert.match(article, /ここから先は、もう少し深く知りたい人へ/);
+  assert.match(article, /2012年：Random Searchという意外な答え/);
+  assert.match(article, /2017年：Trainingしながら設定も変えるPBT/);
+
+  const firstSection = article.slice(0, 4_500);
+  assert.doesNotMatch(firstSection, /Bayesian Optimization/);
+  assert.doesNotMatch(firstSection, /Population Based Training/);
 
   for (const filename of files) {
     const asset = path.join(process.cwd(), "public/images/articles/hyperparameters", filename);
