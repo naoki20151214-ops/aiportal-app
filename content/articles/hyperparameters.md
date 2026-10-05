@@ -6,7 +6,7 @@ description: "ハイパーパラメータを、AIに犬と猫を見分けさせ�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-05"
 updatedAt: "2026-10-05"
 author: "AI Portal編集部"
