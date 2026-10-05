@@ -60,6 +60,7 @@ body {
 .article-body img { max-width: 100%; height: auto; border-radius: 0.5rem; }
 .article-body hr { border-color: #e5e7eb; }
 
+/* Mobile reading scale: tuned for long-form article readability. */
 @media (max-width: 767px) {
   .article-body {
     font-size: 1.25rem;
