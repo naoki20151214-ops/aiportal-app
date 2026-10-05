@@ -6,7 +6,7 @@ description: "AIで行列計算がなぜ必要なのかを、ニューラルネ�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "published"
 publishedAt: "2026-10-06"
 updatedAt: "2026-10-06"
 author: "AI Portal編集部"
