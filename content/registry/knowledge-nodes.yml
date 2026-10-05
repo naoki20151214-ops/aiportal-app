@@ -46,7 +46,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "ニューラルネットワークは入力から出力をどう計算するのか？"
     prerequisites: ["BAS-0003"]
     children: ["BAS-0008","BAS-0009","BAS-0010","BAS-0011"]
