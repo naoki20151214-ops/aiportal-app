@@ -1738,10 +1738,10 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "行列計算とAIを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    status: "review"
+    centerQuestion: "AIはなぜ大量の数字を行列としてまとめて計算するのか？"
     prerequisites: ["BAS-0004"]
-    children: []
+    children: ["BAS-0055"]
     related: []
     priority: "A"
   - id: "BAS-0055"
