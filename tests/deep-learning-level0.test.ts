@@ -22,7 +22,7 @@ test("BAS-0003は最後までLevel 0でDeep Learningの中心を説明する", (
   assert.ok(article.length >= 6_000, "deep learning article is too short");
 
   assert.match(article, /AIが答えを覚えるだけでなく、答えを出すために何を見ればよいかもDataから学びやすくした/);
-  assert.match(article, /Deep Learning = 「何を見るか」まで学習に含める/);
+  assert.match(article, /Dataから“見分けるための特徴”まで学びやすい機械学習/);
   assert.match(article, /ここまで理解できれば、BAS-0003としては十分です/);
 
   assert.doesNotMatch(article, /^## Backpropagation/m);
