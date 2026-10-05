@@ -39,7 +39,7 @@ test("Tensor記事は短い見出しで流れが分かり初心者向けの長�
   }
 
   assert.match(article, /数字を何次元にも並べたまとまり/);
-  assert.match(article, /Shape = 各軸にいくつ数字があるか/);
+  assert.match(article, /それぞれの軸に、いくつ数字があるか/);
   assert.match(article, /ここまで理解できれば、Tensorの入口としては十分です/);
 
   assert.doesNotMatch(body, /\b(?:BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}\b/);
