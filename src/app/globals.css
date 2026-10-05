@@ -62,8 +62,8 @@ body {
 
 @media (max-width: 767px) {
   .article-body {
-    font-size: 1.1875rem;
-    line-height: 1.85;
+    font-size: 1.25rem;
+    line-height: 1.8;
   }
 }
 
