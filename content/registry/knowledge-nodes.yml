@@ -1750,7 +1750,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "AIはなぜ行列より多くの軸を持つTensorでDataを表すのか？"
     prerequisites: ["BAS-0054"]
     children: ["BAS-0045"]
