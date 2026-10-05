@@ -17,7 +17,7 @@ test("ニューラルネットワーク記事は初心者向け難易度を維�
   const article = readFileSync(articlePath, "utf8");
 
   assert.match(article, /level: 1/);
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(review|ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/what-is-neural-network\/hero\.svg"/);
   const body = article.replace(/^---[\s\S]*?---\s*/, "");
   assert.ok(body.length >= 3_500, "neural network article is too short");
