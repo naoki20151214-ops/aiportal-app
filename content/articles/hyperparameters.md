@@ -2,7 +2,7 @@
 id: "BAS-0042"
 title: "ハイパーパラメータとは？｜AIの「学び方」を決める数字"
 slug: "hyperparameters"
-description: "同じデータ・同じモデルなのに、設定値ひとつでAIの学習結果が変わるのはなぜか。Parameterとの違い、Learning Rate、Batch Size、Validation、Grid Search、Random Search、Bayesian Optimization、PBTまで、ハイパーパラメータ探索の試行錯誤を物語として解説します。"
+description: "ハイパーパラメータを、AIに犬と猫を見分けさせる例から初心者向けに解説。AIが自分で学ぶParameterとの違い、Learning Rate、Batch Size、Validation、Grid Search、Random Search、Bayesian Optimizationまで段階的に理解できます。"
 category: "AI基礎・技術"
 level: 1
 type: "concept"
@@ -14,226 +14,387 @@ thumbnail: "/images/articles/hyperparameters/hero.svg"
 tags: ["ハイパーパラメータ", "機械学習", "学習率", "Batch Size", "モデル選択", "Random Search", "Bayesian Optimization"]
 ---
 
-同じTraining Dataを使う。
+AIに、**犬と猫を見分けさせたい**とします。
 
-同じModelを使う。
+犬の写真をたくさん見せる。
 
-同じプログラムを動かす。
+猫の写真もたくさん見せる。
 
-それなのに、片方のAIは順調に賢くなり、もう片方はいつまでたっても学ばない。
+そして、
 
-場合によっては、学習を始めた直後からLossが激しく上下し、まともなModelにならないことさえあります。
+「これは犬」
 
-違いは何でしょうか。
+「これは猫」
 
-Dataではありません。
+と正解も一緒に教える。
 
-Modelの種類でもありません。
+するとAIは、最初はよく間違えながらも、少しずつ犬と猫を見分けられるようになります。
 
-違ったのは、たとえば、
+ここまでは、なんとなく想像できますよね。
 
-**Learning Rateを0.001にしたか、0.1にしたか。**
+では、ここで一つ質問です。
 
-たったそれだけです。
+**AIは、自分で学ぶのだから、人間は写真を渡すだけでいいのでしょうか。**
 
-「そんな小さな数字で、結果がそこまで変わるの？」
+実は、そうではありません。
 
-ここがHyperparameterの面白いところです。
-
-Machine Learningでは、ModelがDataから自動的に学んでくれる値が大量にあります。
-
-ところがそのModelに、
-
-- どれくらい大胆に学ばせるか
-- 一度に何件ずつDataを見るか
-- どれくらい複雑なModelを許すか
-- どのくらいOverfittingを抑えるか
-- いつ学習を止めるか
-
-といった「学び方のルール」は、別に決めなければなりません。
-
-そして厄介なのは、
-
-> **その正解が、最初から分からない**
-
-ことです。
-
-この記事ではHyperparameterを用語として暗記するのではなく、
-
-**「AIにどう学ばせればいいのか分からない」という問題に、研究者や開発者がどう向き合ってきたのか**
-
-という流れから理解します。
-
-前提として、[機械学習とは？](/articles/what-is-machine-learning)と[訓練・検証・テストデータの違い](/articles/train-validation-test-split)を読んでおくと、かなりつながりやすくなります。
-
-![同じDataとModelでも、設定値ひとつで学習結果が変わる](/images/articles/hyperparameters/hero.svg)
-
-*Modelが自動で学ぶからといって、人間が何も決めなくてよいわけではありません。学習の外側には、もう一つの「設計問題」があります。*
-
-## 最初に結論：Parameterは「Modelが学ぶ値」、Hyperparameterは「学び方を決める値」
-
-まず、この2つを分けます。
-
-### Parameter
-
-Training中にModel自身がDataから更新する値です。
-
-Neural Networkなら代表例は、
-
-- Weight
-- Bias
-
-です。
-
-### Hyperparameter
-
-Trainingのやり方やModelの構造を、学習の外側から制御する値です。
-
-代表例は、
-
-- Learning Rate
-- Batch Size
-- Regularizationの強さ
-- Decision Treeの深さ
-- k-NNのk
-- Neural NetworkのHidden Size
-- Dropout率
-- 学習Step数やEpoch数の上限
-
-などです。
-
-GoogleのMachine Learning Glossaryも、Hyperparameterを「Model Trainingを繰り返す間に、人間またはHyperparameter Tuning Serviceが調整する変数」と説明し、Learning Rateを代表例に挙げています。
-
-つまり大ざっぱに言えば、
-
-> **Parameter = AIが学ぶ数字**  
-> **Hyperparameter = AIをどう学ばせるか決める数字**
-
-です。
-
-![ParameterとHyperparameterは、学習ループの内側と外側にいる](/images/articles/hyperparameters/fig-01-parameter-vs-hyperparameter.svg)
-
-*Training Dataから直接更新されるのがParameter。Validation結果などを見ながら外側で選ぶのがHyperparameterです。*
-
-## でも、なぜ「学び方」まで決める必要があるのか
-
-ここで疑問が出ます。
-
-> AIが自分で学ぶなら、Learning RateまでAI自身が決めればいいのでは？
-
-もっともな疑問です。
-
-しかし、通常のTrainingには「何をどのように最適化するか」という手順そのものが必要です。
-
-たとえば山の斜面を下って、一番低い地点を探すとします。
-
-ModelのParameterは、山の上を移動している現在位置のようなものです。
-
-Lossを小さくするTrainingでは、勾配を使って「どちらへ進めば下り坂か」を調べます。
-
-ところが、方向が分かっても、
-
-**一歩を何メートルにするか**
-
-は別問題です。
-
-それを決める代表的な値がLearning Rateです。
-
-## Learning Rate：小さな数字が学習全体を支配する
-
-Learning Rateが大きすぎるとどうなるでしょう。
-
-谷底へ向かっているのに、一歩が大きすぎて反対側の斜面へ飛び越える。
-
-また戻ろうとして、今度も飛び越える。
-
-これを繰り返すとLossが不安定になり、うまく収束しません。
-
-逆に小さすぎれば、
-
-一歩。
-
-また一歩。
-
-少しずつしか進まない。
-
-方向は合っているのに、Training時間を使い切っても十分な場所まで到達しないかもしれません。
-
-つまり、
-
-- 大きすぎる → 暴れる
-- 小さすぎる → 進まない
-- 適切 → 効率よく改善する
-
-という問題が起こります。
-
-![Learning Rateが大きすぎても小さすぎても困る](/images/articles/hyperparameters/fig-02-learning-rate.svg)
-
-*Learning Rateは「大きいほど速い」という単純なつまみではありません。速さと安定性のトレードオフがあります。*
-
-ここで重要なのは、
-
-> **適切なLearning Rateは、DataやModelやOptimizerによって変わる**
-
-ということです。
-
-「0.001ならいつでも正解」という万能値はありません。
-
-だから試す必要があります。
-
-そして、ここからHyperparameter Tuningという別の仕事が始まります。
-
-## Batch Size：何件まとめて考えてから、一歩進むか
-
-次はBatch Sizeです。
-
-Training Dataが100万件あるとして、Parameterを更新するたびに100万件全部を見る必要はありません。
+AIに勉強させる前に、人間側が決めなければならないことがあります。
 
 たとえば、
 
-- 32件
-- 128件
-- 512件
+- 1回の間違いで、どれくらい大きく考え方を直すか
+- 写真を何枚見てから、一度「反省」するか
+- どれくらい複雑な仕組みのAIにするか
 
-のように一部をまとめ、そのBatchでLossを計算して更新できます。
+といったことです。
 
-Batch Sizeを小さくすると、Parameter更新は頻繁になります。
+このような、
 
-ただし、少数Dataだけを見て判断するので、更新方向にはばらつきが出ます。
+**「AIに何を覚えさせるか」ではなく、「AIにどう学ばせるか」を決める設定**
 
-大きくすると、一回の更新で多くのDataを見るため計算をまとめやすい一方、Memory消費も増えます。
+を、**ハイパーパラメータ（Hyperparameter）**と呼びます。
 
-さらに実際のDeep Learningでは、Hardware、Optimizer、Learning Rate、Batch Sizeの関係も無視できません。
+名前は難しいですが、最初はこれだけ分かれば大丈夫です。
 
-つまりHyperparameterは、独立した「つまみ」ではありません。
+> **ハイパーパラメータ = AIの学ばせ方を決める設定**
 
-> **一つを変えると、別のつまみの適切な値まで変わる**
+です。
 
-ことがあります。
+![犬と猫を学ぶAIにも、人間が決める「学ばせ方」がある](/images/articles/hyperparameters/hero.svg)
 
-ここが急に難しくなります。
+*AIは自分で学びます。でも「どう学ばせるか」まで全部自動で決まるわけではありません。*
 
-## つまみが2個なら、人間でも試せる
+## まず30秒で結論
 
-Learning Rateだけなら、
+AIの学習には、大きく分けて2種類の数字があります。
 
-0.1  
-0.01  
-0.001  
-0.0001
+### AIが自分で覚えていく数字
 
-と試せます。
+これは**Parameter（パラメータ）**です。
 
-Batch Sizeも加わったとして、
+学習中にAI自身が少しずつ調整します。
 
-32  
-64  
-128  
-256
+### 人間側が「どう学ばせるか」を決める数字
 
-くらいなら、まだ何とかなりそうです。
+これが**Hyperparameter（ハイパーパラメータ）**です。
 
-しかし実際には、
+代表例は、
+
+- 一度にどれくらい大きく修正するか
+- 何件ずつまとめて学ぶか
+- AIをどれくらい複雑にするか
+
+などです。
+
+つまり、
+
+> **ParameterはAIが学ぶ。**
+>
+> **Hyperparameterは、AIの学び方を決める。**
+
+この違いが分かれば、この記事の一番大事な部分はもうつかめています。
+
+## Parameterって何？――AIの中にある「大量のつまみ」
+
+もう少しだけ具体的に見てみましょう。
+
+犬と猫を見分けるAIは、写真を見た瞬間に、
+
+「耳がこうだから犬」
+
+「目がこうだから猫」
+
+と、人間と同じ言葉で考えているわけではありません。
+
+AIの中には、大量の数字があります。
+
+写真を見て予想する。
+
+正解と比べる。
+
+間違っていたら、その数字を少し直す。
+
+また写真を見る。
+
+また直す。
+
+これを何度も繰り返します。
+
+この、**学習の中でAI自身が調整していく数字**がParameterです。
+
+Neural Networkでは、Weight（重み）やBias（バイアス）などが代表例です。
+
+ただし初心者の段階では、名前まで覚えなくても大丈夫です。
+
+「AIの中には、自分で調整していく大量の数字がある」
+
+くらいで十分です。
+
+![AIが自分で学ぶ数字と、人間が外から決める数字](/images/articles/hyperparameters/fig-01-parameter-vs-hyperparameter.svg)
+
+*左がAI自身の学習で変わるParameter。右が学ばせ方を決めるHyperparameterです。*
+
+## では、Hyperparameterは何を決めるのか
+
+ここからが本題です。
+
+AIはParameterを自分で直します。
+
+でも、
+
+> **「一回でどれくらい直すの？」**
+
+というルールは別に必要です。
+
+たとえばAIが猫の写真を犬だと間違えたとします。
+
+間違えたからといって、
+
+「全部間違っていた！」
+
+と内部の数字を一気に大きく変えたら、今度は別の写真でおかしくなるかもしれません。
+
+逆に、
+
+「ほんの少しだけ直そう」
+
+と慎重すぎると、いつまでたっても学習が進みません。
+
+この、
+
+**1回の修正をどれくらい大きくするか**
+
+を決める代表的な設定が、**Learning Rate（学習率）**です。
+
+## Learning Rateは「一歩の大きさ」
+
+Learning Rateは、よく山を下る話で説明されます。
+
+霧の中にいて、谷底へ行きたいとします。
+
+足元を見ると、どちらが下り坂かは分かる。
+
+でも、
+
+**一歩をどれくらい大きくするか**
+
+は自分で決めなければなりません。
+
+一歩が大きすぎると、谷底を飛び越えて反対側へ行ってしまう。
+
+戻ろうとして、また飛び越える。
+
+いつまでも落ち着きません。
+
+逆に一歩が小さすぎると、方向は合っていてもなかなか谷底へ着きません。
+
+AIの学習でも似たことが起こります。
+
+- Learning Rateが大きすぎる → 修正が荒くなり、学習が不安定になることがある
+- Learning Rateが小さすぎる → 学習がなかなか進まないことがある
+- ちょうどよい → 安定して改善しやすい
+
+という関係です。
+
+![Learning Rateは、AIが一度にどれくらい大きく修正するかを決める](/images/articles/hyperparameters/fig-02-learning-rate.svg)
+
+ここで大事なのは、
+
+**「大きい方が速くて得」ではない**
+
+ということです。
+
+アクセルを強く踏めばいつでも早く着くわけではないのと同じです。
+
+## Batch Sizeは「何枚見てから反省会するか」
+
+もう一つ、よく出てくるHyperparameterが**Batch Size（バッチサイズ）**です。
+
+名前だけ見ると難しそうですが、考え方は単純です。
+
+犬と猫の写真が10万枚あるとします。
+
+AIが、
+
+1枚見る  
+↓  
+すぐ考え方を直す
+
+という方法もあります。
+
+あるいは、
+
+32枚見る  
+↓  
+まとめて「どこを間違えたか」を確認する  
+↓  
+考え方を直す
+
+という方法もあります。
+
+この、
+
+**何件まとめて見てから一度更新するか**
+
+がBatch Sizeです。
+
+Batch Sizeが小さいと、こまめに修正します。
+
+大きいと、多くの例をまとめて見てから修正します。
+
+どちらにも長所と短所があり、
+
+「いつでも32が正解」
+
+「大きい方が必ず良い」
+
+というものではありません。
+
+だから、ここでも人間は悩みます。
+
+## ここで素朴な疑問が出る
+
+Learning Rateも分かった。
+
+Batch Sizeも分かった。
+
+すると普通はこう思います。
+
+> **「じゃあ、一番いい数字を最初から使えばいいやん」**
+
+その通りです。
+
+問題は、
+
+**その「一番いい数字」が、最初から分からないこと**
+
+です。
+
+あるAIではLearning Rateが0.001でうまくいっても、別のAIでは違う値の方がよいかもしれません。
+
+Dataが変われば、良い設定も変わることがあります。
+
+AIの大きさが変われば、また事情が変わります。
+
+つまりHyperparameterには、
+
+> **どんなAIでも必ずこれにすればよい**
+
+という万能の正解がありません。
+
+だから実際のAI開発では、
+
+設定を変える  
+↓  
+AIを学習させる  
+↓  
+結果を見る  
+↓  
+また設定を変える
+
+という試行錯誤が必要になります。
+
+## その「結果」は何を見て判断するのか
+
+ここで、前の記事
+[訓練・検証・テストデータの違い](/articles/train-validation-test-split)
+につながります。
+
+Hyperparameterを決めるとき、Trainingに使った写真だけを見て、
+
+「この設定が一番いい」
+
+と判断するのは危険です。
+
+Trainingに使った問題は、AIがすでに見ています。
+
+そこで、学習には使っていない**Validation Data**を使います。
+
+難しく考えなくて大丈夫です。
+
+学校でたとえるなら、
+
+- Training Data = 練習問題
+- Validation Data = 模擬試験
+
+です。
+
+Learning Rateを変えてみる。
+
+Batch Sizeを変えてみる。
+
+そして模擬試験で、どちらが良かったかを見る。
+
+このように、
+
+**Hyperparameterを選ぶための成績表**
+
+としてValidation Dataを使います。
+
+ここまで分かると、前の記事でValidation Setが必要だった理由も一つ増えます。
+
+## ここまで読めば、いったん十分です
+
+ここで一度まとめます。
+
+AIは、自分で学びます。
+
+でも、何もかも自分で決めるわけではありません。
+
+AI自身が学習中に調整する数字が**Parameter**。
+
+そのAIに、
+
+- どれくらい大きく修正させるか
+- 何件まとめて学ばせるか
+- どれくらい複雑な仕組みにするか
+
+といった**学び方を外側から決める設定**がHyperparameterです。
+
+そして一番厄介なのは、
+
+**良いHyperparameterが、最初から分からないこと。**
+
+だから試して、Validationで比べます。
+
+ここまで理解できれば、
+
+> 「ハイパーパラメータって何？」
+
+と聞かれたとき、
+
+**「AI自身が覚える内容じゃなくて、AIの学ばせ方を決める設定」**
+
+と答えられます。
+
+初心者としては、それで十分です。
+
+ここから先は、
+
+**「じゃあ、その良い設定をどうやって探すの？」**
+
+をもう少し深く見ていきます。
+
+興味がある人だけ、そのまま進んでください。
+
+---
+
+## ここから先は、もう少し深く知りたい人へ
+
+Hyperparameterが1個しかなければ、話は簡単です。
+
+Learning Rateを、
+
+- 0.1
+- 0.01
+- 0.001
+- 0.0001
+
+と変えて試せばいい。
+
+ところが実際には、候補が増えます。
+
+たとえば、
 
 - Learning Rate
 - Batch Size
@@ -243,597 +404,430 @@ Batch Sizeも加わったとして、
 - Layer数
 - Optimizer
 - Learning Rate Schedule
-- Warmup
-- Data Augmentationの強さ
-
-など、候補が増えていきます。
-
-仮に5個のHyperparameterそれぞれに10候補しかなくても、
-
-**組み合わせは100,000通りです。**
-
-そして1回のTrainingに1時間かかれば？
-
-100,000回を気軽に総当たりするわけにはいきません。
-
-大規模Modelなら、1回のTraining失敗そのものが高価です。
-
-ここで問題は、
-
-> 「良い設定を探す」
-
-から、
-
-> **「限られた計算予算で、どこを試せばいいのか」**
-
-へ変わります。
-
-## 最初の素朴な作戦：Grid Search
-
-一番分かりやすい方法はGrid Searchです。
-
-たとえば、
-
-Learning Rate：
-- 0.1
-- 0.01
-- 0.001
-
-Batch Size：
-- 32
-- 128
-- 512
-
-なら、3 × 3の9通りを全部試す。
-
-表のマスを順番に埋めるような探索です。
-
-これは単純で、再現もしやすい。
-
-候補が少なければ十分有効です。
-
-しかし次元が増えると急激に重くなります。
-
-そして、もっと厄介な弱点があります。
-
-## すべてのHyperparameterが、同じくらい重要とは限らない
-
-ここで面白い問題が出てきます。
-
-Hyperparameterが10個あったとしても、性能を大きく左右しているのは、そのうち2〜3個だけかもしれません。
-
-残りは、ある範囲ならあまり結果を変えない。
-
-ところがGrid Searchは律儀です。
-
-重要でない軸にも、重要な軸と同じ数だけ候補を割きます。
-
-たとえば2次元の地図なら、Gridはきれいです。
-
-でも10次元になったとき、
-
-**本当に重要な方向へ何回試せているか**
-
-は別問題です。
-
-この弱点に対して、意外なくらい単純な方法が強いことを示した研究があります。
-
-## 2012年：「全部きれいに試す」より、Randomの方が強いことがある
-
-2012年、James BergstraとYoshua BengioはJMLRに
-「Random Search for Hyper-Parameter Optimization」
-を発表しました。
-
-題名の通り、
-
-> Gridで規則正しく試すより、Randomに組み合わせを選んだ方が効率よく良い設定へ到達できる場合がある
-
-ことを、理論と実験の両面から示しました。
-
-なぜでしょう。
-
-たとえば性能を強く左右するHyperparameterがLearning Rateだけだったとします。
-
-Grid Searchでは、Learning Rateを3段階しか設定していなければ、他のHyperparameterを何十通り試しても、Learning Rate自体は同じ3値しか見ません。
-
-Random Searchなら、試行のたびにLearning Rateも違う値を引きます。
-
-つまり同じ100回試すなら、
-
-**重要な軸をより多くの値で試せる可能性が高い。**
-
-ここがポイントです。
-
-![Grid Searchはきれいだが、重要な軸を細かく見ているとは限らない](/images/articles/hyperparameters/fig-03-grid-vs-random.svg)
-
-*Random Searchが強い理由は「Randomだから魔法のように当たる」からではありません。重要なHyperparameterを多様な値で試しやすいからです。*
-
-論文では、Data Setによって「どのHyperparameterが重要か」も変わり得ることが示されています。
-
-これは実務的にかなり困る話です。
-
-あるTaskで効いた職人技が、別のTaskでは効くとは限らない。
-
-だからこそ、
-
-> 経験だけでなく、探索そのものを仕組みにしよう
-
-という方向へ進みます。
-
-## しかしRandom Searchにも弱点がある
-
-Random Searchは賢い方法ですが、過去の試行結果を深く利用しているわけではありません。
-
-たとえば20回Trainingして、
-
-- この辺りはかなり良さそう
-- この辺りは毎回悪い
-
-という情報が集まったとします。
-
-人間なら当然、
-
-> 次は良かった地域の近くを試そう
-
-と考えます。
-
-だったら探索Algorithmも、同じようにすればいい。
-
-ここで登場する代表的な考え方がBayesian Optimizationです。
-
-## Bayesian Optimization：「次にどこを試すべきか」を学ぶ
-
-Hyperparameter Tuningでは、一つの設定を試すたびに結果が返ってきます。
-
-設定A → Validation Score 0.84  
-設定B → 0.86  
-設定C → 0.79
-
-Bayesian Optimizationでは、こうした過去の観測から、
-
-> Hyperparameter空間のどこが有望そうか
-
-を確率的にモデル化します。
-
-そして、
-
-- 今まで良かった場所の近くをさらに調べる
-- まだよく分からない場所も試す
-
-というBalanceを取りながら、次の候補を選びます。
-
-これはよく、
-
-- Exploitation：有望な場所を掘る
-- Exploration：未知の場所を探す
-
-という言葉で表されます。
-
-2012年にはJasper Snoek、Hugo Larochelle、Ryan P. Adamsらが、Machine LearningのHyperparameter TuningへBayesian Optimizationを実践的に適用する研究を発表しています。
-
-彼らの論文は、当時のHyperparameter調整を「expert experience、rules of thumb、brute-force searchに頼るblack artになりがち」と表現しています。
-
-つまり当時から、
-
-> **Modelは科学的にTrainingしているのに、その外側の設定は職人芸になりやすい**
-
-という問題があったわけです。
-
-## Hyperparameter Tuningは「外側のMachine Learning」に見えてくる
-
-ここまで来ると構造が見えてきます。
-
-内側では、
-
-Training Data  
-↓  
-ModelをTraining  
-↓  
-Parameterを更新
-
-しています。
-
-しかし外側では、
-
-Hyperparameter候補  
-↓  
-Training  
-↓  
-Validation Score  
-↓  
-次のHyperparameter候補
-
-というLoopがあります。
-
-つまりMachine Learningを作るために、その外側でも探索と最適化を回しているのです。
-
-![Trainingの外側に、もう一つの探索ループがある](/images/articles/hyperparameters/fig-04-tuning-loop.svg)
-
-*Parameter Optimizationの外側でHyperparameter Optimizationが回ります。Validation Setは、この外側Loopの判断材料です。*
-
-ここで前の記事
-[訓練・検証・テストデータの違い](/articles/train-validation-test-split)
-と完全につながります。
-
-Validation Setは、
-
-**Hyperparameterを選ぶために何度も見るData**
-
-でもあります。
-
-Learning Rate AとBを比べる。
-
-Batch Sizeを変える。
-
-Modelの深さを変える。
-
-そのたびにValidation Scoreを確認する。
-
-だからTest Setを最後まで封印しておく必要があるのです。
-
-## 「Validationで最高」を追い続けると、またOverfittingする
-
-ここで、また罠があります。
-
-Hyperparameterを1000通り試し、Validation Scoreが一番高いものを選んだとします。
-
-それは本当に最高のModelでしょうか。
-
-必ずしもそうとは限りません。
-
-1000回も比較すれば、偶然そのValidation Setと相性が良かった設定が勝つ可能性があります。
-
-さらに、
-
-Validation Scoreを見る  
-↓  
-Hyperparameterを変える  
-↓  
-また見る  
-↓  
-また変える
-
-を繰り返すほど、開発プロセス全体がValidation Setへ適応します。
-
-つまり、
-
-> **Hyperparameter TuningそのものがValidation SetにOverfittingする**
-
-ことがあります。
-
-だから最後に独立したTest Setが必要です。
-
-Test Setは、
-
-> 「この設定を選んだ判断そのものが、本当に現実世界で通用するか」
-
-を見る最後の審判でもあるのです。
-
-## Hyperparameterは「Training前に固定する値」とは限らない
-
-初心者向けの説明では、
-
-> HyperparameterはTraining前に人間が決める値
-
-と書かれることがよくあります。
-
-入口としては分かりやすいのですが、厳密には少し狭すぎます。
-
-Learning RateはTraining中に変化させることがあります。
-
-Learning Rate Scheduleを使って、
-
-最初は大きく  
-↓  
-後半は小さく
-
-することもあります。
-
-では、それはParameterになったのでしょうか。
-
-なりません。
-
-Model本体が通常のGradient DescentでWeightと同じように学んでいるわけではないからです。
-
-Hyperparameterの本質は、
-
-**Training Algorithmの外側からTraining挙動を制御する変数**
-
-と考える方が正確です。
-
-## 2017年：Trainingしながら設定まで進化させるPBT
-
-さらに面白い発想があります。
-
-2017年、DeepMindはPopulation Based Training（PBT）を発表しました。
-
-発想はかなり大胆です。
-
-複数のModelを同時にTrainingする。
-
-途中で性能を比べる。
-
-成績の悪いModelは、良いModelの状態を取り込みながら、Hyperparameterも変えてTrainingを続ける。
-
-つまり、
-
-> Trainingを全部終えてから次の設定を試す
-
-のではなく、
-
-> **Trainingしながら、ModelとHyperparameterの両方を改善する**
-
-方向へ進みます。
-
-![PBTでは複数のTrainingを競わせ、途中で設定も変えていく](/images/articles/hyperparameters/fig-05-pbt.svg)
-
-*Hyperparameterは必ず「開始前に一度だけ固定する値」ではありません。探索方法によってはTraining途中でも変化します。*
-
-ここまで来ると、
-
-「Hyperparameterは人間が手で入れる設定値」
-
-というイメージはかなり崩れます。
-
-人間が決める場合もある。
-
-Random Searchが決める場合もある。
-
-Bayesian Optimizationが次を提案する場合もある。
-
-Population Based TrainingがTraining中に変える場合もある。
-
-重要なのは誰が入力したかではありません。
-
-**Model本体のParameter Trainingとは別の階層で、学習方法を制御しているかどうか**
-
-です。
-
-## Modelの構造そのものもHyperparameterになる
-
-HyperparameterというとLearning Rateのような数字だけを想像しがちですが、もっと大きな設計判断も含まれます。
-
-たとえばNeural Networkなら、
-
-- Layer数
-- Hidden Dimension
-- Attention Head数
-- Dropout率
-- Activation Functionの選択
-- Optimizerの選択
-- Weight Decay
-- Learning Rate Schedule
 
 などです。
 
-Decision Treeなら、
+仮に5個のHyperparameterがあり、それぞれ10候補ずつ試すとします。
 
-- Maximum Depth
-- Minimum Samples
-- 分岐条件に関する設定
+組み合わせは、
 
-などがあります。
+**10 × 10 × 10 × 10 × 10 = 100,000通り**
 
-k-NNなら、
+です。
 
-- k
+一回のTrainingが数秒ならまだしも、数時間、数日かかるなら全部試すのは現実的ではありません。
 
-そのものがHyperparameterです。
+ここでHyperparameter Tuningは、
 
-つまりHyperparameterは、
+「どの数字がいい？」
 
-> ModelをどうTrainingするか
+という問題から、
 
-だけでなく、
+> **限られた時間と計算資源で、どこを試せばいい？**
 
-> **どんな大きさ・複雑さのModelをTrainingするか**
+という問題に変わります。
 
-まで決めることがあります。
+## 一番分かりやすい方法：Grid Search
 
-## Modelが大きければ、Hyperparameter問題は消えるのか
+まず考えやすいのが**Grid Search**です。
 
-消えません。
+Learning Rateを3候補。
 
-むしろ大規模Modelでは、一回の実験が高価になるため、
+Batch Sizeも3候補。
 
-**設定を外したときの損失が大きくなる**
+なら、
 
-ことがあります。
+3 × 3 = 9通り
 
-小さなModelなら、
+を全部試します。
 
-「失敗した。もう一回」
+表を作って、すべてのマスを順番に調べるイメージです。
 
-で済むかもしれません。
+候補が少なければ、これはとても分かりやすい方法です。
 
-巨大なModelでは、大量のAccelerator時間、電力、研究時間を使ったあとで、
+しかしHyperparameterが増えると、組み合わせは急激に増えます。
 
-> Learning Rate Scheduleが悪かった
+そして、もう一つ弱点があります。
 
-と分かるかもしれません。
+## すべての設定が、同じくらい重要とは限らない
 
-そのため実際には、
+Hyperparameterが10個あっても、
 
-- 小規模な予備実験
-- Scalingの検証
-- Learning Curveの監視
-- Early Stopping
-- 過去実験の再利用
-- 自動探索
+性能を大きく左右するのは、そのうち2個だけかもしれません。
 
-などを組み合わせて、無駄なTrialを減らします。
+残りは多少変えても、結果があまり変わらないかもしれない。
 
-Hyperparameter Tuningは、単なる性能競争ではなく、
+ところがGrid Searchは、
 
-**計算資源をどう使うかというEngineering問題**
+重要な設定にも、
 
-でもあります。
+あまり重要でない設定にも、
 
-## LLMにもHyperparameterはある
+同じように候補を並べます。
 
-ChatGPTのようなLarge Language Modelでも同じ考え方があります。
+ここで面白い発想が出てきます。
 
-Training側には、
+> **きれいに全部並べるより、ランダムに広く試した方がいい場合があるのでは？**
+
+## 2012年：Random Searchという意外な答え
+
+2012年、James BergstraとYoshua Bengioは、
+**Random Search for Hyper-Parameter Optimization**
+という論文をJMLRに発表しました。
+
+Random Searchは、その名の通り、
+
+**Hyperparameterの組み合わせをランダムに選んで試す**
+
+方法です。
+
+一見すると、Grid Searchの方が真面目で賢そうに見えます。
+
+ところが、性能を強く左右するHyperparameterが一部しかない場合、Random Searchには大きな利点があります。
+
+たとえば本当に重要なのがLearning Rateだったとします。
+
+Grid SearchでLearning Rateを3候補に固定してしまえば、100回実験してもLearning Rate自体は同じ3種類しか試さないことがあります。
+
+Random Searchなら、試行ごとにLearning Rateも違う値を選べます。
+
+同じ回数の実験でも、
+
+**重要な設定を、よりいろいろな値で試せる可能性がある**
+
+わけです。
+
+![Grid SearchとRandom Search。きれいに並べることが必ずしも効率的とは限らない](/images/articles/hyperparameters/fig-03-grid-vs-random.svg)
+
+これはHyperparameter Tuningの面白いところです。
+
+「全部きっちり試す方が正しそう」
+
+という直感が、いつでも正しいわけではありません。
+
+## でもRandom Searchも、少しもったいない
+
+Random Searchには良いところがあります。
+
+ただし、前の実験結果をあまり活用しません。
+
+たとえば20回試して、
+
+「この辺りの設定はかなり良さそう」
+
+と分かってきたとします。
+
+人間なら、
+
+> 次は、その近くをもう少し詳しく試そう
+
+と考えますよね。
+
+それをAlgorithmにやらせようという代表的な考え方が、
+**Bayesian Optimization（ベイズ最適化）**です。
+
+## Bayesian Optimizationは「次にどこを試すか」を考える
+
+一つの設定を試すたびに、
+
+設定A → まあまあ  
+設定B → 良い  
+設定C → 悪い
+
+という情報がたまります。
+
+Bayesian Optimizationでは、その結果を使って、
+
+**次はどの設定を試すと有望そうか**
+
+を考えます。
+
+すでに良さそうな場所を深掘りするだけではありません。
+
+まだ試していない場所にも可能性があるので、
+
+- 良さそうな場所をさらに調べる
+- 未知の場所も探す
+
+というBalanceを取ります。
+
+2012年にはJasper Snoek、Hugo Larochelle、Ryan P. Adamsらが、Machine LearningのHyperparameter OptimizationにBayesian Optimizationを実践的に使う研究を発表しています。
+
+彼らの問題意識の一つは、
+
+**Modelそのものは高度なのに、設定調整は経験則や総当たりに頼りやすい**
+
+という点でした。
+
+## 実は「AIを学ばせる側」も学んでいる
+
+ここまで来ると、面白い構造が見えてきます。
+
+AIの中では、
+
+Training Dataを見る  
+↓  
+間違いを確認する  
+↓  
+Parameterを直す
+
+という学習が行われます。
+
+一方、AIの外側では、
+
+Hyperparameterを決める  
+↓  
+AIをTrainingする  
+↓  
+Validation結果を見る  
+↓  
+次のHyperparameterを決める
+
+という別のLoopがあります。
+
+![AIの学習の外側でも、設定を探すLoopが回っている](/images/articles/hyperparameters/fig-04-tuning-loop.svg)
+
+つまり、
+
+**AIだけが学んでいるわけではありません。**
+
+開発者やTuning Algorithmも、
+
+「この設定は悪かった」
+
+「この辺りは良さそうだ」
+
+と結果から学んでいます。
+
+Hyperparameter Tuningは、言ってみれば、
+
+**AIを学ばせる方法そのものを探す作業**
+
+なのです。
+
+## ここでもValidationを見すぎると問題が起きる
+
+では、Validation Scoreを見ながら1000通り試せば、必ず最高の設定が見つかるのでしょうか。
+
+ここにも落とし穴があります。
+
+大量の設定を試して、その中でValidation Scoreが一番高いものだけ選ぶと、
+
+たまたまそのValidation Dataと相性がよかった設定を選んでしまうことがあります。
+
+さらに、
+
+Validationを見る  
+↓  
+設定を変える  
+↓  
+またValidationを見る  
+↓  
+また変える
+
+を何度も繰り返すと、
+
+開発全体がそのValidation Dataに合わせ込まれていきます。
+
+これが、前の記事で触れた
+**ValidationへのOverfitting**
+につながります。
+
+だから最後には、開発中に触らなかったTest Dataで確認します。
+
+ここで、
+
+Training / Validation / Test
+
+とHyperparameter Tuningが一本につながります。
+
+## Hyperparameterは「最初に一度だけ決める数字」とも限らない
+
+初心者向けには、
+
+「HyperparameterはTraining前に人間が決める設定」
+
+と説明されることがあります。
+
+入口としては分かりやすいのですが、実際にはもう少し広い概念です。
+
+たとえばLearning Rateは、
+
+最初は大きめ  
+↓  
+Trainingが進んだら小さくする
+
+という使い方があります。
+
+つまりTraining中に変わることもあります。
+
+それでも、Weightのように通常の学習Loopの中でDataから直接更新されるParameterとは役割が違います。
+
+Hyperparameterは、
+
+**Trainingの進め方を外側から制御する設定**
+
+と考えると分かりやすいでしょう。
+
+## 2017年：Trainingしながら設定も変えるPBT
+
+さらに一歩進めた考え方があります。
+
+2017年、DeepMindは
+**Population Based Training（PBT）**
+を発表しました。
+
+複数のModelを同時にTrainingします。
+
+途中で成績を比べます。
+
+成績の悪いModelは、良いModelの状態を参考にしながら、Hyperparameterも変えてTrainingを続けます。
+
+つまり、
+
+「全部Trainingしてから、次の設定を試す」
+
+だけではありません。
+
+**Trainingの途中で、学ばせ方まで変える**
+
+のです。
+
+![Population Based Trainingでは複数の学習を競わせながら設定も変える](/images/articles/hyperparameters/fig-05-pbt.svg)
+
+ここまで来ると、
+
+「Hyperparameter = 人間が手入力する数字」
+
+という理解では足りないことが分かります。
+
+人間が決めることもある。
+
+Random Searchが選ぶこともある。
+
+Bayesian Optimizationが次を提案することもある。
+
+PBTのようにTraining中に変える方法もある。
+
+大事なのは、
+
+**AI本体が学ぶParameterとは別の階層で、学習方法を制御している**
+
+という点です。
+
+## ChatGPTのようなLLMにもHyperparameterはある
+
+Large Language ModelのTrainingでも、Hyperparameterは重要です。
+
+たとえば、
 
 - Learning Rate
 - Batch Size
-- Optimizer設定
+- Optimizerに関する設定
 - Weight Decay
 - Training Step数
 - Learning Rate Schedule
-- Model Architectureに関する設計値
+- Modelの大きさや構造に関する設計値
 
 などがあります。
 
-これらはModelが文章から「知識」として覚えるものではありません。
+Modelが大きくなるほど、一回のTrainingに必要な計算量も大きくなります。
 
-学習プロセスを設計する側の設定です。
+そのため、
 
-ただし、ここで一つ区別したいものがあります。
+「設定を外したから、もう一回最初から」
 
-## TemperatureやTop-pは、厳密には別の話
+の代償も大きくなり得ます。
 
-生成AIを使っていると、
+Hyperparameter Tuningは、単なる性能調整ではなく、
+
+**限られた計算資源をどう使うか**
+
+というEngineeringの問題でもあります。
+
+## TemperatureやTop-pもHyperparameterなの？
+
+ChatGPTなどの生成AIを使っていると、
 
 - Temperature
 - Top-p
 
 という設定を見ることがあります。
 
-これらも広い意味ではModelの挙動を制御する「設定値」ですが、通常はTraining時のHyperparameterとは区別して、
+これらもAIの挙動を変える設定ですが、
 
-**Inference / Generation時のSampling Parameter**
+Learning Rateとは使われる場所が違います。
 
-と呼ぶ方が正確です。
+Learning Rateは、
 
-Learning RateはModelをどうTrainingするかを変えます。
+**ModelをTrainingするとき**
 
-TemperatureはTraining済みModelから、どうTokenを選んで生成するかを変えます。
+の設定です。
 
-似て見えますが、作用する場所が違います。
+TemperatureやTop-pは、
 
-この区別ができると、
+**Training済みModelから文章を生成するとき**
 
-> 「Parameter」「Training Hyperparameter」「Inference Setting」
+の設定です。
 
-が混ざらなくなります。
+そのため、より正確には
 
-## 結局、良いHyperparameterとは何か
+**Inference時・Generation時のSampling Parameter**
 
-ここまで読むと、
+として区別して考える方が分かりやすいです。
 
-「じゃあ結局、Learning Rateはいくつにすればいいの？」
+## 最後にもう一度、初心者向けに一言で
 
-と思うかもしれません。
+Hyperparameterという言葉を見ると、難しい数学の話に見えます。
 
-残念ながら、
+でも中心にある考えは単純です。
 
-**万能な正解はありません。**
+AIには、
 
-良いHyperparameterとは、
+**自分で学ぶ部分**
 
-- Task
-- Data
-- Model
-- Optimizer
-- Hardware
-- 計算予算
-- 評価指標
+と、
 
-の条件下で、目的に合う結果を出す設定です。
+**人間や別のAlgorithmが「どう学ばせるか」を決める部分**
 
-Accuracyだけを最大化したいのか。
+があります。
 
-Inference Costも抑えたいのか。
+AI自身が学ぶ数字がParameter。
 
-Training時間を短くしたいのか。
+AIの学ばせ方を決める設定がHyperparameter。
 
-Memory制約があるのか。
+Learning RateやBatch Sizeは、その代表例です。
 
-Overfittingを減らしたいのか。
+そして良い設定は最初から分からないので、
 
-目的が違えば、最適な設定も変わります。
-
-だからHyperparameter Tuningとは、
-
-> **最高の数字を探すゲーム**
-
-ではなく、
-
-> **制約の中で、何を良しとするかを決め、そのための学習方法を探す作業**
-
-です。
-
-## この話で一番大事なこと
-
-Hyperparameterの名前を全部覚える必要はありません。
-
-本当に大事なのは、Machine Learningには二つの学習があると理解することです。
-
-一つ目は、
-
-**ModelがTraining DataからParameterを学ぶこと。**
-
-二つ目は、
-
-**開発者や探索AlgorithmがValidation結果から、より良い学習方法を探すこと。**
-
-Modelだけが学んでいるわけではありません。
-
-Modelを作る側も、
-
-「この設定ではダメだった」
-
-「この範囲は良さそうだ」
-
-「次はここを試そう」
-
-と学習しています。
-
-そして、その試行錯誤を少しずつAlgorithmへ渡してきた歴史が、
-
-Grid Search  
+試す  
 ↓  
-Random Search  
+結果を見る  
 ↓  
-Bayesian Optimization  
-↓  
-Population Based TrainingやAutoML
+また試す
 
-という流れとして見えてきます。
+という探索が必要になります。
 
-最初の疑問へ戻りましょう。
+Hyperparameterを理解すると、
 
-同じData。
+> **AIは「Dataを渡せば勝手に完成する箱」ではない**
 
-同じModel。
+ことが見えてきます。
 
-同じProgram。
+強いAIを作るには、
 
-なのに結果が違った。
+何を学ばせるかだけでなく、
 
-それはAIが気まぐれだったからではありません。
+**どう学ばせるか**
 
-**AIの中で学ばれるParameterの外側に、AIの「学び方」を決めるもう一つの設計層があったからです。**
-
-Hyperparameterとは、その設計層を操作するための値です。
-
-そしてMachine Learningが高度になるほど、
-
-> 「AIに何を学ばせるか」
-
-だけでなく、
-
-> **「AIにどう学ばせるか」**
-
-が大きな技術になります。
+まで設計しなければならないのです。
 
 ## 次に読む
 
-- **AIに必要な確率の基礎** — AIが不確実な世界をどう数字で扱うのか（準備中）
-- **ディープラーニングとは？** — Hyperparameterの影響がさらに大きくなるNeural Networkの世界（準備中）
-- **Learning Rateとは？** — 最も重要なHyperparameterの一つを、最適化の仕組みから詳しく理解する（準備中）
-- **Batch・Epoch・Stepとは？** — Trainingが実際にどの単位で進むのかを理解する（準備中）
+- **AIに必要な確率の基礎** — AIが「確からしさ」をどう数字で扱うのか（準備中）
+- **ディープラーニングとは？** — 大量のParameterを持つNeural Networkはどう学ぶのか（準備中）
+- **Learning Rateとは？** — 「一歩の大きさ」がなぜTrainingを左右するのか（準備中）
+- **Batch・Epoch・Stepとは？** — AIのTrainingがどんな単位で進むのか（準備中）
 
 ## 参考資料
 
