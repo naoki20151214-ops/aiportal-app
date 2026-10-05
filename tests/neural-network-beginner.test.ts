@@ -19,7 +19,9 @@ test("ニューラルネットワーク記事は初心者向け難易度を維�
   assert.match(article, /level: 1/);
   assert.match(article, /status: "(review|ready)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/what-is-neural-network\/hero\.svg"/);
-  assert.ok(article.length >= 6_000, "neural network article is too short");
+  const body = article.replace(/^---[\s\S]*?---\s*/, "");
+  assert.ok(body.length >= 3_500, "neural network article is too short");
+  assert.ok(body.length <= 5_000, "neural network article has become too long for this scope");
 
   assert.match(article, /たくさんの小さな計算をつないで、入力を少しずつ答えに近い形へ変えていく仕組み/);
   assert.match(article, /Weight = 情報の重要度を調整する数字/);
