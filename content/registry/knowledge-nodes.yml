@@ -1750,10 +1750,10 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "Tensorとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    status: "review"
+    centerQuestion: "AIはなぜ行列より多くの軸を持つTensorでDataを表すのか？"
     prerequisites: ["BAS-0054"]
-    children: []
+    children: ["BAS-0045"]
     related: []
     priority: "A"
   - id: "BAS-0056"
