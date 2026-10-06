@@ -291,6 +291,15 @@ nodes:
     prerequisites: ["BAS-0004"]
     children: ["BAS-0045","GEN-0005","GEN-0006","GEN-0007"]
     related: ["BAS-0025"]
+    nextReading:
+      - id: "BAS-0045"
+        note: "Dataを何件ずつ、何回使うのか"
+      - id: "BAS-0025"
+        note: "学習済みModelが新しい入力へ答えを出す流れ"
+      - id: "BAS-0010"
+        note: "Lossをどう計算するのか"
+      - id: "BAS-0011"
+        note: "Parameterをどちらへ動かすのか"
     priority: "A"
   - id: "BAS-0025"
     title: "AIの推論・Inferenceとは？"
