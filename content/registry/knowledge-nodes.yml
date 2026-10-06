@@ -1639,11 +1639,20 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "Batch・Epoch・Stepとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
+    status: "review"
+    centerQuestion: "AIのTrainingでBatch・Step・Epochはそれぞれ何を数え、3つはどうつながるのか？"
     prerequisites: ["BAS-0024"]
     children: []
-    related: []
+    related: ["BAS-0042","BAS-0010","BAS-0011"]
+    nextReading:
+      - id: "BAS-0025"
+        note: "学習を終えたModelが新しい入力へ答える流れ"
+      - id: "BAS-0042"
+        note: "Batch Sizeなど学習前に決める設定値"
+      - id: "BAS-0010"
+        note: "各Stepで予想のズレをどう測るのか"
+      - id: "BAS-0011"
+        note: "Lossを減らすためParameterをどう動かすのか"
     priority: "A"
   - id: "BAS-0046"
     title: "Regularizationとは？"
