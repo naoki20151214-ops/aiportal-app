@@ -28,6 +28,7 @@ type KnowledgeNode = {
   related: string[];
   priority: string;
   publishAt?: string;
+  nextReading?: Array<{ id: string; note: string }>;
 };
 
 type KnowledgeRegistry = {
@@ -88,6 +89,15 @@ test("Knowledge NodeのID・slugは一意で、固定語彙だけを使う", () 
       assert.ok(!node[key].includes(node.id), `self reference in ${key}: ${node.id}`);
     }
 
+    if (node.nextReading) {
+      assert.equal(new Set(node.nextReading.map((item) => item.id)).size, node.nextReading.length, `duplicate nextReading: ${node.id}`);
+      for (const item of node.nextReading) {
+        assert.match(item.id, /^(BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}$/);
+        assert.ok(item.id !== node.id, `self reference in nextReading: ${node.id}`);
+        assert.ok(item.note.trim(), `missing nextReading note: ${node.id} -> ${item.id}`);
+      }
+    }
+
     if (node.status === "scheduled") {
       assert.ok(node.publishAt, `scheduled node requires publishAt: ${node.id}`);
       assert.ok(!Number.isNaN(Date.parse(node.publishAt!)), `invalid publishAt: ${node.id}`);
@@ -104,6 +114,9 @@ test("Knowledge Graphの内部参照はすべて存在する", () => {
       for (const target of node[key]) {
         assert.ok(ids.has(target), `${node.id} -> ${target} in ${key} does not exist`);
       }
+    }
+    for (const item of node.nextReading ?? []) {
+      assert.ok(ids.has(item.id), `${node.id} -> ${item.id} in nextReading does not exist`);
     }
   }
 });
