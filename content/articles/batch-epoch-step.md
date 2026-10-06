@@ -266,4 +266,4 @@ Batch・Step・Epochを、最後に一言ずつ整理します。
 
 - [Keras - Model training APIs](https://keras.io/api/models/model_training_apis/)
 - [PyTorch - Quickstart](https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)
-- [PyTorch - DataLoader](https://docs.pytorch.org/cppdocs/api/data/dataloader.html)
+- [PyTorch - DataLoader](https://docs.pytorch.org/docs/stable/data.html)
