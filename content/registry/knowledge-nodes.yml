@@ -286,7 +286,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "AIは予想の間違いを使って、どのように内部のParameterを改善するのか？"
     prerequisites: ["BAS-0004"]
     children: ["BAS-0045","GEN-0005","GEN-0006","GEN-0007"]

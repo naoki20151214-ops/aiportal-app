@@ -6,7 +6,7 @@ description: "AIの学習・Trainingとは何かを、予想→間違いを測�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "published"
 publishedAt: "2026-10-06"
 updatedAt: "2026-10-06"
 author: "AI Portal編集部"

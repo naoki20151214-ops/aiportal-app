@@ -17,7 +17,7 @@ test("AI学習記事は短い見出しで流れが分かり初心者向けの長
   const body = article.replace(/^---[\s\S]*?---\s*/, "");
 
   assert.match(article, /level: 1/);
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(review|ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/ai-training\/hero\.svg"/);
 
   assert.ok(body.length >= 2_900, "AI training article is too short");
