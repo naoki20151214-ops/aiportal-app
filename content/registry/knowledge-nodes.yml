@@ -307,11 +307,20 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "学習済みモデルが入力から回答を生成する処理とは何か？"
+    status: "review"
+    centerQuestion: "Trainingを終えた学習済みModelは、新しい入力からどのように予測や回答を出すのか？"
     prerequisites: ["BAS-0024"]
-    children: []
-    related: ["INF-0006","INF-0007"]
+    children: ["INF-0006","INF-0007"]
+    related: ["BAS-0012","BAS-0013"]
+    nextReading:
+      - id: "BAS-0012"
+        note: "文章の続きを予測するAIの基本"
+      - id: "BAS-0013"
+        note: "言語Modelが文章を扱う単位"
+      - id: "INF-0006"
+        note: "学習済みModelをサービスから使える状態にする方法"
+      - id: "INF-0007"
+        note: "大量の推論リクエストを処理する仕組み"
     priority: "A"
   - id: "BAS-0026"
     title: "AIモデルの評価とは？"
