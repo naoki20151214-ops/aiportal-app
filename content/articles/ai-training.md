@@ -232,13 +232,6 @@ Parameterを少し直す
 
 次は、この繰り返しを数えるために使う、**Batch・Epoch・Step**を見ていきます。
 
-## 次に読む
-
-- **Batch・Epoch・Stepとは？** — Dataを何件ずつ、何回使うのか（準備中）
-- **AIの推論とは？** — 学習済みModelが新しい入力へ答えを出す流れ（準備中）
-- **損失関数とは？** — Lossをどう計算するのか（準備中）
-- **勾配降下法とは？** — Parameterをどちらへ動かすのか（準備中）
-
 ## 参考資料
 
 - [Google for Developers - Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course)
