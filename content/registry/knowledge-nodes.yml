@@ -1483,7 +1483,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "シンボリックAIとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0031"]
     children: []
