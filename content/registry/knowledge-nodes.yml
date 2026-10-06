@@ -307,7 +307,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "Trainingを終えた学習済みModelは、新しい入力からどのように予測や回答を出すのか？"
     prerequisites: ["BAS-0024"]
     children: ["INF-0006","INF-0007"]
