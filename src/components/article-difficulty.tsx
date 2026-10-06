@@ -17,7 +17,7 @@ export default function ArticleDifficulty({ level }: Props) {
       <span>難易度</span>
       <span aria-hidden="true" className="tracking-[0.08em]">
         <span className="text-amber-500">{"★".repeat(filled)}</span>
-        <span className="text-gray-300">{"★".repeat(empty)}</span>
+        <span className="text-gray-300">{"☆".repeat(empty)}</span>
       </span>
       <span className="text-gray-600">{label}</span>
     </span>
