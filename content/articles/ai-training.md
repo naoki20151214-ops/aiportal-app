@@ -14,7 +14,7 @@ thumbnail: "/images/articles/ai-training/hero.svg"
 tags: ["AI学習", "Training", "機械学習", "ニューラルネットワーク", "AI基礎"]
 ---
 
-ニューラルネットワークの記事では、
+前の記事「[ニューラルネットワークとは？](/articles/what-is-neural-network)」では、
 
 > **間違いが減るように、内部の数字を少しずつ調整する**
 

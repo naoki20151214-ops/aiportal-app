@@ -39,6 +39,7 @@ test("AI学習記事は短い見出しで流れが分かり初心者向けの長
     assert.ok(heading.length <= 18, `heading is too long for mobile: ${heading}`);
   }
 
+  assert.match(article, /\[ニューラルネットワークとは？\]\(\/articles\/what-is-neural-network\)/);
   assert.match(article, /Dataを使って予想し、間違いが減るようにModelの内部の数字を調整すること/);
   assert.match(article, /Loss = Modelの予想がどれくらいズレているかを表す数字/);
   assert.match(article, /ここまで理解できれば、AIの学習の入口としては十分です/);
