@@ -17,7 +17,7 @@ test("Batch・Epoch・Step記事は具体例から3概念を一本で理解で�
   const body = article.replace(/^---[\s\S]*?---\s*/, "");
 
   assert.match(article, /level: 1/);
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(review|ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/batch-epoch-step\/hero\.svg"/);
   assert.match(body, /\[AIの学習とは？\]\(\/articles\/ai-training\)/);
 
