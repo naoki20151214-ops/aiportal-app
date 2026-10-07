@@ -142,11 +142,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "言語モデルは文章の続きをどのように予測するのか？"
-    prerequisites: ["BAS-0001"]
+    status: "review"
+    centerQuestion: "言語Modelは、前までの文脈から次に続きそうなものを予測し、なぜ自然な文章を作れるのか？"
+    prerequisites: ["BAS-0001","BAS-0025"]
     children: ["BAS-0013","GEN-0002"]
-    related: []
+    related: ["BAS-0015"]
+    nextReading:
+      - id: "BAS-0013"
+        note: "言語Modelが文章を扱う小さな単位"
+      - id: "BAS-0015"
+        note: "AIがどこまで前の文章を見て答えるのか"
+      - id: "GEN-0002"
+        note: "言語Modelを大規模化すると何が変わるのか"
     priority: "A"
   - id: "BAS-0013"
     title: "トークンとは？"
