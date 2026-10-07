@@ -142,7 +142,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "言語Modelは、前までの文脈から次に続きそうなものを予測し、なぜ自然な文章を作れるのか？"
     prerequisites: ["BAS-0001","BAS-0025"]
     children: ["BAS-0013","GEN-0002"]
