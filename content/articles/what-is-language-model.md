@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-07"
 updatedAt: "2026-10-07"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/language-model/hero-photo.webp"
+thumbnail: "/images/articles/language-model/hero-photo.svg"
 tags: ["言語モデル", "Language Model", "文章生成", "生成AI", "AI基礎"]
 ---
 
@@ -38,7 +38,7 @@ ChatGPTに質問すると、まるで人と話しているような文章が返�
 
 これが言語Modelを理解する最初の一歩です。
 
-![AIと会話しながら、文章がどのように作られるのか考える学習シーン](/images/articles/language-model/hero-photo.webp)
+![AIと会話しながら、文章がどのように作られるのか考える学習シーン](/images/articles/language-model/hero-photo.svg)
 
 ## 続きは何だろう？
 
