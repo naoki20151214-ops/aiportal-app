@@ -161,7 +161,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "言語Modelはなぜ文章を文字や単語のままではなくTokenという単位に分けて扱い、それがAIの入力・出力・Contextにどう影響するのか？"
     prerequisites: ["BAS-0012"]
     children: ["BAS-0014","BAS-0023"]
