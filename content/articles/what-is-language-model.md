@@ -6,7 +6,7 @@ description: "言語モデルとは何かを「私は今日、コンビニで…
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "published"
 publishedAt: "2026-10-07"
 updatedAt: "2026-10-07"
 author: "AI Portal編集部"
