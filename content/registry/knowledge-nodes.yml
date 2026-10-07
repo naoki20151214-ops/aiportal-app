@@ -161,11 +161,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "生成AIが文章を文字や単語そのものではなくトークンで扱うのはなぜか？"
+    status: "review"
+    centerQuestion: "言語Modelはなぜ文章を文字や単語のままではなくTokenという単位に分けて扱い、それがAIの入力・出力・Contextにどう影響するのか？"
     prerequisites: ["BAS-0012"]
-    children: ["BAS-0014"]
-    related: ["BAS-0023"]
+    children: ["BAS-0014","BAS-0023"]
+    related: ["BAS-0015"]
+    nextReading:
+      - id: "BAS-0015"
+        note: "Tokenを意味を扱える数字の表現へ変える"
+      - id: "BAS-0023"
+        note: "AIが一度に扱えるToken量には上限がある"
+      - id: "BAS-0014"
+        note: "文章をTokenへ分ける仕組みをさらに詳しく見る"
     priority: "A"
   - id: "BAS-0014"
     title: "トークナイゼーションとは？"
