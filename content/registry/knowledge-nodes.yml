@@ -211,7 +211,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "AIが使う数字の並びをベクトルとしてどう捉え、位置・距離・向きの比較がなぜ役立つのか？"
     prerequisites: ["BAS-0015"]
     children: []
