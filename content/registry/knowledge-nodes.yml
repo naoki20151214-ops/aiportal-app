@@ -192,11 +192,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "言葉やデータの意味をベクトルで表すとはどういうことか？"
-    prerequisites: ["BAS-0012"]
+    status: "review"
+    centerQuestion: "Token IDを受け取ったModelは、どのように学習可能な数値表現を使って言葉の関係を扱うのか？"
+    prerequisites: ["BAS-0012","BAS-0013"]
     children: ["BAS-0016"]
-    related: ["GEN-0008","GEN-0010"]
+    related: ["GEN-0008","GEN-0010","BAS-0054","BAS-0055"]
+    nextReading:
+      - id: "BAS-0016"
+        note: "Embeddingを形作るベクトルの基本"
+      - id: "GEN-0010"
+        note: "Embeddingを使って似た情報を探す仕組み"
+      - id: "BAS-0017"
+        note: "言葉の文脈を扱うTransformerの仕組み"
     priority: "A"
   - id: "BAS-0016"
     title: "ベクトルとは？AIで使う意味を解説"
