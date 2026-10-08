@@ -6,7 +6,7 @@ description: "AIのベクトルとは何かを、2つの数字から座標・距
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "published"
 publishedAt: "2026-10-08"
 updatedAt: "2026-10-08"
 author: "AI Portal編集部"
