@@ -6,7 +6,7 @@ description: "Embedding（埋め込み）とは何かを、Token IDから数値�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "published"
 publishedAt: "2026-10-08"
 updatedAt: "2026-10-08"
 author: "AI Portal編集部"

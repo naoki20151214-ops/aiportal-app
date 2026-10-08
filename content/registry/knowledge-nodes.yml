@@ -192,7 +192,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "published"
     centerQuestion: "Token IDを受け取ったModelは、どのように学習可能な数値表現を使って言葉の関係を扱うのか？"
     prerequisites: ["BAS-0012","BAS-0013"]
     children: ["BAS-0016"]
