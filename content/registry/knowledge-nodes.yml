@@ -211,11 +211,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "AIでいうベクトルは何で、類似度計算にどう使われるのか？"
+    status: "review"
+    centerQuestion: "AIが使う数字の並びをベクトルとしてどう捉え、位置・距離・向きの比較がなぜ役立つのか？"
     prerequisites: ["BAS-0015"]
     children: []
-    related: ["GEN-0010"]
+    related: ["GEN-0010","BAS-0054","BAS-0055"]
+    nextReading:
+      - id: "BAS-0017"
+        note: "ベクトルを扱う言語Modelの中心的な仕組み"
+      - id: "GEN-0010"
+        note: "ベクトルを使って似た情報を探す方法"
+      - id: "BAS-0054"
+        note: "多くのベクトルをまとめて計算する行列"
     priority: "A"
   - id: "BAS-0017"
     title: "Transformerとは？"
