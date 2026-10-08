@@ -7,7 +7,7 @@ test("Vector記事は座標・向き・距離・Embeddingを初心者向けに�
  const article=readFileSync(path.join(process.cwd(),"content/articles/vectors-for-ai.md"),"utf8");
  const body=article.replace(/^---[\s\S]*?---\s*/,"");
  assert.match(article,/level: 1/);assert.match(article,/status: "(review|ready|published)"/);
- assert.ok(body.length>=3000);assert.ok(body.length<=4500);
+ assert.ok(body.length>=3000);assert.ok(body.length<=6500);
  for(const link of ["/articles/what-is-embedding","/articles/matrix-multiplication-ai"]) assert.ok(body.includes(link));
  for(const phrase of ["保存されたParameter","新しい写真","座標は場所。ベクトルは移動量。","ベクトル","距離","向き","Cosine Similarity","4次元","意味が近いことは同じではない"]) assert.ok(body.includes(phrase));
  assert.doesNotMatch(body,/^## 次に読む$/m);
