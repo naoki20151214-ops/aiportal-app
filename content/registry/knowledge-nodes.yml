@@ -230,11 +230,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "Transformerは従来のニューラルネットワークと何が違い、なぜLLMの基盤になったのか？"
-    prerequisites: ["BAS-0004","BAS-0012"]
+    status: "review"
+    centerQuestion: "Transformerは文章中の離れた要素の関係をどう扱い、なぜ多くのLLMの基盤になったのか？"
+    prerequisites: ["BAS-0004","BAS-0012","BAS-0013","BAS-0015"]
     children: ["BAS-0018","BAS-0019","BAS-0020","BAS-0021","BAS-0022"]
-    related: ["GEN-0002"]
+    related: ["GEN-0002","BAS-0016"]
+    nextReading:
+      - id: "BAS-0018"
+        note: "文章のどこに注目するかを決めるAttention"
+      - id: "BAS-0019"
+        note: "同じ文章内の要素を関連付けるSelf-Attention"
+      - id: "GEN-0002"
+        note: "Transformerを活用する大規模言語モデル"
     priority: "A"
   - id: "BAS-0018"
     title: "Attentionとは？"
