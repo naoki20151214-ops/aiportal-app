@@ -16,19 +16,19 @@ const visuals = [
   "fig-05-mask.svg",
 ];
 
-test("Attention記事は未公開reviewで、Registryと一致する", () => {
+test("Attention記事は合格済みreadyで、Registryと一致する", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const article = articles.find((item) => item.slug === slug);
   assert.ok(article);
   assert.equal(article.id, "BAS-0018");
-  assert.equal(article.status, "review");
+  assert.equal(article.status, "ready");
   assert.equal(article.level, 2);
   assert.equal(article.type, "mechanism");
 
   const registry = parse(readFileSync(path.join(process.cwd(), "content/registry/knowledge-nodes.yml"), "utf8"));
   const node = registry.nodes.find((item: { id: string }) => item.id === "BAS-0018");
   assert.ok(node);
-  assert.equal(node.status, "review");
+  assert.equal(node.status, "ready");
   assert.equal(node.slug, slug);
   assert.deepEqual(node.nextReading.map((item: { id: string }) => item.id), ["BAS-0019", "BAS-0017"]);
 });
