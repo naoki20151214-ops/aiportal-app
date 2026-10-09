@@ -266,11 +266,18 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "review"
     centerQuestion: "Self-Attentionは同じ入力内の要素同士の関係をどう捉えるのか？"
     prerequisites: ["BAS-0018"]
     children: ["BAS-0020"]
     related: []
+    nextReading:
+      - id: "BAS-0020"
+        note: "複数のAttention Headを組み合わせる仕組み"
+      - id: "BAS-0021"
+        note: "文章の順番をモデルへ伝える方法"
+      - id: "BAS-0018"
+        note: "Attentionの基本的な役割を復習する"
     priority: "A"
   - id: "BAS-0020"
     title: "Multi-Head Attentionとは？"
