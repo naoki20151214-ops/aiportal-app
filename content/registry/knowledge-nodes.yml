@@ -249,7 +249,7 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "review"
+    status: "ready"
     centerQuestion: "Attentionは入力のどこを重要視するかをどう計算するのか？"
     prerequisites: ["BAS-0017"]
     children: ["BAS-0019"]
