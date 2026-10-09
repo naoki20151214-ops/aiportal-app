@@ -20,16 +20,16 @@ test("プレビューでは既存Transformer記事とAttention記事を相互に
   try {
     delete process.env.CF_PAGES_BRANCH;
     const production = getNextReadingMarkdown("BAS-0018");
-    assert.match(production, /\\*\\*Transformerとは？\\*\\*.*（準備中）/);
-    assert.doesNotMatch(production, /\\[Transformerとは？\\]\\(\\/articles\\/what-is-transformer\\)/);
+    assert.match(production, /\*\*Transformerとは？\*\*.*（準備中）/);
+    assert.doesNotMatch(production, /\[Transformerとは？\]\(\/articles\/what-is-transformer\)/);
 
     process.env.CF_PAGES_BRANCH = "preview/attention-beginner";
     const preview = getNextReadingMarkdown("BAS-0018");
-    assert.match(preview, /\\*\\*\\[Transformerとは？\\]\\(\\/articles\\/what-is-transformer\\)\\*\\*/);
-    assert.doesNotMatch(preview, /Transformerとは？[^\\n]*（準備中）/);
-    assert.match(preview, /Self-Attentionとは？[^\\n]*（準備中）/);
+    assert.match(preview, /\*\*\[Transformerとは？\]\(\/articles\/what-is-transformer\)\*\*/);
+    assert.doesNotMatch(preview, /Transformerとは？[^\n]*（準備中）/);
+    assert.match(preview, /Self-Attentionとは？[^\n]*（準備中）/);
     const transformer = getNextReadingMarkdown("BAS-0017");
-    assert.match(transformer, /\\*\\*\\[Attentionとは？\\]\\(\\/articles\\/what-is-attention\\)\\*\\*/);
+    assert.match(transformer, /\*\*\[Attentionとは？\]\(\/articles\/what-is-attention\)\*\*/);
   } finally {
     if (priorBranch === undefined) delete process.env.CF_PAGES_BRANCH;
     else process.env.CF_PAGES_BRANCH = priorBranch;
