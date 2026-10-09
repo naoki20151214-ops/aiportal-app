@@ -27,7 +27,8 @@ test("プレビューでは既存Transformer記事とAttention記事を相互に
     const preview = getNextReadingMarkdown("BAS-0018");
     assert.match(preview, /\*\*\[Transformerとは？\]\(\/articles\/what-is-transformer\)\*\*/);
     assert.doesNotMatch(preview, /Transformerとは？[^\n]*（準備中）/);
-    assert.match(preview, /Self-Attentionとは？[^\n]*（準備中）/);
+    assert.match(preview, /\*\*\[Self-Attentionとは？\]\(\/articles\/self-attention\)\*\*/);
+    assert.doesNotMatch(preview, /Self-Attentionとは？[^\n]*（準備中）/);
     const transformer = getNextReadingMarkdown("BAS-0017");
     assert.match(transformer, /\*\*\[Attentionとは？\]\(\/articles\/what-is-attention\)\*\*/);
   } finally {
