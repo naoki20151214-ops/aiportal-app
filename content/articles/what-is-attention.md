@@ -6,7 +6,7 @@ description: "Attentionの仕組みを「帽子と靴、それをかぶった」
 category: "AI基礎・技術"
 level: 2
 type: "mechanism"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-10"
 updatedAt: "2026-10-10"
 author: "AI Portal編集部"
