@@ -266,7 +266,7 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "review"
+    status: "ready"
     centerQuestion: "Self-Attentionは同じ入力内の要素同士の関係をどう捉えるのか？"
     prerequisites: ["BAS-0018"]
     children: ["BAS-0020"]
