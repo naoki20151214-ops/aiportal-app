@@ -12,14 +12,14 @@ const assets = [
 ];
 const registry = () => parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
 
-test("コンテキストウィンドウ記事は非公開reviewでRegistryと一致する", () => {
+test("コンテキストウィンドウ記事は合格済みreadyでRegistryと一致する", () => {
   const all = readAllArticles("content/articles");
   const node = registry().nodes.find((x: { id: string }) => x.id === "BAS-0023");
   const article = all.find((x) => x.id === "BAS-0023");
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.slug, "context-window");
   assert.equal(article.level, 1);
   assert.equal(article.type, "concept");
