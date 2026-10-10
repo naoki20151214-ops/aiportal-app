@@ -442,7 +442,7 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "review"
     centerQuestion: "Attentionではなぜ参照の重みを決めるQueryとKeyに加えて、情報を取り込むValueが必要なのか？"
     prerequisites: ["BAS-0019"]
     children: ["BAS-0020"]
