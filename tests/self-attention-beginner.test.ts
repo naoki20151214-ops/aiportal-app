@@ -14,20 +14,20 @@ const figures = [
   "fig-06-causal.svg",
 ];
 
-test("Self-Attention記事は未合格のreviewを維持し、Attentionはreadyのまま", () => {
+test("合格済みSelf-AttentionとAttentionはready、Transformerはreviewのまま", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const self = articles.find((article) => article.id === "BAS-0019");
   const attention = articles.find((article) => article.id === "BAS-0018");
   assert.ok(self);
   assert.ok(attention);
-  assert.equal(self.status, "review");
+  assert.equal(self.status, "ready");
   assert.equal(attention.status, "ready");
   assert.equal(self.slug, "self-attention");
   assert.equal(self.level, 2);
   assert.equal(self.type, "mechanism");
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const byId = new Map(registry.nodes.map((node: { id: string }) => [node.id, node]));
-  assert.equal((byId.get("BAS-0019") as { status: string }).status, "review");
+  assert.equal((byId.get("BAS-0019") as { status: string }).status, "ready");
   assert.equal((byId.get("BAS-0018") as { status: string }).status, "ready");
   assert.equal((byId.get("BAS-0017") as { status: string }).status, "review");
 });
