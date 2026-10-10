@@ -6,7 +6,7 @@ description: "AIと長い会話を続けると前の話が通じなくなるの�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-10"
 updatedAt: "2026-10-10"
 author: "AI Portal編集部"
