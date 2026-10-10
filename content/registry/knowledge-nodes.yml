@@ -323,7 +323,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "AIが一度に参照できる情報量とは何で、長くなると何が変わるのか？"
     prerequisites: ["BAS-0013"]
     children: []
