@@ -61,7 +61,7 @@ test("100記事の枠外にQKVの専用Nodeを追加し、後続Multi-Headへ接
   assert.ok(qkv);
   assert.ok(self);
   assert.ok(multi);
-  assert.equal(qkv.status, "planned");
+  assert.equal(qkv.status, "review");
   assert.equal(qkv.slug, "query-key-value");
   assert.deepEqual(qkv.prerequisites, ["BAS-0019"]);
   assert.ok(self.nextReading.some((item: {id:string})=>item.id==="BAS-0101"));
