@@ -6,7 +6,7 @@ description: "Self-Attention（自己注意機構）は何をするのか。「�
 category: "AI基礎・技術"
 level: 2
 type: "mechanism"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-10"
 updatedAt: "2026-10-10"
 author: "AI Portal編集部"
