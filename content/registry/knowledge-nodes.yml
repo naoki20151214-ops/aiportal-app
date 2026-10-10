@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 500
+nodeCount: 501
 
 nodes:
   - id: "BAS-0001"
@@ -269,9 +269,11 @@ nodes:
     status: "ready"
     centerQuestion: "Self-Attentionは同じ入力内の要素同士の関係をどう捉えるのか？"
     prerequisites: ["BAS-0018"]
-    children: ["BAS-0020"]
+    children: ["BAS-0101","BAS-0020"]
     related: []
     nextReading:
+      - id: "BAS-0101"
+        note: "Query・Key・Valueの三つの役割を一つずつ理解する"
       - id: "BAS-0020"
         note: "複数のAttention Headを組み合わせる仕組み"
       - id: "BAS-0021"
@@ -287,7 +289,7 @@ nodes:
     type: "mechanism"
     status: "planned"
     centerQuestion: "複数のAttention Headを並行して使うと何ができるのか？"
-    prerequisites: ["BAS-0019"]
+    prerequisites: ["BAS-0019","BAS-0101"]
     children: []
     related: []
     priority: "B"
@@ -321,11 +323,16 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "AIが一度に参照できる情報量とは何で、長くなると何が変わるのか？"
     prerequisites: ["BAS-0013"]
     children: []
     related: ["GEN-0023","GEN-0091"]
+    nextReading:
+      - id: "BAS-0013"
+        note: "コンテキストの量を数えるTokenの基本"
+      - id: "GEN-0091"
+        note: "長いコンテキストの具体的な活用事例"
     priority: "A"
   - id: "BAS-0024"
     title: "AIの学習・Trainingとは？"
@@ -429,6 +436,22 @@ nodes:
     children: []
     related: ["GEN-0015"]
     priority: "A"
+  - id: "BAS-0101"
+    title: "Query・Key・Valueとは？"
+    slug: "query-key-value"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "planned"
+    centerQuestion: "Attentionではなぜ参照の重みを決めるQueryとKeyに加えて、情報を取り込むValueが必要なのか？"
+    prerequisites: ["BAS-0019"]
+    children: ["BAS-0020"]
+    related: ["BAS-0018","BAS-0017"]
+    nextReading:
+      - id: "BAS-0020"
+        note: "複数のAttention Headで異なる計算を組み合わせる"
+    priority: "A"
+
   - id: "GEN-0001"
     title: "生成AIとは何か？"
     slug: "what-is-generative-ai"
