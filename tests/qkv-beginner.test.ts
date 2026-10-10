@@ -43,7 +43,7 @@ test("Query/Keyが重み、Valueが数値情報という役割を具体例から
   ];
   for (const word of required) assert.ok(body.includes(word), "missing: " + word);
   assert.match(body, /QとKで重みを決める。Vをその重みで組み合わせる/);
-  assert.match(body, /文字列.*ではありません/);
+  assert.match(body, /「赤い」という日本語の意味そのものでも/);
   const headings = [...body.matchAll(/^## (.*)$/gm)].map(x => x[1]);
   for (const heading of headings) assert.ok(heading.length <= 18, "long mobile H2: " + heading);
   assert.doesNotMatch(body, /^## 次に読む$/m);
