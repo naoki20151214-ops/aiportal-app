@@ -503,11 +503,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "生成AIへの指示は回答品質にどう影響するのか？"
     prerequisites: ["GEN-0001"]
     children: ["GEN-0024","GEN-0025"]
     related: []
+    nextReading:
+      - id: "GEN-0024"
+        note: "より再現性の高い指示を考えるプロンプト設計"
+      - id: "GEN-0025"
+        note: "System Promptの役割を学ぶ"
+      - id: "GEN-0001"
+        note: "生成AIの基礎から復習する"
     priority: "A"
   - id: "GEN-0004"
     title: "ハルシネーションとは？"
