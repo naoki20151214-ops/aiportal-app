@@ -2537,7 +2537,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "review"
+    status: "ready"
     centerQuestion: "お手本の回答例がなくてもAIに仕事を頼めるのはなぜか？ 指示の詳しさと例の数はどう違うのか？"
     prerequisites: ["GEN-0003"]
     children: []
