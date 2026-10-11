@@ -6,7 +6,7 @@ description: "AIへの指示「プロンプト」とは何か。町内会の清�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-11"
 updatedAt: "2026-10-11"
 author: "AI Portal編集部"
