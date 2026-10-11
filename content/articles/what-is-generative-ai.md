@@ -6,7 +6,7 @@ description: "生成AIと従来のAIは何が違う？ 地域のイベント案�
 category: "生成AI"
 level: 0
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-11"
 updatedAt: "2026-10-11"
 author: "AI Portal編集部"
@@ -187,7 +187,7 @@ AIに入力した内容は、使うサービスや設定によって取り扱い
 
 「簡単に作れる」と「確認せずに何でも公開していい」は、同じではありません。
 
-## 最後に一本でつなぐ
+## 今回のまとめ
 
 今日の話を、もう一度まとめます。
 
