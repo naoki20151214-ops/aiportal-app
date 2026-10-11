@@ -10,7 +10,7 @@ const figures = [
   "hero.svg", "fig-01-missing.svg", "fig-02-four.svg", "fig-03-revise.svg",
 ];
 
-test("プロンプト記事とRegistryはreviewを維持し、既存記事を公開しない", () => {
+test("プロンプト記事とRegistryは合格済みreadyで、既存記事を公開しない", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const reg = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const byId = new Map(reg.nodes.map((node: {id:string})=>[node.id,node]));
@@ -18,8 +18,8 @@ test("プロンプト記事とRegistryはreviewを維持し、既存記事を公
   const node = byId.get("GEN-0003") as {status:string; slug:string; prerequisites:string[]; nextReading:{id:string}[]}|undefined;
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.category, "生成AI");
   assert.equal(article.type, "concept");
   assert.equal(article.level, 1);
