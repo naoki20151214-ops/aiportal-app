@@ -6,7 +6,7 @@ description: "Zero-shot Prompting（ゼロショット・プロンプティン�
 category: "生成AI"
 level: 1
 type: "practice"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-11"
 updatedAt: "2026-10-11"
 author: "AI Portal編集部"
