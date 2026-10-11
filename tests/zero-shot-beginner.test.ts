@@ -8,7 +8,7 @@ import { readAllArticles } from "../src/lib/article-content";
 const articlePath = path.join(process.cwd(), "content/articles/zero-shot-prompting.md");
 const figures = ["hero.svg", "fig-01-zero.svg", "fig-02-compare.svg"];
 
-test("Zero-shotはreviewのまま、先行記事はreadyを維持する", () => {
+test("Zero-shot合格済みreadyを維持し、先行記事も公開しない", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const byId = new Map(registry.nodes.map((node: {id:string})=>[node.id,node]));
@@ -16,8 +16,8 @@ test("Zero-shotはreviewのまま、先行記事はreadyを維持する", () => 
   const node = byId.get("GEN-0035") as {status:string;slug:string;prerequisites:string[];nextReading:{id:string}[]}|undefined;
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.slug, "zero-shot-prompting");
   assert.equal(article.level, 1);
   assert.equal(article.type, "practice");
