@@ -509,6 +509,8 @@ nodes:
     children: ["GEN-0024","GEN-0025"]
     related: []
     nextReading:
+      - id: "GEN-0035"
+        note: "お手本を示さずに仕事を頼むZero-shot"
       - id: "GEN-0024"
         note: "より再現性の高い指示を考えるプロンプト設計"
       - id: "GEN-0025"
@@ -2535,11 +2537,16 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
-    centerQuestion: "Zero-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "review"
+    centerQuestion: "お手本の回答例がなくてもAIに仕事を頼めるのはなぜか？ 指示の詳しさと例の数はどう違うのか？"
     prerequisites: ["GEN-0003"]
     children: []
     related: []
+    nextReading:
+      - id: "GEN-0036"
+        note: "お手本を複数見せるFew-shotとの違いを学ぶ"
+      - id: "GEN-0003"
+        note: "どんな情報を指示へ入れるか、プロンプトの基本へ戻る"
     priority: "A"
   - id: "GEN-0036"
     title: "Few-shot Promptingとは？"
