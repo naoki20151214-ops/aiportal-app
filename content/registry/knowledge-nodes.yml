@@ -472,7 +472,7 @@ nodes:
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "生成AIは従来の識別・予測AIと何が違い、何を生成できるのか？"
     prerequisites: ["BAS-0001"]
     children: ["GEN-0002","GEN-0016","GEN-0017","GEN-0018"]
