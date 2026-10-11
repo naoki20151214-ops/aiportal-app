@@ -287,11 +287,18 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "review"
     centerQuestion: "複数のAttention Headを並行して使うと何ができるのか？"
     prerequisites: ["BAS-0019","BAS-0101"]
     children: []
     related: []
+    nextReading:
+      - id: "BAS-0021"
+        note: "順序の情報がAttentionにどう関わるのか"
+      - id: "BAS-0019"
+        note: "一つのSelf-Attentionの基本に戻る"
+      - id: "BAS-0101"
+        note: "Q・K・Vの役割を詳しく復習する"
     priority: "B"
   - id: "BAS-0021"
     title: "Positional Encodingとは？"
