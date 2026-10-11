@@ -472,11 +472,18 @@ nodes:
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "生成AIは従来の識別・予測AIと何が違い、何を生成できるのか？"
     prerequisites: ["BAS-0001"]
     children: ["GEN-0002","GEN-0016","GEN-0017","GEN-0018"]
     related: ["SOC-0001"]
+    nextReading:
+      - id: "GEN-0003"
+        note: "生成AIへの指示を分かりやすく作るプロンプト"
+      - id: "GEN-0002"
+        note: "文章を生成するLLMの仕組みへ進む"
+      - id: "BAS-0001"
+        note: "生成AIの前にAIの基本をもう一度復習する"
     priority: "A"
   - id: "GEN-0002"
     title: "LLMとは何か？"
