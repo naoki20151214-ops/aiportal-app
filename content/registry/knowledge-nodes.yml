@@ -503,7 +503,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "生成AIへの指示は回答品質にどう影響するのか？"
     prerequisites: ["GEN-0001"]
     children: ["GEN-0024","GEN-0025"]
