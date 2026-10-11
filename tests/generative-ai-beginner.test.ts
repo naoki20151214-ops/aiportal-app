@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const articlePath = path.join(process.cwd(), "content/articles/what-is-generative-ai.md");
 const images = ["hero.svg", "fig-01-compare.svg", "fig-02-next.svg", "fig-03-text-image.svg"];
 
-test("生成AIの初心者記事は非公開reviewで、Registryと一致する", () => {
+test("生成AIの合格済み記事はreadyで、Registryと一致する", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const node = registry.nodes.find((x: { id: string }) => x.id === "GEN-0001");
   const article = articles.find(a => a.id === "GEN-0001");
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.level, 0);
   assert.equal(article.type, "concept");
   assert.equal(article.slug, "what-is-generative-ai");
@@ -38,6 +38,8 @@ test("町内会の物語から分類と生成を区別し、復習導線と図�
     assert.ok(body.includes(phrase), "missing concept: "+phrase);
   }
   assert.match(body, /^## ここで迷ったら$/m);
+  assert.match(body, /^## 今回のまとめ$/m);
+  assert.doesNotMatch(body, /^## 最後に一本でつなぐ$/m);
   assert.match(body, /^## 分からなければ戻ろう$/m);
   for (const href of [
     "/articles/what-is-ai",
