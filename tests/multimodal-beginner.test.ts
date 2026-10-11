@@ -14,17 +14,17 @@ const figures = [
   "fig-04-time.svg",
 ];
 
-test("BAS-0030はreviewで、合格済み教材とMulti-Headの状態は維持", () => {
+test("BAS-0030は合格済みreadyで、他教材の状態は維持", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const byId = new Map(registry.nodes.map((n: {id:string})=>[n.id,n]));
   const multi = articles.find(a=>a.id==="BAS-0030");
   assert.ok(multi);
-  assert.equal(multi.status, "review");
+  assert.equal(multi.status, "ready");
   assert.equal(multi.slug, "what-is-multimodal");
   assert.equal(multi.level, 1);
   assert.equal(multi.type, "concept");
-  assert.equal((byId.get("BAS-0030") as {status:string}).status, "review");
+  assert.equal((byId.get("BAS-0030") as {status:string}).status, "ready");
   assert.equal(articles.find(a=>a.id==="BAS-0020")?.status, "review");
   assert.equal(articles.find(a=>a.id==="BAS-0101")?.status, "ready");
   assert.equal(articles.find(a=>a.id==="BAS-0023")?.status, "ready");
