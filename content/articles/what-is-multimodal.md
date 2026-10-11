@@ -6,7 +6,7 @@ description: "写真のポスターを送り、声で『何時から？』と尋
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-11"
 updatedAt: "2026-10-11"
 author: "AI Portal編集部"
