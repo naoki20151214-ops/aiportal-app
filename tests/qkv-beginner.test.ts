@@ -11,17 +11,17 @@ const figures = [
   "fig-03-value.svg", "fig-04-three-vectors.svg", "fig-05-weighted-sum.svg",
 ];
 
-test("QKVは専用review記事で、合格済みの既存教材はreadyを維持する", () => {
+test("QKVと既存の合格教材はreadyを維持する", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const qkv = articles.find(article => article.id === "BAS-0101");
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const nodes = new Map(registry.nodes.map((n: { id: string }) => [n.id, n]));
   assert.ok(qkv);
-  assert.equal(qkv.status, "review");
+  assert.equal(qkv.status, "ready");
   assert.equal(qkv.slug, "query-key-value");
   assert.equal(qkv.level, 2);
   assert.equal(qkv.type, "mechanism");
-  assert.equal((nodes.get("BAS-0101") as {status:string}).status, "review");
+  assert.equal((nodes.get("BAS-0101") as {status:string}).status, "ready");
   assert.equal((nodes.get("BAS-0019") as {status:string}).status, "ready");
   assert.equal((nodes.get("BAS-0023") as {status:string}).status, "ready");
   assert.equal((nodes.get("BAS-0017") as {status:string}).status, "review");
