@@ -437,7 +437,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
     prerequisites: ["BAS-0001"]
     children: []
