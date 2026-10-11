@@ -2554,11 +2554,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
-    centerQuestion: "Few-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "review"
+    centerQuestion: "少数の入力と出力のお手本を見せると、なぜAIの回答形式を伝えやすくなるのか？"
     prerequisites: ["GEN-0003"]
     children: []
     related: []
+    nextReading:
+      - id: "GEN-0035"
+        note: "お手本がないZero-shotとの違いを復習する"
+      - id: "GEN-0003"
+        note: "AIに伝える仕事・材料・読み手・仕上がりの基本"
+      - id: "GEN-0024"
+        note: "さらに再現性を高めるプロンプト設計"
     priority: "A"
   - id: "GEN-0037"
     title: "Example-based Promptingとは？"
