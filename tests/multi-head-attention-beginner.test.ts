@@ -8,7 +8,7 @@ import { readAllArticles } from "../src/lib/article-content";
 const articlePath = path.join(process.cwd(), "content/articles/multi-head-attention.md");
 const figures = ["hero.svg", "fig-01-heads.svg", "fig-02-projections.svg", "fig-03-merge.svg"];
 
-test("Multi-Headはreview、QKVはreviewのままで前提記事を勝手に公開しない", () => {
+test("Multi-Headはreview、合格済みQKVはreadyで公開を勝手に行わない", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const node = registry.nodes.find((n: {id:string}) => n.id === "BAS-0020");
@@ -19,7 +19,7 @@ test("Multi-Headはreview、QKVはreviewのままで前提記事を勝手に公�
   assert.equal(article.status, "review");
   assert.equal(node.status, "review");
   assert.deepEqual(node.prerequisites, ["BAS-0019", "BAS-0101"]);
-  assert.equal(articles.find(a => a.id === "BAS-0101")?.status, "review");
+  assert.equal(articles.find(a => a.id === "BAS-0101")?.status, "ready");
   assert.equal(articles.find(a => a.id === "BAS-0019")?.status, "ready");
   assert.equal(articles.find(a => a.id === "BAS-0023")?.status, "ready");
 });
