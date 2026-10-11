@@ -52,7 +52,12 @@ test("Query/Keyが重み、Valueが数値情報という役割を具体例から
   for (const link of [
     "/articles/self-attention",
     "/articles/what-is-embedding",
-  ]) assert.ok(body.includes(link));
+    "/articles/what-is-attention",
+    "/articles/what-is-token",
+    "/articles/vectors-for-ai",
+  ]) assert.ok(body.includes(link), "missing rewind path: " + link);
+  assert.match(body, /^## ここで迷ったら$/m);
+  assert.match(body, /^## 分からなければ戻ろう$/m);
 
   const referenced = [...body.matchAll(/\/images\/articles\/qkv\/([a-z0-9-]+\.svg)/g)].map(x => x[1]);
   assert.deepEqual(referenced, figures);
