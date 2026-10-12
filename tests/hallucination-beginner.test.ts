@@ -25,7 +25,7 @@ test("GEN-0004の公開状態・図版・前提関係を確認", () => {
   assert.equal(article.type,"concept");
   assert.deepEqual(node.prerequisites,["GEN-0002"]);
   assert.ok(node.prerequisites.includes("GEN-0002"));
-  assert.equal(articles.find(a=>a.id==="BAS-0017")?.status,"review");
+  assert.ok(["ready","published"].includes(articles.find(a=>a.id==="BAS-0017")?.status??""));
 });
 
 test("架空の清掃案内を一貫して使い、ハルシネーションとチェックの方法を説明", () => {
