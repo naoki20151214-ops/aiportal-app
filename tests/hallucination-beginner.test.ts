@@ -7,7 +7,7 @@ import { readAllArticles } from "../src/lib/article-content";
 
 const articlePath = path.join(process.cwd(), "content/articles/ai-hallucination.md");
 const figures = [
-  "hero.svg", "fig-01-mixed.svg", "fig-02-two-tasks.svg", "fig-03-check.svg",
+  "hero.webp", "fig-01-mixed.webp", "fig-02-two-tasks.webp", "fig-03-check.webp",
 ];
 
 test("GEN-0004はreviewで、LLMはready、Transformerはreviewを維持", () => {
@@ -53,14 +53,14 @@ test("架空の清掃案内を一貫して使い、ハルシネーションと�
   ]) assert.ok(text.includes(url),"missing rewind: "+url);
   const headings = [...text.matchAll(/^## (.+)$/gm)].map(x=>x[1]);
   for(const heading of headings)assert.ok(heading.length<=18,"long H2: "+heading);
-  const imageRefs=[...text.matchAll(/\/images\/articles\/hallucination\/([a-z0-9-]+\.svg)/g)].map(x=>x[1]);
+  const imageRefs=[...text.matchAll(/\/images\/articles\/hallucination\/([a-z0-9-]+\.webp)/g)].map(x=>x[1]);
   assert.deepEqual(imageRefs,figures);
   for(const img of figures){
     const filename=path.join(process.cwd(),"public/images/articles/hallucination",img);
-    assert.ok(existsSync(filename),"missing SVG: "+img);
-    const svg=readFileSync(filename,"utf8");
-    assert.ok(svg.length>1700);
-    assert.match(svg,/<svg/);
-    assert.match(svg,/<title id="title">/);
+    assert.ok(existsSync(filename),"missing WebP: "+img);
+    const image=readFileSync(filename);
+    assert.ok(image.length>50000, "image is too small: "+img);
+    assert.equal(image.toString("ascii",0,4),"RIFF");
+    assert.equal(image.toString("ascii",8,12),"WEBP");
   }
 });

@@ -10,7 +10,7 @@ status: "review"
 publishedAt: "2026-10-12"
 updatedAt: "2026-10-12"
 author: "AI Portal編集部"
-thumbnail: "/images/articles/hallucination/hero.svg"
+thumbnail: "/images/articles/hallucination/hero.webp"
 tags: ["ハルシネーション", "Hallucination", "生成AI", "LLM", "事実確認", "AIのリスク"]
 ---
 
@@ -40,7 +40,7 @@ tags: ["ハルシネーション", "Hallucination", "生成AI", "LLM", "事実�
 
 こうした、**もっともらしいのに事実と違う情報をAIが作ってしまう現象**を、**ハルシネーション（Hallucination）**と呼びます。
 
-![公園清掃のお知らせに、実際には決まっていない無料のお弁当をAIが書き足す図](/images/articles/hallucination/hero.svg)
+![公園清掃のお知らせに、実際には決まっていない無料のお弁当をAIが書き足す図](/images/articles/hallucination/hero.webp)
 
 ## なぜ気づきにくいの？
 
@@ -62,7 +62,7 @@ tags: ["ハルシネーション", "Hallucination", "生成AI", "LLM", "事実�
 
 すべてが間違っていなくても、一つの思い込みが大きな問題になるのです。
 
-![正しい事実の間に、根拠のない無料のお弁当という情報が混ざった案内文](/images/articles/hallucination/fig-01-mixed.svg)
+![正しい事実の間に、根拠のない無料のお弁当という情報が混ざった案内文](/images/articles/hallucination/fig-01-mixed.webp)
 
 ## AIはなぜ作ってしまう？
 
@@ -98,7 +98,7 @@ AIは、**人間が書いたような自然な文章を作る能力**を身に�
 
 大切なのは、**ハルシネーションは単なる文字の打ち間違いとは違う問題**だということです。
 
-![自然な文章の生成と、事実の正確さの確認は別という説明図](/images/articles/hallucination/fig-02-two-tasks.svg)
+![自然な文章の生成と、事実の正確さの確認は別という説明図](/images/articles/hallucination/fig-02-two-tasks.webp)
 
 ## 何を確認すればいい？
 
@@ -130,7 +130,7 @@ AIは、**人間が書いたような自然な文章を作る能力**を身に�
 
 日時や費用など重要な案内では、必ず元の予定表や担当者の確認を優先しましょう。
 
-![町内会の元資料とAIのお知らせを四項目で照合するチェック図](/images/articles/hallucination/fig-03-check.svg)
+![町内会の元資料とAIのお知らせを四項目で照合するチェック図](/images/articles/hallucination/fig-03-check.webp)
 
 ## 指示を変えれば防げる？
 
