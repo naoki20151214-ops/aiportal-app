@@ -2611,6 +2611,11 @@ nodes:
     related: ["GEN-0047","GEN-0048"]
     nextReading:
       - id: "GEN-0047"
+        note: "回答が根拠として示すCitationを確認する方法"
+      - id: "GEN-0004"
+        note: "もっともらしい誤情報が生じる理由に戻る"
+    priority: "A"
+  - id: "GEN-0047"
     title: "AI回答のCitationとは？"
     slug: "ai-citations"
     category: "生成AI"
