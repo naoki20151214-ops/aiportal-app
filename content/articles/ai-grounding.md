@@ -6,7 +6,7 @@ description: "Grounding（グラウンディング）とは、AIの回答を根�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-13"
 updatedAt: "2026-10-13"
 author: "AI Portal編集部"

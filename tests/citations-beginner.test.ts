@@ -21,7 +21,7 @@ test("GEN-0047 stays review and follows Grounding", () => {
   assert.equal(article.category, "生成AI");
   assert.equal(article.level, 1);
   assert.deepEqual(node.prerequisites, ["GEN-0046"]);
-  assert.equal(articles.find(a => a.id === "GEN-0046")?.status, "review");
+  assert.equal(articles.find(a => a.id === "GEN-0046")?.status, "ready");
   assert.ok(["ready", "published"].includes(articles.find(a => a.id === "GEN-0004")?.status ?? ""));
 });
 
