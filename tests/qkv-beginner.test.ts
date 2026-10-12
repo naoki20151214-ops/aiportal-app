@@ -24,7 +24,7 @@ test("QKVと既存の合格教材はreadyを維持する", () => {
   assert.equal((nodes.get("BAS-0101") as {status:string}).status, "ready");
   assert.equal((nodes.get("BAS-0019") as {status:string}).status, "ready");
   assert.equal((nodes.get("BAS-0023") as {status:string}).status, "ready");
-  assert.equal((nodes.get("BAS-0017") as {status:string}).status, "review");
+  assert.equal((nodes.get("BAS-0017") as {status:string}).status, "ready");
   assert.equal(registry.nodeCount, 501);
   assert.equal(registry.nodes.length, 501);
   assert.ok((nodes.get("BAS-0019") as {nextReading: {id:string}[]}).nextReading.some(item => item.id === "BAS-0101"));
