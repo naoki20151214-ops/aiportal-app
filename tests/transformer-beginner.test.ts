@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const root = process.cwd();
 const articlePath = path.join(root, "content/articles/what-is-transformer.md");
 
-test("Transformer改訂原稿はreviewのまま、前提の未合格記事を公開しない", () => {
+test("Transformer改訂原稿はready、画像は未承認で本番未公開", () => {
   const articles = readAllArticles(path.join(root, "content/articles"));
   const article = articles.find((a) => a.id === "BAS-0017");
   const registry = parse(readFileSync(path.join(root, "content/registry/knowledge-nodes.yml"), "utf8"));
   const node = registry.nodes.find((n: { id: string }) => n.id === "BAS-0017");
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.slug, "what-is-transformer");
   assert.equal(article.level, 1);
   assert.equal(articles.find((a) => a.id === "GEN-0004")?.status, "ready");
