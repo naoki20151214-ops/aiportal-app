@@ -2554,7 +2554,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "review"
+    status: "ready"
     centerQuestion: "少数の入力と出力のお手本を見せると、なぜAIの回答形式を伝えやすくなるのか？"
     prerequisites: ["GEN-0003"]
     children: []
