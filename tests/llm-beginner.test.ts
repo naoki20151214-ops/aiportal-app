@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const articlePath=path.join(process.cwd(),"content/articles/what-is-llm.md");
 const figures=["hero.svg","fig-01-large.svg","fig-02-training-chat.svg","fig-03-model-service.svg"];
 
-test("LLM reviewと前提依存を維持し、Few-shotはreadyで公開しない",()=>{
+test("LLM合格済みreadyと前提依存を維持し、公開はしない",()=>{
   const articles=readAllArticles(path.join(process.cwd(),"content/articles"));
   const reg=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
   const node=reg.nodes.find((n:{id:string})=>n.id==="GEN-0002");
   const article=articles.find(x=>x.id==="GEN-0002");
   assert.ok(node);
   assert.ok(article);
-  assert.equal(article.status,"review");
-  assert.equal(node.status,"review");
+  assert.equal(article.status,"ready");
+  assert.equal(node.status,"ready");
   assert.equal(article.slug,"what-is-llm");
   assert.equal(article.level,1);
   assert.equal(article.type,"concept");
