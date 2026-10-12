@@ -11,14 +11,14 @@ const figures = [
 ];
 const articlePath = path.join(process.cwd(), "content/articles/what-is-transformer.md");
 
-test("BAS-0017 remains review and keeps approved red-hat example", () => {
+test("BAS-0017 is ready and keeps approved red-hat example", () => {
   const article = readFileSync(articlePath, "utf8");
   const text = article.replace(/^---[\s\S]*?---\s*/, "");
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const transformer = registry.nodes.find((n: { id: string }) => n.id === "BAS-0017");
-  assert.equal(transformer?.status, "review");
+  assert.equal(transformer?.status, "ready");
   assert.match(article, /^id: "BAS-0017"$/m);
-  assert.match(article, /^status: "review"$/m);
+  assert.match(article, /^status: "ready"$/m);
   assert.match(article, /^thumbnail: "\/images\/articles\/transformer\/hero.webp"$/m);
   assert.ok(text.length >= 4100 && text.length <= 6500, `Unexpected body length: ${text.length}`);
   for (const phrase of [
