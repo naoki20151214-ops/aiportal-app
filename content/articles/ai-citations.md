@@ -6,7 +6,7 @@ description: "AI回答に表示される[1]や出典リンクは何を意味す�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-13"
 updatedAt: "2026-10-13"
 author: "AI Portal編集部"

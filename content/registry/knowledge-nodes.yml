@@ -2712,7 +2712,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "出典番号やリンクは何を示し、答えと根拠が一致するかどう確かめるのか？"
     prerequisites: ["GEN-0046"]
     children: []

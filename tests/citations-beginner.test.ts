@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const file = "content/articles/ai-citations.md";
 const figures = ["hero.webp", "fig-01-mismatch.webp", "fig-02-three-checks.webp", "fig-03-outdated.webp"];
 
-test("GEN-0047 stays review and follows Grounding", () => {
+test("GEN-0047 approved ready and follows Grounding", () => {
   const articles = readAllArticles("content/articles");
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const article = articles.find(a => a.id === "GEN-0047");
   const node = registry.nodes.find((n: {id: string}) => n.id === "GEN-0047");
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.slug, "ai-citations");
   assert.equal(article.category, "生成AI");
   assert.equal(article.level, 1);
