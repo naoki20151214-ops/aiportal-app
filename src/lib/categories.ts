@@ -1,9 +1,21 @@
 import type { ArticleMetadata } from "../types/article";
 
-const originalCategories = [
-  "最新", "AIエージェント", "Claude Code", "ChatGPT", "Gemini", "AI画像動画生成", "AIツール",
-];
+export const contentCategories = [
+  "AIニュース",
+  "AI基礎・技術",
+  "生成AI",
+  "AIエージェント",
+  "フィジカルAI・ロボティクス",
+  "AI開発・インフラ",
+  "AI活用・社会",
+] as const;
 
-export function getCategories(articles: ArticleMetadata[]): string[] {
-  return [...new Set([...originalCategories, ...articles.map((article) => article.category)])];
+export type ContentCategory = (typeof contentCategories)[number];
+
+export function isContentCategory(value: string): value is ContentCategory {
+  return (contentCategories as readonly string[]).includes(value);
+}
+
+export function getCategories(_articles: ArticleMetadata[]): string[] {
+  return ["最新", ...contentCategories];
 }

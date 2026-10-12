@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">1 Batchを処理すると1 Step進む</title>
+<desc id="desc">100件のBatchをModelへ入れ、予想、Loss、Parameter更新までを1 Stepとして示す図</desc>
+<rect width="1200" height="675" fill="#f8fcff"/>
+<text x="600" y="78" text-anchor="middle" font-size="45" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">1 Batchを使うと、Trainingが1 Step進む</text>
+<g font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+<g transform="translate(70 245)">
+<rect width="220" height="150" rx="24" fill="#eaf5ff" stroke="#a9cae3" stroke-width="3"/>
+<text x="110" y="55" text-anchor="middle" font-size="24" font-weight="900" fill="#2f6e9b">Batch</text>
+<text x="110" y="104" text-anchor="middle" font-size="31" font-weight="900" fill="#255f8c">100件</text>
+</g>
+<path d="M310 320 H385" stroke="#7398b0" stroke-width="7"/>
+<g transform="translate(405 245)">
+<rect width="220" height="150" rx="24" fill="#ffffff" stroke="#d5e3ed" stroke-width="3"/>
+<text x="110" y="55" text-anchor="middle" font-size="24" font-weight="900" fill="#46718f">Model</text>
+<text x="110" y="102" text-anchor="middle" font-size="20" fill="#617a8c">予想する</text>
+</g>
+<path d="M645 320 H720" stroke="#7398b0" stroke-width="7"/>
+<g transform="translate(740 245)">
+<rect width="180" height="150" rx="24" fill="#fff5ed" stroke="#e2bea3" stroke-width="3"/>
+<text x="90" y="55" text-anchor="middle" font-size="24" font-weight="900" fill="#95694d">Loss</text>
+<text x="90" y="102" text-anchor="middle" font-size="20" fill="#7e7168">ズレを測る</text>
+</g>
+<path d="M940 320 H995" stroke="#7398b0" stroke-width="7"/>
+<g transform="translate(1010 245)">
+<rect width="130" height="150" rx="24" fill="#eaf7f2" stroke="#acd7c6" stroke-width="3"/>
+<text x="65" y="50" text-anchor="middle" font-size="21" font-weight="900" fill="#2f765f">更新</text>
+<text x="65" y="88" text-anchor="middle" font-size="17" fill="#61796f">Parameter</text>
+<text x="65" y="113" text-anchor="middle" font-size="17" fill="#61796f">を少し直す</text>
+</g>
+</g>
+<rect x="385" y="445" width="430" height="92" rx="24" fill="#eaf7f2" stroke="#acd7c6" stroke-width="3"/>
+<text x="600" y="485" text-anchor="middle" font-size="25" font-weight="900" fill="#2f765f" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">ここまでで 1 Step</text>
+<text x="600" y="516" text-anchor="middle" font-size="18" fill="#61796f" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">次のBatchを使えば、次のStepへ進む</text>
+</svg>

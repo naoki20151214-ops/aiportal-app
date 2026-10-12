@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Epochを何周も繰り返す</title>
+<desc id="desc">1000件のDataを1周するたびにEpochが1増え、5 Epochで50 Stepになる図</desc>
+<rect width="1200" height="675" fill="#f8fcff"/>
+<text x="600" y="78" text-anchor="middle" font-size="45" font-weight="900" fill="#082c63" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">1周終わったら、また次のEpochへ</text>
+<text x="600" y="120" text-anchor="middle" font-size="22" fill="#55758f" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">同じDataでも、順番をShuffleして使うことがある</text>
+<g font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+<g transform="translate(90 220)"><rect width="180" height="190" rx="26" fill="#ffffff" stroke="#d5e3ed" stroke-width="3"/><text x="90" y="55" text-anchor="middle" font-size="22" font-weight="900" fill="#46718f">Epoch 1</text><text x="90" y="110" text-anchor="middle" font-size="30" font-weight="900" fill="#255f8c">10 Step</text><text x="90" y="150" text-anchor="middle" font-size="17" fill="#6a8190">Dataを1周</text></g>
+<path d="M285 315 H330" stroke="#7398b0" stroke-width="7"/>
+<g transform="translate(345 220)"><rect width="180" height="190" rx="26" fill="#eaf5ff" stroke="#a9cae3" stroke-width="3"/><text x="90" y="55" text-anchor="middle" font-size="22" font-weight="900" fill="#2f6e9b">Epoch 2</text><text x="90" y="110" text-anchor="middle" font-size="30" font-weight="900" fill="#255f8c">10 Step</text><text x="90" y="150" text-anchor="middle" font-size="17" fill="#638198">もう1周</text></g>
+<path d="M540 315 H585" stroke="#7398b0" stroke-width="7"/>
+<g transform="translate(600 220)"><rect width="180" height="190" rx="26" fill="#ffffff" stroke="#d5e3ed" stroke-width="3"/><text x="90" y="55" text-anchor="middle" font-size="22" font-weight="900" fill="#46718f">Epoch 3</text><text x="90" y="110" text-anchor="middle" font-size="30" font-weight="900" fill="#255f8c">10 Step</text><text x="90" y="150" text-anchor="middle" font-size="17" fill="#6a8190">さらに1周</text></g>
+<text x="840" y="325" text-anchor="middle" font-size="42" font-weight="900" fill="#6f91a7">…</text>
+<g transform="translate(900 220)"><rect width="210" height="190" rx="26" fill="#eaf7f2" stroke="#acd7c6" stroke-width="3"/><text x="105" y="55" text-anchor="middle" font-size="22" font-weight="900" fill="#2f765f">Epoch 5</text><text x="105" y="110" text-anchor="middle" font-size="30" font-weight="900" fill="#2a715b">合計50 Step</text><text x="105" y="150" text-anchor="middle" font-size="17" fill="#61796f">Dataを5周</text></g>
+</g>
+<rect x="310" y="485" width="580" height="95" rx="26" fill="#ffffff" stroke="#cbdde9" stroke-width="3"/>
+<text x="600" y="527" text-anchor="middle" font-size="27" font-weight="900" fill="#355f87" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">5 Epoch × 10 Step = 50 Step</text>
+<text x="600" y="557" text-anchor="middle" font-size="18" fill="#667f90" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">Epochは「Data全体を何周したか」を数える</text>
+</svg>

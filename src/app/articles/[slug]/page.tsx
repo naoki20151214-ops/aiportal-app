@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/article-body";
+import ArticleDifficulty from "@/components/article-difficulty";
 import RelatedArticles from "@/components/related-articles";
+import SiteFooter from "@/components/site-footer";
 import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
 import { formatArticleDate } from "@/lib/dates";
 import { absoluteUrl, siteName } from "@/lib/site";
+import { getNextReadingMarkdown } from "@/lib/knowledge-registry";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -46,6 +49,8 @@ export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) notFound();
+  const nextReading = getNextReadingMarkdown(article.id);
+  const articleContent = nextReading ? `${article.content}\n\n${nextReading}` : article.content;
 
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
@@ -58,7 +63,10 @@ export default async function ArticlePage({ params }: Props) {
       <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
         <article>
           <header className="border-b border-gray-200 pb-6 mb-8">
-            <span className="text-xs font-bold px-2 py-1 bg-blue-50 text-blue-700 rounded">{article.category}</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold px-2 py-1 bg-blue-50 text-blue-700 rounded">{article.category}</span>
+              <ArticleDifficulty level={article.level} />
+            </div>
             <h1 className="text-2xl sm:text-3xl font-black leading-snug mt-4 mb-4">{article.title}</h1>
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-gray-500">
               <span>公開日：<time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time></span>
@@ -67,7 +75,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
-          <ArticleBody content={article.content} article={article} />
+          <ArticleBody content={articleContent} article={article} />
           {article.tags.length > 0 && (
             <ul aria-label="記事のタグ" className="flex flex-wrap gap-2 mt-8">
               {article.tags.map((tag) => <li key={tag} className="text-xs px-3 py-1 border border-gray-200 rounded-full text-gray-600">#{tag}</li>)}
@@ -79,13 +87,7 @@ export default async function ArticlePage({ params }: Props) {
           <Link href="/" className="text-sm font-bold text-blue-700 hover:underline">← トップへ戻る</Link>
         </div>
       </main>
-      <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs">
-          <span>© {new Date().getFullYear()} AI PORTAL. All rights reserved.</span>
-          <Link href="/privacy" className="hover:text-white">プライバシーポリシー</Link>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdP1r0fWxEinCVDqNuMT2nKvCX__2epeWHoxUWc623oxKCAvQ/viewform" className="hover:text-white">お問い合わせ</a>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

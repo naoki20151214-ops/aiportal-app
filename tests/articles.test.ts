@@ -3,13 +3,13 @@ import { mkdtempSync, readdirSync, rmdirSync, unlinkSync, writeFileSync } from "
 import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { parseArticle, readArticles } from "../src/lib/article-content";
+import { parseArticle, readAllArticles, readArticles } from "../src/lib/article-content";
 import { getCategories } from "../src/lib/categories";
 
 function fixture(overrides: Record<string, unknown> = {}, body = "## 基礎\n\n本文です。") {
   const metadata = {
     title: "AIの基礎", slug: "ai-basics", description: "AIを学ぶための入門記事。",
-    category: "AI入門", publishedAt: "2026-10-01", updatedAt: "2026-10-02",
+    category: "AI基礎・技術", publishedAt: "2026-10-01", updatedAt: "2026-10-02",
     author: "編集部", thumbnail: "/images/ai.jpg", tags: ["AI", "入門"],
     ...overrides,
   };
@@ -45,6 +45,51 @@ test("URLに使えないslugと危険な画像URLを拒否する", () => {
   }
 });
 
+test("定義外のカテゴリーを拒否する", () => {
+  assert.throws(() => parseArticle(fixture({ category: "ChatGPT" }), "category.md"), /category/);
+});
+
+test("status付き記事はRegistryメタ情報を要求し、reviewは公開一覧に出さない", () => {
+  const review = parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "review",
+  }), "review.md");
+  assert.equal(review.status, "review");
+  assert.equal(review.id, "BAS-0001");
+
+  for (const overrides of [
+    { status: "review" },
+    { status: "review", id: "bad", level: 0, type: "concept" },
+    { status: "review", id: "BAS-0001", level: 9, type: "concept" },
+    { status: "review", id: "BAS-0001", level: 0, type: "unknown" },
+  ]) {
+    assert.throws(() => parseArticle(fixture(overrides), "status.md"), /記事 status\.md:/);
+  }
+
+  const directory = mkdtempSync(path.join(os.tmpdir(), "aiportal-status-"));
+  try {
+    writeFileSync(path.join(directory, "published.md"), fixture({ slug: "published" }));
+    writeFileSync(path.join(directory, "review.md"), fixture({
+      slug: "review", id: "BAS-0001", level: 0, type: "concept", status: "review",
+    }));
+    assert.equal(readAllArticles(directory).length, 2);
+    assert.deepEqual(readArticles(directory).map((article) => article.slug), ["published"]);
+  } finally {
+    for (const filename of readdirSync(directory)) unlinkSync(path.join(directory, filename));
+    rmdirSync(directory);
+  }
+});
+
+test("scheduled記事はpublishAtを要求し、自動では公開しない", () => {
+  assert.throws(() => parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "scheduled",
+  }), "scheduled.md"), /publishAt/);
+  const article = parseArticle(fixture({
+    id: "BAS-0001", level: 0, type: "concept", status: "scheduled",
+    publishAt: "2026-10-10T08:00:00+09:00",
+  }), "scheduled.md");
+  assert.equal(article.publishAt, "2026-10-10T08:00:00+09:00");
+});
+
 test("壊れたYAML、キー重複、空の本文、誤ったtags形式を拒否する", () => {
   assert.throws(() => parseArticle("本文のみ", "broken.md"), /frontmatter/);
   assert.throws(() => parseArticle("---\ntitle: [\n---\n本文", "broken.md"));
@@ -59,10 +104,19 @@ test("ファイル追加だけで記事と新カテゴリーを取り込み、�
     writeFileSync(path.join(directory, "older.md"), fixture({ slug: "older", publishedAt: "2026-09-01" }));
     writeFileSync(path.join(directory, "ignored.txt"), "記事ではないファイル");
     assert.equal(readArticles(directory).length, 1);
-    writeFileSync(path.join(directory, "newer.md"), fixture({ slug: "newer", category: "AI研究" }));
+    writeFileSync(path.join(directory, "newer.md"), fixture({ slug: "newer", category: "生成AI" }));
     const articles = readArticles(directory);
     assert.deepEqual(articles.map((article) => article.slug), ["newer", "older"]);
-    assert.ok(getCategories(articles).includes("AI研究"));
+    assert.deepEqual(getCategories(articles), [
+      "最新",
+      "AIニュース",
+      "AI基礎・技術",
+      "生成AI",
+      "AIエージェント",
+      "フィジカルAI・ロボティクス",
+      "AI開発・インフラ",
+      "AI活用・社会",
+    ]);
     writeFileSync(path.join(directory, "duplicate.md"), fixture({ slug: "newer" }));
     assert.throws(() => readArticles(directory), /重複/);
   } finally {
