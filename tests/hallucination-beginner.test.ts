@@ -10,7 +10,7 @@ const figures = [
   "hero.webp", "fig-01-mixed.webp", "fig-02-two-tasks.webp", "fig-03-check.webp",
 ];
 
-test("GEN-0004はreadyで、LLMはready、Transformerはreviewを維持", () => {
+test("GEN-0004はreadyで、LLMはready、Transformerはreadyを維持", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const reg = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const node = reg.nodes.find((n: {id:string}) => n.id === "GEN-0004");
@@ -27,7 +27,7 @@ test("GEN-0004はreadyで、LLMはready、Transformerはreviewを維持", () => 
   assert.ok(node.nextReading.some((x:{id:string})=>x.id==="GEN-0046"));
   assert.equal(articles.find(a=>a.id==="GEN-0002")?.status,"ready");
   assert.equal(articles.find(a=>a.id==="GEN-0036")?.status,"ready");
-  assert.equal(articles.find(a=>a.id==="BAS-0017")?.status,"review");
+  assert.equal(articles.find(a=>a.id==="BAS-0017")?.status,"ready");
 });
 
 test("架空の清掃案内を一貫して使い、ハルシネーションとチェックの方法を説明", () => {

@@ -23,7 +23,7 @@ test("LLM合格済みreadyと前提依存を維持し、公開はしない",()=>
   assert.equal(article.category,"生成AI");
   assert.deepEqual(node.prerequisites,["BAS-0012","BAS-0017"]);
   assert.ok(node.nextReading.some((n:{id:string})=>n.id==="BAS-0012"));
-  assert.equal(articles.find(x=>x.id==="BAS-0017")?.status,"review");
+  assert.equal(articles.find(x=>x.id==="BAS-0017")?.status,"ready");
   assert.equal(articles.find(x=>x.id==="GEN-0036")?.status,"ready");
   assert.equal(articles.find(x=>x.id==="GEN-0001")?.status,"ready");
 });
