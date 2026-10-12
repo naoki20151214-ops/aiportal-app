@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const articlePath=path.join(process.cwd(),"content/articles/few-shot-prompting.md");
 const figures=["hero.svg","fig-01-pairs.svg","fig-02-compare.svg","fig-03-consistency.svg"];
 
-test("Few-shotはreviewで、合格済みZero-shotはreadyのまま",()=>{
+test("Few-shotは合格済みreadyで、Zero-shotもreadyを維持する",()=>{
   const articles=readAllArticles(path.join(process.cwd(),"content/articles"));
   const reg=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
   const node=reg.nodes.find((x:{id:string})=>x.id==="GEN-0036");
   const article=articles.find(a=>a.id==="GEN-0036");
   assert.ok(node);
   assert.ok(article);
-  assert.equal(article.status,"review");
-  assert.equal(node.status,"review");
+  assert.equal(article.status,"ready");
+  assert.equal(node.status,"ready");
   assert.equal(article.slug,"few-shot-prompting");
   assert.equal(article.level,1);
   assert.equal(article.type,"practice");
