@@ -2695,11 +2695,16 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "Groundingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "review"
+    centerQuestion: "AIの回答を根拠資料に結び付けるとはどういうことか？"
     prerequisites: ["GEN-0004"]
     children: []
-    related: []
+    related: ["GEN-0047","GEN-0048"]
+    nextReading:
+      - id: "GEN-0047"
+        note: "回答が根拠として示すCitationを確認する方法"
+      - id: "GEN-0004"
+        note: "もっともらしい誤情報が生じる理由に戻る"
     priority: "A"
   - id: "GEN-0047"
     title: "AI回答のCitationとは？"
