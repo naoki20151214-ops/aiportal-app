@@ -57,6 +57,8 @@ npx wrangler pages dev out --port 3217
 
 `npm test`は記事の入力検証と自動読み込みを確認します。`npm run build`では全記事詳細、トップ、サイトマップ、robots.txtを静的生成します。
 
+GA4は`NEXT_PUBLIC_GA_MEASUREMENT_ID`にWebストリームの測定IDを設定したProductionビルドで読み込まれます。開発ビルドと未設定時はタグを出力しません。Cloudflare PagesのProduction環境変数を設定してから再ビルドしてください。App Routerのページ遷移計測はGA4拡張計測機能のブラウザー履歴ベースのページビューに依存します。
+
 Static Exportの出力先は`out/`です。上のプレビューコマンドで`http://localhost:3217`を開けます。`output: "export"`では`next start`は使いません。
 
 `npm run build`の`postbuild`でWindows上のNext.js 16が階層化して出力するRSCファイル名を、先読みURLと一致するドット区切りに補正します。Linuxの正しい出力は変更せず、記事URL・canonical・prefetch設定も変更しません。
