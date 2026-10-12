@@ -38,7 +38,8 @@ export function getNextReadingMarkdown(articleId?: string): string {
     // Preview builds expose review/ready articles, but main stays published-only.
     // Link only when the reviewed file exists, avoiding dead preview navigation.
     const previewAccessible =
-      (process.env.CF_PAGES_BRANCH?.startsWith("preview/") ?? false) &&
+      process.env.CF_PAGES_BRANCH === "preview/transformer-red-hat-review" &&
+      target.id === "BAS-0017" &&
       (target.status === "review" || target.status === "ready") &&
       existsSync(path.join(process.cwd(), "content/articles", `${target.slug}.md`));
     const linkable = target.status === "published" || previewAccessible;

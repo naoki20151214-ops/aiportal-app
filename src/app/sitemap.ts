@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 const staticPages = ["/about", "/privacy", "/terms", "/advertising", "/contact"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const articles = getAllArticles();
+  const articles = getAllArticles().filter((article) => article.status === "published");
   const lastUpdated = articles.map((article) => article.updatedAt).sort().at(-1);
   return [
     { url: absoluteUrl("/"), ...(lastUpdated ? { lastModified: lastUpdated } : {}) },
