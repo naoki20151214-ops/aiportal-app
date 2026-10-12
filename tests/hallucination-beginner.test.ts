@@ -10,15 +10,15 @@ const figures = [
   "hero.webp", "fig-01-mixed.webp", "fig-02-two-tasks.webp", "fig-03-check.webp",
 ];
 
-test("GEN-0004はreviewで、LLMはready、Transformerはreviewを維持", () => {
+test("GEN-0004はreadyで、LLMはready、Transformerはreviewを維持", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const reg = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const node = reg.nodes.find((n: {id:string}) => n.id === "GEN-0004");
   const article = articles.find(a=>a.id==="GEN-0004");
   assert.ok(node);
   assert.ok(article);
-  assert.equal(article.status,"review");
-  assert.equal(node.status,"review");
+  assert.equal(article.status,"ready");
+  assert.equal(node.status,"ready");
   assert.equal(article.slug,"ai-hallucination");
   assert.equal(article.category,"生成AI");
   assert.equal(article.level,1);
