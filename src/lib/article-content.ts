@@ -141,7 +141,7 @@ export function readArticles(directory: string): Article[] {
   const isTransformerReview = process.env.CF_PAGES_BRANCH === "preview/transformer-red-hat-review";
   return readAllArticles(directory)
     .filter((article) => article.status === "published" ||
-      (isTransformerReview && article.id === "BAS-0017" && article.status === "review"))
+      (isTransformerReview && article.id === "BAS-0017" && (article.status === "review" || article.status === "ready")))
     .sort((a, b) =>
       b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
     );
