@@ -24,7 +24,7 @@ test("GEN-0046 stays review with approved/published prerequisite", () => {
   assert.ok(node.nextReading.some((n: {id:string}) => n.id === "GEN-0047"));
   const hallucination = articles.find(a => a.id === "GEN-0004");
   assert.ok(hallucination);
-  assert.ok(["ready","published"].includes(hallucination.status));
+  assert.ok(["ready","published"].includes(hallucination.status ?? ""));
 });
 
 test("Grounding article uses one cleanup story with cautious claims and correct WebP figures", () => {
