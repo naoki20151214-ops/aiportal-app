@@ -459,7 +459,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "published"
     centerQuestion: "生成AIがもっともらしい誤情報を作るのはなぜで、どう確認すべきか？"
     prerequisites: ["GEN-0002"]
     children: []
