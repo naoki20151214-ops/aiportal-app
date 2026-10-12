@@ -2695,7 +2695,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "AIの回答を根拠資料に結び付けるとはどういうことか？"
     prerequisites: ["GEN-0004"]
     children: []

@@ -8,15 +8,15 @@ import { readAllArticles } from "../src/lib/article-content";
 const filename = "content/articles/ai-grounding.md";
 const figures = ["hero.webp", "fig-01-compare.webp", "fig-02-steps.webp", "fig-03-pitfalls.webp"];
 
-test("GEN-0046 stays review with approved/published prerequisite", () => {
+test("GEN-0046 approved ready with approved/published prerequisite", () => {
   const articles = readAllArticles("content/articles");
   const reg = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
   const article = articles.find(a => a.id === "GEN-0046");
   const node = reg.nodes.find((n: {id:string}) => n.id === "GEN-0046");
   assert.ok(article);
   assert.ok(node);
-  assert.equal(article.status, "review");
-  assert.equal(node.status, "review");
+  assert.equal(article.status, "ready");
+  assert.equal(node.status, "ready");
   assert.equal(article.slug, "ai-grounding");
   assert.equal(article.category, "生成AI");
   assert.equal(article.level, 1);
