@@ -201,10 +201,10 @@ export default function ArticlePortal({ articles, categories, today, sidebarSlot
             <h2 className="text-xl font-black text-white tracking-tighter">AI PORTAL</h2>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold">
               <a href="#" className="hover:text-white">運営会社</a>
-              <a href="#" className="hover:text-white">プライバシーポリシー</a>
+              <Link href="/privacy" className="hover:text-white">プライバシーポリシー</Link>
               <a href="#" className="hover:text-white">利用規約</a>
               <a href="#" className="hover:text-white">広告掲載について</a>
-              <a href="#" className="hover:text-white">お問い合わせ</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdP1r0fWxEinCVDqNuMT2nKvCX__2epeWHoxUWc623oxKCAvQ/viewform" className="hover:text-white">お問い合わせ</a>
             </nav>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold tracking-widest uppercase">

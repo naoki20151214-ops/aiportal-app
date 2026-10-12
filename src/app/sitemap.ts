@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastUpdated = articles.map((article) => article.updatedAt).sort().at(-1);
   return [
     { url: absoluteUrl("/"), ...(lastUpdated ? { lastModified: lastUpdated } : {}) },
+    { url: absoluteUrl("/privacy") },
     ...articles.map((article) => ({
       url: absoluteUrl(`/articles/${article.slug}`), lastModified: article.updatedAt,
     })),

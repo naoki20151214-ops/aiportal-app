@@ -80,7 +80,11 @@ export default async function ArticlePage({ params }: Props) {
         </div>
       </main>
       <footer className="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4 text-xs">© {new Date().getFullYear()} AI PORTAL. All rights reserved.</div>
+        <div className="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <span>© {new Date().getFullYear()} AI PORTAL. All rights reserved.</span>
+          <Link href="/privacy" className="hover:text-white">プライバシーポリシー</Link>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdP1r0fWxEinCVDqNuMT2nKvCX__2epeWHoxUWc623oxKCAvQ/viewform" className="hover:text-white">お問い合わせ</a>
+        </div>
       </footer>
     </div>
   );

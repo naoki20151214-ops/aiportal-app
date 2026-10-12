@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { AnalyticsConsent } from "./analytics-consent";
 
 export function GoogleAnalyticsTag() {
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -7,5 +7,5 @@ export function GoogleAnalyticsTag() {
     return null;
   }
 
-  return <GoogleAnalytics gaId={measurementId} />;
+  return <AnalyticsConsent gaId={measurementId} />;
 }
