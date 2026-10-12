@@ -37,9 +37,14 @@ export function getNextReadingMarkdown(articleId?: string): string {
     if (!target) return "";
     // Preview builds expose review/ready articles, but main stays published-only.
     // Link only when the reviewed file exists, avoiding dead preview navigation.
+    // Keep the established behavior for the other preview branches and their tests.
+    // This one-time review branch exposes only BAS-0017. NEVER merge preview-only code.
+    const previewBranch = process.env.CF_PAGES_BRANCH;
+    const isRedHatPreview = previewBranch === "preview/transformer-red-hat-review";
     const previewAccessible =
-      process.env.CF_PAGES_BRANCH === "preview/transformer-red-hat-review" &&
-      target.id === "BAS-0017" &&
+      (isRedHatPreview
+        ? target.id === "BAS-0017"
+        : (previewBranch?.startsWith("preview/") ?? false)) &&
       (target.status === "review" || target.status === "ready") &&
       existsSync(path.join(process.cwd(), "content/articles", `${target.slug}.md`));
     const linkable = target.status === "published" || previewAccessible;
