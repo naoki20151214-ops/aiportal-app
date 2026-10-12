@@ -491,11 +491,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "大規模言語モデルは何を学び、なぜ自然な文章を生成できるのか？"
     prerequisites: ["BAS-0012","BAS-0017"]
     children: ["GEN-0003","GEN-0004","GEN-0005","GEN-0008"]
     related: ["GEN-0019","GEN-0020","GEN-0021"]
+    nextReading:
+      - id: "GEN-0003"
+        note: "生成AIに頼みたいことを伝えるプロンプトの基本"
+      - id: "BAS-0012"
+        note: "文章の続きを予測する言語モデルの基礎へ戻る"
+      - id: "BAS-0017"
+        note: "Transformerの仕組みを後から学ぶ"
     priority: "A"
   - id: "GEN-0003"
     title: "プロンプトとは？"
