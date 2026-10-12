@@ -6,7 +6,7 @@ description: "LLM（大規模言語モデル）とは何か。町内会のお知
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-12"
 updatedAt: "2026-10-12"
 author: "AI Portal編集部"
