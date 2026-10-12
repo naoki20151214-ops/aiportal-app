@@ -2611,21 +2611,21 @@ nodes:
     related: ["GEN-0047","GEN-0048"]
     nextReading:
       - id: "GEN-0047"
-        note: "回答が根拠として示すCitationを確認する方法"
-      - id: "GEN-0004"
-        note: "もっともらしい誤情報が生じる理由に戻る"
-    priority: "A"
-  - id: "GEN-0047"
     title: "AI回答のCitationとは？"
     slug: "ai-citations"
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
-    centerQuestion: "AI回答のCitationとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "review"
+    centerQuestion: "出典番号やリンクは何を示し、答えと根拠が一致するかどう確かめるのか？"
     prerequisites: ["GEN-0046"]
     children: []
-    related: []
+    related: ["GEN-0048","GEN-0004"]
+    nextReading:
+      - id: "GEN-0048"
+        note: "Web検索を使った根拠づけの仕組みへ進む"
+      - id: "GEN-0046"
+        note: "回答を資料につなぐGroundingの基本を復習する"
     priority: "A"
   - id: "GEN-0048"
     title: "Web Groundingとは？"
