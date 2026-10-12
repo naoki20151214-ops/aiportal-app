@@ -491,7 +491,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "大規模言語モデルは何を学び、なぜ自然な文章を生成できるのか？"
     prerequisites: ["BAS-0012","BAS-0017"]
     children: ["GEN-0003","GEN-0004","GEN-0005","GEN-0008"]
