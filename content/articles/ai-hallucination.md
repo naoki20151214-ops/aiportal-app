@@ -6,7 +6,7 @@ description: "ハルシネーションとはAIがもっともらしく間違っ�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-12"
 updatedAt: "2026-10-12"
 author: "AI Portal編集部"
