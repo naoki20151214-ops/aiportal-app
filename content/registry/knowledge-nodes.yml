@@ -2638,11 +2638,18 @@ nodes:
     category: "生成AI"
     level: 2
     type: "mechanism"
-    status: "planned"
-    centerQuestion: "Web Groundingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "review"
+    centerQuestion: "Webから根拠を探すAIは、どう正しい資料を見極めるのか？"
     prerequisites: ["GEN-0046"]
     children: []
-    related: []
+    related: ["GEN-0047","GEN-0049"]
+    nextReading:
+      - id: "GEN-0049"
+        note: "Web検索ではなく手元のファイルを検索する仕組み"
+      - id: "GEN-0046"
+        note: "Groundingの基本に戻る"
+      - id: "GEN-0047"
+        note: "回答に添えた出典を確認する方法"
     priority: "B"
   - id: "GEN-0049"
     title: "File Searchとは？"
