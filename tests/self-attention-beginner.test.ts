@@ -14,7 +14,7 @@ const figures = [
   "fig-06-causal.svg",
 ];
 
-test("合格済みSelf-AttentionとAttentionはready、Transformerはreviewのまま", () => {
+test("合格済みSelf-AttentionとAttentionはready、Transformerもready", () => {
   const articles = readAllArticles(path.join(process.cwd(), "content/articles"));
   const self = articles.find((article) => article.id === "BAS-0019");
   const attention = articles.find((article) => article.id === "BAS-0018");
@@ -29,7 +29,7 @@ test("合格済みSelf-AttentionとAttentionはready、Transformerはreviewの�
   const byId = new Map(registry.nodes.map((node: { id: string }) => [node.id, node]));
   assert.equal((byId.get("BAS-0019") as { status: string }).status, "ready");
   assert.equal((byId.get("BAS-0018") as { status: string }).status, "ready");
-  assert.equal((byId.get("BAS-0017") as { status: string }).status, "review");
+  assert.equal((byId.get("BAS-0017") as { status: string }).status, "ready");
 });
 
 test("Self-Attentionを赤い帽子の具体例から説明し、難しい計算は後続へ渡す", () => {
