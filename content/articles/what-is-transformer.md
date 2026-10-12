@@ -6,7 +6,7 @@ description: "Transformerの仕組みを初心者向けに解説。赤い帽子�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-08"
 updatedAt: "2026-10-13"
 author: "AI Portal編集部"
