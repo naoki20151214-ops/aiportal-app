@@ -531,11 +531,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "review"
     centerQuestion: "生成AIがもっともらしい誤情報を作るのはなぜで、どう確認すべきか？"
     prerequisites: ["GEN-0002"]
     children: []
     related: ["SOC-0012","SOC-0013"]
+    nextReading:
+      - id: "GEN-0046"
+        note: "AIの回答を根拠資料に結び付けるGrounding"
+      - id: "GEN-0047"
+        note: "根拠を明示するCitationの読み方"
+      - id: "GEN-0002"
+        note: "LLMの文章生成に戻り仕組みを復習する"
     priority: "A"
   - id: "GEN-0005"
     title: "Fine-tuningとは？"
