@@ -230,7 +230,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "Transformerは文章中の離れた要素の関係をどう扱い、なぜ多くのLLMの基盤になったのか？"
     prerequisites: ["BAS-0004","BAS-0012","BAS-0013","BAS-0015"]
     children: ["BAS-0018","BAS-0019","BAS-0020","BAS-0021","BAS-0022"]
