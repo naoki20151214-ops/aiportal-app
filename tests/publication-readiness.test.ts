@@ -7,7 +7,8 @@ import { readArticles } from "../src/lib/article-content";
 test("公開記事にサンプル表記や仮本文が残っていない", () => {
   const directory = path.join(process.cwd(), "content/articles");
   const articles = readArticles(directory);
-  assert.equal(articles.length, 22);
+  assert.equal(articles.length, 23);
+  assert.ok(articles.some((article) => article.id === "BAS-0017" && article.status === "published"), "Approved Transformer article must be published");
   for (const article of articles) {
     const content = [article.title, article.description, article.content].join("\n");
     assert.doesNotMatch(content, /サンプル記事|本文は仮|正式な解説や具体的な活用例は今後追加/);
