@@ -136,8 +136,12 @@ export function readAllArticles(directory: string): Article[] {
 }
 
 export function readArticles(directory: string): Article[] {
+  // PREVIEW-ONLY: allow just the Transformer review page on its dedicated branch.
+  // This must NEVER be merged into main.
+  const isTransformerReview = process.env.CF_PAGES_BRANCH === "preview/transformer-red-hat-review";
   return readAllArticles(directory)
-    .filter((article) => article.status === "published")
+    .filter((article) => article.status === "published" ||
+      (isTransformerReview && article.id === "BAS-0017" && (article.status === "review" || article.status === "ready")))
     .sort((a, b) =>
       b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
     );

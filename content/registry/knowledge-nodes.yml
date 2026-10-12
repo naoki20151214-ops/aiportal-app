@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 500
+nodeCount: 501
 
 nodes:
   - id: "BAS-0001"
@@ -230,7 +230,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "review"
+    status: "ready"
     centerQuestion: "Transformerは文章中の離れた要素の関係をどう扱い、なぜ多くのLLMの基盤になったのか？"
     prerequisites: ["BAS-0004","BAS-0012","BAS-0013","BAS-0015"]
     children: ["BAS-0018","BAS-0019","BAS-0020","BAS-0021","BAS-0022"]
@@ -249,11 +249,16 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "ready"
     centerQuestion: "Attentionは入力のどこを重要視するかをどう計算するのか？"
     prerequisites: ["BAS-0017"]
     children: ["BAS-0019"]
     related: []
+    nextReading:
+      - id: "BAS-0019"
+        note: "同じ文章内の位置同士で情報をやり取りするSelf-Attention"
+      - id: "BAS-0017"
+        note: "Attentionを組み込んだTransformerの全体像"
     priority: "A"
   - id: "BAS-0019"
     title: "Self-Attentionとは？"
@@ -261,11 +266,20 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "ready"
     centerQuestion: "Self-Attentionは同じ入力内の要素同士の関係をどう捉えるのか？"
     prerequisites: ["BAS-0018"]
-    children: ["BAS-0020"]
+    children: ["BAS-0101","BAS-0020"]
     related: []
+    nextReading:
+      - id: "BAS-0101"
+        note: "Query・Key・Valueの三つの役割を一つずつ理解する"
+      - id: "BAS-0020"
+        note: "複数のAttention Headを組み合わせる仕組み"
+      - id: "BAS-0021"
+        note: "文章の順番をモデルへ伝える方法"
+      - id: "BAS-0018"
+        note: "Attentionの基本的な役割を復習する"
     priority: "A"
   - id: "BAS-0020"
     title: "Multi-Head Attentionとは？"
@@ -273,11 +287,18 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "review"
     centerQuestion: "複数のAttention Headを並行して使うと何ができるのか？"
-    prerequisites: ["BAS-0019"]
+    prerequisites: ["BAS-0019","BAS-0101"]
     children: []
     related: []
+    nextReading:
+      - id: "BAS-0021"
+        note: "順序の情報がAttentionにどう関わるのか"
+      - id: "BAS-0019"
+        note: "一つのSelf-Attentionの基本に戻る"
+      - id: "BAS-0101"
+        note: "Q・K・Vの役割を詳しく復習する"
     priority: "B"
   - id: "BAS-0021"
     title: "Positional Encodingとは？"
@@ -309,11 +330,16 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "AIが一度に参照できる情報量とは何で、長くなると何が変わるのか？"
     prerequisites: ["BAS-0013"]
     children: []
     related: ["GEN-0023","GEN-0091"]
+    nextReading:
+      - id: "BAS-0013"
+        note: "コンテキストの量を数えるTokenの基本"
+      - id: "GEN-0091"
+        note: "長いコンテキストの具体的な活用事例"
     priority: "A"
   - id: "BAS-0024"
     title: "AIの学習・Trainingとは？"
@@ -411,23 +437,53 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
     prerequisites: ["BAS-0001"]
     children: []
     related: ["GEN-0015"]
+    nextReading:
+      - id: "GEN-0001"
+        note: "生成AIは何を作れるのか、基本を整理する"
+      - id: "GEN-0015"
+        note: "マルチモーダルAIの具体的な利用場面を学ぶ"
+      - id: "BAS-0001"
+        note: "AIそのものの基本を復習する"
     priority: "A"
+  - id: "BAS-0101"
+    title: "Query・Key・Valueとは？"
+    slug: "query-key-value"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "ready"
+    centerQuestion: "Attentionではなぜ参照の重みを決めるQueryとKeyに加えて、情報を取り込むValueが必要なのか？"
+    prerequisites: ["BAS-0019"]
+    children: ["BAS-0020"]
+    related: ["BAS-0018","BAS-0017"]
+    nextReading:
+      - id: "BAS-0020"
+        note: "複数のAttention Headで異なる計算を組み合わせる"
+    priority: "A"
+
   - id: "GEN-0001"
     title: "生成AIとは何か？"
     slug: "what-is-generative-ai"
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "生成AIは従来の識別・予測AIと何が違い、何を生成できるのか？"
     prerequisites: ["BAS-0001"]
     children: ["GEN-0002","GEN-0016","GEN-0017","GEN-0018"]
     related: ["SOC-0001"]
+    nextReading:
+      - id: "GEN-0003"
+        note: "生成AIへの指示を分かりやすく作るプロンプト"
+      - id: "GEN-0002"
+        note: "文章を生成するLLMの仕組みへ進む"
+      - id: "BAS-0001"
+        note: "生成AIの前にAIの基本をもう一度復習する"
     priority: "A"
   - id: "GEN-0002"
     title: "LLMとは何か？"
@@ -435,11 +491,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "大規模言語モデルは何を学び、なぜ自然な文章を生成できるのか？"
     prerequisites: ["BAS-0012","BAS-0017"]
     children: ["GEN-0003","GEN-0004","GEN-0005","GEN-0008"]
     related: ["GEN-0019","GEN-0020","GEN-0021"]
+    nextReading:
+      - id: "GEN-0003"
+        note: "生成AIに頼みたいことを伝えるプロンプトの基本"
+      - id: "BAS-0012"
+        note: "文章の続きを予測する言語モデルの基礎へ戻る"
+      - id: "BAS-0017"
+        note: "Transformerの仕組みを後から学ぶ"
     priority: "A"
   - id: "GEN-0003"
     title: "プロンプトとは？"
@@ -447,11 +510,20 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "生成AIへの指示は回答品質にどう影響するのか？"
     prerequisites: ["GEN-0001"]
     children: ["GEN-0024","GEN-0025"]
     related: []
+    nextReading:
+      - id: "GEN-0035"
+        note: "お手本を示さずに仕事を頼むZero-shot"
+      - id: "GEN-0024"
+        note: "より再現性の高い指示を考えるプロンプト設計"
+      - id: "GEN-0025"
+        note: "System Promptの役割を学ぶ"
+      - id: "GEN-0001"
+        note: "生成AIの基礎から復習する"
     priority: "A"
   - id: "GEN-0004"
     title: "ハルシネーションとは？"
@@ -459,11 +531,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "生成AIがもっともらしい誤情報を作るのはなぜで、どう確認すべきか？"
     prerequisites: ["GEN-0002"]
     children: []
     related: ["SOC-0012","SOC-0013"]
+    nextReading:
+      - id: "GEN-0046"
+        note: "AIの回答を根拠資料に結び付けるGrounding"
+      - id: "GEN-0047"
+        note: "根拠を明示するCitationの読み方"
+      - id: "GEN-0002"
+        note: "LLMの文章生成に戻り仕組みを復習する"
     priority: "A"
   - id: "GEN-0005"
     title: "Fine-tuningとは？"
@@ -2472,11 +2551,16 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
-    centerQuestion: "Zero-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "ready"
+    centerQuestion: "お手本の回答例がなくてもAIに仕事を頼めるのはなぜか？ 指示の詳しさと例の数はどう違うのか？"
     prerequisites: ["GEN-0003"]
     children: []
     related: []
+    nextReading:
+      - id: "GEN-0036"
+        note: "お手本を複数見せるFew-shotとの違いを学ぶ"
+      - id: "GEN-0003"
+        note: "どんな情報を指示へ入れるか、プロンプトの基本へ戻る"
     priority: "A"
   - id: "GEN-0036"
     title: "Few-shot Promptingとは？"
@@ -2484,11 +2568,18 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
-    centerQuestion: "Few-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
+    status: "ready"
+    centerQuestion: "少数の入力と出力のお手本を見せると、なぜAIの回答形式を伝えやすくなるのか？"
     prerequisites: ["GEN-0003"]
     children: []
     related: []
+    nextReading:
+      - id: "GEN-0035"
+        note: "お手本がないZero-shotとの違いを復習する"
+      - id: "GEN-0003"
+        note: "AIに伝える仕事・材料・読み手・仕上がりの基本"
+      - id: "GEN-0024"
+        note: "さらに再現性を高めるプロンプト設計"
     priority: "A"
   - id: "GEN-0037"
     title: "Example-based Promptingとは？"

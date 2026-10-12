@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: { default: `${siteName} | AIを体系的に学ぶ`, template: `%s | ${siteName}` },
   description: siteDescription,
+  // PREVIEW-ONLY: noindex, nofollow across this temporary review site.
+  robots: process.env.CF_PAGES_BRANCH === "preview/transformer-red-hat-review"
+    ? { index: false, follow: false }
+    : undefined,
 };
 
 export default function RootLayout({
