@@ -321,11 +321,16 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "AIが一度に参照できる情報量とは何で、長くなると何が変わるのか？"
     prerequisites: ["BAS-0013"]
     children: []
     related: ["GEN-0023","GEN-0091"]
+    nextReading:
+      - id: "BAS-0013"
+        note: "コンテキストの量を数えるTokenの基本"
+      - id: "GEN-0091"
+        note: "長いコンテキストの具体的な活用事例"
     priority: "A"
   - id: "BAS-0024"
     title: "AIの学習・Trainingとは？"
