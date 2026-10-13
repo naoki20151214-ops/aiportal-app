@@ -9,7 +9,7 @@ import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
 import { formatArticleDate } from "@/lib/dates";
 import { absoluteUrl, siteName } from "@/lib/site";
-import { getNextReadingMarkdown } from "@/lib/knowledge-registry";
+import { getNextReadingMarkdown, linkPublishedReadingTargets } from "@/lib/knowledge-registry";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: Props) {
   const article = getArticleBySlug(slug);
   if (!article) notFound();
   const nextReading = getNextReadingMarkdown(article.id);
-  const articleContent = nextReading ? `${article.content}\n\n${nextReading}` : article.content;
+  const articleContent = linkPublishedReadingTargets(nextReading ? `${article.content}\n\n${nextReading}` : article.content);
 
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
