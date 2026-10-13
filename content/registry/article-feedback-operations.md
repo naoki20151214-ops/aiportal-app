@@ -15,6 +15,23 @@
 
 フロント側のビルドフラグが有効になっても、記事末尾に近づいたときに同一オリジンの `GET /api/feedback` を使ってD1テーブルの存在とバックエンドの設定を確認。200と`available:true`が返った場合だけ、2ボタンを表示する。サーバーが503を返した場合は引き続きGoogleフォームを案内する。GETはDBの中身を返さない。
 
+
+## 2026-10-14追加：Cloudflare設定を手動ワークフローで準備する
+
+Cloudflareアカウントを直接変更できるChatGPT接続がないため、GitHub Actionsの**手動実行**でD1・Turnstile・Pagesバインディングを構築する仕組みを用意した。GitHubのプレビューCI・Cloudflare Pagesへの自動デプロイ連携と混同しないこと。Cloudflareの認証なしに「設定済み」と報告してはいけない。
+
+**最小限の管理者操作**
+
+1. [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)で対象アカウント限定のAPIトークンを作成。最小限の権限は `Cloudflare Pages` Read/Write、`D1` Read/Write、`Turnstile Sites` Read/Write相当。Global API Keyは使わない。トークンの値はこのチャットやGitHubのIssueへ貼らない。
+2. [GitHubのActions Secrets](https://github.com/naoki20151214-ops/aiportal-app/settings/secrets/actions) で `CLOUDFLARE_FEEDBACK_API_TOKEN` というRepository Secretを登録する。
+3. [Prepare AI Portal Feedback Cloudflare Resources](https://github.com/naoki20151214-ops/aiportal-app/actions/workflows/provision-feedback-cloudflare.yml) を開き、「Run workflow」からまず `environment=preview`, `operation=plan`、確認後に `operation=stage` を実行する。
+**GitHubのRun workflowを操作しなくても進められる方法：** TokenをRepository Secretに登録したら、その事実だけをこのチャットで知らせる。GitHubの接続を使い、登録先を知っている運営者の認証で [Issue #144](https://github.com/naoki20151214-ops/aiportal-app/issues/144) に `/feedback-stage-preview` という厳密な1行コメントを追加すると、ワークフローが**Previewのstageだけ**実行する。条件は「対象リポジトリ／Issue #144／ログインID `naoki20151214-ops`／コメント本文の完全一致」に制限してある。認証トークンをチャットに送る必要はない。Productionのstageは引き続きGitHub Actions画面から手動で実行する。
+
+4. `stage` のログに「STAGED, NOT ACTIVE」と表示されたことを確認する。これはPreview用D1、テーブル・2インデックス、Invisible Turnstile、Pages側のD1と認証変数の登録が完了し、**受付フラグは両方0のまま**という意味。シークレットはログに出さない。同名の異なるD1・Turnstileがあれば安全停止する。
+5. Previewを再デプロイし、Preview専用DBへの実書き込みを確認。WAFルールの準備後、本番を `environment=production`, `operation=stage` で準備してから、**本番のフラグを有効にして再ビルドし、POST 201とPATCH 200およびD1の1行更新を実証**する。テスト投稿は後で削除。
+
+**警告：** このワークフローだけではWAFの設定・実投票検証・本番公開フラグONまでは実行しない。Productionを先に有効化しない。アカウントIDはCloudflare Pagesの既存デプロイ管理画面に示された `fd4fe7df0d653a3c4c5969244430f6e2` を使用し、別アカウントの場合は適用前に確認する。
+
 ## Cloudflare管理画面で稼働前に必要な手順
 1. Cloudflare D1にProduction用DB（例：`aiportal-feedback`）を作り、`migrations/0001_article_feedback.sql`を適用する。テーブル・インデックスを検証。Previewは**本番とは別のD1**を使う
 2. Cloudflare Pagesプロジェクト `aiportal-app` のSettings > Bindingsで、D1を正確に `AI_PORTAL_FEEDBACK_DB` として登録する
