@@ -33,7 +33,9 @@ sourceRef: draft/bas-0023-context-window-20261010
 
 `verify.yml` の「Check live article inventory and block duplicate drafting」はPull Requestの通常Verifyに組み込まれ、全保持ブランチ・PR履歴を確認します。`article-inventory.yml` は毎朝9時と手動実行で管理表を生成します。既存原稿があれば、引き継ぎ元を正しく指定しない限り**PRチェックは失敗**します。API取得失敗・権限不足・結果の一部欠落時も判定を続行せず失敗します。
 
-その他、公開操作は別プロセスです。**`ready`は`published`ではありません。公開にはユーザー明示承認とPublication Gateが必要**です。公開状態変更、既存記事の修正、画像差替えを本ゲートが自動承認することはありません。
+**2026-10-13変更：ユーザーの「合格」は編集合格と本番公開承認の両方を意味します。追加の「公開していいですか？」は禁止です。** 合格した同じ作業で、承認済み記事を安全にmainへ `ready` として反映し、`article-approval-log.yml` に `decision: "approved-for-publication"` と合格根拠を記録します。GitHub Actions `publish-approved.yml` がこれを検出し、前提記事・リンク・画像を確認してTest/Lint/Build成功後に自動で `published` として反映します。
+
+**未承認の `ready` と `review` は自動公開しません。** 前提が未公開なら合格記録を維持して保留し、依存解消後に同じ合格を再利用します。未承認の本文修正・画像差替えは自動処理の対象外です。
 
 ## 情報の正確性
 
@@ -42,4 +44,4 @@ sourceRef: draft/bas-0023-context-window-20261010
 - **自動生成の管理表**：mainと保持ブランチ・PRの実体を照合した、日時付きスナップショット
 - GitHub PRおよび原稿：制作中の原稿・編集履歴の根拠
 
-管理表には見つかった原稿・画像を示しますが、ユーザーの「記事合格」を自動推定しません。合格の判断と本番公開は別操作です。
+管理表は存在する原稿・画像を示しますが、ユーザーの合格を自動推定しません。合格を受けた担当者が**同じ作業で**合格記録を追加し、それを起点に本番公開まで進めます。実装と保留条件は [approved-publication.md](approved-publication.md) を参照してください。
