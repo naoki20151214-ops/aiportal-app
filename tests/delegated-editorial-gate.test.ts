@@ -75,6 +75,27 @@ function auditFor(ready: string) {
   };
 }
 
+
+type AuditRegistryNode = {
+  id: string;
+  slug: string;
+  status: string;
+  type: string;
+  category: string;
+  prerequisites: string[];
+};
+function writeRegistry(filename: string, registry: {nodes: AuditRegistryNode[]}) {
+  const text = "schemaVersion: 1\nnodeCount: 2\nnodes:\n" + registry.nodes.map(node => [
+    '  - id: "' + node.id + '"',
+    '    slug: "' + node.slug + '"',
+    '    status: "' + node.status + '"',
+    '    type: "' + node.type + '"',
+    '    category: "' + node.category + '"',
+    '    prerequisites: [' + node.prerequisites.map(id => '"' + id + '"').join(', ') + ']',
+  ].join("\n")).join("\n") + "\n";
+  writeFileSync(filename, text);
+}
+
 function createFixture() {
   const root = mkdtempSync(path.join(tmpdir(), "aiportal-delegated-"));
   mkdirSync(path.join(root, "content/registry"), { recursive: true });
@@ -106,7 +127,7 @@ function createFixture() {
   const lp = path.join(root, "content/registry/article-approval-log.yml");
   const ep = path.join(root, "content/editorial-audits/BAS-0099.yml");
   writeFileSync(ap, ready);
-  writeFileSync(rp, stringify(registry));
+  writeRegistry(rp, registry);
   writeFileSync(lp, stringify({ schemaVersion: 1, approvals: [approval] }));
   writeFileSync(ep, auditText);
   writeFileSync(path.join(root, "public/images/articles/example/hero.svg"), "<svg/>");
@@ -201,7 +222,7 @@ test("missing, altered, unverifiable or contradictory editorial audit stops auto
       name: "unsafe news type",
       mutate: f => { const rg = parse(readFileSync(f.rp, "utf8"));
         rg.nodes[1].type = "news";
-        writeFileSync(f.rp, stringify(rg));
+        writeRegistry(f.rp, rg);
       },
       error: /news requires exceptional editorial approval/,
     },
@@ -243,7 +264,7 @@ test("unpublished prerequisite remains a hard blocker even with complete editori
   try {
     const rg = parse(readFileSync(f.rp, "utf8"));
     rg.nodes[0].status = "review";
-    writeFileSync(f.rp, stringify(rg));
+    writeRegistry(f.rp, rg);
     const result = publishApproved(f.root, { apply: true, date: "2026-10-13" });
     assert.deepEqual(result.published, []);
     assert.deepEqual(result.deferred, [ID]);
