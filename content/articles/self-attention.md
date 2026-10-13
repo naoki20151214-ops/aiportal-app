@@ -6,9 +6,9 @@ description: "Self-Attention（自己注意機構）は何をするのか。「�
 category: "AI基礎・技術"
 level: 2
 type: "mechanism"
-status: "ready"
-publishedAt: "2026-10-10"
-updatedAt: "2026-10-10"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/self-attention/hero.svg"
 tags: ["Self-Attention", "自己注意機構", "Attention", "Transformer", "文脈"]
