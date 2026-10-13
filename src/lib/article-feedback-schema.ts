@@ -1,8 +1,11 @@
 export type FeedbackKind = "rating" | "correction";
-export type FeedbackRating = "understood" | "partly" | "difficult";
+export type FeedbackRating = "understood" | "difficult";
 export type FeedbackReason = "hard-text" | "hard-visuals" | "need-examples" | "jargon" | "other";
 
 export type ArticleFeedbackSubmission = {
+  // Random per-submission UUID, held in memory while the article is open.
+  // Reuse it on retry or a vote change: no double-counting within that view.
+  requestId: string;
   articleId: string;
   slug: string;
   revision: string;
@@ -17,16 +20,18 @@ export type ValidationResult =
   | { ok: false; error: string };
 
 const ID = /^(BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}$/;
+const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const REASONS = new Set<FeedbackReason>(["hard-text", "hard-visuals", "need-examples", "jargon", "other"]);
-const RATINGS = new Set<FeedbackRating>(["understood", "partly", "difficult"]);
-const FIELDS = new Set(["articleId", "slug", "revision", "kind", "rating", "reason", "note", "turnstileToken"]);
+const RATINGS = new Set<FeedbackRating>(["understood", "difficult"]);
+const FIELDS = new Set(["requestId", "articleId", "slug", "revision", "kind", "rating", "reason", "note", "turnstileToken"]);
 
 export function validateFeedbackSubmission(input: unknown): ValidationResult {
   const bad = (error: string): ValidationResult => ({ ok: false, error });
   if (!input || typeof input !== "object" || Array.isArray(input)) return bad("invalid_body");
   const row = input as Record<string, unknown>;
   if (Object.keys(row).some((key) => !FIELDS.has(key))) return bad("unknown_field");
+  if (typeof row.requestId !== "string" || !UUID.test(row.requestId)) return bad("invalid_request_id");
   if (typeof row.articleId !== "string" || !ID.test(row.articleId)) return bad("invalid_article_id");
   if (typeof row.slug !== "string" || row.slug.length > 120 || !SLUG.test(row.slug)) return bad("invalid_slug");
   if (typeof row.revision !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(row.revision)) return bad("invalid_revision");
@@ -49,12 +54,14 @@ export function validateFeedbackSubmission(input: unknown): ValidationResult {
   if (kind === "rating") {
     if (!rating) return bad("rating_required");
     if (rating === "understood" && reason) return bad("unexpected_reason");
+    if (trimmed) return bad("unexpected_note");
   } else if (rating !== null || reason !== null || trimmed.length < 8) {
     return bad("correction_details_required");
   }
   return {
     ok: true,
     value: {
+      requestId: row.requestId,
       articleId: row.articleId,
       slug: row.slug,
       revision: row.revision,
