@@ -8,7 +8,11 @@
     "postbuild": "node scripts/normalize-static-export.mjs",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "article:inventory": "node scripts/article-workflow.mjs inventory",
+    "article:preflight": "node scripts/article-workflow.mjs preflight",
+    "article:gate": "node scripts/article-workflow.mjs gate",
+    "article:ci": "node scripts/article-workflow.mjs ci"
   },
   "dependencies": {
     "@next/third-parties": "^16.4.0",
