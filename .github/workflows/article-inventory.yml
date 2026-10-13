@@ -5,14 +5,6 @@ on:
   schedule:
     # 09:00 JST daily; never writes to or deploys main.
     - cron: '0 0 * * *'
-  pull_request:
-    paths:
-      - 'content/articles/**'
-      - 'content/registry/**'
-      - '.github/article-reuse/**'
-      - 'scripts/article-workflow.mjs'
-      - 'scripts/article-inventory-core.mjs'
-      - 'tests/article-workflow-gate.test.ts'
 
 permissions:
   contents: read
@@ -29,15 +21,10 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Audit all retained branches, generate management table and guard new articles
+      - name: Generate 100-article management table
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          if [ '${{ github.event_name }}' = 'pull_request' ]; then
-            npm run article:ci -- --pr=${{ github.event.pull_request.number }}
-          else
-            npm run article:inventory
-          fi
+        run: npm run article:inventory
       - name: Preserve reports even when the guard blocks a PR
         if: always()
         uses: actions/upload-artifact@v4

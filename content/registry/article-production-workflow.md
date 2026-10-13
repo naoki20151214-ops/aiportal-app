@@ -31,7 +31,7 @@ sourceRef: draft/bas-0023-context-window-20261010
 
 ## 自動ゲート
 
-`article-inventory.yml` は記事ファイルを追加するPull Requestで全保持ブランチ・PR履歴を確認します。既存原稿があれば、引き継ぎ元を正しく指定しない限り**PRチェックは失敗**します。API取得失敗・権限不足・結果の一部欠落時も判定を続行せず失敗します。
+`verify.yml` の「Check live article inventory and block duplicate drafting」はPull Requestの通常Verifyに組み込まれ、全保持ブランチ・PR履歴を確認します。`article-inventory.yml` は毎朝9時と手動実行で管理表を生成します。既存原稿があれば、引き継ぎ元を正しく指定しない限り**PRチェックは失敗**します。API取得失敗・権限不足・結果の一部欠落時も判定を続行せず失敗します。
 
 その他、公開操作は別プロセスです。**`ready`は`published`ではありません。公開にはユーザー明示承認とPublication Gateが必要**です。公開状態変更、既存記事の修正、画像差替えを本ゲートが自動承認することはありません。
 
