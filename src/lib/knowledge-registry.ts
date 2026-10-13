@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parse } from "yaml";
 
@@ -35,10 +35,17 @@ export function getNextReadingMarkdown(articleId?: string): string {
   const lines = source.nextReading.map((item) => {
     const target = byId.get(item.id);
     if (!target) return "";
-    const title = target.status === "published"
+    // Preview builds expose review/ready articles, but main stays published-only.
+    // Link only when the reviewed file exists, avoiding dead preview navigation.
+    const previewAccessible =
+      (process.env.CF_PAGES_BRANCH?.startsWith("preview/") ?? false) &&
+      (target.status === "review" || target.status === "ready") &&
+      existsSync(path.join(process.cwd(), "content/articles", `${target.slug}.md`));
+    const linkable = target.status === "published" || previewAccessible;
+    const title = linkable
       ? `[${target.title}](/articles/${target.slug})`
       : target.title;
-    const pending = target.status === "published" ? "" : "（準備中）";
+    const pending = linkable ? "" : "（準備中）";
     return `- **${title}** — ${item.note}${pending}`;
   }).filter(Boolean);
 
