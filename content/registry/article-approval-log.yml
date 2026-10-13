@@ -1,201 +1,226 @@
 schemaVersion: 1
-description: "User editorial approvals. Registry and article frontmatter remain the authoritative publication states."
+description: User editorial approvals. Registry and article frontmatter remain
+  the authoritative publication states.
 approvals:
-  - id: "BAS-0023"
-    slug: "context-window"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-existing-approved-article"
-    sourceRef: "draft/bas-0023-context-window-20261010"
-    sourceArticleBlob: "6fbc815e7288d23d20bcd60e226245d5e87601ba"
+  - id: BAS-0023
+    slug: context-window
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-existing-approved-article
+    sourceRef: draft/bas-0023-context-window-20261010
+    sourceArticleBlob: 6fbc815e7288d23d20bcd60e226245d5e87601ba
     illustrations: 5
-    editorialChanges: "None; publication metadata only"
+    editorialChanges: None; publication metadata only
     reviewPR: 127
     previewPR: 128
-    evidence: "Explicit approval and publication instruction in ChatGPT on 2026-10-13"
-  - id: "BAS-0001"
-    slug: "what-is-ai"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "3dc154b0533a6476c2f0f2142064577542979141"
+    evidence: Explicit approval and publication instruction in ChatGPT on 2026-10-13
+  - id: BAS-0001
+    slug: what-is-ai
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: 3dc154b0533a6476c2f0f2142064577542979141
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0002"
-    slug: "what-is-machine-learning"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "3484e865f6919333e313eab628601d32a38c38f0"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0002
+    slug: what-is-machine-learning
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: 3484e865f6919333e313eab628601d32a38c38f0
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0031"
-    slug: "ai-history"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "204537952c03054576044708ea8bfd04b228489f"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0031
+    slug: ai-history
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: 204537952c03054576044708ea8bfd04b228489f
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0034"
-    slug: "statistical-machine-learning"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "8113f35233b30920a521ef58486cf78246ffc737"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0034
+    slug: statistical-machine-learning
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: 8113f35233b30920a521ef58486cf78246ffc737
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0040"
-    slug: "train-validation-test-split"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "a6dfb44f962c6891372f19ac71b0926fdc40237f"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0040
+    slug: train-validation-test-split
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: a6dfb44f962c6891372f19ac71b0926fdc40237f
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0042"
-    slug: "hyperparameters"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "main"
-    sourceArticleBlob: "669f224e769da0118e1f82ca752b4373ed3983ff"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0042
+    slug: hyperparameters
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: main
+    sourceArticleBlob: 669f224e769da0118e1f82ca752b4373ed3983ff
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Existing accepted ready status on main plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0030"
-    slug: "what-is-multimodal"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/bas-0030-multimodal-20261011"
-    sourceArticleBlob: "38ae44714b67e2ab38a6517f562213c6bb1a1253"
+    editorialChanges: None; original body preserved
+    evidence: Existing accepted ready status on main plus 2026-10-13 blanket
+      publication authorization
+  - id: BAS-0030
+    slug: what-is-multimodal
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/bas-0030-multimodal-20261011
+    sourceArticleBlob: 38ae44714b67e2ab38a6517f562213c6bb1a1253
     illustrations: 5
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0101"
-    slug: "query-key-value"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/bas-0101-qkv-20261011"
-    sourceArticleBlob: "0718e75d1f0109250b5ed9028c85a3398c68d2ad"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: BAS-0101
+    slug: query-key-value
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/bas-0101-qkv-20261011
+    sourceArticleBlob: 0718e75d1f0109250b5ed9028c85a3398c68d2ad
     illustrations: 6
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "GEN-0001"
-    slug: "what-is-generative-ai"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/gen-0001-generative-ai-20261011"
-    sourceArticleBlob: "9c6a767680ad5a9e84f586151f9b5b7af9fee31a"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: GEN-0001
+    slug: what-is-generative-ai
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/gen-0001-generative-ai-20261011
+    sourceArticleBlob: 9c6a767680ad5a9e84f586151f9b5b7af9fee31a
     illustrations: 4
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "GEN-0002"
-    slug: "what-is-llm"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/gen-0002-llm-20261012"
-    sourceArticleBlob: "6c9de9a895ba4eee036485e3beaf444b94faedac"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: GEN-0002
+    slug: what-is-llm
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/gen-0002-llm-20261012
+    sourceArticleBlob: 6c9de9a895ba4eee036485e3beaf444b94faedac
     illustrations: 4
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "GEN-0003"
-    slug: "what-is-prompt"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/gen-0003-prompt-20261011"
-    sourceArticleBlob: "68d500d6e66f332bb0ae9f28a284d9e65da7d59f"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: GEN-0003
+    slug: what-is-prompt
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/gen-0003-prompt-20261011
+    sourceArticleBlob: 68d500d6e66f332bb0ae9f28a284d9e65da7d59f
     illustrations: 4
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "GEN-0035"
-    slug: "zero-shot-prompting"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/gen-0035-zero-shot-20261011"
-    sourceArticleBlob: "185ea7d9bdfccae68ea03effbce95e49f663697d"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: GEN-0035
+    slug: zero-shot-prompting
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/gen-0035-zero-shot-20261011
+    sourceArticleBlob: 185ea7d9bdfccae68ea03effbce95e49f663697d
     illustrations: 3
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "GEN-0036"
-    slug: "few-shot-prompting"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    originalDecision: "publish-approved-backlog"
-    sourceRef: "draft/gen-0036-few-shot-20261012"
-    sourceArticleBlob: "851481f96edd4f805e9f8454e72e3907f9dd7117"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: GEN-0036
+    slug: few-shot-prompting
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    originalDecision: publish-approved-backlog
+    sourceRef: draft/gen-0036-few-shot-20261012
+    sourceArticleBlob: 851481f96edd4f805e9f8454e72e3907f9dd7117
     illustrations: 4
-    editorialChanges: "None; original body preserved"
-    evidence: "Earlier explicit user acceptance plus 2026-10-13 blanket publication authorization"
-  - id: "BAS-0033"
-    slug: "expert-systems"
-    approvedOn: "2026-10-13"
-    decision: "approved-for-publication"
-    approvedBy: "site-owner"
-    sourceRef: "main"
-    sourceArticleBlob: "7981ea83bbdec57dd5fffb96cff18703c1cc7a86"
+    editorialChanges: None; original body preserved
+    evidence: Earlier explicit user acceptance plus 2026-10-13 blanket publication
+      authorization
+  - id: BAS-0033
+    slug: expert-systems
+    approvedOn: 2026-10-13
+    decision: published
+    approvedBy: site-owner
+    sourceRef: main
+    sourceArticleBlob: 7981ea83bbdec57dd5fffb96cff18703c1cc7a86
     illustrations: 6
-    evidence: "User explicitly approved BAS-0033 with オッケー👌 on 2026-10-04 after visual review; 2026-10-13 blanket publication authorization. Held until BAS-0032 is published."
-  - id: "BAS-0017"
-    slug: "what-is-transformer"
-    approvedOn: "2026-10-13"
-    decision: "published"
-    publishedOn: "2026-10-13"
-    releaseType: "approved-revision"
-    sourceRef: "draft/bas-0017-transformer-redhat-20261013"
-    sourceArticleBlob: "48d7f9a1e0c3158d4c9326585852436e2ca6d934"
+    evidence: User explicitly approved BAS-0033 with オッケー👌 on 2026-10-04 after
+      visual review; 2026-10-13 blanket publication authorization. Held until
+      BAS-0032 is published.
+    publishedOn: 2026-10-13
+  - id: BAS-0017
+    slug: what-is-transformer
+    approvedOn: 2026-10-13
+    decision: published
+    publishedOn: 2026-10-13
+    releaseType: approved-revision
+    sourceRef: draft/bas-0017-transformer-redhat-20261013
+    sourceArticleBlob: 48d7f9a1e0c3158d4c9326585852436e2ca6d934
     illustrations: 7
-    editorialChanges: "None; approved red-hat manuscript and seven WebP images retained"
-    evidence: "Site owner explicitly accepted the red-hat Transformer revision on 2026-10-13. Main content body and all seven approved WebP image blobs matched the source branch."
-  - id: "BAS-0032"
-    slug: "symbolic-ai"
-    approvedOn: "2026-10-13"
-    approvedBy: "site-owner"
-    decision: "approved-for-publication"
-    sourceRef: "main"
-    reviewArticleBlob: "77d13356b14d89e9a3c6369b855a7d1c9e0393d4"
-    sourceArticleBlob: "88db12980b9d7e94cd107b931f63d843defdeb6d"
+    editorialChanges: None; approved red-hat manuscript and seven WebP images retained
+    evidence: Site owner explicitly accepted the red-hat Transformer revision on
+      2026-10-13. Main content body and all seven approved WebP image blobs
+      matched the source branch.
+  - id: BAS-0032
+    slug: symbolic-ai
+    approvedOn: 2026-10-13
+    approvedBy: site-owner
+    decision: published
+    sourceRef: main
+    reviewArticleBlob: 77d13356b14d89e9a3c6369b855a7d1c9e0393d4
+    sourceArticleBlob: 88db12980b9d7e94cd107b931f63d843defdeb6d
     illustrations: 6
-    editorialChanges: "None; status only review to ready"
-    evidence: "Site owner explicitly said both articles were OK after rereading BAS-0032 and BAS-0056 in ChatGPT on 2026-10-13; no second publication consent required"
-  - id: "BAS-0056"
-    slug: "probability-for-ai"
-    approvedOn: "2026-10-13"
-    approvedBy: "site-owner"
-    decision: "approved-for-publication"
-    sourceRef: "main"
-    reviewArticleBlob: "2a9198b5a5e52315ec4247086f4abcf5189e351a"
-    sourceArticleBlob: "e913ad382b0c02bcab807dc79073374d9937d661"
+    editorialChanges: None; status only review to ready
+    evidence: Site owner explicitly said both articles were OK after rereading
+      BAS-0032 and BAS-0056 in ChatGPT on 2026-10-13; no second publication
+      consent required
+    publishedOn: 2026-10-13
+  - id: BAS-0056
+    slug: probability-for-ai
+    approvedOn: 2026-10-13
+    approvedBy: site-owner
+    decision: published
+    sourceRef: main
+    reviewArticleBlob: 2a9198b5a5e52315ec4247086f4abcf5189e351a
+    sourceArticleBlob: e913ad382b0c02bcab807dc79073374d9937d661
     illustrations: 5
-    editorialChanges: "None; status only review to ready"
-    evidence: "Site owner explicitly said both articles were OK after rereading BAS-0032 and BAS-0056 in ChatGPT on 2026-10-13; no second publication consent required"
+    editorialChanges: None; status only review to ready
+    evidence: Site owner explicitly said both articles were OK after rereading
+      BAS-0032 and BAS-0056 in ChatGPT on 2026-10-13; no second publication
+      consent required
+    publishedOn: 2026-10-13

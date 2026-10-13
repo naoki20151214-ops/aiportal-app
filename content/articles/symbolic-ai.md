@@ -6,9 +6,9 @@ description: "シンボリックAIの基本を、知識表現・論理推論・�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/symbolic-ai/hero.webp"
 tags: ["シンボリックAI", "記号AI", "知識表現", "論理", "ルールベース", "AI基礎"]

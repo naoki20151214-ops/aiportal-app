@@ -6,9 +6,9 @@ description: "AIで確率がなぜ必要なのかを、猫99%と猫51%の違い�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-05"
-updatedAt: "2026-10-05"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/probability-for-ai/hero.svg"
 tags: ["確率", "機械学習", "不確実性", "LLM", "AI基礎"]

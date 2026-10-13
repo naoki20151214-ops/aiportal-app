@@ -6,9 +6,9 @@ description: "エキスパートシステムとは何かを、知識ベース・
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/expert-systems/hero.webp"
 tags: ["エキスパートシステム", "知識ベース", "推論エンジン", "Knowledge Engineering", "MYCIN", "DENDRAL", "シンボリックAI"]
