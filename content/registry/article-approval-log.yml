@@ -161,6 +161,7 @@ approvals:
     slug: "expert-systems"
     approvedOn: "2026-10-13"
     decision: "approved-for-publication"
+    approvedBy: "site-owner"
     sourceRef: "main"
     sourceArticleBlob: "7981ea83bbdec57dd5fffb96cff18703c1cc7a86"
     illustrations: 6

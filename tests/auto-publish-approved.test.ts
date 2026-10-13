@@ -1,9 +1,16 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { createHash } from "node:crypto";
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { publishApproved } from "../scripts/auto-publish-approved.mjs";
+function gitBlobSha(source: string): string {
+  return createHash("sha1")
+    .update("blob " + Buffer.byteLength(source, "utf8") + "\0")
+    .update(source, "utf8")
+    .digest("hex");
+}
 function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublished?: boolean; image?: boolean}={}){
   const root=mkdtempSync(path.join(tmpdir(),"aiportal-approve-"));
   mkdirSync(path.join(root,"content/registry"),{recursive:true});
@@ -16,6 +23,9 @@ function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublishe
   const ledger={schemaVersion:1,approvals:options.accept===false?[]:[
     {id:"BAS-0099",slug:"example",approvedOn:"2026-10-13",decision:"approved-for-publication",evidence:"Explicit site-owner approval"}]};
   const article='---\nid: "BAS-0099"\nslug: "example"\nstatus: "'+(options.ready===false?"review":"ready")+'"\npublishedAt: "2026-10-01"\nupdatedAt: "2026-10-01"\n---\n\nThe original explanation stays unchanged.\n\n![Example](/images/articles/example/a.svg)\n';
+  if(ledger.approvals.length)Object.assign(ledger.approvals[0],{
+    approvedBy:"site-owner", sourceArticleBlob:gitBlobSha(article)
+  });
   writeFileSync(path.join(root,"content/registry/knowledge-nodes.yml"),YAML(registry));
   writeFileSync(path.join(root,"content/registry/article-approval-log.yml"),YAML(ledger));
   writeFileSync(path.join(root,"content/articles/example.md"),article);
@@ -65,4 +75,37 @@ test("unpublished prerequisite defers approval without bypass; missing image har
   }finally{rmSync(root,{recursive:true,force:true});}
   const bad=fixture({image:false});try{assert.throws(()=>publishApproved(bad,{apply:true,date:"2026-10-13"}),/Missing approved illustration/);}
   finally{rmSync(bad,{recursive:true,force:true});}
+});
+
+test("unapproved body edits, missing immutable source or forged approving actor block publication",()=>{
+  const altered=fixture();try{
+    const p=path.join(altered,"content/articles/example.md");
+    writeFileSync(p,readFileSync(p,"utf8").replace(
+      "The original explanation stays unchanged.","This unapproved edit must not be published."));
+    assert.throws(()=>publishApproved(altered,{apply:true,date:"2026-10-13"}),
+      /Approved source blob mismatch/);
+  }finally{rmSync(altered,{recursive:true,force:true});}
+  for(const badValue of [{sourceArticleBlob:""},{approvedBy:"unverified"}]){
+    const root=fixture();try{
+      const p=path.join(root,"content/registry/article-approval-log.yml");
+      const ledger=JSON.parse(readFileSync(p,"utf8"));
+      Object.assign(ledger.approvals[0],badValue);
+      writeFileSync(p,JSON.stringify(ledger));
+      assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),
+        /Missing approved ready article Git blob SHA|Invalid explicit approval evidence/);
+    }finally{rmSync(root,{recursive:true,force:true});}
+  }
+});
+
+test("a broken approved thumbnail fails before publication",()=>{
+  const root=fixture();try{
+    const p=path.join(root,"content/articles/example.md");
+    const article=readFileSync(p,"utf8").replace('status: "ready"','status: "ready"\nthumbnail: "/images/articles/example/missing.svg"');
+    writeFileSync(p,article);
+    const ledgerPath=path.join(root,"content/registry/article-approval-log.yml");
+    const ledger=JSON.parse(readFileSync(ledgerPath,"utf8"));
+    ledger.approvals[0].sourceArticleBlob=gitBlobSha(article);
+    writeFileSync(ledgerPath,JSON.stringify(ledger));
+    assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Missing approved thumbnail/);
+  }finally{rmSync(root,{recursive:true,force:true});}
 });
