@@ -1,0 +1,53 @@
+name: Prepare AI Portal Feedback Cloudflare Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Cloudflare Pages target; preview first"
+        required: true
+        type: choice
+        options:
+          - preview
+          - production
+        default: preview
+      operation:
+        description: "plan is safe; audit read-only; stage creates resources but keeps voting disabled"
+        required: true
+        type: choice
+        options:
+          - plan
+          - audit
+          - stage
+        default: plan
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aiportal-cloudflare-feedback-setup
+  cancel-in-progress: false
+
+jobs:
+  configure:
+    if: github.repository == 'naoki20151214-ops/aiportal-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Cloudflare resources (never enable public voting)
+        env:
+          CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2
+          CLOUDFLARE_PAGES_PROJECT: aiportal-app
+          MODE: ${{ inputs.operation }}
+          TARGET: ${{ inputs.environment }}
+        run: |
+          node scripts/provision-cloudflare-feedback.mjs --mode="$MODE" --environment="$TARGET"
