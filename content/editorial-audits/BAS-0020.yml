@@ -1,0 +1,51 @@
+schemaVersion: 1
+id: "BAS-0020"
+slug: "multi-head-attention"
+auditedOn: "2026-10-13"
+readyArticleBlob: "9df10d206d0bf79dc4f0ca401c76fa10089efa12"
+scope: "standard-evergreen"
+decision: "pass"
+humanEscalationRequired: false
+blockingFindings: []
+reviewProcess:
+  writerId: "existing-draft-bAS-0020-20261011-original"
+  verifierId: "GPT-6-20261013-separate-source-verification"
+  separateVerificationPass: true
+checks:
+  centralQuestion:
+    passed: true
+    evidence: "本文は『Attentionが一つでも情報を集められるのに、なぜ複数Headを使うか』に直接回答し、各Headによる異なる数値変換と結果結合を説明する。"
+  beginnerClarity:
+    passed: true
+    evidence: "色と大きさをもつ帽子を一貫した比喩とし、Headが色担当・大きさ担当に固定されないと明確に注意する。Q/K/Vの計算暗記を求めず前提への復習リンクがある。難易度2は妥当。"
+  narrativeExamples:
+    passed: true
+    evidence: "「赤くて小さな帽子」から『一つで十分では』という疑問を提示し、学習済み投影→複数Head→結合へ順番に導く。結論と復習導線も一貫している。"
+  sourceAccuracy:
+    passed: true
+    evidence: "Transformer原論文 arXiv:1706.03762 3.2.1/3.2.2 と PyTorch MultiheadAttention公式文書の num_heads、Q/K/V投影、連結・出力投影、attn_mask/is_causal を独立に確認した。"
+  imageAccuracyAndAlt:
+    passed: true
+    evidence: "旧draft/bas-0020-multi-head-20261011の4枚SVGをSHA一致で再利用。図中はHeadの役割が固定されないと注記し、SVG title/descとMarkdown altが存在。学習済み変換と結合の説明にも齟齬がない。"
+  internalLinks:
+    passed: true
+    evidence: "記事で参照するself-attention、what-is-attention、what-is-embedding、query-key-valueの4つは最新main Registryでpublished。未公開URLは記載されていない。"
+  prerequisites:
+    passed: true
+    evidence: "BAS-0019 Self-Attention と BAS-0101 Query/Key/Value は双方published。原稿が直接利用する2前提を主Registryのprerequisitesに明示し、依存順を守る。"
+  riskAndSafety:
+    passed: true
+    evidence: "一般的な機械学習の概念学習であり医療・投資・法務の個別助言や機器危険操作を含まない。Head数を増やせば必ず正確になる、各Headの役割が固定という誤解も避けている。"
+criticalClaims:
+  - claim: "Multi-Head Attentionは同じ入力に異なる学習済みQ/K/V投影を適用し、並列Headの出力を連結し出力変換に通す。"
+    sourceUrl: "https://arxiv.org/abs/1706.03762"
+    sourceEvidence: "原著論文3.2.2節はqueries/keys/valuesを異なる学習済み線形変換でh回投影し、並列Attentionを実行後にConcatと追加の学習済み投影W^Oを適用すると明記する。"
+    verified: true
+  - claim: "各HeadのAttentionを使うSelf-Attentionはマスクによって参照位置を制限でき、未来の位置を参照しないcausal設定がある。"
+    sourceUrl: "https://docs.pytorch.org/docs/stable/generated/torch.nn.MultiheadAttention.html"
+    sourceEvidence: "PyTorchの公式nn.MultiheadAttention API forwardはattn_maskで位置ごとの参照を制限し、is_causalでcausal maskを扱う。またnum_headsは並列Attention Head数と記載する。"
+    verified: true
+  - claim: "Head数を増やせば必ず正確になるわけではなく、複数Headは異なる表現空間から情報をまとめる仕組みである。"
+    sourceUrl: "https://arxiv.org/abs/1706.03762"
+    sourceEvidence: "原著論文3.2.2節は表現部分空間の情報を同時に参照できる利点を述べ、モデル変種のTable 3ではHead数が多すぎると品質が下がる実験結果を示している。"
+    verified: true
