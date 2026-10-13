@@ -38,9 +38,12 @@ test("one accepted ready article becomes published, original body remains intact
 test("review or no explicit acceptance never causes publication",()=>{
   for(const opts of [{accept:false},{ready:false}]){
     const root=fixture(opts);try{
-      const r=publishApproved(root,{apply:true,date:"2026-10-13"});
-      if(opts.accept===false)assert.deepEqual(r.published,[]);
-      else assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Approval status mismatch/);
+      if(opts.accept===false){
+        const r=publishApproved(root,{apply:true,date:"2026-10-13"});
+        assert.deepEqual(r.published,[]);
+      }else{
+        assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Approval status mismatch/);
+      }
     }finally{rmSync(root,{recursive:true,force:true});}
   }
 });
