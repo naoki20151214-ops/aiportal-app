@@ -22,7 +22,18 @@ function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublishe
   if(options.image!==false)writeFileSync(path.join(root,"public/images/articles/example/a.svg"),"<svg/>");
   return root;
 }
-function YAML(data:unknown){return JSON.stringify(data);}
+function YAML(data:unknown){
+  if(data && typeof data === "object" && "nodes" in data){
+    const r=data as {nodes:Array<{id:string;slug:string;status:string;prerequisites:string[]}>};
+    return "schemaVersion: 1\nnodeCount: 2\nnodes:\n" + r.nodes.map(n =>
+      '  - id: "' + n.id + '"\n' +
+      '    slug: "' + n.slug + '"\n' +
+      '    status: "' + n.status + '"\n' +
+      '    prerequisites: [' + n.prerequisites.map(id=>'"'+id+'"').join(', ') + ']\n'
+    ).join("");
+  }
+  return JSON.stringify(data);
+}
 test("one accepted ready article becomes published, original body remains intact, and run is idempotent",()=>{
   const root=fixture();try{
     const old=readFileSync(path.join(root,"content/articles/example.md"),"utf8").split("---\n\n")[1];
