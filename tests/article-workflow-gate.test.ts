@@ -20,34 +20,34 @@ const branches=[
 function inventory() {return inventoryForNodes({nodes,mainArticles,remoteBranches:branches});}
 
 test('a planned Registry node is blocked when a draft exists elsewhere',()=>{
- const r=inventory().find(x=>x.id==='BAS-0023');
+ const r=inventory().find((x: {id:string})=>x.id==='BAS-0023');
  assert.equal(r.verdict,'reuse-remote');
  assert.equal(decideStart(r).allowed,false);
  assert.match(decideStart(r).why,/draft\/bas-0023/);
 });
 test('a prior preview is treated as existing work, not a new article',()=>{
- const r=inventory().find(x=>x.id==='GEN-0002');
+ const r=inventory().find((x: {id:string})=>x.id==='GEN-0002');
  assert.equal(r.verdict,'reuse-remote');
  assert.equal(decideStart(r).allowed,false);
 });
 test('published articles cannot be drafted again',()=>{
- const r=inventory().find(x=>x.id==='BAS-0017');
+ const r=inventory().find((x: {id:string})=>x.id==='BAS-0017');
  assert.equal(r.verdict,'published');
  assert.equal(decideStart(r).allowed,false);
 });
 test('new candidates are allowed only with no evidence and planned state',()=>{
- const r=inventory().find(x=>x.id==='GEN-0008');
+ const r=inventory().find((x: {id:string})=>x.id==='GEN-0008');
  assert.equal(r.verdict,'new-candidate');
  assert.equal(decideStart(r).allowed,true);
 });
 test('PR gate blocks an inherited article unless a verified source ref is declared',()=>{
- const r=inventory().find(x=>x.id==='BAS-0023');
- assert.throws(()=>checkReuseProvenance({row:r,incomingBranch:'new/bas-0023'}),/already exists/);
+ const r=inventory().find((x: {id:string})=>x.id==='BAS-0023');
+ assert.throws(()=>checkReuseProvenance({row:r,incomingBranch:'new/bas-0023',sourceRef:undefined}),/already exists/);
  assert.throws(()=>checkReuseProvenance({row:r,incomingBranch:'new/bas-0023',sourceRef:'draft/wrong'}),/already exists/);
  assert.match(checkReuseProvenance({row:r,incomingBranch:'new/bas-0023',sourceRef:'draft/bas-0023-context-window'}),/REUSE/);
 });
 test('a claimed source absent from existing branches is never accepted',()=>{
- const r=inventory().find(x=>x.id==='GEN-0008');
+ const r=inventory().find((x: {id:string})=>x.id==='GEN-0008');
  assert.throws(()=>checkReuseProvenance({row:r,incomingBranch:'new/rag',sourceRef:'draft/not-found'}),/no verified article/);
 });
 test('reports clearly distinguish registry status and retained draft evidence',()=>{
@@ -64,6 +64,6 @@ test('frontmatter and referenced assets can be checked without inventing statuse
 });
 test('Core Curriculum is the canonical ordered list; missing nodes fail closed',()=>{
  const core={targetArticleCount:2,days:[{day:1,nodes:['BAS-0017','BAS-0023']}]};
- assert.deepEqual(flattenCurriculum(core,{nodes}).map(x=>x.id),['BAS-0017','BAS-0023']);
+ assert.deepEqual(flattenCurriculum(core,{nodes}).map((x: {id:string})=>x.id),['BAS-0017','BAS-0023']);
  assert.throws(()=>flattenCurriculum({targetArticleCount:1,days:[{day:1,nodes:['BAD-001']}]},{nodes}),/unknown Registry/);
 });
