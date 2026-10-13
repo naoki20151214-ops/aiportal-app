@@ -6,9 +6,9 @@ description: "Multi-Head Attention（マルチヘッド注意機構）はなぜ�
 category: "AI基礎・技術"
 level: 2
 type: "mechanism"
-status: "ready"
-publishedAt: "2026-10-11"
-updatedAt: "2026-10-11"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/multi-head-attention/hero.svg"
 tags: ["Multi-Head Attention", "Transformer", "Self-Attention", "Attention", "AI基礎"]

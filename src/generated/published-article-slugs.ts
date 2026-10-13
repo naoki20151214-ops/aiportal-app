@@ -11,6 +11,7 @@ export const publishedArticleSlugById = {
   "BAS-0017": "what-is-transformer",
   "BAS-0018": "what-is-attention",
   "BAS-0019": "self-attention",
+  "BAS-0020": "multi-head-attention",
   "BAS-0023": "context-window",
   "BAS-0024": "ai-training",
   "BAS-0025": "ai-inference",

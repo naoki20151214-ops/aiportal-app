@@ -285,7 +285,7 @@ nodes:
     category: "AI基礎・技術"
     level: 2
     type: "mechanism"
-    status: "ready"
+    status: "published"
     centerQuestion: "複数のAttention Headを並行して使うと何ができるのか？"
     prerequisites: ["BAS-0019","BAS-0101"]
     children: []
