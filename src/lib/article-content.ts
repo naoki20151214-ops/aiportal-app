@@ -136,8 +136,12 @@ export function readAllArticles(directory: string): Article[] {
 }
 
 export function readArticles(directory: string): Article[] {
+  // PREVIEW ONLY / NEVER MERGE: show exactly two awaiting-reader-review articles.
+  const preview = process.env.CF_PAGES_BRANCH?.startsWith("preview/") ?? false;
+  const reviewIds = new Set(["BAS-0032", "BAS-0056"]);
   return readAllArticles(directory)
-    .filter((article) => article.status === "published")
+    .filter((article) => article.status === "published" ||
+      (preview && article.status === "review" && article.id !== undefined && reviewIds.has(article.id)))
     .sort((a, b) =>
       b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
     );
