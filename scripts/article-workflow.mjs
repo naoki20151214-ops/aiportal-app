@@ -34,12 +34,27 @@ function assertToken() {
 
 async function gh(endpoint) {
   const url=endpoint.startsWith('https:')?endpoint:`${GITHUB_API}${endpoint}`;
-  const response=await fetch(url,{
-    headers:{Authorization:`Bearer ${TOKEN}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},
-    signal:AbortSignal.timeout(45000)
-  });
-  if (!response.ok) throw new Error(`GitHub API ${response.status} (${new URL(url).pathname}). Scan incomplete; do not draft.`);
-  return {data:await response.json(), headers:response.headers};
+  // Retry transient GitHub network failures without permitting partial inventory.
+  for(let attempt=1; attempt<=4; attempt++){
+    try{
+      const response=await fetch(url,{
+        headers:{Authorization:`Bearer ${TOKEN}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},
+        signal:AbortSignal.timeout(45000)
+      });
+      if(!response.ok){
+        if(attempt<4 && [429,500,502,503,504].includes(response.status)){
+          await new Promise(resolve=>setTimeout(resolve,1000*attempt));
+          continue;
+        }
+        throw new Error(`GitHub API ${response.status} (${new URL(url).pathname}). Scan incomplete; do not draft.`);
+      }
+      return {data:await response.json(), headers:response.headers};
+    }catch(error){
+      if(attempt>=4)throw new Error(`GitHub audit failed after 4 attempts: ${error.message}. Fail closed.`);
+      await new Promise(resolve=>setTimeout(resolve,1000*attempt));
+    }
+  }
+  throw new Error('GitHub audit incomplete');
 }
 
 async function allPages(endpoint, maxPages=10) {
@@ -190,7 +205,17 @@ async function gatePullRequest(snapshot) {
     if(!fs.existsSync(local)){errors.push(`${file.filename}: PR file absent from checkout`);continue;}
     try{
       const front=articleFields(fs.readFileSync(local,'utf8'));
-      const row=rowsById.get(front.id);
+      let row=rowsById.get(front.id);
+      if(!row){
+        // Legitimate expansion nodes must exist in this PR's updated Registry,
+        // and must be corroborated by original article evidence on remote refs.
+        const localRegistry=parse(fs.readFileSync(path.join(ROOT,'content/registry/knowledge-nodes.yml'),'utf8'));
+        if(localRegistry.nodeCount!==localRegistry.nodes.length)throw new Error('PR Registry nodeCount mismatch');
+        const node=localRegistry.nodes.find(n=>n.id===front.id);
+        if(!node||node.slug!==front.slug||snapshot.rows.some(n=>n.slug===front.slug))
+          throw new Error('New node ID/slug missing or conflicts with existing Registry');
+        row=inventoryForNodes({nodes:[node],mainArticles:snapshot.mainFiles,remoteBranches:snapshot.remoteTrees,pullRequests:snapshot.prs})[0];
+      }
       if(!row||row.slug!==front.slug)throw new Error('ID/slug are missing or inconsistent with Master Registry');
       const claim=path.join(ROOT,`.github/article-reuse/${front.id}.yml`);
       const provenance=fs.existsSync(claim)?parse(fs.readFileSync(claim,'utf8')):null;
