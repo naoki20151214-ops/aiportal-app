@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 500
+nodeCount: 501
 
 nodes:
   - id: "BAS-0001"
@@ -10,7 +10,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "AIとは何で、人間の知能や通常のソフトウェアと何が違うのか？"
     prerequisites: []
     children: ["BAS-0002","GEN-0001","AGT-0001","PHY-0001"]
@@ -22,7 +22,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "機械学習はルールを直接書くプログラムと何が違うのか？"
     prerequisites: ["BAS-0001"]
     children: ["BAS-0003","BAS-0005","BAS-0006","BAS-0007"]
@@ -428,7 +428,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "published"
     centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
     prerequisites: ["BAS-0001"]
     children: []
@@ -440,7 +440,7 @@ nodes:
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "planned"
+    status: "published"
     centerQuestion: "生成AIは従来の識別・予測AIと何が違い、何を生成できるのか？"
     prerequisites: ["BAS-0001"]
     children: ["GEN-0002","GEN-0016","GEN-0017","GEN-0018"]
@@ -452,7 +452,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "published"
     centerQuestion: "大規模言語モデルは何を学び、なぜ自然な文章を生成できるのか？"
     prerequisites: ["BAS-0012","BAS-0017"]
     children: ["GEN-0003","GEN-0004","GEN-0005","GEN-0008"]
@@ -464,7 +464,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "published"
     centerQuestion: "生成AIへの指示は回答品質にどう影響するのか？"
     prerequisites: ["GEN-0001"]
     children: ["GEN-0024","GEN-0025"]
@@ -1532,7 +1532,7 @@ nodes:
     category: "AI基礎・技術"
     level: 0
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "AIの歴史を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0001"]
     children: []
@@ -1568,7 +1568,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "統計的機械学習とは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0002"]
     children: []
@@ -1640,7 +1640,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "訓練・検証・テストデータの違いを理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0002"]
     children: []
@@ -1664,7 +1664,7 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "ハイパーパラメータとは？を理解すると、AIの仕組みや評価をどう正確に捉えられるのか？"
     prerequisites: ["BAS-0002"]
     children: []
@@ -2489,7 +2489,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
+    status: "published"
     centerQuestion: "Zero-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
     prerequisites: ["GEN-0003"]
     children: []
@@ -2501,7 +2501,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "practice"
-    status: "planned"
+    status: "published"
     centerQuestion: "Few-shot Promptingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
     prerequisites: ["GEN-0003"]
     children: []
@@ -6092,4 +6092,20 @@ nodes:
     prerequisites: ["SOC-0002"]
     children: []
     related: []
+    priority: "A"
+
+  - id: "BAS-0101"
+    title: "Query・Key・Valueとは？"
+    slug: "query-key-value"
+    category: "AI基礎・技術"
+    level: 2
+    type: "mechanism"
+    status: "published"
+    centerQuestion: "Attentionではなぜ参照の重みを決めるQueryとKeyに加えて、情報を取り込むValueが必要なのか？"
+    prerequisites: ["BAS-0019"]
+    children: ["BAS-0020"]
+    related: ["BAS-0018","BAS-0017"]
+    nextReading:
+      - id: "BAS-0020"
+        note: "複数のAttention Headで異なる計算を組み合わせる"
     priority: "A"

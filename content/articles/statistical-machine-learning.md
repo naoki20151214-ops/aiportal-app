@@ -6,9 +6,9 @@ description: "統計的機械学習とは何かを、母集団と標本、確率
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/statistical-machine-learning/hero.svg"
 tags: ["統計的機械学習", "機械学習", "統計", "確率", "一般化", "Bias Variance", "AI基礎"]

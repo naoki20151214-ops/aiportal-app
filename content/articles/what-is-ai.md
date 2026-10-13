@@ -6,9 +6,9 @@ description: "AI（人工知能）とは何かを、普通のプログラム・�
 category: "AI基礎・技術"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/what-is-ai/hero.jpg"
 tags: ["AI", "人工知能", "機械学習", "生成AI", "入門"]

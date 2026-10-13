@@ -6,9 +6,9 @@ description: "機械学習でTraining・Validation・Testを分ける理由を�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/train-validation-test-split/hero.svg"
 tags: ["訓練データ", "検証データ", "テストデータ", "機械学習", "過学習", "Data Leakage", "モデル評価"]

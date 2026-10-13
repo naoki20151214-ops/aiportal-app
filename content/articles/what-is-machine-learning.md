@@ -6,9 +6,9 @@ description: "機械学習とは何かを、普通のプログラムとの違い
 category: "AI基礎・技術"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/what-is-machine-learning/hero.jpg"
 tags: ["機械学習", "Machine Learning", "AI", "モデル", "学習", "推論", "入門"]

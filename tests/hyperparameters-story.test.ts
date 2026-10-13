@@ -16,7 +16,7 @@ test("ハイパーパラメータ記事は初心者が冒頭だけで理解で�
   const articlePath = path.join(process.cwd(), "content/articles/hyperparameters.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(review|ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/hyperparameters\/hero\.svg"/);
   assert.ok(article.length >= 8_000, "hyperparameters article is too short");
   assert.match(article, /AIに、\*\*犬と猫を見分けさせたい\*\*/);

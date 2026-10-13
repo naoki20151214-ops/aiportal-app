@@ -6,9 +6,9 @@ description: "AIの起源からDartmouth会議、シンボリックAI、エキ�
 category: "AI基礎・技術"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-04"
-updatedAt: "2026-10-04"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/ai-history/hero.webp"
 tags: ["AI", "AIの歴史", "Dartmouth", "シンボリックAI", "機械学習"]
