@@ -6,9 +6,9 @@ description: "AIと長い会話を続けると前の話が通じなくなるの�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-10"
-updatedAt: "2026-10-10"
+status: "published"
+publishedAt: "2026-10-13"
+updatedAt: "2026-10-13"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/context-window/hero.svg"
 tags: ["コンテキストウィンドウ", "Context Window", "Token", "LLM", "AI基礎"]

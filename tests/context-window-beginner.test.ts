@@ -9,12 +9,12 @@ const names = ["hero.svg", "fig-01-desk.svg", "fig-02-contents.svg",
   "fig-03-overflow.svg", "fig-04-memory.svg"];
 const articlePath = path.join(process.cwd(), "content/articles/context-window.md");
 
-test("BAS-0023 preserves its existing ready draft and published token prerequisite", () => {
+test("BAS-0023 is published from its existing draft, with a published token prerequisite", () => {
   const article = readAllArticles(path.join(process.cwd(), "content/articles"))
     .find(a => a.id === "BAS-0023");
   assert.ok(article);
   assert.equal(article.slug, "context-window");
-  assert.equal(article.status, "ready");
+  assert.equal(article.status, "published");
   assert.equal(article.level, 1);
   assert.equal(article.type, "concept");
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml", "utf8"));
@@ -22,7 +22,7 @@ test("BAS-0023 preserves its existing ready draft and published token prerequisi
     registry.nodes.map((n: { id: string; status: string; prerequisites: string[] }) => [n.id, n] as const));
   const node = byId.get("BAS-0023");
   assert.ok(node);
-  assert.equal(node.status, "ready");
+  assert.equal(node.status, "published");
   assert.deepEqual(node.prerequisites, ["BAS-0013"]);
   assert.equal(byId.get("BAS-0013")?.status, "published");
 });
