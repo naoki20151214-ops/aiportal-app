@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-feedback-article-map.mjs",
     "build": "next build",
     "postbuild": "node scripts/normalize-static-export.mjs",
     "start": "next start",
     "lint": "eslint",
+    "pretest": "node scripts/generate-feedback-article-map.mjs",
     "test": "tsx --test tests/*.test.ts",
     "article:inventory": "node scripts/article-workflow.mjs inventory",
     "article:preflight": "node scripts/article-workflow.mjs preflight",

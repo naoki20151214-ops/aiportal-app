@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/article-body";
+import ArticleFeedback from "@/components/article-feedback";
 import ArticleDifficulty from "@/components/article-difficulty";
 import RelatedArticles from "@/components/related-articles";
 import SiteFooter from "@/components/site-footer";
@@ -82,6 +83,7 @@ export default async function ArticlePage({ params }: Props) {
             </ul>
           )}
         </article>
+        <ArticleFeedback articleId={article.id} slug={article.slug} revision={article.updatedAt} title={article.title} />
         <RelatedArticles articles={getRelatedArticles(article, getAllArticles())} />
         <div className="border-t border-gray-200 mt-10 pt-6">
           <Link href="/" className="text-sm font-bold text-blue-700 hover:underline">← トップへ戻る</Link>
