@@ -428,11 +428,18 @@ nodes:
     category: "AI基礎・技術"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
     prerequisites: ["BAS-0001"]
     children: []
     related: ["GEN-0015"]
+    nextReading:
+      - id: "GEN-0001"
+        note: "生成AIは何を作れるのか、基本を整理する"
+      - id: "GEN-0015"
+        note: "マルチモーダルAIの具体的な利用場面を学ぶ"
+      - id: "BAS-0001"
+        note: "AIそのものの基本を復習する"
     priority: "A"
   - id: "GEN-0001"
     title: "生成AIとは何か？"
