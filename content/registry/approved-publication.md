@@ -32,3 +32,13 @@
 自動制作管理表（Core Curriculum 100）を毎朝確認し、`approved-for-publication` の保留記事、未検査のPR、Productionデプロイ失敗を示す。すでに公開された記事を新規執筆しない。
 
 Registryの前提記事が公開された場合にも保留中の承認を再検査します。毎朝09:15（日本時間）にも自動再検査します。技術的な再検査は新しい合格を生成せず、未承認の`ready`・`review`を公開しません。
+
+## 本人の毎回のレビューを不要にする委譲編集ルート
+
+2026-10-13から、サイト運営者は通常のAI学習記事について毎回の本文レビューを必須にしない方針とした。**無審査で公開する方針ではない。** 起案担当とは別の検証パスが、出典・中心疑問・初心者向け説明・図解・リンク・前提条件・安全性を検証し、具体的な根拠と原稿・監査記録のGit SHAを `content/editorial-audits/<ID>.yml` に記録する。
+
+この方式の承認ログでは、`approvedBy: editorial-qa`、`delegation: site-owner-standing-policy-2026-10-13`、`sourceArticleBlob`、`editorialAuditPath`、`editorialAuditBlob` を必須とする。従来の本人合格は `approvedBy: site-owner` として別管理する。
+
+新しい `ready` 原稿と監査記録を最新mainからのrelease PRへ入れ、独立監査の形式・根拠・SHA確認、CI、Cloudflare Previewが合格した後にマージする。承認ログを起点として `publish-approved.yml` が依存関係・原稿・画像を再確認して公開する。ニュース・高リスク事項・出典不明の断定は自動委譲対象外。読者の「わかりにくい」「誤り」という投稿は改善の手掛かりであり、公開前の事実確認を省く根拠にはならない。
+
+詳細：`delegated-editorial-policy.md`。AIだけでは出典の実質的な正しさや「別担当の独立性」を機械的には保証できないため、虚偽の検証記録は作らず、監査不能なら公開を保留する。

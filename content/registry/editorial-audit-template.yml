@@ -1,0 +1,33 @@
+# これはテンプレートです。実在しない検証を合格として記録しない。
+schemaVersion: 1
+id: "BAS-XXXX"
+slug: "replace-with-real-article-slug"
+auditedOn: "YYYY-MM-DD"
+readyArticleBlob: "40-digit-ready-article-Git-SHA"
+scope: "standard-evergreen"
+decision: "hold"
+humanEscalationRequired: true
+blockingFindings:
+  - "独立した根拠確認が終わっていない"
+reviewProcess:
+  writerId: "actual-draft-author-identity"
+  verifierId: "actual-separate-fact-check-identity"
+  separateVerificationPass: false
+checks:
+  centralQuestion: { passed: false, evidence: "何を中心疑問として検証したかを記載" }
+  beginnerClarity: { passed: false, evidence: "難語と前提知識の説明を実読して判定する" }
+  narrativeExamples: { passed: false, evidence: "具体例と説明順序の整合性を明記" }
+  sourceAccuracy: { passed: false, evidence: "本文の主要な主張と出典の照合記録" }
+  imageAccuracyAndAlt: { passed: false, evidence: "図解の内容と代替テキストの妥当性" }
+  internalLinks: { passed: false, evidence: "未公開記事へのリンクがないことを検査" }
+  prerequisites: { passed: false, evidence: "依存関係が公開済みであることを確認" }
+  riskAndSafety: { passed: false, evidence: "公開リスクと対象読者の危険性を評価" }
+criticalClaims:
+  - claim: "本文中の実際の検証対象主張を、具体的な一文で書く"
+    sourceUrl: "https://example.com/actual-primary-source"
+    sourceEvidence: "一次情報のどこが、本文の主張をどう裏付けるかを具体的に記載する"
+    verified: false
+  - claim: "別の事実についても、何を検証したのか具体的に書く"
+    sourceUrl: "https://example.org/another-primary-source"
+    sourceEvidence: "ページの本文を確認し、ClaimとSourceが対応していることを記録する"
+    verified: false

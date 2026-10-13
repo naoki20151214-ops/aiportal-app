@@ -43,3 +43,9 @@ sourceRef: draft/bas-0023-context-window-20261010
 - GitHub PRおよび原稿：制作中の原稿・編集履歴の根拠
 
 管理表には見つかった原稿・画像を示しますが、ユーザーの「記事合格」を自動推定しません。**明示的な合格はそのまま本番公開承認**であり、承認を受けた後のGitHub検証・公開処理は機械的に自動実行します。詳しくは [`approved-publication.md`](approved-publication.md) を参照してください。
+
+## 標準記事の編集承認委譲（2026-10-13〜）
+
+ユーザーの毎記事レビューを通常の公開必須条件から外す。起案とは別の検証パスによる一次情報の確認、8つの品質項目、元記事SHAと監査ファイルSHAを `content/editorial-audits/<ID>.yml` に記録する。合格と確認できた通常のエバーグリーン教材だけ、監査に基づく承認 `approvedBy: editorial-qa` を登録して自動公開する。ニュース・高リスク・出典未確認・監査の独立性が確認できない場合は保留。読者フィードバックは公開後の改善に用い、事実確認を省く理由にしない。
+
+公開チェックは `scripts/delegated-editorial-gate.mjs`、CIは `scripts/validate-delegated-editorial-audits.mjs` が担当。詳細は `delegated-editorial-policy.md`。編集承認はログと正確なGit Blob SHAを必要とし、単なる `ready` では公開されない。

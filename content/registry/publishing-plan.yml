@@ -4,7 +4,7 @@ timezone: "Asia/Tokyo"
 automation:
   enabled: true
   strategy: "editorial-approval-event"
-  note: "合格記録をmainへ反映すると自動検証の後に公開。未承認readyは対象外"
+  note: "本人の合格、または証拠付き委譲編集監査の承認記録をmainへ反映したとき、検証の後に公開。未承認readyは対象外"
 
 candidateCadence:
   maxPerDay: 10
@@ -48,4 +48,4 @@ coreCurriculum:
   autoSchedule: false
   note: "Core Curriculumの100記事は制作順。合格が記録され、安全ゲートが通れば別途の公開時刻承認なしで直ちに公開する"
   unpublishedLinkPolicy: "URLリンクを生成せず、必要時のみ準備中として非リンク表示する"
-  releaseGate: "readyかつapproved-for-publication記録を持つノード（またはauthorized scheduled）だけを公開対象にする"
+  releaseGate: "readyかつapproved-for-publication記録を持つノード（またはauthorized scheduled）だけを公開対象にする。本人合格と証拠付き編集監査を区別する"

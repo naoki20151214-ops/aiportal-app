@@ -10,6 +10,7 @@ import path from "node:path";
 import process from "node:process";
 import { createHash } from "node:crypto";
 import { parse, stringify } from "yaml";
+import { verifyDelegatedEditorialAudit } from "./delegated-editorial-gate.mjs";
 
 const isId = (id) => /^(BAS|GEN|AGT|PHY|INF|SOC|NEWS)-\d{4}$/.test(id);
 const isSlug = (slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
@@ -76,7 +77,7 @@ export function publishApproved(root,options={}) {
   const already=[];
   for(const row of ledger.approvals) {
     if(row.decision!=="approved-for-publication")continue;
-    if(!isId(row.id)||!isSlug(row.slug)||row.approvedBy!=="site-owner"||!String(row.evidence||"").trim()||
+    if(!isId(row.id)||!isSlug(row.slug)||!["site-owner","editorial-qa"].includes(row.approvedBy)||!String(row.evidence||"").trim()||
       !/^\d{4}-\d{2}-\d{2}$/.test(row.approvedOn||""))
       throw new Error("Invalid explicit approval evidence: "+row.id);
     if(seen.has(row.id))throw new Error("Duplicate pending approval "+row.id);
@@ -97,6 +98,8 @@ export function publishApproved(root,options={}) {
       throw new Error("Missing approved ready article Git blob SHA: "+row.id);
     if(gitBlobSha(source)!==row.sourceArticleBlob)
       throw new Error("Approved source blob mismatch; manuscript changed after sign-off: "+row.id);
+    if(row.approvedBy==="editorial-qa")
+      verifyDelegatedEditorialAudit(root,row,source,node);
     if(typeof fm.thumbnail==="string"&&fm.thumbnail.startsWith("/")){
       if(fm.thumbnail.includes("..")||!fs.existsSync(file(root,"public"+fm.thumbnail)))
         throw new Error("Missing approved thumbnail "+row.id+" "+fm.thumbnail);
