@@ -37,6 +37,11 @@ test("staging workflow is manual and never turns the feedback switch on", () => 
   assert.match(workflow, /workflow_dispatch:/);
   assert.doesNotMatch(workflow, /^(  push:|  schedule:|  pull_request:)/m);
   assert.match(workflow, /contents: read/);
+  assert.match(workflow, /issue_comment:/);
+  assert.match(workflow, /github.actor == 'naoki20151214-ops'/);
+  assert.match(workflow, /github.event.issue.number == 144/);
+  assert.match(workflow, /github.event.comment.body == '\/feedback-stage-preview'/);
+
   assert.match(workflow, /secrets.CLOUDFLARE_FEEDBACK_API_TOKEN/);
   const provisioner = readFileSync("scripts/provision-cloudflare-feedback.mjs", "utf8");
   assert.match(provisioner, /type: "secret_text", value: details.secret/);
