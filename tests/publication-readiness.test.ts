@@ -3,11 +3,14 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 import { readArticles } from "../src/lib/article-content";
+import { parse } from "yaml";
 
 test("公開記事にサンプル表記や仮本文が残っていない", () => {
   const directory = path.join(process.cwd(), "content/articles");
   const articles = readArticles(directory);
-  assert.equal(articles.length, 39);
+  const registry = parse(readFileSync(path.join(process.cwd(), "content/registry/knowledge-nodes.yml"), "utf8"));
+  assert.equal(articles.length, registry.nodes.filter((node: { status: string }) => node.status === "published").length);
+  assert.ok(articles.length >= 39, "Published articles unexpectedly decreased");
   assert.ok(articles.some((article) => article.id === "BAS-0023" && article.status === "published"), "Approved Context Window article must be published");
   assert.ok(articles.some((article) => article.id === "BAS-0019" && article.status === "published"), "Approved Self-Attention article must be published");
   assert.ok(articles.some((article) => article.id === "BAS-0017" && article.status === "published"), "Approved Transformer article must be published");
