@@ -2,9 +2,9 @@ schemaVersion: 1
 timezone: "Asia/Tokyo"
 
 automation:
-  enabled: false
-  strategy: "staged"
-  note: "公開自動化はRegistryと品質ゲートが安定してから有効化する"
+  enabled: true
+  strategy: "editorial-approval-event"
+  note: "記事合格が最終公開承認。OwnerのPR合格コマンドで依存関係と検証を満たした対象1件だけ本番公開し、別途公開許可を求めない"
 
 candidateCadence:
   maxPerDay: 10
@@ -48,4 +48,4 @@ coreCurriculum:
   autoSchedule: false
   note: "Core Curriculumの100記事は制作順を定義する。公開日時はQuality Gate通過後に別途決定する"
   unpublishedLinkPolicy: "URLリンクを生成せず、必要時のみ準備中として非リンク表示する"
-  releaseGate: "readyまたはscheduledのノードだけを公開対象にする"
+  releaseGate: "owner合格承認のあったreview/ready記事を前提記事公開済みかつTest/Lint/Build成功時に自動publishedとする"

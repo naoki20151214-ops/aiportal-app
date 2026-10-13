@@ -43,3 +43,12 @@ sourceRef: draft/bas-0023-context-window-20261010
 - GitHub PRおよび原稿：制作中の原稿・編集履歴の根拠
 
 管理表には見つかった原稿・画像を示しますが、ユーザーの「記事合格」を自動推定しません。合格の判断と本番公開は別操作です。
+
+
+## 合格＝本番公開（2026-10-13から）
+
+ユーザーの「合格」は記事の最終的な公開承認とみなし、readyで待機させません。ChatGPT/Codexは記事IDの正本を確認して、対象のレビューPR（`review/`ブランチ）にリポジトリOwnerアカウントから `/publish-approved BAS-0001` 形式のコメントを1件記録します。GitHub Actions `publish-on-approval.yml` がコメントを受け取り、**その記事だけ**元原稿を保持して本番公開します。追加の公開許可を尋ねないでください。
+
+ワークフローはOwner限定、対象記事ID厳密一致、前提記事published、review PR Verify+Cloudflare成功、画像存在、未公開リンクなしを必須とします。元原稿本文は編集せずFrontmatterと該当Registry nodeのみをpublishedへ更新し、承認ログと公開記事数テストを同期します。Test・Lint・Build成功後にmainへfast-forward push、Cloudflare Productionチェック成功まで確認します。preview PRはマージしません。
+
+例外：前提記事未公開、リンク404、Test失敗、Cloudflare失敗、権限・ブランチ保護、main変更の競合時は**公開しない（またはデプロイ失敗を報告）**。編集者の合格記録は有効のまま維持し、ブロッカー解消後に再実行します。記事数の多い一括公開は過去の明示承認を監査して別途扱います。
