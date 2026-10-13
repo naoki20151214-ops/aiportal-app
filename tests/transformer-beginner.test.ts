@@ -37,8 +37,7 @@ test("BAS-0017 is ready and keeps approved red-hat example", () => {
     "/articles/what-is-embedding",
     "/articles/ai-hallucination",
   ]) assert.ok(text.includes(url), "Missing learning link: " + url);
-  assert.ok(text.includes("Attentionとは？（準備中）"));
-  assert.doesNotMatch(text, /\]\(\/articles\/what-is-attention\)/);
+  assert.ok(text.includes("[Attentionとは？](/articles/what-is-attention)"));
   for (const heading of [...text.matchAll(/^## (.+)$/gm)].map(m => m[1])) {
     assert.ok(heading.length <= 18, `Too long for mobile: ${heading}`);
   }
