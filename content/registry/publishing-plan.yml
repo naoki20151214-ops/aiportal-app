@@ -46,6 +46,6 @@ coreCurriculum:
   articlesPerBatch: 10
   ordering: "dependency-first"
   autoSchedule: false
-  note: "Core Curriculumの100記事は制作順を定義する。公開日時はQuality Gate通過後に別途決定する"
+  note: "Core Curriculumの100記事は制作順。合格が記録され、安全ゲートが通れば別途の公開時刻承認なしで直ちに公開する"
   unpublishedLinkPolicy: "URLリンクを生成せず、必要時のみ準備中として非リンク表示する"
-  releaseGate: "readyまたはscheduledのノードだけを公開対象にする"
+  releaseGate: "readyかつapproved-for-publication記録を持つノード（またはauthorized scheduled）だけを公開対象にする"
