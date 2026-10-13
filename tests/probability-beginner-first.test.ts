@@ -16,7 +16,7 @@ test("BAS-0056は最後までLevel 1初心者向けで、深掘りを後続記�
   const article = readFileSync(articlePath, "utf8");
 
   assert.match(article, /level: 1/);
-  assert.match(article, /status: "(review|ready)"/);
+  assert.match(article, /status: "(ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/probability-for-ai\/hero\.svg"/);
   assert.ok(article.length >= 5_000, "probability article is too short");
 

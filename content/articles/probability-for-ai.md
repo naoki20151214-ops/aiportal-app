@@ -6,7 +6,7 @@ description: "AIで確率がなぜ必要なのかを、猫99%と猫51%の違い�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-05"
 updatedAt: "2026-10-05"
 author: "AI Portal編集部"

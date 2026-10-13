@@ -6,7 +6,7 @@ description: "シンボリックAIの基本を、知識表現・論理推論・�
 category: "AI基礎・技術"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-04"
 updatedAt: "2026-10-04"
 author: "AI Portal編集部"

@@ -12,11 +12,11 @@ const files = [
   "fig-05-rule-based.webp",
 ];
 
-test("シンボリックAIは教科書水準の本文と6画像を持ち、reviewのまま", () => {
+test("シンボリックAIは承認済み原稿と6画像を保ち、readyまたはpublished", () => {
   const articlePath = path.join(process.cwd(), "content/articles/symbolic-ai.md");
   const article = readFileSync(articlePath, "utf8");
 
-  assert.match(article, /status: "review"/);
+  assert.match(article, /status: "(ready|published)"/);
   assert.match(article, /thumbnail: "\/images\/articles\/symbolic-ai\/hero\.webp"/);
   assert.ok(article.length >= 8000, "symbolic-ai article is too short");
 
