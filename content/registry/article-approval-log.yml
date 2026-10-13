@@ -1,0 +1,14 @@
+schemaVersion: 1
+description: "User editorial approvals. Registry and article frontmatter remain the authoritative publication states."
+approvals:
+  - id: "BAS-0023"
+    slug: "context-window"
+    approvedOn: "2026-10-13"
+    decision: "publish-existing-approved-article"
+    sourceRef: "draft/bas-0023-context-window-20261010"
+    sourceArticleBlob: "6fbc815e7288d23d20bcd60e226245d5e87601ba"
+    illustrations: 5
+    editorialChanges: "None; publication metadata only"
+    reviewPR: 127
+    previewPR: 128
+    evidence: "Explicit approval and publication instruction in ChatGPT on 2026-10-13"

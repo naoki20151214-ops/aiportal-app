@@ -7,7 +7,8 @@ import { readArticles } from "../src/lib/article-content";
 test("公開記事にサンプル表記や仮本文が残っていない", () => {
   const directory = path.join(process.cwd(), "content/articles");
   const articles = readArticles(directory);
-  assert.equal(articles.length, 25);
+  assert.equal(articles.length, 26);
+  assert.ok(articles.some((article) => article.id === "BAS-0023" && article.status === "published"), "Approved Context Window article must be published");
   assert.ok(articles.some((article) => article.id === "BAS-0019" && article.status === "published"), "Approved Self-Attention article must be published");
   assert.ok(articles.some((article) => article.id === "BAS-0017" && article.status === "published"), "Approved Transformer article must be published");
   assert.ok(articles.some((article) => article.id === "BAS-0018" && article.status === "published"), "Approved Attention article must be published");
