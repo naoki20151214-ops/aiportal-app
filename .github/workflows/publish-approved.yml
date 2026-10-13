@@ -1,0 +1,55 @@
+name: Publish Editor-Approved Articles
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/registry/article-approval-log.yml'
+      - '.github/workflows/publish-approved.yml'
+      - 'scripts/auto-publish-approved.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: aiportal-approved-publication-main
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'naoki20151214-ops/aiportal-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Promote explicitly approved, dependency-safe articles
+        id: approve
+        run: node scripts/auto-publish-approved.mjs --apply
+      - name: Run all tests
+        if: steps.approve.outputs.changed == 'true'
+        run: npm test
+      - name: Lint
+        if: steps.approve.outputs.changed == 'true'
+        run: npm run lint
+      - name: Build static site
+        if: steps.approve.outputs.changed == 'true'
+        run: npm run build
+      - name: Commit and push only validated publication changes
+        if: steps.approve.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/articles content/registry/knowledge-nodes.yml content/registry/article-approval-log.yml
+          git diff --cached --quiet && exit 0
+          git commit -m 'Publish articles upon recorded editorial acceptance'
+          git push origin HEAD:main
+      - name: Report deferred accepted articles
+        run: node scripts/auto-publish-approved.mjs

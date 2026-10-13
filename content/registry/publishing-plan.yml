@@ -2,9 +2,9 @@ schemaVersion: 1
 timezone: "Asia/Tokyo"
 
 automation:
-  enabled: false
-  strategy: "staged"
-  note: "公開自動化はRegistryと品質ゲートが安定してから有効化する"
+  enabled: true
+  strategy: "editorial-approval-event"
+  note: "合格記録をmainへ反映すると自動検証の後に公開。未承認readyは対象外"
 
 candidateCadence:
   maxPerDay: 10

@@ -168,8 +168,8 @@ test("公開計画はタイムゾーンと段階公開ルールを保持する",
   }>("publishing-plan.yml");
 
   assert.equal(plan.timezone, "Asia/Tokyo");
-  assert.equal(plan.automation.enabled, false);
-  assert.equal(plan.automation.strategy, "staged");
+  assert.equal(plan.automation.enabled, true);
+  assert.equal(plan.automation.strategy, "editorial-approval-event");
   assert.equal(plan.candidateCadence.maxPerDay, 10);
   assert.equal(plan.candidateCadence.spacingMinutes, 60);
   assert.equal(new Set(plan.candidateCadence.localTimes).size, plan.candidateCadence.localTimes.length);
