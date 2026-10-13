@@ -15,7 +15,7 @@ test("feedback migration contains only non-destructive CREATE statements", () =>
   const sql = statements(text);
   assert.equal(sql.length, 3);
   assert.match(sql[0], /^CREATE TABLE IF NOT EXISTS article_feedback/);
-  assert.ok(sql.slice(1).every(s => s.startsWith("CREATE INDEX IF NOT EXISTS")));
+  assert.ok(sql.slice(1).every((s: string) => s.startsWith("CREATE INDEX IF NOT EXISTS")));
   assert.throws(() => statements("DROP TABLE article_feedback;"), /migration/);
   assert.throws(() => statements(
     "CREATE TABLE IF NOT EXISTS a(id INTEGER);UPDATE a SET id=1;CREATE INDEX IF NOT EXISTS idx_a ON a(id);"
