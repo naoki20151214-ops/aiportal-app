@@ -1,6 +1,8 @@
 name: Prepare AI Portal Feedback Cloudflare Resources
 
 on:
+  issue_comment:
+    types: [created]
   workflow_dispatch:
     inputs:
       environment:
@@ -30,7 +32,13 @@ concurrency:
 
 jobs:
   configure:
-    if: github.repository == 'naoki20151214-ops/aiportal-app'
+    if: >-
+      github.repository == 'naoki20151214-ops/aiportal-app' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'issue_comment' &&
+        github.actor == 'naoki20151214-ops' &&
+        github.event.issue.number == 144 &&
+        github.event.comment.body == '/feedback-stage-preview'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -47,7 +55,7 @@ jobs:
           CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2
           CLOUDFLARE_PAGES_PROJECT: aiportal-app
-          MODE: ${{ inputs.operation }}
-          TARGET: ${{ inputs.environment }}
+          MODE: ${{ github.event_name == 'issue_comment' && 'stage' || inputs.operation }}
+          TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
         run: |
           node scripts/provision-cloudflare-feedback.mjs --mode="$MODE" --environment="$TARGET"
