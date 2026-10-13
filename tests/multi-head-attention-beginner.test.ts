@@ -11,7 +11,7 @@ const EXPECTED: Record<string, string> = {
   "hero.svg": "5381c142bd316018e8b10ac61b0f9c04b20fdc37",
   "fig-01-heads.svg": "bab4428045df2952111c549edd283494f9e1d3a3",
   "fig-02-projections.svg": "711296232c46b386389c85f44274e0f94d24fc98",
-  "fig-03-merge.svg": "aa23a3622d5ed14f0b7ae87c48cdeba81cb83d6cc",
+  "fig-03-merge.svg": "aa23a3622d5ed14f0b7ae87c48cdeba81cb83d6c",
 };
 function shaOfGitBlob(buffer: Buffer): string {
   return createHash("sha1")
