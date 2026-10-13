@@ -1,0 +1,35 @@
+name: Article Production Inventory & Start Gate
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:00 JST daily; never writes to or deploys main.
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  inventory-and-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate 100-article management table
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run article:inventory
+      - name: Preserve reports even when the guard blocks a PR
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: article-production-inventory-${{ github.run_id }}
+          path: artifacts/article-inventory.*
+          if-no-files-found: warn
+          retention-days: 30
