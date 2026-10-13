@@ -10,9 +10,12 @@
     slug: "what-is-generative-ai"
     approvedOn: "2026-10-13"
     approvedBy: "site-owner"
+    sourceArticleBlob: "<ready状態でmainに登録する記事ファイルのGit blob SHA>"
     decision: "approved-for-publication"
     evidence: "ChatGPTでユーザーがこの記事を合格と明示"
 ```
+
+**改ざん・差し替え防止:** `sourceArticleBlob`には、ユーザーが合格した本文を保持した`ready`状態の記事全体のGit Blob SHAを記録します（`git hash-object content/articles/<slug>.md`）。`review`から`ready`への変更は公開メタデータのみとし、元のreview記事SHAは別途`originalReviewArticleBlob`として保存できます。本番公開処理は`ready`記事の現在のBlob SHAが承認ログと一致しなければ失敗します。`approvedBy: site-owner`も必須です。原稿の内容が変わった場合は、**元の合格扱いのまま公開しない**でください。
 
 `publish-approved.yml` がmain上の承認記録の追加を検出し、`scripts/auto-publish-approved.mjs` を実行する。公開できるものは `published` へ切り替え、Test/Lint/Buildが成功した場合のみmainへコミットする。Cloudflare PagesはmainのコミットでProductionデプロイする。GitHub Actionsは独立ジョブであり、デプロイ成功はCloudflareで後から確認する。
 
@@ -27,3 +30,5 @@
 
 ## 定期監査
 自動制作管理表（Core Curriculum 100）を毎朝確認し、`approved-for-publication` の保留記事、未検査のPR、Productionデプロイ失敗を示す。すでに公開された記事を新規執筆しない。
+
+Registryの前提記事が公開された場合にも保留中の承認を再検査します。毎朝09:15（日本時間）にも自動再検査します。技術的な再検査は新しい合格を生成せず、未承認の`ready`・`review`を公開しません。
