@@ -22,7 +22,6 @@ const argv = process.argv.slice(2);
 const command = argv[0];
 
 function fail(message) { console.error(`ARTICLE GATE BLOCKED: ${message}`); process.exitCode=1; }
-function fileYaml(filename) {return parse(fs.readFileSync(path.join(ROOT,filename),'utf8'));}
 function getFlag(name) {
   const pref=`--${name}=`;
   const val=argv.find(s=>s.startsWith(pref));
@@ -72,26 +71,48 @@ async function mapLimit(inputs, limit, fn) {
   return result;
 }
 
-function localArticles() {
-  const files=fs.readdirSync(path.join(ROOT,'content/articles')).filter(x=>x.endsWith('.md'));
-  const found=[];
-  const testNames=fs.readdirSync(path.join(ROOT,'tests')).filter(x=>x.endsWith('.test.ts'));
-  for(const file of files) {
-    const markdown=fs.readFileSync(path.join(ROOT,'content/articles',file),'utf8');
+async function mainFromGitHub() {
+  // Important: the PR checkout is not main. A new article on the PR must NOT be
+  // mistaken for a pre-existing article in production.
+  const {data:tree} = await gh('/git/trees/main?recursive=1');
+  if (tree.truncated || !Array.isArray(tree.tree)) {
+    throw new Error('Main tree is truncated or missing; cannot audit published source of truth');
+  }
+  const pathMap = new Map(tree.tree.filter(x=>x.type==='blob').map(x=>[x.path,x]));
+  async function blobText(sha) {
+    const {data} = await gh(`/git/blobs/${sha}`);
+    if(data.encoding!=='base64'||typeof data.content!=='string') {
+      throw new Error('Cannot decode GitHub file blob; scan is incomplete');
+    }
+    return Buffer.from(data.content.replaceAll('\n',''),'base64').toString('utf8');
+  }
+  async function yamlFile(file) {
+    const item=pathMap.get(file);
+    if(!item)throw new Error(`Main is missing required ${file}`);
+    return parse(await blobText(item.sha));
+  }
+  const [registry,curriculum]=await Promise.all([
+    yamlFile('content/registry/knowledge-nodes.yml'),
+    yamlFile('content/registry/core-curriculum.yml')
+  ]);
+  const files=tree.tree.filter(f=>f.type==='blob'&&/^content\/articles\/[^/]+\.md$/.test(f.path));
+  const testFiles=tree.tree.filter(f=>f.type==='blob'&&/^tests\/.*\.test\.ts$/.test(f.path)).map(f=>f.path);
+  const paths=new Set(tree.tree.map(f=>f.path));
+  const mainFiles=await mapLimit(files,5,async f=>{
+    const markdown=await blobText(f.sha);
     const values=articleFields(markdown,{allowLegacy:true});
     const images=imagePaths(markdown);
-    const missing=images.filter(f=>!fs.existsSync(path.join(ROOT,f)));
     const tokens=values.slug.split('-').filter(x=>x.length>=4&& !['what','is','with','from','for'].includes(x));
-    found.push({...values,filename:file,images,imageMissing:missing,
-      test:testNames.some(t=>t.includes(values.slug)||tokens.some(token=>t.includes(token)))});
-  }
-  return found;
+    return {...values,filename:path.basename(f.path),images,
+      imageMissing:images.filter(img=>!paths.has(img)),
+      test:testFiles.some(t=>t.includes(values.slug)||tokens.some(token=>t.includes(token)))};
+  });
+  return {registry,curriculum,mainFiles,mainSha:tree.sha};
 }
 
 async function liveSnapshot() {
   assertToken();
-  const registry=fileYaml('content/registry/knowledge-nodes.yml');
-  const curriculum=fileYaml('content/registry/core-curriculum.yml');
+  const {registry,curriculum,mainFiles,mainSha} = await mainFromGitHub();
   const allNodes=registry.nodes;
   const coreNodes=flattenCurriculum(curriculum,registry);
   const [branches,prs]=await Promise.all([
@@ -111,7 +132,6 @@ async function liveSnapshot() {
       t.type==='blob' && (t.path.startsWith('content/articles/')||t.path.startsWith('public/images/articles/')||t.path.startsWith('tests/'))
     )};
   });
-  const mainFiles=localArticles();
   const rows=inventoryForNodes({nodes:allNodes,mainArticles:mainFiles,remoteBranches:remoteTrees,pullRequests:prs});
   const branchByName=new Map(remoteTrees.map(b=>[b.name,b]));
   // Drill into one source file for each unpublished node with a retained draft.
@@ -133,7 +153,7 @@ async function liveSnapshot() {
       imageCount:references.length,missingImages:missing,testHint:tests.some(x=>x.path.includes(row.slug)||tokens.some(t=>x.path.includes(t))),
       fileSha:source.sha};
   });
-  return {coreNodes,rows,remoteTrees,prs,scannedAt:new Date().toISOString(),mainFiles};
+  return {coreNodes,rows,remoteTrees,prs,scannedAt:new Date().toISOString(),mainFiles,mainSha};
 }
 
 function writeReports(snapshot) {
@@ -144,7 +164,7 @@ function writeReports(snapshot) {
   const coreRows=snapshot.rows.filter(r=>coreSet.has(r.id))
     .sort((a,b)=>snapshot.coreNodes.findIndex(n=>n.id===a.id)-snapshot.coreNodes.findIndex(n=>n.id===b.id));
   const compact={schemaVersion:1,scannedAt:snapshot.scannedAt,repository:REPOSITORY,
-    totalRegistryNodes:snapshot.rows.length,coreArticleCount:coreRows.length,
+    mainSha:snapshot.mainSha,totalRegistryNodes:snapshot.rows.length,coreArticleCount:coreRows.length,
     scannedBranches:snapshot.remoteTrees.length+1,scannedPullRequests:snapshot.prs.length,
     rows:coreRows.map(r=>({...r,branches:r.branches.map(({branch,sha})=>({branch,sha}))}))};
   fs.writeFileSync(`${full}.json`,JSON.stringify(compact,null,2)+'\n');
