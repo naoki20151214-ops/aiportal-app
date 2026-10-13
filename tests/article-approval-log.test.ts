@@ -35,9 +35,16 @@ test("every recorded completed publication is finalized while dependency-blocked
       assert.equal(approval.publishedOn, undefined, "Unpublished article cannot have a publication date");
     }
   }
-  const pending = ledger.approvals.find((item: {id: string}) => item.id === "BAS-0033");
-  assert.equal(pending.decision, "approved-for-publication");
-  assert.equal(byId.get("BAS-0032")?.status, "review");
+  const depStatus = byId.get("BAS-0032")?.status;
+  const expertStatus = byId.get("BAS-0033")?.status;
+  assert.ok(["ready", "published"].includes(depStatus ?? ""), "Approved BAS-0032 must not revert to review");
+  assert.equal(expertStatus, depStatus, "Expert Systems must follow its published prerequisite");
+  for (const id of ["BAS-0032", "BAS-0056", "BAS-0033"]) {
+    const approval = ledger.approvals.find((item: {id: string}) => item.id === id);
+    assert.ok(approval, "Missing explicit editorial approval for "+id);
+    assert.equal(approval.decision, byId.get(id)?.status === "published" ? "published" : "approved-for-publication");
+    if (id !== "BAS-0033") assert.equal(approval.approvedBy, "site-owner");
+  }
   const approvedTransformer = ledger.approvals.find((item: {id: string}) => item.id === "BAS-0017");
   assert.equal(approvedTransformer.sourceArticleBlob, "48d7f9a1e0c3158d4c9326585852436e2ca6d934");
   assert.equal(approvedTransformer.illustrations, 7);

@@ -25,7 +25,7 @@ test("Thirteen previously accepted articles are published with verified provenan
     for(const image of images) assert.ok(existsSync(path.join("public",image[1])),"Missing "+image[1]);
     for(const link of article.content.matchAll(/\]\(\/articles\/([a-z0-9-]+)\)/g)) assert.ok(publishedSlugs.has(link[1]),"Unpublished link: "+id+"->"+link[1]);
   }
-  assert.equal(byId.get("BAS-0032")?.status,"review");
-  assert.equal(byId.get("BAS-0056")?.status,"review");
-  assert.equal(byId.get("BAS-0033")?.status,"ready");
+  for (const id of ["BAS-0032", "BAS-0056", "BAS-0033"]) {
+    assert.ok(["ready", "published"].includes(byId.get(id)?.status ?? ""), "Accepted publication cannot revert to review: "+id);
+  }
 });
