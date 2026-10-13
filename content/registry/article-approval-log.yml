@@ -224,3 +224,17 @@ approvals:
       BAS-0032 and BAS-0056 in ChatGPT on 2026-10-13; no second publication
       consent required
     publishedOn: 2026-10-13
+  - id: "BAS-0020"
+    slug: "multi-head-attention"
+    approvedOn: "2026-10-13"
+    approvedBy: "editorial-qa"
+    delegation: "site-owner-standing-policy-2026-10-13"
+    decision: "approved-for-publication"
+    sourceRef: "draft/bas-0020-multi-head-20261011"
+    originalReviewArticleBlob: "83841b8ddf00bf06ff58feb0c09222cac38cd331"
+    sourceArticleBlob: "9df10d206d0bf79dc4f0ca401c76fa10089efa12"
+    editorialAuditPath: "content/editorial-audits/BAS-0020.yml"
+    editorialAuditBlob: "d01658952e77555d73bb9f7052d22aa46e551154"
+    illustrations: 4
+    editorialChanges: "None; original manuscript body and four SVG diagram blobs preserved"
+    evidence: "2026-10-13 standing editorial delegation: original draft checked by a separate GPT-6 review pass against Vaswani 2017, official PyTorch API and verified source image blobs; full SHA-bound audit in content/editorial-audits/BAS-0020.yml"
