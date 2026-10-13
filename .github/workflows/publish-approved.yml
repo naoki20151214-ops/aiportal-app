@@ -4,8 +4,11 @@ on:
     branches: [main]
     paths:
       - 'content/registry/article-approval-log.yml'
+      - 'content/registry/knowledge-nodes.yml'
       - '.github/workflows/publish-approved.yml'
       - 'scripts/auto-publish-approved.mjs'
+  schedule:
+    - cron: '15 0 * * *' # 09:15 Asia/Tokyo, retry accepted-but-deferred articles
   workflow_dispatch:
 permissions:
   contents: write
