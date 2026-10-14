@@ -1,6 +1,6 @@
 # AI Portal — 2026-10-14の予約公開方針（最優先）
 
-本人の「合格」や証拠付き編集監査の合格は**公開の承認**であり、**即時公開を意味しない**。審査合格後、`ready`と承認台帳の`approved-for-publication`をmainへ記録するとき、新たに`publishOn: YYYY-MM-DD`（日本時間）を必ず登録する。毎朝09:15 JSTの`publish-approved.yml`が、予定日に到達し、前提・リンク・改ざん検査・安全条件を満たす記事から最大1本だけ公開する。同日の再実行や手動再実行でも2本目を公開しない。日付に到達しない、依存先が未公開、予定日未設定、監査未了の場合は公開しない。GitHub定期実行は遅れる場合があるため、09:15ちょうどの公開は保証しない。承認PRのmainマージを起点に即時公開しない。
+本人の「合格」や証拠付き編集監査の合格は**公開の承認**であり、**即時公開を意味しない**。審査合格後、`ready`と承認台帳の`approved-for-publication`をmainへ記録するとき、新たに`publishOn: YYYY-MM-DD`（日本時間）を必ず登録する。毎日20:00 JSTの`publish-approved.yml`が、予定日に到達し、前提・リンク・改ざん検査・安全条件を満たす記事から最大1本だけ公開する。同日の再実行や手動再実行でも2本目を公開しない。日付に到達しない、依存先が未公開、予定日未設定、監査未了の場合は公開しない。GitHub定期実行は遅れる場合があるため、20:00ちょうどの公開は保証しない。承認PRのmainマージを起点に即時公開しない。
 
 ---
 
@@ -24,7 +24,7 @@
 
 **改ざん・差し替え防止:** `sourceArticleBlob`には、ユーザーが合格した本文を保持した`ready`状態の記事全体のGit Blob SHAを記録します（`git hash-object content/articles/<slug>.md`）。`review`から`ready`への変更は公開メタデータのみとし、元のreview記事SHAは別途`originalReviewArticleBlob`として保存できます。本番公開処理は`ready`記事の現在のBlob SHAが承認ログと一致しなければ失敗します。`approvedBy: site-owner`も必須です。原稿の内容が変わった場合は、**元の合格扱いのまま公開しない**でください。
 
-`publish-approved.yml` が毎朝09:15（JST）の予定実行で公開可能な承認記録を探し、`scripts/auto-publish-approved.mjs` を実行する。公開できるものは `published` へ切り替え、Test/Lint/Buildが成功した場合のみmainへコミットする。Cloudflare PagesはmainのコミットでProductionデプロイする。GitHub Actionsは独立ジョブであり、デプロイ成功はCloudflareで後から確認する。
+`publish-approved.yml` が毎日20:00（JST）の予定実行で公開可能な承認記録を探し、`scripts/auto-publish-approved.mjs` を実行する。公開できるものは `published` へ切り替え、Test/Lint/Buildが成功した場合のみmainへコミットする。Cloudflare PagesはmainのコミットでProductionデプロイする。GitHub Actionsは独立ジョブであり、デプロイ成功はCloudflareで後から確認する。
 
 ## 重要な制約
 - `review` の記事、未承認の `ready` は**絶対に自動公開しない**。
@@ -38,7 +38,7 @@
 ## 定期監査
 自動制作管理表（Core Curriculum 100）を毎朝確認し、`approved-for-publication` の保留記事、未検査のPR、Productionデプロイ失敗を示す。すでに公開された記事を新規執筆しない。
 
-Registryの前提記事が公開された場合も、毎朝09:15（日本時間）の予約実行で保留中の承認を再検査します。技術的な再検査は新しい合格を生成せず、未承認の`ready`・`review`を公開しません。
+Registryの前提記事が公開された場合も、毎日20:00（日本時間）の予約実行で保留中の承認を再検査します。技術的な再検査は新しい合格を生成せず、未承認の`ready`・`review`を公開しません。
 
 ## 本人の毎回のレビューを不要にする委譲編集ルート
 

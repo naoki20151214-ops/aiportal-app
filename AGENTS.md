@@ -18,6 +18,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## 2026-10-14 daily publication cadence (supersedes immediate-publish wording above)
 - Prepare, QA, and merge approved ready articles ahead of time, but **do not publish when an approval PR is merged**. Every new pending approval must have `publishOn: YYYY-MM-DD` (Asia/Tokyo), no earlier than its planned slot.
-- Production publisher is triggered by GitHub schedule at 09:15 JST (with manual recovery only), not by push. It will publish no more than **one** approved, dependency-safe and source-SHA-verified article per Japan calendar date, and won't publish before `publishOn`. Backlogs roll to future days rather than bursting.
+- Production publisher is triggered by GitHub schedule at 20:00 JST (with manual recovery only), not by push. It will publish no more than **one** approved, dependency-safe and source-SHA-verified article per Japan calendar date, and won't publish before `publishOn`. Backlogs roll to future days rather than bursting.
 - Only `published` frontmatter/Registry is exported publicly. The reviewed `ready` backlog stays non-public. No unofficial status changes and no bypass of audit, duplicate gate, source provenance, image or link checks.
 - Explicit user approvals and standing-editorial delegations still authorize publication, but not same-day bypass. Continue publishing already-approved articles only through the daily workflow. Changes to release time are allowed as an explicit future policy update.

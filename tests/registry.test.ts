@@ -172,7 +172,10 @@ test("公開計画はタイムゾーンと段階公開ルールを保持する",
   assert.equal(plan.automation.strategy, "daily-date-gated-approved-queue");
   assert.equal(plan.candidateCadence.maxPerDay, 1);
   assert.equal(plan.candidateCadence.spacingMinutes, 1440);
-  assert.deepEqual(plan.candidateCadence.localTimes,["09:15"]);
+  assert.deepEqual(plan.candidateCadence.localTimes,["20:00"]);
+  const workflow = readFileSync(".github/workflows/publish-approved.yml", "utf8");
+  assert.match(workflow, /cron:\s*\x270 11 \* \* \*\x27/); // 20:00 Japan time = 11:00 UTC
+  assert.doesNotMatch(workflow, /cron:\s*\x2715 0 \* \* \*\x27/);
   assert.equal(new Set(plan.candidateCadence.localTimes).size, plan.candidateCadence.localTimes.length);
   assert.ok(plan.qualityGate.required.length > 0);
   assert.equal(plan.qualityGate.wordCountRule, "固定しない");
