@@ -406,3 +406,29 @@ approvals:
       denoising, image-to-video, audio and provenance. Prerequisites GEN-0001
       and BAS-0030 are published; GEN-0015 has been retired as a duplicate.
       Queued at 20:00 JST on or after 2026-10-16, not immediately upon merge.
+  - id: GEN-0018
+    slug: audio-generation-ai
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-18
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0018-audio-generation-20261014
+    originalReviewArticleBlob: 32bd18899ba893c9dae35ed505dbb42c1a8f01f3
+    sourceArticleBlob: 56407a2df3790ea7a43fde396765b7979c632e9e
+    editorialAuditPath: content/editorial-audits/GEN-0018.yml
+    editorialAuditBlob: 65fe8339b38ffce462103796555aaf2dc28cc34f
+    illustrations: 5
+    editorialChanges: Review-to-ready frontmatter status only. Original manuscript body and five images are unchanged.
+    evidence: >-
+      The site owner's standing editorial delegation for standard evergreen
+      articles applies. A second fact-checking pass performed by the same
+      GPT-6 assistant compared nine claim-specific sources from Google Cloud,
+      DeepMind, Google Research, Meta AudioCraft and OpenAI. Eight mandatory
+      editorial checks passed. Internal score 89/100 exceeds the owner's
+      80-point threshold, without waiving mandatory tests or other safety
+      requirements. No independent human or external reviewer is claimed.
+      The article focuses on generation of speech, sound effects and music,
+      distinct from the earlier multimodal primer BAS-0030. Both
+      prerequisites GEN-0001 and BAS-0030 are published. Publication is
+      authorized no sooner than the Oct 18 JST 20:00 daily queue slot.
