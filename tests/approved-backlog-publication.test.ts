@@ -7,7 +7,7 @@ import { readAllArticles } from "../src/lib/article-content";
 const ids = ["BAS-0001","BAS-0002","BAS-0031","BAS-0034","BAS-0040","BAS-0042","BAS-0030","BAS-0101","GEN-0001","GEN-0002","GEN-0003","GEN-0035","GEN-0036"];
 test("Thirteen previously accepted articles are published with verified provenance", () => {
   const registry = parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
-  assert.equal(registry.nodeCount, 501);
+  assert.equal(registry.nodeCount, 500); // Retired duplicate GEN-0015; preserve all thirteen published approvals.
   const byId = new Map<string,{status:string;prerequisites:string[]}>(registry.nodes.map((n:{id:string;status:string;prerequisites:string[]})=>[n.id,n] as const));
   const articles=readAllArticles("content/articles");
   const approvals=parse(readFileSync("content/registry/article-approval-log.yml","utf8")).approvals;
