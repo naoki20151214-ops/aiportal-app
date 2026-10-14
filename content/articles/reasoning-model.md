@@ -6,7 +6,7 @@ description: "37箱の本を台車で運ぶ問題を題材に、Reasoning Model�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-23"
 updatedAt: "2026-10-23"
 author: "AI Portal編集部"
