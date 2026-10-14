@@ -58,7 +58,7 @@ test("RAGは創作の9時から10時へ変わる具体例で検索と生成の�
     "Retrieve","Augment","Generate","Chunk","Embedding",
     "キーワード検索","ベクトル検索","ハイブリッド検索",
     "学習を一切しない","アクセス権限","正当な指示",
-    "ハルシネーションはゼロ","出典","再学習"
+    "ハルシネーションはゼロ","出典","追加学習"
   ]) assert.ok(body.includes(text), "Missing RAG explanatory safeguard: "+text);
   assert.ok(body.indexOf("午前9時") < body.indexOf("午前10時"));
   assert.match(body,/^## 今日の結論$/m);
