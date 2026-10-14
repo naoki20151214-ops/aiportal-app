@@ -381,3 +381,27 @@ approvals:
       90/100 exceeds owner's 80 minimum but all safety and CI checks remain mandatory.
       No independent human or other model reviewer is claimed. Queued to release
       at 20:00 JST on or after 2026-10-17, after reconfirming both published prerequisites GEN-0001 and BAS-0030. GEN-0015 was withdrawn as a duplicate.
+  - id: GEN-0017
+    slug: video-generation-ai
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-16
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0017-video-generation-20261014
+    originalReviewArticleBlob: 7afc0904a64718fed1f6ca6bfaee6521f2d644c3
+    sourceArticleBlob: 66109c3fa565fd1cf6408693bbd28838318a042c
+    editorialAuditPath: content/editorial-audits/GEN-0017.yml
+    editorialAuditBlob: ef3739775591314579e1862d525eb9413fcad154
+    illustrations: 5
+    editorialChanges: Only frontmatter status changed from review to ready; body and five figures are SHA-immutable
+    evidence: Under site-owner standing editorial delegation, a separate
+      primary-source checking pass by the same GPT-6 assistant reviewed seven
+      specific claims against original OpenAI Sora, Google Research, DeepMind
+      Veo and Google Cloud materials. Eight editorial criteria passed;
+      internal rubric 90/100 exceeds the 80-point threshold. No independent
+      human or other-model reviewer is claimed. Distinct focus from published
+      BAS-0030: generation of moving video, frames, temporal consistency,
+      denoising, image-to-video, audio and provenance. Prerequisites GEN-0001
+      and BAS-0030 are published; GEN-0015 has been retired as a duplicate.
+      Queued at 20:00 JST on or after 2026-10-16, not immediately upon merge.

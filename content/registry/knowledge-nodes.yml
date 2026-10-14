@@ -620,7 +620,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "テキストや画像から動画を作るAIは何ができ、どこが難しいのか？"
     prerequisites: ["GEN-0001","BAS-0030"]
     children: []

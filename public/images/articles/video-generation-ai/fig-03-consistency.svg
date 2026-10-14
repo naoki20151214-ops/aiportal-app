@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="t d"><title id="t">時間的一貫性：変わらないものを保つ</title><desc id="d">衣服・ほうき・背景が続く場合と途中で姿が変わる不自然な場合を比較する</desc><defs><marker id="arr" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L10 6L1 11" fill="none" stroke="#739bbb" stroke-width="2"/></marker></defs><rect width="1200" height="675" fill="#fafcff"/><circle cx="1068" cy="90" r="144" fill="#eaf4ff"/><circle cx="112" cy="596" r="120" fill="#fff5e9"/><text x="600" y="75" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="38" fill="#193750" font-weight="700" text-anchor="middle">時間的一貫性：変わらないものを保つ</text><rect x="46" y="147" width="504" height="93" rx="22" fill="#e0f6ea" stroke="#abcade" stroke-width="2.8"/><text x="298" y="201.87" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="27" fill="#193750" font-weight="700" text-anchor="middle">自然：同じ人・同じ道具</text><rect x="648" y="147" width="504" height="93" rx="22" fill="#fff0e7" stroke="#abcade" stroke-width="2.8"/><text x="900" y="201.87" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="27" fill="#193750" font-weight="700" text-anchor="middle">不自然：途中で変わる</text>
+<rect x="66" y="281" width="144" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M76 405Q138 381 200 405L200 433L76 433Z" fill="#cce9c8"/>
+<path d="M108 413V359M94 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="158.16" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M158.16 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M183.16 406l18 60" stroke="#bd935c" stroke-width="6"/><path d="M198.16 457l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="242" y="281" width="144" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M252 405Q314 381 376 405L376 433L252 433Z" fill="#cce9c8"/>
+<path d="M284 413V359M270 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="342.15999999999997" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M342.15999999999997 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M367.15999999999997 406l18 60" stroke="#bd935c" stroke-width="6"/><path d="M382.15999999999997 457l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="416" y="281" width="112" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M426 405Q472 381 518 405L518 433L426 433Z" fill="#cce9c8"/>
+<path d="M458 413V359M444 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="499.68" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M499.68 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M524.6800000000001 406l18 60" stroke="#bd935c" stroke-width="6"/><path d="M539.6800000000001 457l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="667" y="281" width="144" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M677 405Q739 381 801 405L801 433L677 433Z" fill="#cce9c8"/>
+<path d="M709 413V359M695 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="759.16" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M759.16 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M784.16 406l18 60" stroke="#bd935c" stroke-width="6"/><path d="M799.16 457l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="846" y="281" width="144" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M856 405Q918 381 980 405L980 433L856 433Z" fill="#cce9c8"/>
+<path d="M888 413V359M874 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="946.16" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M946.16 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+<rect x="1007" y="281" width="124" height="162" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M1017 405Q1069 381 1121 405L1121 433L1017 433Z" fill="#cce9c8"/>
+<path d="M1049 413V359M1035 377q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="1098.36" cy="361" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M1098.36 377l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<text x="295" y="508" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="25" fill="#286749" font-weight="700" text-anchor="middle">服とほうきが続く</text><text x="893" y="508" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="25" fill="#a34c44" font-weight="700" text-anchor="middle">ほうきが消える例</text><rect x="237" y="552" width="746" height="60" rx="22" fill="#eaf2ff" stroke="#abcade" stroke-width="2.8"/><text x="610" y="589.13" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="23" fill="#193750" font-weight="700" text-anchor="middle">自然さは1枚の綺麗さだけでは決まらない</text><text x="600" y="635" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="18" fill="#607c91" font-weight="500" text-anchor="middle">個々のフレームと時間全体の両方を確認しましょう。</text></svg>
