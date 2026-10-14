@@ -50,7 +50,7 @@ test("Rerankingの前提、承認原稿SHA、監査SHA、公開状態が整合�
  const audit=parse(auditBuf.toString("utf8"));
  assert.equal(audit.readyArticleBlob,READY_SHA);
  assert.ok(audit.qualityScore.achieved>=80);
- assert.ok(Object.values(audit.checks).every((v:any)=>v.passed===true));
+ assert.ok(Object.values(audit.checks).every((v:{passed?:boolean})=>v.passed===true));
  assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
 });
 
