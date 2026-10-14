@@ -65,5 +65,5 @@ test("Cancelled article stays absent while independent approved dates and 20:00 
     assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
   }
   // Additional approved articles may be queued, including GEN-0017; no fixed-count gate.
-  assert.match(readFileSync(".github/workflows/publish-approved.yml","utf8"),/cron: '0 11 \\* \\* \\*'/);
+  assert.match(readFileSync(".github/workflows/publish-approved.yml","utf8"),/cron: '0 11 \* \* \*'/);
 });
