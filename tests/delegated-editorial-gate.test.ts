@@ -113,7 +113,7 @@ function createFixture() {
     node,
   ] };
   const approval = {
-    id: ID, slug: SLUG, approvedOn: "2026-10-13",
+    id: ID, slug: SLUG, approvedOn: "2026-10-13", publishOn: "2026-10-13",
     decision: "approved-for-publication",
     approvedBy: "editorial-qa",
     delegation: "site-owner-standing-policy-2026-10-13",

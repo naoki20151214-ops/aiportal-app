@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { parse } from "yaml";
 import { publishApproved } from "../scripts/auto-publish-approved.mjs";
 function gitBlobSha(source: string): string {
   return createHash("sha1")
@@ -11,7 +12,7 @@ function gitBlobSha(source: string): string {
     .update(source, "utf8")
     .digest("hex");
 }
-function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublished?: boolean; image?: boolean}={}){
+function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublished?: boolean; image?: boolean; publishOn?: string}={}){
   const root=mkdtempSync(path.join(tmpdir(),"aiportal-approve-"));
   mkdirSync(path.join(root,"content/registry"),{recursive:true});
   mkdirSync(path.join(root,"content/articles"),{recursive:true});
@@ -21,7 +22,7 @@ function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublishe
     {id:"BAS-0099",slug:"example",status:options.ready===false?"review":"ready",prerequisites:["BAS-0001"]}
   ]};
   const ledger={schemaVersion:1,approvals:options.accept===false?[]:[
-    {id:"BAS-0099",slug:"example",approvedOn:"2026-10-13",decision:"approved-for-publication",evidence:"Explicit site-owner approval"}]};
+    {id:"BAS-0099",slug:"example",approvedOn:"2026-10-13",publishOn:options.publishOn??"2026-10-13",decision:"approved-for-publication",evidence:"Explicit site-owner approval"}]};
   const article='---\nid: "BAS-0099"\nslug: "example"\nstatus: "'+(options.ready===false?"review":"ready")+'"\npublishedAt: "2026-10-01"\nupdatedAt: "2026-10-01"\n---\n\nThe original explanation stays unchanged.\n\n![Example](/images/articles/example/a.svg)\n';
   if(ledger.approvals.length)Object.assign(ledger.approvals[0],{
     approvedBy:"site-owner", sourceArticleBlob:gitBlobSha(article)
@@ -107,5 +108,55 @@ test("a broken approved thumbnail fails before publication",()=>{
     ledger.approvals[0].sourceArticleBlob=gitBlobSha(article);
     writeFileSync(ledgerPath,JSON.stringify(ledger));
     assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Missing approved thumbnail/);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("scheduled acceptance remains unpublished before its Japan-local publishOn",()=>{
+  const root=fixture({publishOn:"2026-10-15"});try{
+    const early=publishApproved(root,{apply:true,date:"2026-10-14"});
+    assert.deepEqual(early.published,[]);
+    assert.deepEqual(early.deferred,["BAS-0099"]);
+    assert.equal(early.files.length,0);
+    const due=publishApproved(root,{apply:true,date:"2026-10-15"});
+    assert.deepEqual(due.published,["BAS-0099"]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("two due and approved articles publish at most one per local calendar day",()=>{
+  const root=fixture();try{
+    const rp=path.join(root,"content/registry/knowledge-nodes.yml");
+    const lp=path.join(root,"content/registry/article-approval-log.yml");
+    writeFileSync(rp,readFileSync(rp,"utf8").replace("nodeCount: 2","nodeCount: 3")+
+      '  - id: "BAS-0098"\n    slug: "example-two"\n    status: "ready"\n    prerequisites: ["BAS-0001"]\n');
+    const article='---\nid: "BAS-0098"\nslug: "example-two"\nstatus: "ready"\npublishedAt: "2026-10-01"\nupdatedAt: "2026-10-01"\n---\n\nSecond article content.\n';
+    writeFileSync(path.join(root,"content/articles/example-two.md"),article);
+    const ledger=parse(readFileSync(lp,"utf8"));
+    ledger.approvals.push({id:"BAS-0098",slug:"example-two",approvedBy:"site-owner",
+      approvedOn:"2026-10-13",publishOn:"2026-10-13",
+      decision:"approved-for-publication",evidence:"Explicit owner acceptance",
+      sourceArticleBlob:gitBlobSha(article)});
+    writeFileSync(lp,JSON.stringify(ledger));
+    const first=publishApproved(root,{apply:true,date:"2026-10-13"});
+    assert.equal(first.published.length,1);
+    assert.equal(first.deferred.length,1);
+    const sameDay=publishApproved(root,{apply:true,date:"2026-10-13"});
+    assert.equal(sameDay.published.length,0);
+    const nextDay=publishApproved(root,{apply:true,date:"2026-10-14"});
+    assert.equal(nextDay.published.length,1);
+    const last=publishApproved(root,{apply:true,date:"2026-10-14"});
+    assert.deepEqual(last.published,[]);
+    const after=parse(readFileSync(lp,"utf8"));
+    assert.deepEqual(after.approvals.map((row:{publishedOn?:string})=>row.publishedOn).sort(),
+      ["2026-10-13","2026-10-14"]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("an approval without a valid publication date cannot bypass the schedule",()=>{
+  const root=fixture();try{
+    const p=path.join(root,"content/registry/article-approval-log.yml");
+    const ledger=parse(readFileSync(p,"utf8"));
+    delete ledger.approvals[0].publishOn;
+    writeFileSync(p,JSON.stringify(ledger));
+    assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/requires valid publishOn/);
   }finally{rmSync(root,{recursive:true,force:true});}
 });

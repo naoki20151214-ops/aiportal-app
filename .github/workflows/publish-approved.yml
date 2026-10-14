@@ -1,15 +1,8 @@
 name: Publish Editor-Approved Articles
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'content/registry/article-approval-log.yml'
-      - 'content/registry/knowledge-nodes.yml'
-      - '.github/workflows/publish-approved.yml'
-      - 'scripts/auto-publish-approved.mjs'
   schedule:
-    - cron: '15 0 * * *' # 09:15 Asia/Tokyo, retry accepted-but-deferred articles
-  workflow_dispatch:
+    - cron: '15 0 * * *' # 09:15 Asia/Tokyo, one approved article per Japan day
+  workflow_dispatch: # incident recovery; same publishOn and max-one-per-day rules
 permissions:
   contents: write
 concurrency:
@@ -35,7 +28,7 @@ jobs:
         run: npm ci
       - name: Verify delegated editorial audit provenance
         run: node scripts/validate-delegated-editorial-audits.mjs
-      - name: Promote explicitly approved, dependency-safe articles
+      - name: Promote at most one date-due, approved and dependency-safe article
         id: approve
         run: node scripts/auto-publish-approved.mjs --apply
       - name: Run all tests
@@ -56,5 +49,5 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m 'Publish articles upon recorded editorial acceptance'
           git push origin HEAD:main
-      - name: Report deferred accepted articles
+      - name: Report queued and deferred accepted articles
         run: node scripts/auto-publish-approved.mjs

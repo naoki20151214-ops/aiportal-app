@@ -169,9 +169,10 @@ test("公開計画はタイムゾーンと段階公開ルールを保持する",
 
   assert.equal(plan.timezone, "Asia/Tokyo");
   assert.equal(plan.automation.enabled, true);
-  assert.equal(plan.automation.strategy, "editorial-approval-event");
-  assert.equal(plan.candidateCadence.maxPerDay, 10);
-  assert.equal(plan.candidateCadence.spacingMinutes, 60);
+  assert.equal(plan.automation.strategy, "daily-date-gated-approved-queue");
+  assert.equal(plan.candidateCadence.maxPerDay, 1);
+  assert.equal(plan.candidateCadence.spacingMinutes, 1440);
+  assert.deepEqual(plan.candidateCadence.localTimes,["09:15"]);
   assert.equal(new Set(plan.candidateCadence.localTimes).size, plan.candidateCadence.localTimes.length);
   assert.ok(plan.qualityGate.required.length > 0);
   assert.equal(plan.qualityGate.wordCountRule, "固定しない");

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /**
+ * Publication is date-gated: only the daily scheduled workflow (or manual recovery)
+ * releases at most one approved and dependency-safe article per Japan calendar day.
+ * Each new approval must carry publishOn YYYY-MM-DD in the approval ledger.
  * Editorial approval is a production-publication authorization.
  * Only explicit, durable approval records with decision
  * "approved-for-publication" are eligible. "ready" ALONE is not consent.
@@ -82,6 +85,10 @@ export function publishApproved(root,options={}) {
       throw new Error("Invalid explicit approval evidence: "+row.id);
     if(seen.has(row.id))throw new Error("Duplicate pending approval "+row.id);
     seen.add(row.id);
+    if(typeof row.publishOn!=="string" || !/^\d{4}-\d{2}-\d{2}$/.test(row.publishOn) ||
+      !Number.isFinite(Date.parse(row.publishOn+"T00:00:00Z")) ||
+      new Date(row.publishOn+"T00:00:00Z").toISOString().slice(0,10)!==row.publishOn)
+      throw new Error("Approved article requires valid publishOn (Asia/Tokyo YYYY-MM-DD): "+row.id);
     const node=byId.get(row.id);
     if(!node||node.slug!==row.slug)throw new Error("Unknown approval node: "+row.id);
     const articlePath="content/articles/"+row.slug+".md";
@@ -127,10 +134,24 @@ export function publishApproved(root,options={}) {
       if(!depsOk||!linksOk){eligible.delete(id);changed=true;}
     }
   }
-  const deferred=pending.filter(p=>!eligible.has(p.node.id)).map(p=>p.node.id);
+  const publishedToday=ledger.approvals.filter(row =>
+    row.decision==="published" && row.publishedOn===date).length;
+  const availableSlugs=new Set(registry.nodes
+    .filter(node=>node.status==="published").map(node=>node.slug));
+  const due=pending.filter(p =>
+    eligible.has(p.node.id) &&
+    p.row.publishOn<=date &&
+    (p.node.prerequisites||[]).every(dep=>byId.get(dep)?.status==="published") &&
+    p.links.every(slug=>availableSlugs.has(slug))
+  ).sort((a,b)=>a.row.publishOn.localeCompare(b.row.publishOn) ||
+    a.row.approvedOn.localeCompare(b.row.approvedOn) ||
+    a.node.id.localeCompare(b.node.id));
+  const selected=publishedToday>=1?[]:due.slice(0,1);
+  const selectedIds=new Set(selected.map(p=>p.node.id));
+  const remaining=pending.filter(p=>!selectedIds.has(p.node.id)).map(p=>p.node.id);
   const updates=[];
   let newRegistry=registryText;
-  for(const p of eligible.values()){
+  for(const p of selected){
     const node=block(newRegistry,p.node.id);
     if(!node||!node.text.includes('    status: "ready"'))
       throw new Error("Cannot update Registry status "+p.node.id);
@@ -140,10 +161,10 @@ export function publishApproved(root,options={}) {
     p.row.publishedOn=date;
   }
   for(const row of already){row.decision="published";if(!row.publishedOn)row.publishedOn=date;}
-  if(eligible.size)updates.push([registryPath,newRegistry]);
-  if(eligible.size||already.length)updates.push([ledgerPath,stringify(ledger)]);
+  if(selected.length)updates.push([registryPath,newRegistry]);
+  if(selected.length||already.length)updates.push([ledgerPath,stringify(ledger)]);
   if(apply)for(const [rel,content] of updates)fs.writeFileSync(file(root,rel),content,"utf8");
-  return {published:[...eligible.keys()],deferred,already:already.map(x=>x.id),files:updates.map(x=>x[0]),applied:apply};
+  return {published:selected.map(p=>p.node.id),deferred:remaining,already:already.map(x=>x.id),files:updates.map(x=>x[0]),applied:apply, publishedToday};
 }
 if(process.argv[1] && path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname)){
   try{
