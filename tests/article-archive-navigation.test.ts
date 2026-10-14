@@ -57,9 +57,10 @@ test("published archive is reachable from top, articles and footer, and indexed 
   const detail = readFileSync(path.join(root, "src/app/articles/[slug]/page.tsx"), "utf8");
   const footer = readFileSync(path.join(root, "src/components/site-footer.tsx"), "utf8");
   const sitemap = readFileSync(path.join(root, "src/app/sitemap.ts"), "utf8");
-  assert.match(home, /これまでの記事を、まとめて探せます/);
+  assert.match(home, /過去の記事から探す/);
   assert.match(home, /href="\/articles"/);
   assert.match(home, /encodeURIComponent\(name\)/);
+  assert.ok(home.indexOf("最新記事") < home.indexOf('aria-labelledby="archive-guide-title"'), "Latest articles must appear before archive card");
   assert.match(archivePage, /getAllArticles\(\)/);
   assert.match(archivePage, /<ArticleArchive articles=\{articles\}/);
   assert.match(detail, /href="\/articles"/);
