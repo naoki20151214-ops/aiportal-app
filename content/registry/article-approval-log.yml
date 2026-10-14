@@ -395,7 +395,8 @@ approvals:
     editorialAuditBlob: ef3739775591314579e1862d525eb9413fcad154
     illustrations: 5
     editorialChanges: Only frontmatter status changed from review to ready; body and five figures are SHA-immutable
-    evidence: Under site-owner standing editorial delegation, a separate
+    evidence: >-
+      Under site-owner standing editorial delegation, a separate
       primary-source checking pass by the same GPT-6 assistant reviewed seven
       specific claims against original OpenAI Sora, Google Research, DeepMind
       Veo and Google Cloud materials. Eight editorial criteria passed;
