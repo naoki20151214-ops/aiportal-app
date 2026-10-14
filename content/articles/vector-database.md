@@ -6,7 +6,7 @@ description: "Vector Database（ベクトルデータベース）の仕組みを
 category: "生成AI"
 level: 2
 type: "concept"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-14"
 updatedAt: "2026-10-14"
 author: "AI Portal編集部"

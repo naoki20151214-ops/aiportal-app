@@ -280,17 +280,23 @@ approvals:
       and AWS Bedrock original documentation. Full SHA-bound audit is provided;
       no independent human reviewer is claimed."
     publishedOn: 2026-10-14
-  - id: "GEN-0010"
-    slug: "vector-database"
-    approvedOn: "2026-10-14"
-    approvedBy: "editorial-qa"
-    delegation: "site-owner-standing-policy-2026-10-13"
-    decision: "approved-for-publication"
-    sourceRef: "new/GEN-0010-vector-database-20261014"
-    originalReviewArticleBlob: "74f57568d1350806d0d099c14e070565e40a07d6"
-    sourceArticleBlob: "bc93a0363c3c7f7b21771ecce4841a5b15b5aa4b"
-    editorialAuditPath: "content/editorial-audits/GEN-0010.yml"
-    editorialAuditBlob: "b5b5aac663c003ff96d0ba6ab732588c2ed3ef18"
+  - id: GEN-0010
+    slug: vector-database
+    approvedOn: 2026-10-14
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: published
+    sourceRef: new/GEN-0010-vector-database-20261014
+    originalReviewArticleBlob: 74f57568d1350806d0d099c14e070565e40a07d6
+    sourceArticleBlob: bc93a0363c3c7f7b21771ecce4841a5b15b5aa4b
+    editorialAuditPath: content/editorial-audits/GEN-0010.yml
+    editorialAuditBlob: b5b5aac663c003ff96d0ba6ab732588c2ed3ef18
     illustrations: 6
-    editorialChanges: "None; review-to-ready metadata only and article body preserved"
-    evidence: "Under site-owner standing editorial delegation, GEN-0010 was drafted as an evergreen learning article and then separately source-checked by the same GPT-6 assistant using Azure AI Search, Amazon Bedrock, and pgvector official sources. Six original illustrative SVGs and a SHA-bound critical-claim audit are retained; no independent human or different model reviewer is claimed."
+    editorialChanges: None; review-to-ready metadata only and article body preserved
+    evidence: Under site-owner standing editorial delegation, GEN-0010 was drafted
+      as an evergreen learning article and then separately source-checked by the
+      same GPT-6 assistant using Azure AI Search, Amazon Bedrock, and pgvector
+      official sources. Six original illustrative SVGs and a SHA-bound
+      critical-claim audit are retained; no independent human or different model
+      reviewer is claimed.
+    publishedOn: 2026-10-14
