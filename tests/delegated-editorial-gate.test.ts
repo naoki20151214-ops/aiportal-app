@@ -6,6 +6,7 @@ import path from "node:path";
 import { stringify, parse } from "yaml";
 import { gitBlobSha, verifyDelegatedEditorialAudit } from "../scripts/delegated-editorial-gate.mjs";
 import { publishApproved } from "../scripts/auto-publish-approved.mjs";
+const atJst20 = (date: string) => new Date(date + "T11:00:00.000Z");
 
 const ID = "BAS-0099";
 const SLUG = "example";
@@ -147,7 +148,7 @@ test("site-owner delegation publishes only when separately recorded immutable ed
     const checked = verifyDelegatedEditorialAudit(f.root, f.approval, f.ready, f.node);
     assert.equal(checked.verified, true);
     assert.equal(checked.claimCount, 2);
-    const result = publishApproved(f.root, { apply: true, date: "2026-10-13" });
+    const result = publishApproved(f.root, { apply: true, now:atJst20("2026-10-13") });
     assert.deepEqual(result.published, [ID]);
     const published = readFileSync(f.ap, "utf8");
     assert.match(published, /status: "published"/);
@@ -157,7 +158,7 @@ test("site-owner delegation publishes only when separately recorded immutable ed
     assert.equal(registry.nodes[1].status, "published");
     assert.equal(ledger.approvals[0].decision, "published");
     assert.equal(ledger.approvals[0].publishedOn, "2026-10-13");
-    assert.deepEqual(publishApproved(f.root, { apply: true, date: "2026-10-13" }).published, []);
+    assert.deepEqual(publishApproved(f.root, { apply: true, now:atJst20("2026-10-13") }).published, []);
   } finally {
     rmSync(f.root, { recursive: true, force: true });
   }
@@ -251,7 +252,7 @@ test("missing, altered, unverifiable or contradictory editorial audit stops auto
     const f = createFixture();
     try {
       entry.mutate(f);
-      assert.throws(() => publishApproved(f.root, { apply: true, date: "2026-10-13" }), entry.error, entry.name);
+      assert.throws(() => publishApproved(f.root, { apply: true, now:atJst20("2026-10-13") }), entry.error, entry.name);
       assert.match(readFileSync(f.ap, "utf8"), /status: "ready"/);
     } finally {
       rmSync(f.root, { recursive: true, force: true });
@@ -265,7 +266,7 @@ test("unpublished prerequisite remains a hard blocker even with complete editori
     const rg = parse(readFileSync(f.rp, "utf8"));
     rg.nodes[0].status = "review";
     writeRegistry(f.rp, rg);
-    const result = publishApproved(f.root, { apply: true, date: "2026-10-13" });
+    const result = publishApproved(f.root, { apply: true, now:atJst20("2026-10-13") });
     assert.deepEqual(result.published, []);
     assert.deepEqual(result.deferred, [ID]);
   } finally {
