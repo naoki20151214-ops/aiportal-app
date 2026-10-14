@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0040",
+  "slug": "reasoning-model",
+  "auditedOn": "2026-10-15",
+  "readyArticleBlob": "d3200ae420f653250af78d8ab4fe61008a8293c1",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 90,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial rubric (0–100) based on a separate source-focused review pass. Not third-party, independent-model or independent-human evaluation. Mandatory CI gates are independent technical checks, not independent editorial reviews.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 18,
+      "visuals": 12,
+      "linksAndPrerequisites": 9,
+      "sourceReview": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0040-draft-pass-20261015",
+    "verifierId": "GPT-6-GEN-0040-primary-source-review-20261015",
+    "separateVerificationPass": true,
+    "independenceNote": "A distinct primary-source and learning-accuracy verification pass by the same GPT-6 model. Neither different model nor human nor independent external approval is claimed."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Explains what reasoning models aim to improve, differences in training and inference-time computation, and why 'thinking longer' cannot ensure correctness; no false dichotomy that other LLMs cannot reason."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "37 boxes on an 8-box cart; distinguishes 5 outbound deliveries, 4 return segments, 9 one-way movements, 10 if final return required. Defines model, reinforcement learning, test-time compute and reasoning trace only after their purpose is understood."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "A fictional community book-exchange setup frames answer 5 as a valid interpretation and emphasizes ambiguity and verification, then reuses the setting to introduce learning and reasoning at inference."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Focused pass compared OpenAI o1 September 2024 official report, OpenAI o3/o4-mini April 2025 historical launch, Google Gemini 2.5 March/May 2025 first-party reports, Gemini thinking documentation and DeepSeek R1 authored paper. Product names are historical examples, not 2026 availability claims; internal thinking is not presented as literal or necessarily visible text."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original 1200×675 SVGs with Japanese accessible titles/descriptions and distinct labeled concepts: cart question, 5+4 legs, solving stages, training versus inference, and time/effort trade-off. Artwork bound to exact Git blobs."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Only published links: what-is-llm (GEN-0002), what-is-prompt (GEN-0003), ai-hallucination (GEN-0004), what-is-generative-ai (GEN-0001). No links to seven queued articles."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0040 existed in 500-node canonical Registry at planned, level 1, prerequisite GEN-0002 (published). No retained branch named GEN-0040/reasoning-model, article source file or prior PR found in Start Gate. Core Curriculum Day 5 places it immediately after queued GEN-0022."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Explicitly states model explanations do not prove internal process, thinking longer is not a guarantee, unclear task conditions require confirmation, numbers and high-impact uses demand independent verification. No unsafe stepwise advice or private data."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "OpenAI introduced o1 in September 2024 as a reasoning-focused LLM using reinforcement learning, reporting performance gains from more training-time reinforcement learning and test-time computation.",
+      "sourceUrl": "https://openai.com/index/learning-to-reason-with-llms/",
+      "sourceEvidence": "OpenAI's 2024-09-12 'Learning to reason with LLMs' text explicitly describes o1 trained via reinforcement learning and improved performance with more training-time compute and more time spent thinking at test time. The source marks o1 historic and deprecated, which the article respects.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI states that raw internal chains of thought are not directly shown to users, so user-facing explanations need not equal complete internal traces.",
+      "sourceUrl": "https://openai.com/index/learning-to-reason-with-llms/",
+      "sourceEvidence": "The same original paper-announcement section 'Hiding the Chains of Thought' describes not showing raw chains of thought directly, while teaching models to reproduce useful ideas in final answers.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI's April 2025 o3 and o4-mini release highlights scaling reinforcement learning and inference-time reasoning plus use of external tools for multi-step problems.",
+      "sourceUrl": "https://openai.com/index/introducing-o3-and-o4-mini/",
+      "sourceEvidence": "Release post's 'Continuing to scale reinforcement learning' and 'Toward agentic tool use' explicitly discuss increased RL and reasoning compute and use of browsing/Python. The article labels examples historical, not current services.",
+      "verified": true
+    },
+    {
+      "claim": "Google's March 2025 Gemini 2.5 announcement describes thinking models as designed to reason before responding and to improve problem-solving performance.",
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-thinking-updates-march-2025/",
+      "sourceEvidence": "Google published March 25 2025 introducing Gemini 2.5 as thinking models and defines reasoning as analyzing context and drawing conclusions; examples are scoped to the launch period.",
+      "verified": true
+    },
+    {
+      "claim": "Google's May 2025 Gemini updates described Deep Think for more complex tasks and described controllable thinking budgets to trade accuracy against latency and cost.",
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/google-gemini-updates-io-2025/",
+      "sourceEvidence": "2025 Google I/O post sections 'Deep Think' and 'Thinking budgets' explicitly introduce an experimental enhanced reasoning mode and thinking budget controls; model-specific launch statements are not presented as current.",
+      "verified": true
+    },
+    {
+      "claim": "Google's current developer documentation explains changing thinking effort according to task complexity with tradeoffs for token costs and response time.",
+      "sourceUrl": "https://ai.google.dev/gemini-api/docs/thinking/",
+      "sourceEvidence": "Google AI for Developers' Gemini Thinking guide section 'Controlling thinking' describes thinking levels; 'Pricing' and best practices describe costs of thinking tokens and the balance among latency/quality/complexity. The article avoids exact mutable model parameter specifications.",
+      "verified": true
+    },
+    {
+      "claim": "DeepSeek-AI reported that reinforcement learning can elicit reasoning behaviors in DeepSeek-R1-Zero, with R1 trained using further multi-stage processes to address limitations.",
+      "sourceUrl": "https://arxiv.org/abs/2501.12948",
+      "sourceEvidence": "DeepSeek-AI paper 'DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning' abstract describes RL-only R1-Zero, its shortcomings, and multi-stage cold-start/fine-tuning for DeepSeek-R1. No universal or literal training recipe is asserted.",
+      "verified": true
+    }
+  ]
+}
