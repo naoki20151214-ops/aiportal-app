@@ -1,0 +1,18 @@
+schemaVersion: 1
+retirements:
+  - id: "GEN-0015"
+    slug: "multimodal-ai"
+    retiredOn: "2026-10-14"
+    disposition: "duplicate-of-published-article"
+    canonicalArticleId: "BAS-0030"
+    canonicalSlug: "what-is-multimodal"
+    cancelledPublishOn: "2026-10-16"
+    originalQueuedPR: 161
+    reason: "Owner identified substantial topical overlap with BAS-0030. Withdraw the approval before production publication. Do not queue or regenerate GEN-0015 as a standalone beginner article."
+    replacedCoreCurriculumSlotWith: "GEN-0018"
+    restoredDependenciesTo: "BAS-0030"
+    archivedReviewBlob: "10bb7d81b5f1a248f8baddf579c2418ddde7d35a"
+    archivedReadyBlob: "46e2f5d9f4174588ab798f0b20567c347ab8428e"
+    archivedEditorialAuditBlob: "d9a63568aa73591d07d5b31df755939c99f06ffd"
+    archiveReference: "https://github.com/naoki20151214-ops/aiportal-app/pull/161"
+    notes: "Article, illustrations and audit are removed from main, but remain in the merged PR history. Published BAS-0030 is unchanged. GEN-0016 is preserved with its original reviewed body, six figures and Oct 17 publication date; its audit metadata and dependency tests are updated."

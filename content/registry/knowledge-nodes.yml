@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 501
+nodeCount: 500
 
 nodes:
   - id: "BAS-0001"
@@ -432,7 +432,7 @@ nodes:
     centerQuestion: "テキスト・画像・音声・動画を同じAIが扱うとはどういうことか？"
     prerequisites: ["BAS-0001"]
     children: []
-    related: ["GEN-0015"]
+    related: ["GEN-0016","GEN-0017","GEN-0018"]
     priority: "A"
   - id: "GEN-0001"
     title: "生成AIとは何か？"
@@ -602,18 +602,6 @@ nodes:
     children: []
     related: ["SOC-0008"]
     priority: "B"
-  - id: "GEN-0015"
-    title: "マルチモーダルAIとは？"
-    slug: "multimodal-ai"
-    category: "生成AI"
-    level: 1
-    type: "concept"
-    status: "ready"
-    centerQuestion: "複数のモダリティを理解・生成するAIはどう使われるのか？"
-    prerequisites: ["BAS-0030","GEN-0001"]
-    children: ["GEN-0016","GEN-0017","GEN-0018"]
-    related: []
-    priority: "A"
   - id: "GEN-0016"
     title: "画像生成AIとは？"
     slug: "image-generation-ai"
@@ -622,7 +610,7 @@ nodes:
     type: "concept"
     status: "ready"
     centerQuestion: "テキストから画像を生成するAIはどのような仕組みと用途を持つのか？"
-    prerequisites: ["GEN-0001","GEN-0015"]
+    prerequisites: ["GEN-0001","BAS-0030"]
     children: []
     related: ["SOC-0004"]
     priority: "A"
@@ -634,7 +622,7 @@ nodes:
     type: "concept"
     status: "planned"
     centerQuestion: "テキストや画像から動画を作るAIは何ができ、どこが難しいのか？"
-    prerequisites: ["GEN-0001","GEN-0015"]
+    prerequisites: ["GEN-0001","BAS-0030"]
     children: []
     related: ["GEN-0092"]
     priority: "A"
@@ -646,7 +634,7 @@ nodes:
     type: "concept"
     status: "planned"
     centerQuestion: "音声合成・音声生成AIはどのように声や音を作るのか？"
-    prerequisites: ["GEN-0001","GEN-0015"]
+    prerequisites: ["GEN-0001","BAS-0030"]
     children: []
     related: ["SOC-0004"]
     priority: "B"
@@ -1474,7 +1462,7 @@ nodes:
     type: "concept"
     status: "planned"
     centerQuestion: "生成AIが偽情報や偽画像・偽動画を作りやすくする問題へどう向き合うか？"
-    prerequisites: ["GEN-0015"]
+    prerequisites: ["BAS-0030"]
     children: []
     related: ["SOC-0015"]
     priority: "B"
@@ -1512,7 +1500,7 @@ nodes:
     centerQuestion: "Apple IntelligenceとSiri AIの2026年時点の変化は何か？"
     prerequisites: []
     children: []
-    related: ["GEN-0015","SOC-0005"]
+    related: ["BAS-0030","SOC-0005"]
     priority: "A"
   - id: "NEWS-0091"
     title: "GPT-5からGPT-6.1へ｜OpenAIモデルの進化を追うときに見るべきポイント"
@@ -2765,7 +2753,7 @@ nodes:
     type: "concept"
     status: "planned"
     centerQuestion: "Multimodal Embeddingとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
-    prerequisites: ["GEN-0015"]
+    prerequisites: ["BAS-0030"]
     children: []
     related: []
     priority: "B"
@@ -2777,7 +2765,7 @@ nodes:
     type: "concept"
     status: "planned"
     centerQuestion: "Vision-Language Modelとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
-    prerequisites: ["GEN-0015"]
+    prerequisites: ["BAS-0030"]
     children: []
     related: []
     priority: "B"
