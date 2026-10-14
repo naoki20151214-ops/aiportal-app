@@ -432,3 +432,28 @@ approvals:
       distinct from the earlier multimodal primer BAS-0030. Both
       prerequisites GEN-0001 and BAS-0030 are published. Publication is
       authorized no sooner than the Oct 18 JST 20:00 daily queue slot.
+  - id: GEN-0019
+    slug: what-is-chatgpt
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-19
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0019-chatgpt-20261014
+    originalReviewArticleBlob: a66d4b815d65faef367a38fa00cdafcb76295e81
+    sourceArticleBlob: 5c312d213a2ecfe382764768776ae565389a0b7c
+    editorialAuditPath: content/editorial-audits/GEN-0019.yml
+    editorialAuditBlob: 0ba2c09b5f86cd727bde8a9e95966c74266e2ee2
+    illustrations: 5
+    editorialChanges: Only review-to-ready frontmatter status was changed, with identical body and five figures
+    evidence: >-
+      Under the site-owner delegated evergreen-education editorial policy,
+      a separate source-focused checking pass by the same GPT-6 assistant
+      evaluated eight official OpenAI primary-source claims and eight mandatory
+      editorial criteria. This is an internal 89/100 score, not independent
+      human or different-model review. Safety, source provenance, CI and
+      immutable image/body integrity gates remain mandatory.
+      GEN-0019 is a ChatGPT service/usage lesson, distinct from the already
+      published GEN-0002 LLM model/mechanism primer. Both required prerequisites,
+      GEN-0001 and GEN-0002, are published. The article may publish on or after
+      2026-10-19 20:00 JST, not immediately upon approval merge.

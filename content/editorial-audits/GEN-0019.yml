@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0019",
+  "slug": "what-is-chatgpt",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "5c312d213a2ecfe382764768776ae565389a0b7c",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 89,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial assessment (0–100), not an independent/human score. Source, integrity, safety, links, CI and delayed publication gates remain mandatory.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 17,
+      "figures": 12,
+      "learningLinks": 9,
+      "verificationEvidence": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0019-writing-pass-20261014",
+    "verifierId": "GPT-6-GEN-0019-second-primary-source-check-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "Writer and verifier roles were separate passes of the same GPT-6. No independent human, other model, or third-party reviewer is claimed."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Contrasts ChatGPT service with underlying LLM models and optional tools, addresses natural-language interaction, use cases, limitations, uncertainty, privacy, search vs static generation, and practical verification."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Uses a town association poster with 9 AM obsolete vs 10 AM current time, then distinguishes assistant/service vs engine/model, simple conversations and concrete basic tool examples. No model-specific capability or exact model tiers promised."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "The reader follows an event notice from first prompt to iterative refinement, web verification, scanned poster, privacy filtering and final fact-check. Fictional timing is explicitly identified as a pedagogical example."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Second source-focused pass compared the official OpenAI 2022 ChatGPT announcement, current ChatGPT FAQ, capabilities overview, truthfulness FAQ, ChatGPT Search and Data Controls privacy documentation. Historical RLHF implementation is identified as historical, not asserted universal or current. Product functionality scoped by plan/model/settings."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original pastel 1200×675 SVG diagrams, all with SVG title/desc, Japanese descriptive alt, schematic safety notice and SHA tests: chat, service/model/tool distinction, search, multimodal inputs, privacy. No logo or real product interface depiction."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "All internal links are to existing published GEN-0002 what-is-llm, BAS-0013 what-is-token, GEN-0001 what-is-generative-ai, GEN-0004 hallucination, GEN-0008 RAG, GEN-0011 Retrieval, BAS-0030 what-is-multimodal; does not link to unpublished Claude, Gemini or later posts."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0019 prerequisites [GEN-0001,GEN-0002] are published on latest main. GEN-0019 was planned and absent from all current manuscript paths and retained branch-name/PR search at start."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Warns about wrong dates, fabricated details, unreliability of cited search, need to check official source, privacy/identifying data and workspace controls. Avoids unsupported data-processing promises, account-specific entitlements and automatic external-action claims."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "ChatGPT is an OpenAI conversational AI assistant for writing, study, code, planning and follow-up questions; web and mobile interfaces exist.",
+      "sourceUrl": "https://help.openai.com/en/articles/12677804-what-is-chatgpt-faq",
+      "sourceEvidence": "Official FAQ 'What is ChatGPT?' explicitly lists everyday tasks and web/iOS/Android availability; follow-up questions adapt to conversation context.",
+      "verified": true
+    },
+    {
+      "claim": "ChatGPT's initial 2022 training used RLHF to tune instruction-following conversation, and OpenAI documented plausible incorrect answers; this is historical not all modern models.",
+      "sourceUrl": "https://openai.com/index/chatgpt/",
+      "sourceEvidence": "2022 OpenAI launch section 'Methods' states Reinforcement Learning from Human Feedback and 'Limitations' states plausible sounding but incorrect/nonsensical answers. Page explicitly says ChatGPT evolved substantially since launch.",
+      "verified": true
+    },
+    {
+      "claim": "ChatGPT capabilities may include web search, image inputs/generation and files, audio, data depending on available settings and plan.",
+      "sourceUrl": "https://help.openai.com/en/articles/9260256-chatgpt-capabilities-overview",
+      "sourceEvidence": "Help Center's current 'ChatGPT capabilities overview' lists search, deep research, image analysis/generation, file/audio uploads and data analysis. Feature availability is scoped rather than universally guaranteed.",
+      "verified": true
+    },
+    {
+      "claim": "ChatGPT can generate confident but wrong information; important details must be independently verified.",
+      "sourceUrl": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "sourceEvidence": "Official truthfulness FAQ says confidence isn't reliability and to verify quotes, calculations and references, particularly for important information. Article frames notice timing as fictional caution, not reliability benchmark.",
+      "verified": true
+    },
+    {
+      "claim": "ChatGPT Search can retrieve current web information and show cited sources, but citation/source accuracy must still be checked.",
+      "sourceUrl": "https://help.openai.com/ja-jp/articles/9237897-chatgpt-%E6%A4%9C%E7%B4%A2",
+      "sourceEvidence": "Official Japanese Search help describes web search with relevant sources/links and warns results, citations and sources may be incomplete/incorrect; readers should verify sources and dates.",
+      "verified": true
+    },
+    {
+      "claim": "Personal accounts have a Data Controls setting to opt out of model improvement from new conversations; turning that setting off does not delete history.",
+      "sourceUrl": "https://help.openai.com/en/articles/7730893-data-usage-for-openai-models",
+      "sourceEvidence": "Official Data Controls FAQ explains 'Improve the model for everyone' off, sync between devices, and explicitly says turning it off does not remove previous chat history.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI provides privacy options including temporary chats and data controls, with different handling for business/workspace vs personal products.",
+      "sourceUrl": "https://help.openai.com/en/articles/7039943-how-openai-handles-data-in-consumer-services",
+      "sourceEvidence": "Official consumer privacy document explains temporary chat, model-improvement choices and managed workspace differences; article makes no blanket claim of zero data retention.",
+      "verified": true
+    },
+    {
+      "claim": "Privacy Center in ChatGPT provides controls for model improvement, plugins/apps, temporary chat and other privacy settings.",
+      "sourceUrl": "https://help.openai.com/en/articles/20001488-privacy-center-in-chatgpt",
+      "sourceEvidence": "Official Privacy Center Help Center page lists Temporary chat, Data use & access and model improvement controls. Article recommends reviewing controls rather than assuming universal defaults.",
+      "verified": true
+    }
+  ]
+}

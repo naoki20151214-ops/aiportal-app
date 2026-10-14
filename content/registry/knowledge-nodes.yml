@@ -644,7 +644,7 @@ nodes:
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "ChatGPTは何ができ、どんな仕組みと制約を持つAIサービスなのか？"
     prerequisites: ["GEN-0001","GEN-0002"]
     children: []
