@@ -3,23 +3,17 @@ timezone: "Asia/Tokyo"
 
 automation:
   enabled: true
-  strategy: "editorial-approval-event"
-  note: "本人の合格、または証拠付き委譲編集監査の承認記録をmainへ反映したとき、検証の後に公開。未承認readyは対象外"
+  strategy: "daily-date-gated-approved-queue"
+  note: "本人合格または委譲編集監査で承認されたready記事だけを、承認台帳のpublishOn以降、毎日09:15 JSTの予約キューから1日最大1本公開。承認PRのmainマージでは即時公開しない"
 
 candidateCadence:
-  maxPerDay: 10
-  spacingMinutes: 60
+  maxPerDay: 1
+  spacingMinutes: 1440
   localTimes:
-    - "08:00"
-    - "09:00"
-    - "10:00"
-    - "11:00"
-    - "12:00"
-    - "13:00"
-    - "14:00"
-    - "15:00"
-    - "16:00"
-    - "17:00"
+    - "09:15"
+  scheduleTimezone: "Asia/Tokyo"
+  startPolicy: "記事個別publishOn日以降。先行記事公開、リンクと出典、全品質ゲートの成立を必須とする。GitHub cronは遅延する場合がある"
+  timeSlotPolicy: "1日の枠が埋まった場合は次の日以降へ繰り越す。日付を過ぎても自動でまとめて公開しない"
 
 releasePrinciples:
   - "SEO目的だけで公開間隔を分けない"
@@ -46,6 +40,7 @@ coreCurriculum:
   articlesPerBatch: 10
   ordering: "dependency-first"
   autoSchedule: false
-  note: "Core Curriculumの100記事は制作順。合格が記録され、安全ゲートが通れば別途の公開時刻承認なしで直ちに公開する"
+  approvedQueueAutoPublish: true
+  note: "Core Curriculumの制作順と公開順を分離。審査済み記事をpublishOnで予約し、毎日09:15 JSTに1本ずつ安全ゲートを経て公開する"
   unpublishedLinkPolicy: "URLリンクを生成せず、必要時のみ準備中として非リンク表示する"
-  releaseGate: "readyかつapproved-for-publication記録を持つノード（またはauthorized scheduled）だけを公開対象にする。本人合格と証拠付き編集監査を区別する"
+  releaseGate: "readyかつapproved-for-publicationの正式記録とpublishOnを持ち、予定日到達・前提公開済・品質ゲート合格のノードのみ対象。日付あたり1本を上限にする。本人合格と証拠付き編集監査を区別する"
