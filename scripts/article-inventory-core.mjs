@@ -74,7 +74,7 @@ export function decideStart(row) {
   return {allowed:true, why:'No matching article in main, retained branches, or PR history at scan time. New drafting is eligible; claim the ID first.'};
 }
 
-export function checkReuseProvenance({row, sourceRef, incomingBranch, incomingPrNumber}) {
+export function checkReuseProvenance({row, sourceRef = undefined, incomingBranch, incomingPrNumber = undefined}) {
   if (!row) throw new Error('Unknown article ID');
   if (row.mainArticleStatus) throw new Error(`${row.id}: article already exists on main`);
   const candidates = row.branches.filter(b => b.branch !== incomingBranch);
