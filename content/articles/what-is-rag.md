@@ -6,7 +6,7 @@ description: "RAG（検索拡張生成）を、町内会のお知らせが9時�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-14"
 updatedAt: "2026-10-14"
 author: "AI Portal編集部"

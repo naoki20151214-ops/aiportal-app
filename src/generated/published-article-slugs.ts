@@ -20,6 +20,7 @@ export const publishedArticleSlugById = {
   "GEN-0002": "what-is-llm",
   "GEN-0003": "what-is-prompt",
   "GEN-0004": "ai-hallucination",
+  "GEN-0008": "what-is-rag",
   "GEN-0090": "chatgpt-search",
   "GEN-0091": "gemini-long-context",
   "GEN-0092": "luma-dream-machine",

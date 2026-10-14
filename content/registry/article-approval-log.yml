@@ -242,17 +242,22 @@ approvals:
       verified source image blobs; full SHA-bound audit in
       content/editorial-audits/BAS-0020.yml"
     publishedOn: 2026-10-13
-  - id: "GEN-0008"
-    slug: "what-is-rag"
-    approvedOn: "2026-10-14"
-    approvedBy: "editorial-qa"
-    delegation: "site-owner-standing-policy-2026-10-13"
-    decision: "approved-for-publication"
-    sourceRef: "new/GEN-0008-rag-20261014"
-    originalReviewArticleBlob: "571f62a6128a6668ea6ba08eff190e94b00c73fc"
-    sourceArticleBlob: "74f3e413fdc1c62c8987b9a8991382cba5339adf"
-    editorialAuditPath: "content/editorial-audits/GEN-0008.yml"
-    editorialAuditBlob: "b336c572d2add32d8acfa64bdfe83b04ed08a814"
+  - id: GEN-0008
+    slug: what-is-rag
+    approvedOn: 2026-10-14
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: published
+    sourceRef: new/GEN-0008-rag-20261014
+    originalReviewArticleBlob: 571f62a6128a6668ea6ba08eff190e94b00c73fc
+    sourceArticleBlob: 74f3e413fdc1c62c8987b9a8991382cba5339adf
+    editorialAuditPath: content/editorial-audits/GEN-0008.yml
+    editorialAuditBlob: b336c572d2add32d8acfa64bdfe83b04ed08a814
     illustrations: 6
-    editorialChanges: "None; ready frontmatter only, original body preserved"
-    evidence: "Standing owner delegation: 2026-10-14 RAG educational article independently checked in a distinct source-verification pass against Lewis 2020, Microsoft Foundry/Azure AI Search and AWS official documentation; see immutable audit. Same GPT-6 assistant performed drafting and second-pass verification, no separate human reviewer asserted."
+    editorialChanges: None; ready frontmatter only, original body preserved
+    evidence: "Standing owner delegation: 2026-10-14 RAG educational article
+      independently checked in a distinct source-verification pass against Lewis
+      2020, Microsoft Foundry/Azure AI Search and AWS official documentation;
+      see immutable audit. Same GPT-6 assistant performed drafting and
+      second-pass verification, no separate human reviewer asserted."
+    publishedOn: 2026-10-14

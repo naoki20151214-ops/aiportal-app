@@ -524,7 +524,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "外部情報を検索してから回答するRAGはハルシネーションや知識更新にどう役立つのか？"
     prerequisites: ["GEN-0002","BAS-0015"]
     children: ["GEN-0009","GEN-0010","GEN-0011","GEN-0012","GEN-0013"]
