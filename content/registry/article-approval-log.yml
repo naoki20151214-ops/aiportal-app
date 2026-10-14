@@ -547,3 +547,18 @@ approvals:
     illustrations: 5
     editorialChanges: Frontmatter review-to-ready status only, approved manuscript body and five figures preserved
     evidence: "2026-10-15 site-owner standing editorial delegation. A source-focused verification pass by the same GPT-6 assistant checked the original OpenAI o1 and o3 publications, Google's Gemini thinking sources, and DeepSeek-R1 paper. All eight hard editorial criteria passed, internal rubric 90/100. No separate human or independent model review claimed. Queue for JST 20:00 on or after 2026-10-23, following GEN-0022. Not an immediate release."
+  - id: GEN-0073
+    slug: text-to-video
+    approvedOn: 2026-10-15
+    publishOn: 2026-10-24
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0073-text-to-video-20261015
+    originalReviewArticleBlob: 77ca6f31262f80015a6c72bc531bb7b2e1dfbb7e
+    sourceArticleBlob: cf5732db0e9050966de2033e7c87917427b4f4f4
+    editorialAuditPath: content/editorial-audits/GEN-0073.yml
+    editorialAuditBlob: b80e06b6eba38f2865ecca50cb52a7d0df98c360
+    illustrations: 5
+    editorialChanges: Only frontmatter review-to-ready status field changed; original story body and all five SVGs remain unchanged
+    evidence: "Standing owner-delegated editorial policy, 2026-10-15. Separate source-verification pass by the same GPT-6 assistant checked six first-party sources, including Google's official prompt anatomy, Veo text guidance, Sora's historical report/shutdown and Google Research continuity research. Eight review categories passed and internal quality 90/100, without claiming independent human or model review. Queue after GEN-0017 at or after JST 20:00 on 2026-10-24; dependency must be published before release."
