@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0016",
+  "slug": "image-generation-ai",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "2a66370de26499381a8b4ffe9acf451207a5419e",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 90,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial quality rubric (0–100); not a third-party/human score. Mandatory source, safety, test and publication gates are separate.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 18,
+      "originalFigures": 12,
+      "linksPrerequisites": 9,
+      "sourceEvidence": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0016-writing-pass-20261014",
+    "verifierId": "GPT-6-GEN-0016-distinct-source-review-pass-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "The same GPT-6 assistant verified primary sources in a later, source-focused pass. No independent human, different-model or external review is claimed."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "The main question is why a prompt leads to an image. The article explains prompt conditions, training on image-text relations, diffusion denoising, text conditioning and latent representations; distinguishes autoregression."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "The town association's autumn cleanup illustration is consistent, with old 9am/new official 10am. Noise/denoising and text guidance are introduced with analogies, definitions and five-step pedagogical scaffolding; no formula burden."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Begins with a cleanup poster, unpacks subject/action/context/style, discusses why visual model learns correlations, shows diffusion, then a wrong 18:00 poster and how to separate image creation from exact text."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Substantive second pass directly compared original Google Research Imagen and diffusion explanations, Google Cloud prompt guide, original DDPM and LDM abstracts, initial OpenAI DALL·E technical page, OpenAI image-generation announcement, and Google Research Imagen Editor. Scope-limits all model-specific claims."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Six original 1200x675 SVG diagrams, Japanese descriptions in title/desc and Markdown alt; simplified stages labeled as conceptual, not actual model latent activations. The illustration assets are SHA-pinned by dedicated test."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "All inline /articles/ links point to pre-existing published Generative AI, Embedding, Token, and Retrieval articles. GEN-0015 is a ready unpublished prerequisite and is mentioned in prose only; upcoming video-generation-ai has no URL."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "Registry GEN-0016 prerequisites GEN-0001 published and GEN-0015 ready and queued for 2026-10-16. GEN-0016 is scheduled no earlier than 2026-10-17. The publisher must defer until GEN-0015 becomes published; no bypass is claimed."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Prominently distinguishes attractive image from accurate text, factual event evidence, rights/privacy and generated likenesses; warns that image generation does not assure originality, ownership or real history; no unsafe advice."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Diffusion models learn forward-noise/reverse-denoising image synthesis, and generation may iteratively update noisy representations.",
+      "sourceUrl": "https://research.google/blog/google-research-2022-beyond-language-vision-and-generative-models/",
+      "sourceEvidence": "Google Research 2022 synthesis section describes forward diffusion progressively destroying structure and a learned reverse process recovering data structure, with conditional inputs controlling generated images; also distinguishes autoregressive Parti.",
+      "verified": true
+    },
+    {
+      "claim": "The DDPM original paper presents a probabilistic diffusion approach to synthesizing high-quality images.",
+      "sourceUrl": "https://arxiv.org/abs/2006.11239",
+      "sourceEvidence": "Ho, Jain & Abbeel abstract: diffusion probabilistic latent-variable model with denoising score-matching connection and sample quality results. The article treats this as a representative method, not all image synthesis.",
+      "verified": true
+    },
+    {
+      "claim": "Google Imagen uses powerful text-language representations to condition a diffusion image generator, and a text prompt can describe content/style.",
+      "sourceUrl": "https://imagen.research.google/",
+      "sourceEvidence": "Primary Google Imagen project explains a frozen T5-XXL text encoder converts input to embeddings conditioning a 64x64 diffusion model followed by super-resolution; model is for text-to-image generation.",
+      "verified": true
+    },
+    {
+      "claim": "Latent Diffusion models can perform generation in an autoencoder-compressed representation instead of pixel space and use cross-attention for conditioning.",
+      "sourceUrl": "https://arxiv.org/abs/2112.10752",
+      "sourceEvidence": "Original Rombach et al. abstract explicitly says the diffusion is carried out in pretrained autoencoder latent space and cross-attention provides conditions including text; paper notes computing/cost tradeoffs.",
+      "verified": true
+    },
+    {
+      "claim": "Early OpenAI DALL·E was a text/image-token autoregressive Transformer, demonstrating image generation is not necessarily diffusion.",
+      "sourceUrl": "https://openai.com/index/dall-e/",
+      "sourceEvidence": "OpenAI 2021 article Overview and Summary of approach explicitly state one sequence of text and image tokens generated autoregressively, and examples of limited spatial/color accuracy.",
+      "verified": true
+    },
+    {
+      "claim": "Image prompts specify subject, context/background and style, and generated image lettering may require brief text and iteration.",
+      "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/img-gen-prompt-guide?hl=ja",
+      "sourceEvidence": "Official Imagen prompt guide sections '主題、コンテキスト、スタイル' and '画像内のテキストを生成する' recommend iteration and short text; illustrates practical guidance, not error guarantees.",
+      "verified": true
+    },
+    {
+      "claim": "Modern image generation may follow iterative chat instructions including refinements and attempt more accurate lettering; correctness still must be checked.",
+      "sourceUrl": "https://openai.com/index/introducing-4o-image-generation/",
+      "sourceEvidence": "OpenAI GPT-4o image generation introduction discusses text rendering, image editing with conversation and prompt-following. The 10:00/18:00 error is a hypothetical illustration, not measured current failure rate.",
+      "verified": true
+    },
+    {
+      "claim": "A text-directed inpainting model can combine source image, masked area and prompt to edit a local region.",
+      "sourceUrl": "https://research.google/blog/imagen-editor-and-editbench-advancing-and-evaluating-text-guided-image-inpainting/",
+      "sourceEvidence": "Google Research Imagen Editor article explicitly says three inputs: source image, binary mask and text prompt for inpainting; supports the 'add a tree' localized edit example without guaranteeing perfect preservation.",
+      "verified": true
+    }
+  ]
+}
