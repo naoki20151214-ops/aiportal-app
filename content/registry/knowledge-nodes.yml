@@ -560,7 +560,7 @@ nodes:
     category: "生成AI"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "ready"
     centerQuestion: "質問に関連する情報をRAGがどう探し出すのか？"
     prerequisites: ["GEN-0008","GEN-0010"]
     children: ["GEN-0012","GEN-0013"]

@@ -1,0 +1,72 @@
+schemaVersion: 1
+id: "GEN-0011"
+slug: "rag-retrieval"
+auditedOn: "2026-10-14"
+readyArticleBlob: "e9925518bacb829f70adef09fc3ea7ad9ba1c24c"
+scope: "standard-evergreen"
+decision: "pass"
+humanEscalationRequired: false
+blockingFindings: []
+reviewProcess:
+  writerId: "GPT-6-retrieval-drafting-pass-20261014"
+  verifierId: "GPT-6-retrieval-separate-source-verification-20261014"
+  separateVerificationPass: true
+  independenceNote: "A separate primary-source and content-checking pass by the same GPT-6 assistant; this is not a claim of a separate human reviewer, independent model, or external evaluator."
+checks:
+  centralQuestion:
+    passed: true
+    evidence: "『質問に関連する情報をRAGがどう探し出すか』に、候補取得、キーワード/ベクトル/Hybridの使い分け、Top-k、版と権限フィルタ、LLMへの引き渡しまで工程ごとに答えている。検索そのものと文章生成の違いを保持。"
+  beginnerClarity:
+    passed: true
+    evidence: "町内会の旧版9時/改訂版10時を統一例とし、検索順位=事実の正しさという誤解を解消。Chunking/Embedding/Vector Databaseの復習を先に配置し、RRFとPre/Post-filterは具体例で初出説明。数式を読者に強制しない。"
+  narrativeExamples:
+    passed: true
+    evidence: "住民の『次の日曜の公園そうじ、何時に行けばいい？』を導入、旧版・改訂版・夏祭りの候補に始まり、キーワード/意味検索、件数制限、版・権限、再順位付け、検証へ物語を発展させた。図は図中の順位が架空と明示。"
+  sourceAccuracy:
+    passed: true
+    evidence: "Microsoft Learn Hybrid Search Overview / RRF Ranking / Vector Query Filters / Semantic Ranking / Foundry RAG EvaluatorsとAWS Bedrock Retrieve/Knowledge Base/Query Configuration原文を2026-10-14の別の読解パスで照合。製品固有の仕様は『Azure AI Searchでは』『Bedrockでは』と限定し、一般化しない。"
+  imageAccuracyAndAlt:
+    passed: true
+    evidence: "1200x675オリジナルSVGを6点読み直し、役割分担、Hybrid検索、Top-1 vs Top-3、旧版と権限による除外、Recall/Precision/Groundednessが各本文の節に対応。全件に固有の日本語Markdown alt、SVG title/descがあり、実測図でないことを明記。"
+  internalLinks:
+    passed: true
+    evidence: "本文の /articles/ リンクは公開済み vector-database、rag-chunking、what-is-embedding、what-is-rag のみに限られる。未公開のGEN-0012 Rerankingへのリンクは作っておらず、次回テーマの文章上の案内だけに限定。"
+  prerequisites:
+    passed: true
+    evidence: "GEN-0011 prerequisites=[GEN-0008,GEN-0010]はいずれもmainのRegistryでpublished。関連したGEN-0009 ChunkingとBAS-0015 Embeddingもpublished。Core Curriculum Day4の次の未公開ノードに一致。"
+  riskAndSafety:
+    passed: true
+    evidence: "技術的で標準的なエバーグリーン解説、個別の高リスク判断なし。アクセス制御をプロンプトだけに依存させない、検索順位は正確性ではない、0件は存在しない証拠でない、出典・更新・LLM読み違いを明記し、停止すべき重大な未確認事実なし。"
+criticalClaims:
+  - claim: "Amazon Bedrock Knowledge BasesのRetrieveは質問に関連する元データのチャンクを返し、元データのlocation・metadata・scoreも取得できる。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-retrieve.html"
+    sourceEvidence: "公式『Query a knowledge base and retrieve data』API節の retrievalResults は content、metadata、location、score などを返すと明記。Retrievalと生成を分けて試せる手順も同ページにある。"
+    verified: true
+  - claim: "RAGの代表構成ではユーザー質問をEmbeddingにして近いチャンクを検索し、そのチャンクでLLM入力を拡張して回答する。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-it-works.html"
+    sourceEvidence: "Amazon Bedrock『Runtime execution』は質問のベクトル化、vector indexで類似チャンク検索、得たcontextをpromptに追加してmodelへ送る順序を記述。"
+    verified: true
+  - claim: "Azure AI SearchのHybrid Searchはキーワードとベクトルの結果を統合し、RRFにより一つの検索順位へまとめる。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview"
+    sourceEvidence: "Microsoft Learn『How does hybrid search work?』でBM25 text queryとvector queryから得た順位をRRFで統合すると説明。本文はスコアを単純加算しない点に限定。"
+    verified: true
+  - claim: "RRFは検索結果の各順位から逆数に基づく順位点を作り、同じ文書の点を合計する。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking"
+    sourceEvidence: "Microsoft Learn『How RRF ranking works』は各候補の rank に対する 1/(rank+k) を算出して統合すると説明。記事は計算式でなく『順位にもとづく合算』として記述。"
+    verified: true
+  - claim: "Amazon Bedrockで返すソースチャンク件数は最大数の指定で、指定値より少ない件数が返る場合がある。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html"
+    sourceEvidence: "AWS『Configure and customize queries and response generation』はnumberOfResultsが返す結果の最大値で、設定値より少なくなる場合があると注記。"
+    verified: true
+  - claim: "Azure AI Searchではメタデータの文字・数値フィルタとpreFilter/postFilterの使い分けがあり、postFilterで適合文書の見落としが起きうる。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-filters"
+    sourceEvidence: "Microsoft Learn『How filtering works in vector queries』でfilterable nonvector fields、preFilter/postFilterの順序、特にpostFilterでsmall kやselective filter時にfalse negativesが起こりうると明記。"
+    verified: true
+  - claim: "最初の検索結果は別の意味理解モデルで再順位付けできる。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview"
+    sourceEvidence: "Microsoft Learn『What is semantic ranking?』はBM25またはRRFで得たinitial resultsの後にdeep-learning semantic rankerによるsecondary rankingを適用すると説明。"
+    verified: true
+  - claim: "RAGの検索品質評価と最終回答のGroundedness/Relevance評価は別の工程として扱われる。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-evaluators/rag-evaluators"
+    sourceEvidence: "Microsoft Foundry『System evaluation』『Process evaluation』でRetrieval/Document RetrievalとGroundedness/Relevanceの評価を明確に分離。"
+    verified: true
