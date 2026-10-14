@@ -1,0 +1,64 @@
+schemaVersion: 1
+id: "GEN-0009"
+slug: "rag-chunking"
+auditedOn: "2026-10-14"
+readyArticleBlob: "73ff74027dfb23fab9bd2322998eaa1fc2fc3837"
+scope: "standard-evergreen"
+decision: "pass"
+humanEscalationRequired: false
+blockingFindings: []
+reviewProcess:
+  writerId: "GPT-6-article-drafting-pass-20261014"
+  verifierId: "GPT-6-separate-source-audit-pass-20261014"
+  separateVerificationPass: true
+  independenceNote: "A distinct second factual/source and didactic audit by the same GPT-6 assistant; not a claim of another human reviewer or independent external model."
+checks:
+  centralQuestion:
+    passed: true
+    evidence: "GEN-0009 centralQuestion『文書を検索単位へ分割する大きさと方法はRAG品質にどう影響するのか？』に対し、一冊丸ごと・小さすぎ・大きすぎ・Overlap・分割方式・評価方法を段階的に比較し答える。"
+  beginnerClarity:
+    passed: true
+    evidence: "導入は既存RAGの町内会9時→10時の一貫した架空例。ChunkとTokenを混同せず、固定長・文書見出し・意味・階層とOverlapをレベル2の初心者向けに説明。難しい計算を強制せずEmbeddingへの復習リンクあり。"
+  narrativeExamples:
+    passed: true
+    evidence: "40ページの町内会資料→必要な清掃の日時を探す→改訂版と10時が別チャンクになる失敗→Overlapや見出し利用の工夫→３つの評価質問という流れ。比喩を実装条件と混同せず、架空の町内会例と明記。"
+  sourceAccuracy:
+    passed: true
+    evidence: "Microsoft Learn 『Chunk large documents for RAG and vector search』に固定長、文・見出し、Semantic、Overlap、512 Token＋25％の出発点、モデル入力限界と文書特性について原文照合。AWS Bedrock公式でNONE、Fixed、Hierarchical、Semantic、親子検索、追加費用を照合。『常に必要』『短いほど良い』等の不適切な一般化を排除。"
+  imageAccuracyAndAlt:
+    passed: true
+    evidence: "オリジナル6点の16:9パステルSVGに日本語title/descと本文altを付与。Hero/厚い資料と章別/断片化の失敗/Overlap/４方式/評価の三点を原稿に対応させ、旧版9時・改訂版10時の本文例と矛盾なし。"
+  internalLinks:
+    passed: true
+    evidence: "RAG、Embedding、Hallucination、Grounding、Citationへの5種類の関連記事リンクはすべて2026-10-14 main Registry=published。次記事Vector Databaseは文中で名を出すだけで未公開URLは貼らない。"
+  prerequisites:
+    passed: true
+    evidence: "GEN-0009のprerequisites=[GEN-0008]はpublished=RAGとは？。記事冒頭からRAGの検索文脈を引き継ぎ、後続のGEN-0010/GEN-0011への学習順序に反しない。"
+  riskAndSafety:
+    passed: true
+    evidence: "基礎的なRAGの文書検索設計のみ。『チャンクを分ければ正確』という過信、古い版の混在、検索後の幻覚、閲覧権限を明示。個別医療・金融・法律相談、危険な機器操作を含まない。"
+criticalClaims:
+  - claim: "Chunkingは長い資料の入力Token数制限に対応し、複数話題を持つ文書から関連部分を検索しやすくするために使うが、すべての文書で必須というわけではない。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"
+    sourceEvidence: "Microsoft Learn公式『Chunk large documents for RAG and vector search』冒頭は入力Token制限とチャンクの利用を説明し『Chunking is only required if the source documents are too large...but also beneficial if content is poorly represented as a single vector』と区別する。全件必須と断定しない記事文と一致。"
+    verified: true
+  - claim: "固定長、句読点・見出し等の文章構造、意味単位で分割する方法があり、固定長チャンク間で文章を重ねるOverlapは文脈の断絶を減らす。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"
+    sourceEvidence: "Microsoft Learn同ページのCommon chunking techniques表はFixed-size、Variable-sized headings/paragraphs、Semantic、Custom combinationsを列挙。Content overlap considerations節は前後の連続性のための重複と重複過多を避ける調整を説明する。"
+    verified: true
+  - claim: "Microsoftの公式文書には512 Tokenと25％ overlapを試し始める例があるが、最適な重複とサイズは文書の種類や質問などに依存する。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents"
+    sourceEvidence: "Content overlap considerations節は『starting with a chunk size of 512 tokens...initial overlap of 25%』と記し『optimal overlap might vary depending on your content type and use case』とも明記。記事では製品公式の起点例と明示し日本語全文書への固定解としては使わない。"
+    verified: true
+  - claim: "Amazon Bedrockは固定長、分割なし、階層型、意味単位のテキスト分割を用意し、階層型では小さな子チャンクを検索後に広い親チャンクへ置き換える。"
+    sourceUrl: "https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/kb-chunking.html"
+    sourceEvidence: "AWS日本語『ナレッジベースのコンテンツのチャンキングの仕組み』の標準・階層・セマンティック各節に、固定長・無分割、子チャンクがまず取得されより広い親チャンクへ置換、意味区分に伴う追加コストが明記される。"
+    verified: true
+  - claim: "ベクトル検索の索引では元文書をチャンクID・親ID・本文・タイトル・ベクトルで関連付けて管理し、RAG質問時に小さな検索対象を取得できる。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-store"
+    sourceEvidence: "Microsoft Azure AI Search公式『Vector index overview』のWizard-generated index schemaはchunk_id,parent_id,chunk,title,vectorのフィールド例を公開。元資料への出典・版管理のためのメタデータの重要性を示す文脈と対応。"
+    verified: true
+  - claim: "AWS BedrockのChunking APIではNONE、FIXED_SIZE、HIERARCHICAL、SEMANTICの各strategyを区別し、データソースに応じて方式を選ぶ。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_ChunkingConfiguration.html"
+    sourceEvidence: "公式APIReference ChunkingConfigurationのchunkingStrategy enumはFIXED_SIZE、NONE、HIERARCHICAL、SEMANTICを列挙。それぞれの説明は固定長、親子二段階、NLP意味単位、無分割。本文の四方式との対応を確認。"
+    verified: true

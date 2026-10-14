@@ -536,7 +536,7 @@ nodes:
     category: "生成AI"
     level: 2
     type: "mechanism"
-    status: "planned"
+    status: "ready"
     centerQuestion: "文書を検索単位へ分割する大きさと方法はRAG品質にどう影響するのか？"
     prerequisites: ["GEN-0008"]
     children: []
