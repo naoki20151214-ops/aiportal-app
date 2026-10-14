@@ -339,3 +339,24 @@ approvals:
       All hard checks remain mandatory, and no independent human reviewer or
       separate model is claimed.
     publishedOn: 2026-10-14
+  - id: GEN-0013
+    slug: hybrid-search
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-15
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0013-hybrid-search-20261014
+    originalReviewArticleBlob: dee26aeddebf387912e7e13ef61954d0084080c0
+    sourceArticleBlob: dc62e823ebd24bfdfb69a4b7dcb153af31a315b2
+    editorialAuditPath: content/editorial-audits/GEN-0013.yml
+    editorialAuditBlob: f4de25d5ba761c077dfab34b5d10aad54f971b98
+    illustrations: 5
+    editorialChanges: Only review-to-ready frontmatter status changed; all manuscript body and five graphics are unchanged
+    evidence: Under site-owner standing editorial delegation, a second primary-source
+      checking pass of the same GPT-6 assistant inspected Azure AI Search and AWS
+      originals and recorded 7 claim-to-source evidence pairs in the immutable audit.
+      Eight mandatory categories passed; internal quality 91/100 exceeds owner's
+      80-percent threshold. No independent human or different model review is claimed.
+      Publication authorized for the first scheduled JST 20:00 slot on/after
+      2026-10-15, not an immediate PR merge release.

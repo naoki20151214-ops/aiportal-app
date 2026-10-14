@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0013",
+  "slug": "hybrid-search",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "dc62e823ebd24bfdfb69a4b7dcb153af31a315b2",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 91,
+    "required": 80,
+    "scale": "Internal assistant rubric (0-100), not independent human scoring; substantive editorial evidence and every mandatory release gate are required.",
+    "dimensions": {
+      "accuracy": 24,
+      "clarity": 19,
+      "narrative": 18,
+      "visuals": 12,
+      "linkage": 9,
+      "editorialEvidence": 9
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-hybrid-search-writing-pass-20261014",
+    "verifierId": "GPT-6-hybrid-search-distinct-primary-source-verification-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "Separate source-focused verification pass by the same GPT-6 assistant, not an independent human editor, external evaluator or different model. This is an internal documented review."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "検索対象に意味的な言い換え『そうじ／清掃活動』と厳密なID『A-204』が同居する問題を中心に、キーワード・ベクトル検索の長所を示し、どう統合するかに回答した。"
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "BM25の直感、Embedding、RRFの順位表、Rerankingとの区別を順に導入し、読者に難しい数式の暗記を求めない。別尺度のスコアを足す誤りと最新判定誤りを避けた。"
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "町内会の清掃案内を旧版9時／改訂版10時に統一し、質問文の言い換えと正確な資料IDを物語化。キーワードのみ・意味のみ・両方式の順位・版管理へ段階的につないだ。"
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "第二工程で公式Microsoft Learn hybrid-search-overview、hybrid-search-ranking、vector-search-filters、hybrid-search-how-to-query、AWS Bedrock kb-test-config、kb-how-retrievalを参照し、それぞれの主張・対象製品固有の制約を確認。Hybridが全サービスで同じRRFを使うとは主張しない。"
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "GitHub Blob化した独自の1200×675 SVG図解5点は、二つの検索、RRF、処理順、旧新版をそれぞれ描き、対応段落で日本語altとタイトル・descを付け、架空の模式図と明記。"
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "記事に登場するrag-retrieval、what-is-embedding、vector-database、rag-chunking、rag-reranking、vectors-for-ai、what-is-ragは全件mainでpublished。未公開GEN-0014等へはリンクしない。"
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0013 prerequisites=[GEN-0011]は最新mainにてpublished。関連GEN-0012を含む先行RAG学習記事も公開済み。RegistryのGEN-0013はplannedで既存記事なし。"
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "一般向けAI教育。Hybridで旧版を正せるわけではないこと、有効フラグの運用、利用者別認証・アクセス制御、外部文書の安全性、順位が事実を証明しないことを明記。重大な不明事項や個別の危険助言なし。"
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Azure AI SearchのHybrid Searchは全文検索とベクトル検索を同一要求内で並列実行し、RRFで統合する。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/hybrid-search-overview",
+      "sourceEvidence": "Microsoft LearnのHow does hybrid search work?と冒頭部分にsearchとvectorQueriesの両方、一つの検索要求で並列実行、Reciprocal Rank Fusionで一つの結果集合へ統合するとある。語句一致と概念的近さの長所も同ページ記述。",
+      "verified": true
+    },
+    {
+      "claim": "RRFは別々の検索結果の順位から逆数の点数を計算して合計し、異なるスコア尺度を直接加算しない。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/hybrid-search-ranking",
+      "sourceEvidence": "Microsoft LearnのHow RRF ranking worksが各rankについて1/(rank+k)を計算し同じ文書の結果を合算すると説明。kはRRF定数でベクトル取得数kと別。個々のBM25/ベクトル生スコアは異なる尺度という段落とも整合。",
+      "verified": true
+    },
+    {
+      "claim": "検索方法と候補件数、キーワード側の回収上限などをHybrid Queryとして構成できる。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/hybrid-search-how-to-query",
+      "sourceEvidence": "Create a Hybrid Queryのquery fieldsとしてsearch、vectorQueries、hybridSearch.maxTextRecallSizeやtopなどを説明。本文は細かな推奨値を普遍的な最適値としていない。",
+      "verified": true
+    },
+    {
+      "claim": "フィルター用の非ベクトルメタデータを用い、前処理と後処理の違いによって候補の取りこぼし率が変わる。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/vector-search-filters",
+      "sourceEvidence": "Vector Query Filtersではfilterableな文字列/数値のフィールドとpreFilter/postFilterの処理順を明示。postFilterは小さなkや選択的条件でfalse negativesを生じうるため、最新版選定を検索順位に任せない注意に対応。",
+      "verified": true
+    },
+    {
+      "claim": "Azure AI Searchはベクトルとキーワードを同じ索引で保持してHybrid Searchを構成する。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/vector-search-overview",
+      "sourceEvidence": "Microsoft Learn Vector Search OverviewのHybrid scenariosでベクトルと非ベクトルの内容を同一indexへ取り込む例を説明。これはAzureの実装例であり全システムの必須条件ではない。",
+      "verified": true
+    },
+    {
+      "claim": "Amazon Bedrock Knowledge Basesでも条件を満たすストアではHYBRIDとSEMANTIC検索を切り替えられるが対応ストアやfilterable text field等に制限がある。",
+      "sourceUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-config.html",
+      "sourceEvidence": "AWS『Configure and customize queries and response generation』のSearch typeにはHYBRIDがembeddingsとraw textを両方検索すると記され、対応ストアとしてAmazon RDS、OpenSearch Serverless、MongoDBのfilterable text field等の制約とoverrideSearchTypeを説明。",
+      "verified": true
+    },
+    {
+      "claim": "RAGシステムでは検索と回答生成を分け、Retrieved source chunksをLLMへ渡す実装がある。",
+      "sourceUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-retrieval.html",
+      "sourceEvidence": "AWS『Retrieving information from data sources』がRetrieveとRetrieveAndGenerateのAPIの役割を分け、検索で関連チャンクを取得してからLLM生成と組み合わせられることを説明する。",
+      "verified": true
+    }
+  ]
+}
