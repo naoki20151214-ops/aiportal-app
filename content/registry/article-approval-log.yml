@@ -485,3 +485,29 @@ approvals:
       and unsupported invented location details. Prerequisites GEN-0001 and
       GEN-0002 are published. Publication is due on or after 2026-10-20 20:00
       JST only by the daily scheduler and never on approval-PR merge.
+  - id: GEN-0021
+    slug: what-is-gemini
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-21
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0021-gemini-20261014
+    originalReviewArticleBlob: ab23fe678d2db45223bf244e86a4693e381d9991
+    sourceArticleBlob: 4e4f7998460c6246df3233ad5b66087eb2eb6ef8
+    editorialAuditPath: content/editorial-audits/GEN-0021.yml
+    editorialAuditBlob: 7075b3e6236f1d71d20caa43f3c41f208aecd559
+    illustrations: 3
+    editorialChanges: Only the frontmatter status changed from review to ready; body and original diagrams are unchanged.
+    evidence: >-
+      Evergreen delegated editorial acceptance with a source-focused review by
+      the same GPT-6 assistant, not an independent human or different model.
+      Seven claims were matched against official Google Gemini App Help pages:
+      mobile functions, Connected Apps, tasks and workflows, work/school access,
+      hallucination, related source links, and privacy/activity controls.
+      All eight substantive editorial checks passed with an internal
+      score of 88/100, above the 80-point threshold, while all hard
+      evidence and safety gates remain binding. The article distinguishes
+      read-only retrieval from external modification and emphasizes
+      version checks and permissions. Publish no earlier than
+      2026-10-21 20:00 JST; do not release on approval PR merge.

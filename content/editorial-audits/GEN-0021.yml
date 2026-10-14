@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0021",
+  "slug": "what-is-gemini",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "4e4f7998460c6246df3233ad5b66087eb2eb6ef8",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 88,
+    "required": 80,
+    "scale": "Internal same-GPT-6 editorial rubric, not independent human or external score; evidence, safety and CI remain mandatory.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 18,
+      "narrative": 18,
+      "illustration": 10,
+      "linkage": 9,
+      "evidence": 9
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0021-writing-20261014",
+    "verifierId": "GPT-6-GEN-0021-source-review-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "Separate fact-focused review was performed by the same GPT-6 assistant. No independent human/editor, external auditor or alternate model verified this lesson."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Defines Gemini app/service and Gemini model family and answers how Google ecosystem integration can help subject to permissions; objectively differentiates from ChatGPT/Claude without a universal winner."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Shows a concrete town-cleanup 9 AM old/10 AM amended source conflict; carefully defines connected apps, account access, reading vs external mutations, sources and privacy."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Same town-cleanup event teaches looking up change notices in Gmail/Drive, connected app permission, reporting source provenance, previewing changes, and checking the official version."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Verified original Google Gemini App Help pages for mobile product functions, Connected Apps, tasks/workflows with confirmation differences, workspace eligibility, errors and hallucinations, source links and privacy hub. All conditional features presented without universal plan access claims."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Three original 1200x675 pastel SVG illustrations with Japanese alt plus <title>/<desc>: hero town notes, connected app permission flow, old vs updated source. No invented Google logo or vendor UI."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Links exclusively to published GEN-0001, GEN-0002, BAS-0030 and GEN-0004. GEN-0016 ready is mentioned by name without active URL; no premature ChatGPT/Claude links."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0021 prerequisites GEN-0001 and GEN-0002 were both published on current main; no matching title/slug in articles or prior GEN-0021 branches/PRs."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Distinguishes read-only retrieval vs potentially impactful connected-app actions, scopes permissions and administrator controls, warns about hallucinated information, old vs newer sources and privacy/account settings; no medical/financial personalized advice."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Gemini mobile app provides a conversational multimodal AI assistant with writing, learning, voice, image and other capabilities subject to account/settings.",
+      "sourceUrl": "https://support.google.com/gemini/answer/14579631?co=GENIE.Platform%3DiOS&hl=en",
+      "sourceEvidence": "Google Gemini Mobile help page enumerates writing/brainstorming, summarize Gmail and Drive, image generation, text/voice/photo inputs and device-dependent conditions.",
+      "verified": true
+    },
+    {
+      "claim": "Gemini supports connected apps such as Gmail, Google Calendar and Drive, depending on permissions and supported account conditions.",
+      "sourceUrl": "https://support.google.com/gemini/answer/13695044",
+      "sourceEvidence": "Google Use and manage Connected Apps in Gemini describes consent-based app connections for summarizing emails, calendar and other supported services, including permissions and eligibility.",
+      "verified": true
+    },
+    {
+      "claim": "Certain Gemini flows can manage tasks, drafts, calendar or files, and confirmation controls vary by operation and system.",
+      "sourceUrl": "https://support.google.com/gemini/answer/17094507?co=GENIE.Platform%3DDesktop&hl=en",
+      "sourceEvidence": "Google Manage tasks and workflows explains Gmail read/search/drafts, Calendar events, Docs/Sheets/Drive operations, some confirmation safeguards with exceptions; article explicitly avoids claiming universal confirmation.",
+      "verified": true
+    },
+    {
+      "claim": "Work and school Gemini Connected Apps require appropriate Workspace account edition and administrator permissions.",
+      "sourceUrl": "https://support.google.com/gemini/answer/14959807?co=GENIE.Platform%3DAndroid&hl=en-GP",
+      "sourceEvidence": "Official work/school Gemini connected app help lists Workspace edition and Keep Activity/admin prerequisites; only some features supported.",
+      "verified": true
+    },
+    {
+      "claim": "Gemini can hallucinate facts, citations, and explanations of its own abilities; users must verify important responses.",
+      "sourceUrl": "https://support.google.com/gemini/answer/16279220?hl=ja",
+      "sourceEvidence": "Google Gemini Apps response accuracy guide warns of invented or misleading information, hallucinated descriptions of tool use, and inappropriate certainty; high-stakes response disclaimer.",
+      "verified": true
+    },
+    {
+      "claim": "Gemini may display related web, attached file or connected Workspace source links, but not all answers include links and sourced responses can still be wrong.",
+      "sourceUrl": "https://support.google.com/gemini/answer/14143489/?co=GENIE.Platform%3DDesktop&hl=ja",
+      "sourceEvidence": "Official Gemini show-related-sources guide describes sources shown inside/below answers and absence of sources for some responses. Correctness must be checked against actual source context.",
+      "verified": true
+    },
+    {
+      "claim": "Gemini consumer privacy options govern activity/history and model improvement under account settings, with variations and exceptions.",
+      "sourceUrl": "https://support.google.com/gemini/answer/13594961?hl=ja-jp",
+      "sourceEvidence": "Official August 2026 Gemini App Privacy Hub lists provided content, app connections, model improvement, Keep Activity controls, retention and exceptions. Article cautions this is not permission to share secrets.",
+      "verified": true
+    }
+  ]
+}
