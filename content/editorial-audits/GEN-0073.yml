@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0073",
+  "slug": "text-to-video",
+  "auditedOn": "2026-10-15",
+  "readyArticleBlob": "cf5732db0e9050966de2033e7c87917427b4f4f4",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 90,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial assessment (0–100). Same assistant reviewed in a distinct source-checking pass; not independent human, model or third-party approval. Mandatory provenance and CI are separate hard gates.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 18,
+      "visuals": 12,
+      "linksAndPrerequisites": 9,
+      "sourceReview": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0073-writing-pass-20261015",
+    "verifierId": "GPT-6-GEN-0073-evidence-verification-pass-20261015",
+    "separateVerificationPass": true,
+    "independenceNote": "Distinct primary-source and claim-check reading pass by same GPT-6 assistant, not an external reviewer. Findings do not imply independent empirical testing of prompt examples."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Article focuses on designing a short Text-to-Video scene from prose: subject/action/scene/camera/mood, distinct from GEN-0017's technical overview of video generation, frames, diffusion and input modalities."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "A fictional bakery needs a quiet sunrise scene featuring exactly one croissant and upward steam, but the initial vague '朝のパン屋' instruction lacks subject and motion. Terms Subject, Static, Dolly, Shot are taught after demonstrating why they matter."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "The same bakery staff member Mina progressively narrows the vague request into a one-shot prompt, checks outputs for object count, subject motion and camera movement, and considers publication transparency. Fictional sample outputs expressly not claimed as real model runs."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Verification covers Google Cloud's official prompt anatomy, text-to-video invocation and configuration, OpenAI's 2024 Sora technical report including video-caption learning and physical limitations, Google Research Sep 2026 long-form consistency problems, DeepMind's official Veo page, and the official Sora shutdown notice. Historic Sora research is never presented as a currently available app."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Exactly five 1200x675 original hand-coded pastel SVGs with Japanese accessible title/desc: hero ambiguity, five prompt components, fixed/pan/dolly camera comparison, single-shot storyboard, and result review. All illustration file hashes are pinned in article-specific test."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Three links only to already published GEN-0001 what-is-generative-ai, GEN-0003 what-is-prompt, and GEN-0004 ai-hallucination. Parent GEN-0017 is scheduled ready as of 2026-10-15 and therefore appears as plain text without a premature inline link."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "Canonical GEN-0073 pre-existing planned Registry node with prerequisite GEN-0017. GEN-0017 is explicitly approved for 2026-10-16 20:00 JST. New 2026-10-24 slot lies after it; if parent not published, publisher's dependency gate must defer. GitHub branch inventory and PR search show no existing GEN-0073 article artifact."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Explicitly cautions that AI-generated bakery footage is not evidence of an actual store or product, warns against misuse of likeness or copyrighted media, and recommends origin disclosure and manual verification of product, hours and claims. No unverified product benchmark."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Google Cloud permits video generation from a text prompt and exposes separate operational settings such as model selection and output length.",
+      "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-text?hl=ja",
+      "sourceEvidence": "Official Vertex AI Japanese video generation guide explicitly says text prompts generate new videos and shows text prompt input separate from model, duration and output settings in Console and SDK examples. Availability and settings are model-dependent.",
+      "verified": true
+    },
+    {
+      "claim": "Google's official video prompt guidance separates subject, action, scene/context, camera angle and movement, lens, lighting and mood rather than prescribing a single universal long prompt.",
+      "sourceUrl": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/video/video-gen-prompt-guide?hl=en",
+      "sourceEvidence": "The 'Anatomy of a prompt' section identifies subject, action and scene and states all components are not necessary for each prompt. Separate 'Camera angles' and 'Camera movements' sections distinguish static, pan, dolly and zoom. No guaranteed output fidelity is asserted.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI's February 2024 research found detailed video captions useful to train text-to-video models and described prompt extension and remaining physical/coherence limitations.",
+      "sourceUrl": "https://openai.com/index/video-generation-models-as-world-simulators/",
+      "sourceEvidence": "Original Sora technical report 'Language understanding' explicitly discusses video captions and prompt recaptioning, while 'Long-range coherence' and 'Discussion' describe imperfect object permanence and difficulty with physics of interactions. Historical work only.",
+      "verified": true
+    },
+    {
+      "claim": "Google Research's September 24 2026 long-video article documents identity and scene drift across generated segments and the use of planning/storyboards to mitigate them.",
+      "sourceUrl": "https://research.google/blog/coherent-long-form-video-generation/",
+      "sourceEvidence": "First-party Google Research article dated 2026-09-24 describes visual identity drift, semantic drift, cascading failures in chained generation and continuity-aware visual storyboarding as research responses. Article does not assert same evaluation for its fictional single shot.",
+      "verified": true
+    },
+    {
+      "claim": "Google DeepMind's first-party Veo model overview discusses following prompts and provenance controls, without making a blanket guarantee of accuracy or rights.",
+      "sourceUrl": "https://deepmind.google/models/veo/",
+      "sourceEvidence": "Official DeepMind Veo page presents text-to-video, prompt adherence claims and SynthID provenance features; article treats them as documented features rather than universal guarantees for all videos or legality.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI's Sora web/app ended on April 26 2026 and the Sora API on September 24 2026, making Sora's 2024 report a historical technical reference rather than a currently usable product recommendation.",
+      "sourceUrl": "https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation",
+      "sourceEvidence": "Original OpenAI Help Center Q&A 'When will Sora be discontinued?' lists 2026-04-26 for web/app and 2026-09-24 for API. The article correctly frames its cited technical paper as historical.",
+      "verified": true
+    }
+  ]
+}
