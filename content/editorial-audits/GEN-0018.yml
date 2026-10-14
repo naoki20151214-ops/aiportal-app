@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0018",
+  "slug": "audio-generation-ai",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "56407a2df3790ea7a43fde396765b7979c632e9e",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 89,
+    "required": 80,
+    "scale": "Self-reported GPT-6 editorial rubric (0–100), not independent external or human assessment. Hard safety/primary-source/CI gates remain required.",
+    "dimensions": {
+      "accuracy": 24,
+      "clarity": 18,
+      "narrative": 18,
+      "illustrations": 11,
+      "linkage": 9,
+      "sourceEvidence": 9
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0018-writing-20261014",
+    "verifierId": "GPT-6-GEN-0018-source-review-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "An explicit source-focused second pass was performed by the same GPT-6 assistant. No separate model, human editor or external reviewer is asserted."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Explains Text-to-Speech, generated sound effects and music, acoustic waveforms, autoregressive WaveNet vs codec/audio-token models, and what speech generation does and does not guarantee."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Introduces waveform with river analogy, 16 kHz arithmetic clearly hypothetical; separates voice, environment sounds and music, input vs output, recognition vs synthesis."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Town clean-up scenario uses previously verified revised 10 AM vs old 9 AM, creates accessible spoken announcement then environment audio and music. Returns to listener accessibility and factual accuracy."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Direct check of original Google Cloud TTS reference/AudioConfig/SSML, DeepMind WaveNet research release, Google Research AudioLM, Meta AudioCraft project documentation and OpenAI speech/audio model original announcements. Vendor-specific statements are scoped."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original locally stored Japanese educational SVGs with 1200×675 viewBox, SVG title and description, paired with descriptive article image alt. Figures intentionally concept-level and not actual model internals."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "All article navigation links refer to previously published BAS-0030, GEN-0001, BAS-0015 Embedding, BAS-0016 Vector and GEN-0008 RAG; none refer to withdrawn GEN-0015 or unpublished video/image generation."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "Registry has GEN-0018 planned with prerequisite GEN-0001 and BAS-0030, both published; retired GEN-0015 no longer referenced. Planned Core Curriculum includes GEN-0018. Target reservation Oct 18 is after Oct 15–17 queue."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Discusses voice impersonation, consent, synthetic voice disclosure, inaccurate times, music usage rights and accessibility. Warns generated sound cannot prove real-world events and that model/code publication is not universal license clearance."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Google Cloud TTS converts text/SSML to playable speech audio and can configure voice rate, pitch and volume where supported.",
+      "sourceUrl": "https://docs.cloud.google.com/text-to-speech/docs/basics",
+      "sourceEvidence": "Official Cloud TTS basics documents text/SSML to audio encodings and supported voice characteristics; support is voice-specific.",
+      "verified": true
+    },
+    {
+      "claim": "Cloud TTS v1 AudioConfig exposes output encoding, speakingRate, pitch, volume and sample rate.",
+      "sourceUrl": "https://docs.cloud.google.com/text-to-speech/docs/reference/rest/v1/AudioConfig",
+      "sourceEvidence": "Official AudioConfig reference explicitly lists audioEncoding, speakingRate, pitch, volumeGainDb, sampleRateHertz. No universal support for all voices is claimed.",
+      "verified": true
+    },
+    {
+      "claim": "SSML may specify spoken pauses and prosodic differences and pronunciation; subset support depends on voice and language.",
+      "sourceUrl": "https://docs.cloud.google.com/text-to-speech/docs/ssml?hl=ja",
+      "sourceEvidence": "Google Cloud SSML instructions specify prosody, pauses and model-/language-specific constraints. Article recommends listening and checking critical words.",
+      "verified": true
+    },
+    {
+      "claim": "2016 DeepMind WaveNet learned to model raw audio waveforms, one sample at a time, compared with concatenative speech synthesizers.",
+      "sourceUrl": "https://deepmind.google/blog/wavenet-a-generative-model-for-raw-audio/",
+      "sourceEvidence": "Original Google DeepMind WaveNet research release explicitly distinguishes concatenative TTS and raw waveform modeling, sequential predicted samples conditioned on speaker/text. Treated as historical example, not all current architectures.",
+      "verified": true
+    },
+    {
+      "claim": "AudioLM research investigated long-term structure in speech/music using audio representations.",
+      "sourceUrl": "https://research.google/blog/audiolm-a-language-modeling-approach-to-audio-generation/",
+      "sourceEvidence": "Google Research AudioLM description says short phonemes/syllables and long syntactic/melodic dependencies present different challenges; speaks of research-only AudioLM capabilities, not a currently available service.",
+      "verified": true
+    },
+    {
+      "claim": "Meta AudioCraft includes MusicGen for music and AudioGen for sound effects, with compressed EnCodec audio tokens and an autoregressive audio model.",
+      "sourceUrl": "https://ai.meta.com/resources/models-and-libraries/audiocraft/",
+      "sourceEvidence": "Meta's original AudioCraft technical overview explicitly describes models MusicGen, AudioGen, EnCodec, codec discrete audio tokens and decoding tokens back into a waveform.",
+      "verified": true
+    },
+    {
+      "claim": "Meta describes text-conditioned music and environmental sound generation; released research weights or materials have conditions and should not be assumed freely usable for commercial uses.",
+      "sourceUrl": "https://ai.meta.com/blog/audiocraft-musicgen-audiogen-encodec-generative-ai-audio/",
+      "sourceEvidence": "Meta original Aug 2023 announcement distinguishes MusicGen and AudioGen, models and their original training data provenance, research access and technical usage; rights advice avoids unsupported blanket license claims.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI Realtime API is an example of voice-input/voice-output dialog; separate from TTS simply reading text.",
+      "sourceUrl": "https://openai.com/index/introducing-the-realtime-api/",
+      "sourceEvidence": "OpenAI original Realtime API announcement describes realtime voice-to-voice interactions. Article attributes the capability to one named system and keeps vendor designs separate.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI has original released models for speech-to-text and text-to-speech, showing the two distinct tasks.",
+      "sourceUrl": "https://openai.com/index/introducing-our-next-generation-audio-models/",
+      "sourceEvidence": "OpenAI original audio models announcement describes new speech-to-text and text-to-speech model families separately. Safety cautions in article are general and not treated as a guarantee from a single page.",
+      "verified": true
+    }
+  ]
+}
