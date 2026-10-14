@@ -584,7 +584,7 @@ nodes:
     category: "生成AI"
     level: 3
     type: "mechanism"
-    status: "ready"
+    status: "published"
     centerQuestion: "キーワード検索とベクトル検索を組み合わせると何が強くなるのか？"
     prerequisites: ["GEN-0011"]
     children: []

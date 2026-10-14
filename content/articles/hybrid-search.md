@@ -6,7 +6,7 @@ description: "Hybrid Search（ハイブリッド検索）を町内会の清掃�
 category: "生成AI"
 level: 3
 type: "mechanism"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-15"
 updatedAt: "2026-10-15"
 author: "AI Portal編集部"

@@ -345,21 +345,24 @@ approvals:
     publishOn: 2026-10-15
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0013-hybrid-search-20261014
     originalReviewArticleBlob: dee26aeddebf387912e7e13ef61954d0084080c0
     sourceArticleBlob: dc62e823ebd24bfdfb69a4b7dcb153af31a315b2
     editorialAuditPath: content/editorial-audits/GEN-0013.yml
     editorialAuditBlob: f4de25d5ba761c077dfab34b5d10aad54f971b98
     illustrations: 5
-    editorialChanges: Only review-to-ready frontmatter status changed; all manuscript body and five graphics are unchanged
-    evidence: Under site-owner standing editorial delegation, a second primary-source
-      checking pass of the same GPT-6 assistant inspected Azure AI Search and AWS
-      originals and recorded 7 claim-to-source evidence pairs in the immutable audit.
-      Eight mandatory categories passed; internal quality 91/100 exceeds owner's
-      80-percent threshold. No independent human or different model review is claimed.
-      Publication authorized for the first scheduled JST 20:00 slot on/after
-      2026-10-15, not an immediate PR merge release.
+    editorialChanges: Only review-to-ready frontmatter status changed; all
+      manuscript body and five graphics are unchanged
+    evidence: Under site-owner standing editorial delegation, a second
+      primary-source checking pass of the same GPT-6 assistant inspected Azure
+      AI Search and AWS originals and recorded 7 claim-to-source evidence pairs
+      in the immutable audit. Eight mandatory categories passed; internal
+      quality 91/100 exceeds owner's 80-percent threshold. No independent human
+      or different model review is claimed. Publication authorized for the first
+      scheduled JST 20:00 slot on/after 2026-10-15, not an immediate PR merge
+      release.
+    publishedOn: 2026-10-15
   - id: GEN-0016
     slug: image-generation-ai
     approvedOn: 2026-10-14
@@ -373,14 +376,17 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0016.yml
     editorialAuditBlob: f5ae269f6666d4569b3ac8856f83ada45ffee2d3
     illustrations: 6
-    editorialChanges: Original manuscript and six images unchanged; review-to-ready only status field
+    editorialChanges: Original manuscript and six images unchanged; review-to-ready
+      only status field
     evidence: Editorially delegated standard-education publication after a second
-      source-focused verification pass by the same GPT-6 assistant. Eight substantive
-      checks passed and eight source-specific claims were checked against original
-      OpenAI, Google Research, Google Cloud and academic sources. Internal rubric
-      90/100 exceeds owner's 80 minimum but all safety and CI checks remain mandatory.
-      No independent human or other model reviewer is claimed. Queued to release
-      at 20:00 JST on or after 2026-10-17, after reconfirming both published prerequisites GEN-0001 and BAS-0030. GEN-0015 was withdrawn as a duplicate.
+      source-focused verification pass by the same GPT-6 assistant. Eight
+      substantive checks passed and eight source-specific claims were checked
+      against original OpenAI, Google Research, Google Cloud and academic
+      sources. Internal rubric 90/100 exceeds owner's 80 minimum but all safety
+      and CI checks remain mandatory. No independent human or other model
+      reviewer is claimed. Queued to release at 20:00 JST on or after
+      2026-10-17, after reconfirming both published prerequisites GEN-0001 and
+      BAS-0030. GEN-0015 was withdrawn as a duplicate.
   - id: GEN-0017
     slug: video-generation-ai
     approvedOn: 2026-10-14
@@ -394,18 +400,19 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0017.yml
     editorialAuditBlob: 8c654398a4ec47a65f5938e5f48f1440dce551b7
     illustrations: 5
-    editorialChanges: Only frontmatter status changed from review to ready; body and five figures are SHA-immutable
-    evidence: >-
-      Under site-owner standing editorial delegation, a separate
+    editorialChanges: Only frontmatter status changed from review to ready; body and
+      five figures are SHA-immutable
+    evidence: "Under site-owner standing editorial delegation, a separate
       primary-source checking pass by the same GPT-6 assistant reviewed eight
       specific claims against original OpenAI Sora, Google Research, DeepMind
-      Veo, Google Cloud, and the Sora discontinuation notice. Eight editorial criteria passed;
-      internal rubric 90/100 exceeds the 80-point threshold. No independent
-      human or other-model reviewer is claimed. Distinct focus from published
-      BAS-0030: generation of moving video, frames, temporal consistency,
-      denoising, image-to-video, audio and provenance. Prerequisites GEN-0001
-      and BAS-0030 are published; GEN-0015 has been retired as a duplicate.
-      Queued at 20:00 JST on or after 2026-10-16, not immediately upon merge.
+      Veo, Google Cloud, and the Sora discontinuation notice. Eight editorial
+      criteria passed; internal rubric 90/100 exceeds the 80-point threshold. No
+      independent human or other-model reviewer is claimed. Distinct focus from
+      published BAS-0030: generation of moving video, frames, temporal
+      consistency, denoising, image-to-video, audio and provenance.
+      Prerequisites GEN-0001 and BAS-0030 are published; GEN-0015 has been
+      retired as a duplicate. Queued at 20:00 JST on or after 2026-10-16, not
+      immediately upon merge."
   - id: GEN-0018
     slug: audio-generation-ai
     approvedOn: 2026-10-14
@@ -419,19 +426,19 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0018.yml
     editorialAuditBlob: 65fe8339b38ffce462103796555aaf2dc28cc34f
     illustrations: 5
-    editorialChanges: Review-to-ready frontmatter status only. Original manuscript body and five images are unchanged.
-    evidence: >-
-      The site owner's standing editorial delegation for standard evergreen
-      articles applies. A second fact-checking pass performed by the same
-      GPT-6 assistant compared nine claim-specific sources from Google Cloud,
+    editorialChanges: Review-to-ready frontmatter status only. Original manuscript
+      body and five images are unchanged.
+    evidence: The site owner's standing editorial delegation for standard evergreen
+      articles applies. A second fact-checking pass performed by the same GPT-6
+      assistant compared nine claim-specific sources from Google Cloud,
       DeepMind, Google Research, Meta AudioCraft and OpenAI. Eight mandatory
       editorial checks passed. Internal score 89/100 exceeds the owner's
       80-point threshold, without waiving mandatory tests or other safety
-      requirements. No independent human or external reviewer is claimed.
-      The article focuses on generation of speech, sound effects and music,
-      distinct from the earlier multimodal primer BAS-0030. Both
-      prerequisites GEN-0001 and BAS-0030 are published. Publication is
-      authorized no sooner than the Oct 18 JST 20:00 daily queue slot.
+      requirements. No independent human or external reviewer is claimed. The
+      article focuses on generation of speech, sound effects and music, distinct
+      from the earlier multimodal primer BAS-0030. Both prerequisites GEN-0001
+      and BAS-0030 are published. Publication is authorized no sooner than the
+      Oct 18 JST 20:00 daily queue slot.
   - id: GEN-0019
     slug: what-is-chatgpt
     approvedOn: 2026-10-14
@@ -445,18 +452,18 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0019.yml
     editorialAuditBlob: 0ba2c09b5f86cd727bde8a9e95966c74266e2ee2
     illustrations: 5
-    editorialChanges: Only review-to-ready frontmatter status was changed, with identical body and five figures
-    evidence: >-
-      Under the site-owner delegated evergreen-education editorial policy,
-      a separate source-focused checking pass by the same GPT-6 assistant
+    editorialChanges: Only review-to-ready frontmatter status was changed, with
+      identical body and five figures
+    evidence: Under the site-owner delegated evergreen-education editorial policy, a
+      separate source-focused checking pass by the same GPT-6 assistant
       evaluated eight official OpenAI primary-source claims and eight mandatory
       editorial criteria. This is an internal 89/100 score, not independent
       human or different-model review. Safety, source provenance, CI and
-      immutable image/body integrity gates remain mandatory.
-      GEN-0019 is a ChatGPT service/usage lesson, distinct from the already
-      published GEN-0002 LLM model/mechanism primer. Both required prerequisites,
-      GEN-0001 and GEN-0002, are published. The article may publish on or after
-      2026-10-19 20:00 JST, not immediately upon approval merge.
+      immutable image/body integrity gates remain mandatory. GEN-0019 is a
+      ChatGPT service/usage lesson, distinct from the already published GEN-0002
+      LLM model/mechanism primer. Both required prerequisites, GEN-0001 and
+      GEN-0002, are published. The article may publish on or after 2026-10-19
+      20:00 JST, not immediately upon approval merge.
   - id: GEN-0020
     slug: what-is-claude
     approvedOn: 2026-10-14
@@ -470,21 +477,20 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0020.yml
     editorialAuditBlob: a122efb0b0a7c3d45575d7efc17ae27bda2275b6
     illustrations: 5
-    editorialChanges: >-
-      Review-to-ready only changes frontmatter status. Reviewed body and five
-      figures remain SHA-immutable with no modifications to existing articles.
-    evidence: >-
-      Editorial delegation for a standard beginner article. A separate
+    editorialChanges: Review-to-ready only changes frontmatter status. Reviewed body
+      and five figures remain SHA-immutable with no modifications to existing
+      articles.
+    evidence: Editorial delegation for a standard beginner article. A separate
       source-focused pass by the same GPT-6 checked eight claim-to-primary
       references from Anthropic and the Claude Help Center and eight essential
       editorial dimensions. Internal rubric score 89/100 exceeds the 80 minimum,
       but all provenance, link, safety and CI gates remain mandatory. It is not
       a separate human or different-model audit. The narrative distinguishes
       model from UI features, compares services through equal-condition tests
-      rather than rankings, and warns about hallucinations, data handling
-      and unsupported invented location details. Prerequisites GEN-0001 and
-      GEN-0002 are published. Publication is due on or after 2026-10-20 20:00
-      JST only by the daily scheduler and never on approval-PR merge.
+      rather than rankings, and warns about hallucinations, data handling and
+      unsupported invented location details. Prerequisites GEN-0001 and GEN-0002
+      are published. Publication is due on or after 2026-10-20 20:00 JST only by
+      the daily scheduler and never on approval-PR merge.
   - id: GEN-0021
     slug: what-is-gemini
     approvedOn: 2026-10-14
@@ -498,16 +504,16 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0021.yml
     editorialAuditBlob: 7075b3e6236f1d71d20caa43f3c41f208aecd559
     illustrations: 3
-    editorialChanges: Only the frontmatter status changed from review to ready; body and original diagrams are unchanged.
-    evidence: >-
-      Evergreen delegated editorial acceptance with a source-focused review by
-      the same GPT-6 assistant, not an independent human or different model.
+    editorialChanges: Only the frontmatter status changed from review to ready; body
+      and original diagrams are unchanged.
+    evidence: "Evergreen delegated editorial acceptance with a source-focused review
+      by the same GPT-6 assistant, not an independent human or different model.
       Seven claims were matched against official Google Gemini App Help pages:
       mobile functions, Connected Apps, tasks and workflows, work/school access,
-      hallucination, related source links, and privacy/activity controls.
-      All eight substantive editorial checks passed with an internal
-      score of 88/100, above the 80-point threshold, while all hard
-      evidence and safety gates remain binding. The article distinguishes
-      read-only retrieval from external modification and emphasizes
-      version checks and permissions. Publish no earlier than
-      2026-10-21 20:00 JST; do not release on approval PR merge.
+      hallucination, related source links, and privacy/activity controls. All
+      eight substantive editorial checks passed with an internal score of
+      88/100, above the 80-point threshold, while all hard evidence and safety
+      gates remain binding. The article distinguishes read-only retrieval from
+      external modification and emphasizes version checks and permissions.
+      Publish no earlier than 2026-10-21 20:00 JST; do not release on approval
+      PR merge."
