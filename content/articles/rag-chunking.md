@@ -6,7 +6,7 @@ description: "RAGのChunking（チャンク化）を、町内会の改訂版の�
 category: "生成AI"
 level: 2
 type: "mechanism"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-14"
 updatedAt: "2026-10-14"
 author: "AI Portal編集部"
