@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { parse } from "yaml";
 import { publishApproved } from "../scripts/auto-publish-approved.mjs";
+const atJst20 = (date: string) => new Date(date + "T11:00:00.000Z");
 function gitBlobSha(source: string): string {
   return createHash("sha1")
     .update("blob " + Buffer.byteLength(source, "utf8") + "\0")
@@ -48,12 +49,12 @@ function YAML(data:unknown){
 test("one accepted ready article becomes published, original body remains intact, and run is idempotent",()=>{
   const root=fixture();try{
     const old=readFileSync(path.join(root,"content/articles/example.md"),"utf8").split("---\n\n")[1];
-    const first=publishApproved(root,{apply:true,date:"2026-10-13"});
+    const first=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.deepEqual(first.published,["BAS-0099"]);
     const newText=readFileSync(path.join(root,"content/articles/example.md"),"utf8");
     assert.match(newText,/status: "published"/);
     assert.ok(newText.endsWith(old));
-    const second=publishApproved(root,{apply:true,date:"2026-10-13"});
+    const second=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.deepEqual(second.published,[]);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
@@ -61,20 +62,20 @@ test("review or no explicit acceptance never causes publication",()=>{
   for(const opts of [{accept:false},{ready:false}]){
     const root=fixture(opts);try{
       if(opts.accept===false){
-        const r=publishApproved(root,{apply:true,date:"2026-10-13"});
+        const r=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
         assert.deepEqual(r.published,[]);
       }else{
-        assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Approval status mismatch/);
+        assert.throws(()=>publishApproved(root,{apply:true,now:atJst20("2026-10-13")}),/Approval status mismatch/);
       }
     }finally{rmSync(root,{recursive:true,force:true});}
   }
 });
 test("unpublished prerequisite defers approval without bypass; missing image hard-blocks",()=>{
   const root=fixture({dependencyPublished:false});try{
-    const r=publishApproved(root,{apply:true,date:"2026-10-13"});
+    const r=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.deepEqual(r.published,[]);assert.deepEqual(r.deferred,["BAS-0099"]);
   }finally{rmSync(root,{recursive:true,force:true});}
-  const bad=fixture({image:false});try{assert.throws(()=>publishApproved(bad,{apply:true,date:"2026-10-13"}),/Missing approved illustration/);}
+  const bad=fixture({image:false});try{assert.throws(()=>publishApproved(bad,{apply:true,now:atJst20("2026-10-13")}),/Missing approved illustration/);}
   finally{rmSync(bad,{recursive:true,force:true});}
 });
 
@@ -83,7 +84,7 @@ test("unapproved body edits, missing immutable source or forged approving actor 
     const p=path.join(altered,"content/articles/example.md");
     writeFileSync(p,readFileSync(p,"utf8").replace(
       "The original explanation stays unchanged.","This unapproved edit must not be published."));
-    assert.throws(()=>publishApproved(altered,{apply:true,date:"2026-10-13"}),
+    assert.throws(()=>publishApproved(altered,{apply:true,now:atJst20("2026-10-13")}),
       /Approved source blob mismatch/);
   }finally{rmSync(altered,{recursive:true,force:true});}
   for(const badValue of [{sourceArticleBlob:""},{approvedBy:"unverified"}]){
@@ -92,7 +93,7 @@ test("unapproved body edits, missing immutable source or forged approving actor 
       const ledger=JSON.parse(readFileSync(p,"utf8"));
       Object.assign(ledger.approvals[0],badValue);
       writeFileSync(p,JSON.stringify(ledger));
-      assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),
+      assert.throws(()=>publishApproved(root,{apply:true,now:atJst20("2026-10-13")}),
         /Missing approved ready article Git blob SHA|Invalid explicit approval evidence/);
     }finally{rmSync(root,{recursive:true,force:true});}
   }
@@ -107,17 +108,17 @@ test("a broken approved thumbnail fails before publication",()=>{
     const ledger=JSON.parse(readFileSync(ledgerPath,"utf8"));
     ledger.approvals[0].sourceArticleBlob=gitBlobSha(article);
     writeFileSync(ledgerPath,JSON.stringify(ledger));
-    assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/Missing approved thumbnail/);
+    assert.throws(()=>publishApproved(root,{apply:true,now:atJst20("2026-10-13")}),/Missing approved thumbnail/);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
 
 test("scheduled acceptance remains unpublished before its Japan-local publishOn",()=>{
   const root=fixture({publishOn:"2026-10-15"});try{
-    const early=publishApproved(root,{apply:true,date:"2026-10-14"});
+    const early=publishApproved(root,{apply:true,now:atJst20("2026-10-14")});
     assert.deepEqual(early.published,[]);
     assert.deepEqual(early.deferred,["BAS-0099"]);
     assert.equal(early.files.length,0);
-    const due=publishApproved(root,{apply:true,date:"2026-10-15"});
+    const due=publishApproved(root,{apply:true,now:atJst20("2026-10-15")});
     assert.deepEqual(due.published,["BAS-0099"]);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
@@ -136,18 +137,51 @@ test("two due and approved articles publish at most one per local calendar day",
       decision:"approved-for-publication",evidence:"Explicit owner acceptance",
       sourceArticleBlob:gitBlobSha(article)});
     writeFileSync(lp,JSON.stringify(ledger));
-    const first=publishApproved(root,{apply:true,date:"2026-10-13"});
+    const first=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.equal(first.published.length,1);
     assert.equal(first.deferred.length,1);
-    const sameDay=publishApproved(root,{apply:true,date:"2026-10-13"});
+    const sameDay=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.equal(sameDay.published.length,0);
-    const nextDay=publishApproved(root,{apply:true,date:"2026-10-14"});
+    const nextDay=publishApproved(root,{apply:true,now:atJst20("2026-10-14")});
     assert.equal(nextDay.published.length,1);
-    const last=publishApproved(root,{apply:true,date:"2026-10-14"});
+    const last=publishApproved(root,{apply:true,now:atJst20("2026-10-14")});
     assert.deepEqual(last.published,[]);
     const after=parse(readFileSync(lp,"utf8"));
     assert.deepEqual(after.approvals.map((row:{publishedOn?:string})=>row.publishedOn).sort(),
       ["2026-10-13","2026-10-14"]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("delayed previous-day cron and 19:59:59 JST cannot publish a 20:00 JST article",()=>{
+  const root=fixture({publishOn:"2026-10-15"});try{
+    const original=readFileSync(path.join(root,"content/articles/example.md"),"utf8");
+    for(const clock of ["2026-10-14T15:34:55Z","2026-10-15T10:59:59Z"]){
+      const before=publishApproved(root,{apply:true,now:new Date(clock)});
+      assert.deepEqual(before.published,[],clock);
+      assert.deepEqual(before.deferred,["BAS-0099"],clock);
+      assert.deepEqual(before.files,[],clock);
+      assert.equal(readFileSync(path.join(root,"content/articles/example.md"),"utf8"),original);
+    }
+    const atSlot=publishApproved(root,{apply:true,now:new Date("2026-10-15T11:00:00Z")});
+    assert.deepEqual(atSlot.published,["BAS-0099"]);
+    assert.deepEqual(publishApproved(root,{apply:true,now:new Date("2026-10-15T11:00:01Z")}).published,[]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("an overdue approved article can publish after its scheduled JST instant, once per execution day",()=>{
+  const root=fixture({publishOn:"2026-10-15"});try{
+    const late=publishApproved(root,{apply:true,now:new Date("2026-10-16T00:35:00Z")});
+    assert.deepEqual(late.published,["BAS-0099"]);
+    const ledger=parse(readFileSync(path.join(root,"content/registry/article-approval-log.yml"),"utf8"));
+    assert.equal(ledger.approvals[0].publishedOn,"2026-10-16");
+    assert.deepEqual(publishApproved(root,{apply:true,now:new Date("2026-10-16T11:00:00Z")}).published,[]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("clock injection requires a valid Date rather than a spoofed calendar string",()=>{
+  const root=fixture();try{
+    assert.throws(()=>publishApproved(root,{apply:true,now:new Date("invalid")}),/Invalid publication clock/);
+    assert.throws(()=>publishApproved(root,{apply:true,now:"2026-10-13"}),/Invalid publication clock/);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
 
@@ -157,6 +191,6 @@ test("an approval without a valid publication date cannot bypass the schedule",(
     const ledger=parse(readFileSync(p,"utf8"));
     delete ledger.approvals[0].publishOn;
     writeFileSync(p,JSON.stringify(ledger));
-    assert.throws(()=>publishApproved(root,{apply:true,date:"2026-10-13"}),/requires valid publishOn/);
+    assert.throws(()=>publishApproved(root,{apply:true,now:atJst20("2026-10-13")}),/requires valid publishOn/);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
