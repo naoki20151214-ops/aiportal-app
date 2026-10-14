@@ -2943,7 +2943,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "Text-to-Videoとは？は何を意味し、生成AIの理解・活用・設計にどう影響するのか？"
     prerequisites: ["GEN-0017"]
     children: []
