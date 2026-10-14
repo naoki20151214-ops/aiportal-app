@@ -320,3 +320,21 @@ approvals:
       this evergreen article. No independent human or separate model reviewer is
       claimed.
     publishedOn: 2026-10-14
+  - id: GEN-0012
+    slug: rag-reranking
+    approvedOn: 2026-10-14
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0012-rag-reranking-20261014
+    originalReviewArticleBlob: 4d4eb81f6dcf02dbc1f599bc01aa935f026b1665
+    sourceArticleBlob: 3bde016666a8566d65dc424b99d49124c4c2682e
+    editorialAuditPath: content/editorial-audits/GEN-0012.yml
+    editorialAuditBlob: 655ac75ab10dc473de9c4e3e48cc2a4ff492747c
+    illustrations: 4
+    editorialChanges: Review to ready status only; two optional unsaved illustrations omitted
+    evidence: A separate source-verification pass by the same GPT-6 confirmed
+      the principal claims with original Microsoft Learn and AWS documentation.
+      Editorial quality scored 88/100 against the owner's 80-percent threshold.
+      All hard checks remain mandatory, and no independent human reviewer
+      or separate model is claimed.

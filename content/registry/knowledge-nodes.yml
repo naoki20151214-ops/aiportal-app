@@ -572,7 +572,7 @@ nodes:
     category: "生成AI"
     level: 3
     type: "mechanism"
-    status: "planned"
+    status: "ready"
     centerQuestion: "検索候補を再評価して回答に使う文書を絞ると何が改善するのか？"
     prerequisites: ["GEN-0011"]
     children: []
