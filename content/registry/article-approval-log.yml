@@ -383,3 +383,24 @@ approvals:
       Internal rubric score 89/100 clears the 80-point threshold; no independent
       human or different-model reviewer is asserted. Publication is reserved
       for on-or-after 2026-10-16 20:00 JST, never immediate on PR merge.
+  - id: GEN-0016
+    slug: image-generation-ai
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-17
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0016-image-generation-20261014
+    originalReviewArticleBlob: 2b0594c4d1f6e55dde3ef69c2d1de4cdd6074adc
+    sourceArticleBlob: 2a66370de26499381a8b4ffe9acf451207a5419e
+    editorialAuditPath: content/editorial-audits/GEN-0016.yml
+    editorialAuditBlob: b89d3f0019ab762589a2d50767ff34c23ee66511
+    illustrations: 6
+    editorialChanges: Original manuscript and six images unchanged; review-to-ready only status field
+    evidence: Editorially delegated standard-education publication after a second
+      source-focused verification pass by the same GPT-6 assistant. Eight substantive
+      checks passed and eight source-specific claims were checked against original
+      OpenAI, Google Research, Google Cloud and academic sources. Internal rubric
+      90/100 exceeds owner's 80 minimum but all safety and CI checks remain mandatory.
+      No independent human or other model reviewer is claimed. Queued to release
+      at 20:00 JST on or after 2026-10-17, only if GEN-0015 has been published.
