@@ -6,7 +6,7 @@ description: "リンクを探す検索と、検索した資料を読んで答え
 category: "生成AI"
 level: 1
 type: "concept"
-status: "review"
+status: "ready"
 publishedAt: "2026-10-22"
 updatedAt: "2026-10-22"
 author: "AI Portal編集部"
