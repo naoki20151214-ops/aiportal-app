@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0020",
+  "slug": "what-is-claude",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "b905c17f51509cd371907c1dfb0ce80a41c1a885",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 89,
+    "required": 80,
+    "scale": "Internal assistant editorial assessment (0-100), not third-party or human grading; all mandatory factual and CI gates separately apply.",
+    "dimensions": {
+      "factualAccuracy": 24,
+      "clarity": 19,
+      "engagingNarrative": 17,
+      "originalVisuals": 12,
+      "publishedLinkage": 9,
+      "sourceReview": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0020-creation-20261014",
+    "verifierId": "GPT-6-GEN-0020-separate-primary-source-check-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "A later primary-source-focused verification pass was performed by the same GPT-6 assistant; no independent human, another model or outside reviewer was involved."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Explains Claude as Anthropic's model family and assistant service, examples of writing/reading/code/images, practical choice compared with ChatGPT, and limits and verification."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Defines company/model/service and prompt before capabilities, then artifacts/projects/search and hallucination, and finishes with a same-input evaluation chart. Avoids time-fragile model-number rankings."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Reuses verified town-cleanup 10 AM scenario, hallucinated north gate, revised prompt and reading differing 9 AM/10 AM source versions; shows human source review at each stage."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Anthropic primary docs, current Claude support help, web search and projects/artifacts pages, hallucination caution, 2023/2026 constitutional AI posts. Distinguishes developer capabilities vs consumer UI, scope and plan limitations."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original 1200x675 SVGs: hero, editing workflow, artifacts, unsupported north gate verification and equal-condition comparison; each references relevant text, Japanese alt/title/desc, and immutable SHA validation."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "All internal links target published GEN-0001, GEN-0002, token and multimodal BAS-0030, RAG and Retrieval. Upcoming AI search is mentioned without URL. GEN-0019 not prelinked because other PR remains pending."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0020 prerequisites GEN-0001 and GEN-0002 were verified already published, GEN-0020's article source absent and no matching prior authorship branch or PR. 2026-10-20 is after other queue slots."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Warns that AI may invent unknown meeting point, change dates or misread handwriting, that web search citations need original-source verification, and that names/children's photos should not be blindly uploaded. No unqualified assurance of constitutional safety or universal product capabilities."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Claude is an Anthropic AI model platform and assistant with language, reasoning, coding and vision capabilities.",
+      "sourceUrl": "https://docs.anthropic.com/en/docs/welcome",
+      "sourceEvidence": "Current Claude Platform docs Intro to Claude identifies Anthropic as provider, language/reasoning/coding, text and image input and text/code outputs. Model lineup is evolving and deliberately not frozen.",
+      "verified": true
+    },
+    {
+      "claim": "Claude supports drafting text, summarizing documents, coding help, brainstorming, translation and image analysis.",
+      "sourceUrl": "https://support.claude.com/en/articles/7996845-what-are-some-things-i-can-use-claude-for",
+      "sourceEvidence": "Official Claude Help Center provides examples of writing, learn something, summarize, coding, brainstorming, translation, and image analysis; not a guarantee of factual precision.",
+      "verified": true
+    },
+    {
+      "claim": "Claude may generate incorrect or misleading answers and fabricated-looking credible quotations; crucial claims and sources require manual checking.",
+      "sourceUrl": "https://support.claude.com/en/articles/8525154-claude-is-providing-incorrect-or-misleading-responses-what-s-going-on",
+      "sourceEvidence": "Official help states errors and misleading responses are hallucinations, including made-up authoritative-seeming quotations, old knowledge, and warnings not to use Claude as single source of truth.",
+      "verified": true
+    },
+    {
+      "claim": "Artifacts let users edit and revisit significant documents and content created with Claude, distinct from the model's training.",
+      "sourceUrl": "https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them",
+      "sourceEvidence": "Official help: artifacts are self-contained documents, designs, dashboards or interactive tools, editable and reusable, with access depending on plan/product capabilities.",
+      "verified": true
+    },
+    {
+      "claim": "Projects organize chats and project knowledge and can be used for repeated related tasks.",
+      "sourceUrl": "https://support.claude.com/en/articles/9517075-what-are-projects",
+      "sourceEvidence": "Official Claude Projects help describes workspace including chat histories and uploaded project knowledge; availability and beta rollout vary over time.",
+      "verified": true
+    },
+    {
+      "claim": "Claude can optionally search the web and cite returned sources depending on service and model settings, but original pages still require review.",
+      "sourceUrl": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+      "sourceEvidence": "Official help discusses model/plan-supported web search, citation links, toggles or auto tool use in new UI, and warns about source verification and tool availability.",
+      "verified": true
+    },
+    {
+      "claim": "Anthropic's Constitutional AI technique involved critique/revision using constitutional principles and AI feedback, not perfect immunity from failures.",
+      "sourceUrl": "https://www.anthropic.com/news/claudes-constitution",
+      "sourceEvidence": "2023 Anthropic article explains supervised critique/revision and reinforcement learning from AI feedback and limitations of a constitution; since superseded by 2026 public constitution, article frames historical technique.",
+      "verified": true
+    },
+    {
+      "claim": "2026 updated Claude constitution guides training and normative goals; training does not guarantee outputs always meet stated ideals.",
+      "sourceUrl": "https://www.anthropic.com/news/claude-new-constitution",
+      "sourceEvidence": "Anthropic Jan 22 2026 description says constitution directs training and model behaviour and acknowledges gap between intended ideals and real model behaviour; article explicitly avoids a no-hallucination guarantee.",
+      "verified": true
+    }
+  ]
+}

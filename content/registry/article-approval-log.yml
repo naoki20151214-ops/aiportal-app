@@ -457,3 +457,31 @@ approvals:
       published GEN-0002 LLM model/mechanism primer. Both required prerequisites,
       GEN-0001 and GEN-0002, are published. The article may publish on or after
       2026-10-19 20:00 JST, not immediately upon approval merge.
+  - id: GEN-0020
+    slug: what-is-claude
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-20
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0020-claude-20261014
+    originalReviewArticleBlob: 246931503db2402576f69765c50be00b21c8640c
+    sourceArticleBlob: b905c17f51509cd371907c1dfb0ce80a41c1a885
+    editorialAuditPath: content/editorial-audits/GEN-0020.yml
+    editorialAuditBlob: a122efb0b0a7c3d45575d7efc17ae27bda2275b6
+    illustrations: 5
+    editorialChanges: >-
+      Review-to-ready only changes frontmatter status. Reviewed body and five
+      figures remain SHA-immutable with no modifications to existing articles.
+    evidence: >-
+      Editorial delegation for a standard beginner article. A separate
+      source-focused pass by the same GPT-6 checked eight claim-to-primary
+      references from Anthropic and the Claude Help Center and eight essential
+      editorial dimensions. Internal rubric score 89/100 exceeds the 80 minimum,
+      but all provenance, link, safety and CI gates remain mandatory. It is not
+      a separate human or different-model audit. The narrative distinguishes
+      model from UI features, compares services through equal-condition tests
+      rather than rankings, and warns about hallucinations, data handling
+      and unsupported invented location details. Prerequisites GEN-0001 and
+      GEN-0002 are published. Publication is due on or after 2026-10-20 20:00
+      JST only by the daily scheduler and never on approval-PR merge.
