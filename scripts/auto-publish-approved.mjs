@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Publication is date-gated: only the daily scheduled workflow (or manual recovery)
+ * Publication is JST-20:00 time-gated: scheduled workflow (or manual recovery)
  * releases at most one approved and dependency-safe article per Japan calendar day.
  * Each new approval must carry publishOn YYYY-MM-DD in the approval ledger.
  * Editorial approval is a production-publication authorization.
@@ -27,12 +27,18 @@ function gitBlobSha(source) {
     .digest("hex");
 }
 
-function todayInJapan() {
+function todayInJapan(now) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit"
-  }).formatToParts(new Date());
+  }).formatToParts(now);
   const field = name => parts.find(p => p.type === name)?.value;
   return [field("year"),field("month"),field("day")].join("-");
+}
+// Asia/Tokyo is UTC+09:00 year-round (no daylight saving time).
+// Test absolute due instants so a delayed 11:00 UTC cron or manual dispatch
+// can never publish tomorrow's 20:00 JST article during tomorrow's early hours.
+function reachedJapanPublishSlot(publishOn, now) {
+  return now.getTime() >= Date.parse(publishOn + "T11:00:00.000Z");
 }
 function file(root,rel){ return path.join(root,rel); }
 function frontmatter(source,slug) {
@@ -65,8 +71,12 @@ function updateArticle(source,slug,date) {
 }
 export function publishApproved(root,options={}) {
   const apply=options.apply===true;
-  const date=options.date||todayInJapan();
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error("Invalid date");
+  // Production CLI always uses the actual system time. Test callers may inject
+  // a fixed Date; overriding only the calendar date must not bypass the gate.
+  const now=options.now??new Date();
+  if(!(now instanceof Date)||!Number.isFinite(now.getTime()))
+    throw new Error("Invalid publication clock");
+  const date=todayInJapan(now);
   const ledgerPath="content/registry/article-approval-log.yml";
   const registryPath="content/registry/knowledge-nodes.yml";
   const ledgerText=fs.readFileSync(file(root,ledgerPath),"utf8");
@@ -140,7 +150,7 @@ export function publishApproved(root,options={}) {
     .filter(node=>node.status==="published").map(node=>node.slug));
   const due=pending.filter(p =>
     eligible.has(p.node.id) &&
-    p.row.publishOn<=date &&
+    reachedJapanPublishSlot(p.row.publishOn,now) &&
     (p.node.prerequisites||[]).every(dep=>byId.get(dep)?.status==="published") &&
     p.links.every(slug=>availableSlugs.has(slug))
   ).sort((a,b)=>a.row.publishOn.localeCompare(b.row.publishOn) ||
