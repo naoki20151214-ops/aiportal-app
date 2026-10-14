@@ -3,6 +3,7 @@ title: "AI Portal Core Curriculum 100"
 targetArticleCount: 100
 selectionPolicy: "Priority Aを中心に、前提依存を閉じるためのbridge nodeを最小限追加する"
 bridgeNodes:
+  - "GEN-0018" # media coverage following owner-cancelled duplicate GEN-0015
   - "AGT-0008"
   - "AGT-0009"
   - "INF-0006"
@@ -53,9 +54,9 @@ days:
       - "GEN-0009"
       - "GEN-0010"
       - "GEN-0011"
-      - "GEN-0015"
       - "GEN-0016"
       - "GEN-0017"
+      - "GEN-0018"
   - day: 5
     nodes:
       - "GEN-0019"

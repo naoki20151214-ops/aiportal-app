@@ -10,7 +10,7 @@ const ID="GEN-0016";
 const SLUG="image-generation-ai";
 const REVIEW_SHA="2b0594c4d1f6e55dde3ef69c2d1de4cdd6074adc";
 const READY_SHA="2a66370de26499381a8b4ffe9acf451207a5419e";
-const AUDIT_SHA="b89d3f0019ab762589a2d50767ff34c23ee66511";
+const AUDIT_SHA="f5ae269f6666d4569b3ac8856f83ada45ffee2d3";
 const FIGURES:Record<string,string>={
   "hero.svg":"792538dea9ea3435c17af9b19f57a76348e3e5f7",
   "fig-01-prompt.svg":"178f070c05997793c4ecbf770a6a567baf121220",
@@ -29,13 +29,13 @@ test("GEN-0016 approved queue has SHA evidence and correct future dependency gat
  assert.equal(node.slug,SLUG);
  assert.equal(node.type,"concept");
  assert.equal(node.level,1);
- assert.deepEqual(node.prerequisites,["GEN-0001","GEN-0015"]);
+ assert.deepEqual(node.prerequisites,["GEN-0001","BAS-0030"]);
  assert.equal(registry.nodes.find((x:{id:string})=>x.id==="GEN-0001")?.status,"published");
- const prior=registry.nodes.find((x:{id:string})=>x.id==="GEN-0015");
+ const prior=registry.nodes.find((x:{id:string})=>x.id==="BAS-0030");
  assert.ok(prior);
- assert.ok(["ready","published"].includes(prior.status));
+ assert.equal(prior.status,"published");
  assert.ok(["ready","published"].includes(node.status));
- if(node.status==="published")assert.equal(prior.status,"published");
+ assert.equal(registry.nodes.some((x:{id:string})=>x.id==="GEN-0015"),false);
  const article=readAllArticles("content/articles").find(x=>x.id===ID);
  assert.ok(article);
  assert.equal(article.status,node.status);

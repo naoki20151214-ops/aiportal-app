@@ -25,7 +25,7 @@
     "writerId": "GPT-6-GEN-0016-writing-pass-20261014",
     "verifierId": "GPT-6-GEN-0016-distinct-source-review-pass-20261014",
     "separateVerificationPass": true,
-    "independenceNote": "The same GPT-6 assistant verified primary sources in a later, source-focused pass. No independent human, different-model or external review is claimed."
+    "independenceNote": "The same GPT-6 assistant verified primary sources in a later, source-focused pass. No independent human, different-model or external review is claimed. Prerequisite evidence was subsequently corrected following owner's GEN-0015 cancellation, without claiming a new independent manuscript review."
   },
   "checks": {
     "centralQuestion": {
@@ -50,11 +50,11 @@
     },
     "internalLinks": {
       "passed": true,
-      "evidence": "All inline /articles/ links point to pre-existing published Generative AI, Embedding, Token, and Retrieval articles. GEN-0015 is a ready unpublished prerequisite and is mentioned in prose only; upcoming video-generation-ai has no URL."
+      "evidence": "All inline /articles/ links point to already published Generative AI, Embedding, Token, and Retrieval articles. Published BAS-0030 is the canonical multimodal primer; original GEN-0016 manuscript and six illustrations remain unchanged. GEN-0015 was retired on the site owner's instruction before public release. Upcoming video-generation-ai has no premature URL."
     },
     "prerequisites": {
       "passed": true,
-      "evidence": "Registry GEN-0016 prerequisites GEN-0001 published and GEN-0015 ready and queued for 2026-10-16. GEN-0016 is scheduled no earlier than 2026-10-17. The publisher must defer until GEN-0015 becomes published; no bypass is claimed."
+      "evidence": "Site owner canceled GEN-0015 as a duplicate of published BAS-0030. The Registry was rewired so GEN-0016 prerequisites are published GEN-0001 and published BAS-0030; there is no dependency on withdrawn GEN-0015. The already approved manuscript, primary-source claims, images and source Git Blob SHA are preserved. Scheduled publication remains on or after 2026-10-17 JST."
     },
     "riskAndSafety": {
       "passed": true,
