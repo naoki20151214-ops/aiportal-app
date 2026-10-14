@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0012",
+  "slug": "rag-reranking",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "3bde016666a8566d65dc424b99d49124c4c2682e",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 88,
+    "required": 80,
+    "scale": "0–100 editorial rubric; only 4 of the initial 6 optional illustrations are used. Core facts and safety checks remain mandatory.",
+    "dimensions": {
+      "accuracy": 23,
+      "clarity": 18,
+      "narrative": 18,
+      "visuals": 11,
+      "linkage": 9,
+      "editorialEvidence": 9
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0012-writing-pass",
+    "verifierId": "GPT-6-GEN-0012-primary-source-check-pass",
+    "separateVerificationPass": true,
+    "independenceNote": "The same GPT-6 assistant conducted a second source-checking pass. No independent human, separate model, or external peer reviewer is claimed."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "The article answers why first-stage BM25/vector results may be poorly ordered and explains question-document reranking, how it changes ordering, and its limits."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "A recurring fictional town-cleaning example (old 9 AM vs amended 10 AM) explains the difference between topical match, answering the question and factual validity; algorithm limitations are explicit."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "A stepwise Retriever → Reranker → LLM sequence, with old/new notice and supplies, demonstrates two-stage search, scores, missing candidates, freshness and evaluation."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Second verification inspected Microsoft Learn semantic ranking and query request, AWS rerank and rerank-use, AWS Bedrock knowledge base Retrieve, Microsoft vector filters. Product-specific limits are explicitly scoped: Azure top 50 and 0–4 score."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Four original 1200×675 SVG illustrations remain, all with title/desc and Japanese Markdown alt. Two originally proposed optional visuals were omitted after GitHub refused to save them; the text explains both concepts and no nonexistent image is referenced."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Links point only to already published rag-retrieval, vector-database, what-is-rag, rag-chunking articles. GEN-0013 is introduced only in prose as a future topic."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0012 prerequisite GEN-0011 is published in the live 2026-10-14 main Registry. Prior RAG/Chunking/Vector Database articles are published."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Evergreen AI technical explanation. Explicitly states reranking does not establish truth, repair missing documents, replace source-version governance or enforce access controls."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Semantic ranking adds a secondary ranking over initially BM25/RRF-ranked search results; Azure limits this pass to the top 50 and doesn't query the entire corpus again.",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/semantic-search-overview",
+      "sourceEvidence": "What is semantic ranking? describes secondary ranking; 'collects and summarizes inputs' says only top 50 move to semantic ranking; capability limits say it cannot rerun a query over the entire corpus.",
+      "verified": true
+    },
+    {
+      "claim": "Azure semantic reranker relevance scores are 0 to 4; this score is relevance rather than probability of factual correctness.",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/semantic-how-to-query-request",
+      "sourceEvidence": "The request documentation identifies @search.rerankerScore and its semantic ranking application to text, hybrid and vector queries; accompanying official semantic-search-overview states score 4 to 0. The probability warning is an editorial interpretation of a relevance scoring scale.",
+      "verified": true
+    },
+    {
+      "claim": "Amazon Bedrock's reranker receives a query and a list of documents and ranks them by relevance to the query.",
+      "sourceUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/rerank.html",
+      "sourceEvidence": "AWS 'Improve the relevance of query responses with a reranker model' explicitly lists the query, document list and model as the three minimal inputs, and explains Rerank and KB Retrieve integration.",
+      "verified": true
+    },
+    {
+      "claim": "Bedrock Rerank API accepts query and source documents and supports a specified number of returned results.",
+      "sourceUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-use.html",
+      "sourceEvidence": "'Use a reranker model in Amazon Bedrock' API table names queries, sources and rerankingConfiguration including the number of results.",
+      "verified": true
+    },
+    {
+      "claim": "Amazon Bedrock Knowledge Bases supports applying a reranking model to retrieved chunks and configuring the number of reranked results.",
+      "sourceUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-test-retrieve.html",
+      "sourceEvidence": "Knowledge Base retrieval documentation describes rerankingConfiguration in the vector search configuration, the model to use and number of results returned.",
+      "verified": true
+    },
+    {
+      "claim": "Version and access-related filterable metadata is a separate control from reranker relevance ordering.",
+      "sourceUrl": "https://learn.microsoft.com/en-us/azure/search/vector-search-filters",
+      "sourceEvidence": "Microsoft Vector Query Filters documents nonvector field filters and preFilter/postFilter timing; this supports the distinction between explicit filter criteria and score-based ranking. The town-version and permissions situation is a fictional system design example, not an Azure default guarantee.",
+      "verified": true
+    }
+  ]
+}
