@@ -532,3 +532,18 @@ approvals:
     illustrations: 5
     editorialChanges: Only frontmatter status review-to-ready; original narrative body and all five diagrams unchanged
     evidence: "2026-10-15 standing site-owner editorial delegation. A distinct primary-source checking pass by the same GPT-6 assistant verified Google Search AI Mode, Google AI Overviews, OpenAI search and the Lewis 2020 paper. All eight editorial gates passed, internal score 91/100. No independent human or model review claimed. Reserve 2026-10-22 20:00 JST after the existing six pending slots."
+  - id: GEN-0040
+    slug: reasoning-model
+    approvedOn: 2026-10-15
+    publishOn: 2026-10-23
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0040-reasoning-model-20261015
+    originalReviewArticleBlob: a108f1810b1c2203f830e83d65baf12d3fa8e1d3
+    sourceArticleBlob: d3200ae420f653250af78d8ab4fe61008a8293c1
+    editorialAuditPath: content/editorial-audits/GEN-0040.yml
+    editorialAuditBlob: e3b3dee67ddd1c1e25cccc7bdecd42465779ae7f
+    illustrations: 5
+    editorialChanges: Frontmatter review-to-ready status only, approved manuscript body and five figures preserved
+    evidence: "2026-10-15 site-owner standing editorial delegation. A source-focused verification pass by the same GPT-6 assistant checked the original OpenAI o1 and o3 publications, Google's Gemini thinking sources, and DeepSeek-R1 paper. All eight hard editorial criteria passed, internal rubric 90/100. No separate human or independent model review claimed. Queue for JST 20:00 on or after 2026-10-23, following GEN-0022. Not an immediate release."
