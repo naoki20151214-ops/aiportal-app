@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0017",
+  "slug": "video-generation-ai",
+  "auditedOn": "2026-10-14",
+  "readyArticleBlob": "2ccc59305da589c25277ccae3110a5638bb09ef7",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 90,
+    "required": 80,
+    "scale": "Internal GPT-6 0–100 editorial assessment, not a human or independently validated score; all hard editorial, factual and CI checks are mandatory. Official Sora discontinuation added during source repair; no new independent human or model review is claimed.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 18,
+      "visuals": 12,
+      "linksAndPrerequisites": 9,
+      "sourceReview": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0017-article-creation-20261014",
+    "verifierId": "GPT-6-GEN-0017-source-focused-check-20261014",
+    "separateVerificationPass": true,
+    "independenceNote": "A separate source/checklist pass was conducted by the same GPT-6 model, not an independent human editor, external organization or different model."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Explains text-to-video and image-to-video, the difference between a single image and a time sequence, generating several frames consistently, diffusion as an example and alternatives; answers precisely what can be done and why it is hard."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Frame/temporal consistency/space/time/input/output are defined with a familiar flip-book and a recurring park-cleanup animation. A 24fps/5-second example is explicitly an illustrative arithmetic choice, not product specification."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Town association asks an AI to animate a watercolor poster, initially sees a changing broom; returns to original idea and steps through frames, denoising, visual continuity, camera motion, audio and public disclosure."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "A separate official-source check matched OpenAI Sora launch page and 2024 technical report, Google Research 2022 video generation and 2026 long-form consistency work, DeepMind Veo model documentation and Google Cloud first/last frames. Product-dependent statements are scoped; no assertion that generated scenes are physically verified. Verified official OpenAI Help Center Japanese Sora discontinuation notice: web/app sunset 2026-04-26, API sunset 2026-09-24; article describes original Sora exclusively as historical research."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five 1200×675 original pastel SVGs with Japanese titles/descriptions and substantial Markdown alt: hero, frame sequence, denoising conceptual diagram, consistency/identity, synthetic-vs-recorded verification. All are locked to original Git object SHAs."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Markdown links only to five published beginner lessons: what-is-multimodal, what-is-generative-ai, what-is-embedding, what-is-rag, rag-retrieval. Ready GEN-0016 is not linked; upcoming audio generation is prose only."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "Updated canonical registry after user's duplicate cancellation: GEN-0017 prerequisites GEN-0001 and BAS-0030, both published. GEN-0015 is retired and not referenced. GEN-0016 is ready for Oct 17 but not a prerequisite."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "States synthetic video is not proof of real events; explicitly warns privacy, children's likeness, copyright, consent, exact timing, rights and AI-origin labels. Model watermark is not proof of truth. No dangerous instructional content."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Sora can generate video from text, animate existing image and extend input video; model is diffusion-based.",
+      "sourceUrl": "https://openai.com/index/sora/",
+      "sourceEvidence": "Original OpenAI Sora announcement 'Research techniques' describes start from static noise, repeated denoising, image-to-video/extension, and multi-frame awareness; article avoids claiming current service availability.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI Sora research uses compressed visual latents and spacetime patches; long-range temporal consistency and object permanence are challenges.",
+      "sourceUrl": "https://openai.com/index/video-generation-models-as-world-simulators/",
+      "sourceEvidence": "OpenAI original technical report (Feb 15, 2024), Turning visual data into patches: temporally and spatially compressed latent representation and spacetime patches; Long-range coherence section calls temporal consistency a major challenge and reports Sora can sometimes maintain object permanence.",
+      "verified": true
+    },
+    {
+      "claim": "Video generation faces an added temporal consistency dimension compared with image generation; Imagen Video diffusion and Phenaki use different approaches.",
+      "sourceUrl": "https://research.google/blog/google-research-2022-beyond-language-vision-and-generative-models/",
+      "sourceEvidence": "Google Research 2022 Generative Video subsection contrasts static-image pixels with temporally consistent motion for video and introduces Imagen Video cascading diffusion models vs Phenaki token-based generation; illustrative frames-per-second not asserted as universal.",
+      "verified": true
+    },
+    {
+      "claim": "Long-video generation can suffer from identity and semantic drift between independently generated shots.",
+      "sourceUrl": "https://research.google/blog/coherent-long-form-video-generation/",
+      "sourceEvidence": "Original Google Research report Sep 24, 2026 on coherent long-form video explicitly identifies visual identity drift and cascading failures across chained independent AI pipeline steps.",
+      "verified": true
+    },
+    {
+      "claim": "Google DeepMind Veo 3.1 supports text-to-video and image-to-video and some synchronized audio capabilities, with documented remaining speech/audio limitations.",
+      "sourceUrl": "https://deepmind.google/models/veo/",
+      "sourceEvidence": "Veo model page 'Veo 3.1' details text-to-video, image-to-video, audio-video generation and 'Limitations' warning that naturally consistent speech especially short segments remains work in progress; article does not generalize to every video model.",
+      "verified": true
+    },
+    {
+      "claim": "Google Veo has a first-and-last frame generation workflow using input images and textual prompt, which does not guarantee a real intervening sequence.",
+      "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-first-and-last-frames",
+      "sourceEvidence": "Google Cloud first and last frame generation guide explicitly supplies image, last_frame and prompt in generate_videos call. Real-event reconstruction limitation follows logically from underspecified images and is clearly presented as a design caution, not a benchmark.",
+      "verified": true
+    },
+    {
+      "claim": "Text prompts can be used to generate video through Google Cloud Veo; model access and output conditions vary by service.",
+      "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-text?hl=ja",
+      "sourceEvidence": "Official Vertex AI Veo text-to-video guide states that Veo in Vertex AI produces new videos from text prompts via Console/API. Article avoids unverified exact model pricing or capability claims.",
+      "verified": true
+    },
+    {
+      "claim": "The original Sora research article remains useful as a historical architecture reference, but the Sora web/app and API are not currently offered in October 2026.",
+      "sourceUrl": "https://help.openai.com/ja-jp/articles/20001152-what-to-know-about-the-sora-discontinuation",
+      "sourceEvidence": "OpenAI official Japanese Help Center 'Sora の提供終了について知っておくべきこと' directly states Sora Web/app ended 2026-04-26 and Sora API ended 2026-09-24. The article explicitly labels its older Sora model explanations as historical, not product recommendations.",
+      "verified": true
+    }
+  ]
+}

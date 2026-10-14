@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="t d"><title id="t">写真は1枚、動画は時間の列</title><desc id="d">一枚の静止画と時刻ごとに変化する三枚の動画フレームを比較する</desc><defs><marker id="arr" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L10 6L1 11" fill="none" stroke="#739bbb" stroke-width="2"/></marker></defs><rect width="1200" height="675" fill="#fafcff"/><circle cx="1068" cy="90" r="144" fill="#eaf4ff"/><circle cx="112" cy="596" r="120" fill="#fff5e9"/><text x="600" y="75" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="38" fill="#193750" font-weight="700" text-anchor="middle">写真は1枚、動画は時間の列</text><rect x="49" y="166" width="355" height="89" rx="22" fill="#fff0dc" stroke="#abcade" stroke-width="2.8"/><text x="226.5" y="218.56" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="26" fill="#193750" font-weight="700" text-anchor="middle">静止画：ある瞬間</text>
+<rect x="72" y="286" width="307" height="214" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M82 462Q225.5 438 369 462L369 490L82 490Z" fill="#cce9c8"/>
+<path d="M114 470V364M100 382q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="268.48" cy="366" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M268.48 382l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M293.48 411l18 60" stroke="#bd935c" stroke-width="6"/><path d="M308.48 462l10 17l-21 7Z" fill="#e9b96f"/><rect x="440" y="166" width="712" height="89" rx="22" fill="#e9f3ff" stroke="#abcade" stroke-width="2.8"/><text x="796" y="218.87" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="27" fill="#193750" font-weight="700" text-anchor="middle">動画：時刻に沿ったフレーム</text>
+<rect x="453" y="288" width="219" height="199" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M463 449Q562.5 425 662 449L662 477L463 477Z" fill="#cce9c8"/>
+<path d="M495 457V366M481 384q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="578.16" cy="368" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M578.16 384l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M603.16 413l18 60" stroke="#bd935c" stroke-width="6"/><path d="M618.16 464l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="681" y="288" width="219" height="199" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M691 449Q790.5 425 890 449L890 477L691 477Z" fill="#cce9c8"/>
+<path d="M723 457V366M709 384q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="821.16" cy="368" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M821.16 384l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M846.16 413l18 60" stroke="#bd935c" stroke-width="6"/><path d="M861.16 464l10 17l-21 7Z" fill="#e9b96f"/>
+<rect x="910" y="288" width="219" height="199" rx="16" fill="#e4f2ff" stroke="#8bb3c9" stroke-width="3"/>
+<path d="M920 449Q1019.5 425 1119 449L1119 477L920 477Z" fill="#cce9c8"/>
+<path d="M952 457V366M938 384q12-55 29 0q-25-24-29 0" stroke="#59866d" stroke-width="9" fill="#a6d1aa" stroke-linecap="round"/>
+<circle cx="1064.16" cy="368" r="16" fill="#ffd4ad" stroke="#d99a7e" stroke-width="2"/>
+<path d="M1064.16 384l-3 59m3-53l-22 22m22-22l26 23m-29 28l-16 25m16-25l18 24" stroke="#3974a8" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M1089.16 413l18 60" stroke="#bd935c" stroke-width="6"/><path d="M1104.16 464l10 17l-21 7Z" fill="#e9b96f"/><text x="561" y="531" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="23" fill="#193750" font-weight="700" text-anchor="middle">1枚目</text><text x="790" y="531" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="23" fill="#193750" font-weight="700" text-anchor="middle">2枚目</text><text x="1018" y="531" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="23" fill="#193750" font-weight="700" text-anchor="middle">3枚目</text><text x="600" y="584" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="23" fill="#193750" font-weight="700" text-anchor="middle">同じ人物や道具が時間を通して続いて見えるかが重要</text><text x="600" y="635" font-family="'Noto Sans JP',Meiryo,'Yu Gothic',sans-serif" font-size="18" fill="#607c91" font-weight="500" text-anchor="middle">図は説明用の模式図です。実際のモデル内部を示すものではありません。</text></svg>
