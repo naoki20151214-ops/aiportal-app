@@ -58,10 +58,20 @@ export default async function ArticlePage({ params }: Props) {
       <header className="border-b border-gray-200 sticky top-0 bg-white z-50">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
           <Link href="/" className="text-2xl font-black tracking-tighter text-blue-700">AI PORTAL</Link>
-          <Link href="/" className="text-xs font-bold text-gray-600 hover:text-blue-700">トップへ戻る</Link>
+          <nav aria-label="ページ移動" className="flex items-center gap-4 text-xs sm:text-sm font-bold">
+            <Link href="/articles" className="text-blue-700 hover:underline">記事一覧へ</Link>
+            <Link href="/" className="text-gray-600 hover:text-blue-700">トップへ戻る</Link>
+          </nav>
         </div>
       </header>
       <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+        <nav aria-label="パンくずリスト" className="mb-5 text-sm text-gray-500">
+          <Link href="/" className="hover:text-blue-700 hover:underline">トップ</Link>
+          <span aria-hidden="true" className="mx-2">›</span>
+          <Link href="/articles" className="hover:text-blue-700 hover:underline">記事一覧</Link>
+          <span aria-hidden="true" className="mx-2">›</span>
+          <span aria-current="page">記事</span>
+        </nav>
         <article>
           <header className="border-b border-gray-200 pb-6 mb-8">
             <div className="flex flex-wrap items-center gap-2">
@@ -86,7 +96,7 @@ export default async function ArticlePage({ params }: Props) {
         <ArticleFeedback articleId={article.id} slug={article.slug} revision={article.updatedAt} title={article.title} />
         <RelatedArticles articles={getRelatedArticles(article, getAllArticles())} />
         <div className="border-t border-gray-200 mt-10 pt-6">
-          <Link href="/" className="text-sm font-bold text-blue-700 hover:underline">← トップへ戻る</Link>
+          <Link href="/articles" className="text-sm font-bold text-blue-700 hover:underline">← 記事一覧に戻って次の記事を探す</Link>
         </div>
       </main>
       <SiteFooter />
