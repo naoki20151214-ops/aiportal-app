@@ -126,10 +126,8 @@ test("two due and approved articles publish at most one per local calendar day",
   const root=fixture();try{
     const rp=path.join(root,"content/registry/knowledge-nodes.yml");
     const lp=path.join(root,"content/registry/article-approval-log.yml");
-    const registry=parse(readFileSync(rp,"utf8"));
-    registry.nodes.push({id:"BAS-0098",slug:"example-two",status:"ready",prerequisites:["BAS-0001"]});
-    registry.nodeCount=3;
-    writeFileSync(rp,JSON.stringify(registry));
+    writeFileSync(rp,readFileSync(rp,"utf8").replace("nodeCount: 2","nodeCount: 3")+
+      '  - id: "BAS-0098"\n    slug: "example-two"\n    status: "ready"\n    prerequisites: ["BAS-0001"]\n');
     const article='---\nid: "BAS-0098"\nslug: "example-two"\nstatus: "ready"\npublishedAt: "2026-10-01"\nupdatedAt: "2026-10-01"\n---\n\nSecond article content.\n';
     writeFileSync(path.join(root,"content/articles/example-two.md"),article);
     const ledger=parse(readFileSync(lp,"utf8"));
