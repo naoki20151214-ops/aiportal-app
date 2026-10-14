@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="t d"><title id="t">RAGで確認する三つのポイント</title><desc id="d">RAGの品質には検索結果の正しさ、元資料に基づく回答、閲覧権限と不正指示への警戒が必要。</desc><defs><marker id="tip" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L12 6.5 L1 12" stroke="#6f98b6" stroke-width="2" fill="none" stroke-linejoin="round"/></marker><linearGradient id="wash" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fbfdff"/><stop offset=".52" stop-color="#fffcf5"/><stop offset="1" stop-color="#f0f8f5"/></linearGradient></defs><rect width="1200" height="675" fill="url(#wash)"/><circle cx="1081" cy="86" r="118" fill="#e6f1ff" opacity=".67"/><circle cx="95" cy="621" r="142" fill="#fce8dc" opacity=".55"/><g font-family="'Noto Sans JP','Yu Gothic',Meiryo,sans-serif">
+<text x="600" y="73" text-anchor="middle" font-size="42" font-weight="700" fill="#203b59">RAGでも、最後の確認は必要</text>
+<rect x="75" y="151" width="332" height="354" rx="22" fill="#e9f3ff" stroke="#b8cbd9" stroke-width="3"/>
+<rect x="434" y="151" width="332" height="354" rx="22" fill="#fffbf4" stroke="#b8cbd9" stroke-width="3"/>
+<rect x="793" y="151" width="332" height="354" rx="22" fill="#e4f6ec" stroke="#b8cbd9" stroke-width="3"/>
+<text x="240" y="222" text-anchor="middle" font-size="33" font-weight="700" fill="#203b59">① 探した資料</text>
+<text x="600" y="222" text-anchor="middle" font-size="33" font-weight="700" fill="#203b59">② 回答の内容</text>
+<text x="959" y="222" text-anchor="middle" font-size="33" font-weight="700" fill="#203b59">③ 安全な扱い</text>
+<g transform="translate(187 274)"><rect x="0" y="0" width="106" height="133" rx="12" fill="#ffffff" stroke="#b8cbd9" stroke-width="3"/><path d="M78 0V28H106" stroke="#b8cbd9" stroke-width="2" fill="#bad8f7"/><rect x="18" y="41" width="69" height="8" rx="4" fill="#bad8f7"/><rect x="18" y="65" width="61" height="7" rx="3" fill="#d1dae0"/><rect x="18" y="87" width="56" height="7" rx="3" fill="#d1dae0"/><rect x="18" y="109" width="46" height="7" rx="3" fill="#d1dae0"/></g>
+<text x="240" y="454" text-anchor="middle" font-size="24" font-weight="700" fill="#203b59">新版？ 内容は合う？</text>
+<text x="600" y="319" text-anchor="middle" font-size="35" font-weight="700" fill="#203b59">回答</text>
+<rect x="504" y="337" width="193" height="66" rx="22" fill="#ffffff" stroke="#b8cbd9" stroke-width="3"/><text x="600" y="377" text-anchor="middle" font-size="22" font-weight="700" fill="#203b59">資料と一致？</text>
+<text x="960" y="337" text-anchor="middle" font-size="68" font-weight="700" fill="#203b59">🔒</text>
+<text x="959" y="413" text-anchor="middle" font-size="27" font-weight="700" fill="#203b59">閲覧権限は？</text>
+<text x="600" y="560" text-anchor="middle" font-size="27" font-weight="700" fill="#203b59">見つかった資料は「命令」ではなく、確認すべき情報</text>
+<text x="600" y="608" text-anchor="middle" font-size="22" font-weight="700" fill="#58728b">出典があっても、間違いがなくなるわけではない</text>
+<text x="1162" y="652" text-anchor="end" font-size="17" fill="#58728b">AI Portal｜教育用の模式図</text></g></svg>

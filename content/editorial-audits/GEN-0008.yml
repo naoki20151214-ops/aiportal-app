@@ -1,0 +1,60 @@
+schemaVersion: 1
+id: "GEN-0008"
+slug: "what-is-rag"
+auditedOn: "2026-10-14"
+readyArticleBlob: "74f3e413fdc1c62c8987b9a8991382cba5339adf"
+scope: "standard-evergreen"
+decision: "pass"
+humanEscalationRequired: false
+blockingFindings: []
+reviewProcess:
+  writerId: "GPT-6-authoring-pass-20261014"
+  verifierId: "GPT-6-separate-source-verification-pass-20261014"
+  separateVerificationPass: true
+  independenceNote: "Same GPT-6 assistant conducted a distinct second fact/source/structure checking pass; this is not an independent human or different model review."
+checks:
+  centralQuestion:
+    passed: true
+    evidence: "中心疑問『検索拡張生成は知識更新やハルシネーションにどう役立つか』を冒頭の旧版9時・新版10時の架空のお知らせから導き、検索・追加・生成、失敗条件まで明確に説明した。"
+  beginnerClarity:
+    passed: true
+    evidence: "専門用語はRAG→三段階→Chunk→Index→Vectorへ段階的に紹介。EmbeddingやLLMの公開済み記事へ復習リンクを設け、レベル1の読者に計算を強制しない。"
+  narrativeExamples:
+    passed: true
+    evidence: "町内会の清掃案内という既存シリーズの一貫した架空例を使用し、9時から10時への変更を始めから結論まで維持。抽象的な知識列挙ではなく質問と資料探しの物語で進める。"
+  sourceAccuracy:
+    passed: true
+    evidence: "Lewis et al. (2020)原論文、Microsoft Foundry/Azure AI Search一次資料、AWS Bedrock公式ドキュメントと、外部資料追加・Retriever/Augment/Generate・Chunking・Hybrid Search・学習との違い・限界を別工程で照合した。"
+  imageAccuracyAndAlt:
+    passed: true
+    evidence: "新規6点の1200×675のパステルSVGはHero、資料なし/資料あり、索引準備、三工程、古い新版の比較、安全チェックをそれぞれ図解。6枚すべて本文alt、SVG title/descを備え、内容が架空例と矛盾しない。"
+  internalLinks:
+    passed: true
+    evidence: "記事内の5種類の内部リンク（what-is-llm、ai-hallucination、what-is-embedding、ai-grounding、ai-citations）は現行のmain Registryですべてpublished。未公開のChunking等へ偽リンクしない。"
+  prerequisites:
+    passed: true
+    evidence: "RegistryのGEN-0008前提はGEN-0002 LLMとBAS-0015 Embedding。どちらもpublished。次のGEN-0009 Chunkingの前提としてRAGを先に公開する学習順序に合致する。"
+  riskAndSafety:
+    passed: true
+    evidence: "一般的な教育技術解説のみで個別医療/金融/法務助言なし。資料の権限、検索文書由来のプロンプトインジェクション、出典があっても誤りうること、コストと遅延、再学習との誤解を説明する。"
+criticalClaims:
+  - claim: "RAGではモデルに格納された知識と検索による外部知識を組み合わせて文章生成し、原論文ではRetrievalとGeneratorの微調整も研究された。"
+    sourceUrl: "https://arxiv.org/abs/2005.11401"
+    sourceEvidence: "Lewis et al. 2020のAbstractとIntroduction、およびMethods 2.4: parametric memory（seq2seq model）とnon-parametric memory（Wikipedia dense vector index）の併用、retrieverとgeneratorのjoint fine-tuningについて明記。記事の『RAGでは学習を一切しないとは限らない』を支持。"
+    verified: true
+  - claim: "RAGは質問に関係する外部資料をRetrieveで検索し、Augmentで資料を質問に加え、GenerateでLLMが回答を作る三段階として説明できる。"
+    sourceUrl: "https://learn.microsoft.com/en-ca/azure/foundry/concepts/retrieval-augmented-generation?view=foundry-classic"
+    sourceEvidence: "Microsoft Foundry公式『What is RAG?』『How does RAG work?』はRetrieve/Augment/Generateの三段階と、資料をモデル入力に追加するGroundingの説明を明示。Indexにはkeyword/vector/hybrid等があり、RAGとfine-tuningの用途も区別。"
+    verified: true
+  - claim: "代表的なRAGの検索実装では、ユーザー質問をベクトル化し、文書チャンクのベクトル索引から近い部分を探して入力コンテキストへ追加する。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-it-works.html"
+    sourceEvidence: "AWS公式『Runtime execution』は、質問をembedding modelでvector化、vector indexからsemantic similar chunksを取得し、元の質問に文書contextを追加したpromptをmodelへ渡して回答生成すると記載。この記事では『代表的な一方式』として扱い、全RAG必須とはしていない。"
+    verified: true
+  - claim: "RAG用の情報準備には文書のチャンク化を用いることがあり、検索にはキーワードとベクトルを組み合わせるハイブリッド方式もある。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview?tabs=docs"
+    sourceEvidence: "Microsoft Azure AI Search公式『Content preparation for RAG』『Maximize relevance and recall』はautomatic chunking、vectorization、keywordとvectorを組み合わせるhybrid queries、semantic rankingを明記。記事の該当箇所は適用条件のある実装例として扱っている。"
+    verified: true
+  - claim: "RAGでも検索結果が古い・不完全なら誤答しうるほか、検索対象にはアクセス制限が必要で、取得文書は信頼できない入力として扱うべきである。"
+    sourceUrl: "https://learn.microsoft.com/en-ca/azure/foundry/concepts/retrieval-augmented-generation?view=foundry-classic"
+    sourceEvidence: "Microsoft Foundry公式『Security and privacy considerations』『Limitations and troubleshooting』はpermission filtering、treat retrieved content as untrusted input、prompt injection、hallucination despite grounding、incomplete passages leading to inaccurate answersを挙げる。古いお知らせ例は架空と明記。"
+    verified: true
