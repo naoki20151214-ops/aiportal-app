@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastUpdated = articles.map((article) => article.updatedAt).sort().at(-1);
   return [
     { url: absoluteUrl("/"), ...(lastUpdated ? { lastModified: lastUpdated } : {}) },
+    { url: absoluteUrl("/articles"), ...(lastUpdated ? { lastModified: lastUpdated } : {}) },
     ...staticPages.map((path) => ({
       url: absoluteUrl(path),
       lastModified: "2026-10-03",
