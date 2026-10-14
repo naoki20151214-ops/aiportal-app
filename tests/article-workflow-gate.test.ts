@@ -67,3 +67,17 @@ test('Core Curriculum is the canonical ordered list; missing nodes fail closed',
  assert.deepEqual(flattenCurriculum(core,{nodes}).map((x: {id:string})=>x.id),['BAS-0017','BAS-0023']);
  assert.throws(()=>flattenCurriculum({targetArticleCount:1,days:[{day:1,nodes:['BAD-001']}]},{nodes}),/unknown Registry/);
 });
+
+test('a fresh article PR does not count itself as a historical duplicate',()=>{
+  const row=inventory().find((x:{id:string})=>x.id==='GEN-0008');
+  const current={...row,branches:[
+    {branch:'release/new-rag',sha:'head-1'}
+  ],prs:[{number:150,merged:false}]};
+  assert.match(checkReuseProvenance({row:current,incomingBranch:'release/new-rag',incomingPrNumber:150}),/NEW/);
+  assert.throws(()=>checkReuseProvenance({row:current,incomingBranch:'release/new-rag',incomingPrNumber:151}),/PR history suggests prior work/);
+  const unrelated={...current,prs:[{number:150,merged:false},{number:111,merged:false}]};
+  assert.throws(()=>checkReuseProvenance({row:unrelated,incomingBranch:'release/new-rag',incomingPrNumber:150}),/PR history suggests prior work/);
+  const foreignBranch={...current,branches:[...current.branches,{branch:'draft/older-rag',sha:'old-1'}]};
+  assert.throws(()=>checkReuseProvenance({row:foreignBranch,incomingBranch:'release/new-rag',incomingPrNumber:150}),/already exists/);
+  assert.match(checkReuseProvenance({row:foreignBranch,incomingBranch:'release/new-rag',incomingPrNumber:150,sourceRef:'draft/older-rag'}),/REUSE/);
+});
