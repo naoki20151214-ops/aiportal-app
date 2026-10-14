@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import ArticleDifficulty from "@/components/article-difficulty";
 import { contentCategories } from "@/lib/categories";
@@ -10,9 +10,23 @@ import type { ArticleMetadata } from "@/types/article";
 
 const levels = ["入門", "基礎", "仕組み", "実践", "専門", "研究"] as const;
 
+// URL changes are an external store: this keeps SSR/hydration consistent without
+// synchronously setting React state inside an effect.
+function subscribeToLocation(onChange: () => void): () => void {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+}
+function getUrlCategory(): string {
+  return new URLSearchParams(window.location.search).get("category") ?? "すべて";
+}
+function getServerCategory(): string {
+  return "すべて";
+}
+
 export default function ArticleArchive({ articles }: { articles: ArticleMetadata[] }) {
   const [keyword, setKeyword] = useState("");
-  const [category, setCategory] = useState("すべて");
+  const urlCategory = useSyncExternalStore(subscribeToLocation, getUrlCategory, getServerCategory);
+  const [chosenCategory, setChosenCategory] = useState<string | null>(null);
   const [level, setLevel] = useState("all");
   const [sort, setSort] = useState<ArchiveSort>("newest");
 
@@ -24,11 +38,10 @@ export default function ArticleArchive({ articles }: { articles: ArticleMetadata
     [published],
   );
 
-  // A top-page category shortcut lands directly in the matching filtered archive.
-  useEffect(() => {
-    const fromUrl = new URLSearchParams(window.location.search).get("category");
-    if (fromUrl && categories.some((item) => item.name === fromUrl)) setCategory(fromUrl);
-  }, [categories]);
+  // Top-page shortcuts supply a category query; visitors can then override it.
+  const category = chosenCategory ?? (
+    categories.some((item) => item.name === urlCategory) ? urlCategory : "すべて"
+  );
 
   const results = useMemo(
     () => filterArticleArchive(published, { keyword, category, level, sort }),
@@ -36,7 +49,7 @@ export default function ArticleArchive({ articles }: { articles: ArticleMetadata
   );
   const clearFilters = () => {
     setKeyword("");
-    setCategory("すべて");
+    setChosenCategory("すべて");
     setLevel("all");
     setSort("newest");
   };
@@ -65,7 +78,7 @@ export default function ArticleArchive({ articles }: { articles: ArticleMetadata
                 type="button"
                 key={item.name}
                 aria-pressed={category === item.name}
-                onClick={() => setCategory(item.name)}
+                onClick={() => setChosenCategory(item.name)}
                 className={`rounded-full border px-3.5 py-2 text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 ${category === item.name
                   ? "border-blue-700 bg-blue-700 text-white"
                   : "border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:text-blue-700"}`}
