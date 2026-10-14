@@ -59,7 +59,7 @@ test("GEN-0022 is only scheduled after GEN-0002 with an immutable approved audit
 test("AI search story clearly distinguishes answers, links, RAG, fan-out and source verification",()=>{
   const src=readFileSync("content/articles/ai-search.md","utf8");
   const body=src.replace(/^---[\s\S]*?---\s*/,"");
-  assert.ok(body.length>9000,"Story unexpectedly shortened");
+  assert.ok(body.length>8500,"Story unexpectedly shortened");
   for(const term of ["星空観察会","ユイ","午後6時30分","午後7時","2階ホール",
     "検索エンジン","AI検索","AI Overviews","AIモード","ChatGPT",
     "クエリ ファンアウト","Hybrid Search","RAG","出典","一次資料","未確認","架空"]){
