@@ -55,7 +55,7 @@ test("小分けにする理由と切りすぎ・大きすぎの両方の落と�
     "Hierarchical Chunking","見出し","文脈",
     "512 Token","25％","Token数と文字数は同じではありません",
     "すべてのRAGでチャンク化が必須というわけではありません",
-    "アクセス権限","出典","改訂版"
+    "閲覧権限","出典","改訂版"
   ]) assert.ok(body.includes(part),"Missing an essential teaching caveat: "+part);
   assert.match(body,/^## 今日の結論$/m);
   assert.match(body,/^## 分からなければ戻ろう$/m);
