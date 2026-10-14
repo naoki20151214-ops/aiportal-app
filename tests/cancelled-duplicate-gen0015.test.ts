@@ -46,15 +46,24 @@ test("Cancelled node has no dangling prerequisite, related, curriculum or learni
   assert.ok(paths.paths.every((p:{nodes:string[]})=>!p.nodes.includes("GEN-0015")));
 });
 
-test("GEN-0013 and GEN-0016 dates, source SHA and 20:00 scheduler remain unchanged",()=>{
+test("Cancelled article stays absent while independent approved dates and 20:00 scheduler remain valid",()=>{
   const r=registry(),l=ledger();
-  assert.equal(r.nodes.filter((n:{status:string})=>n.status==="published").length,48);
-  const ready=r.nodes.filter((n:{status:string})=>n.status==="ready");
-  assert.deepEqual(ready.map((n:{id:string})=>n.id),["GEN-0013","GEN-0016"]);
-  const queued=l.approvals.filter((a:{decision:string})=>a.decision==="approved-for-publication");
-  assert.deepEqual(queued.map((a:{id:string})=>a.id),["GEN-0013","GEN-0016"]);
-  assert.equal(queued[0].publishOn,"2026-10-15");
-  assert.equal(queued[1].publishOn,"2026-10-17");
-  assert.equal(queued[1].sourceArticleBlob,"2a66370de26499381a8b4ffe9acf451207a5419e");
-  assert.match(readFileSync(".github/workflows/publish-approved.yml","utf8"),/cron: '0 11 \* \* \*'/);
+  assert.ok(r.nodes.filter((n:{status:string})=>n.status==="published").length>=48);
+  assert.ok(!r.nodes.some((n:{id:string})=>n.id==="GEN-0015"));
+  assert.ok(!l.approvals.some((a:{id:string})=>a.id==="GEN-0015"));
+  for(const [id,publishOn,sourceArticleBlob] of [
+    ["GEN-0013","2026-10-15","dc62e823ebd24bfdfb69a4b7dcb153af31a315b2"],
+    ["GEN-0016","2026-10-17","2a66370de26499381a8b4ffe9acf451207a5419e"],
+  ]) {
+    const node=r.nodes.find((n:{id:string})=>n.id===id);
+    assert.ok(node);
+    assert.ok(["ready","published"].includes(node.status));
+    const approval=l.approvals.find((a:{id:string})=>a.id===id);
+    assert.ok(approval);
+    assert.equal(approval.publishOn,publishOn);
+    assert.equal(approval.sourceArticleBlob,sourceArticleBlob);
+    assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
+  }
+  // Additional approved articles may be queued, including GEN-0017; no fixed-count gate.
+  assert.match(readFileSync(".github/workflows/publish-approved.yml","utf8"),/cron: '0 11 \\* \\* \\*'/);
 });
