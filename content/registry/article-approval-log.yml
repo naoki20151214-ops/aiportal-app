@@ -389,17 +389,17 @@ approvals:
     delegation: site-owner-standing-policy-2026-10-13
     decision: approved-for-publication
     sourceRef: new/GEN-0017-video-generation-20261014
-    originalReviewArticleBlob: 7afc0904a64718fed1f6ca6bfaee6521f2d644c3
-    sourceArticleBlob: 66109c3fa565fd1cf6408693bbd28838318a042c
+    originalReviewArticleBlob: c707102eaac6f6b283d3f5341f2a38f031dc25fc
+    sourceArticleBlob: 2ccc59305da589c25277ccae3110a5638bb09ef7
     editorialAuditPath: content/editorial-audits/GEN-0017.yml
-    editorialAuditBlob: ef3739775591314579e1862d525eb9413fcad154
+    editorialAuditBlob: 8c654398a4ec47a65f5938e5f48f1440dce551b7
     illustrations: 5
     editorialChanges: Only frontmatter status changed from review to ready; body and five figures are SHA-immutable
     evidence: >-
       Under site-owner standing editorial delegation, a separate
-      primary-source checking pass by the same GPT-6 assistant reviewed seven
+      primary-source checking pass by the same GPT-6 assistant reviewed eight
       specific claims against original OpenAI Sora, Google Research, DeepMind
-      Veo and Google Cloud materials. Eight editorial criteria passed;
+      Veo, Google Cloud, and the Sora discontinuation notice. Eight editorial criteria passed;
       internal rubric 90/100 exceeds the 80-point threshold. No independent
       human or other-model reviewer is claimed. Distinct focus from published
       BAS-0030: generation of moving video, frames, temporal consistency,

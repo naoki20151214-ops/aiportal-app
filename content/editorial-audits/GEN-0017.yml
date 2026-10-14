@@ -3,7 +3,7 @@
   "id": "GEN-0017",
   "slug": "video-generation-ai",
   "auditedOn": "2026-10-14",
-  "readyArticleBlob": "66109c3fa565fd1cf6408693bbd28838318a042c",
+  "readyArticleBlob": "2ccc59305da589c25277ccae3110a5638bb09ef7",
   "scope": "standard-evergreen",
   "decision": "pass",
   "humanEscalationRequired": false,
@@ -11,7 +11,7 @@
   "qualityScore": {
     "achieved": 90,
     "required": 80,
-    "scale": "Internal GPT-6 0–100 editorial assessment, not a human or independently validated score; all hard editorial, factual and CI checks are mandatory.",
+    "scale": "Internal GPT-6 0–100 editorial assessment, not a human or independently validated score; all hard editorial, factual and CI checks are mandatory. Official Sora discontinuation added during source repair; no new independent human or model review is claimed.",
     "dimensions": {
       "accuracy": 24,
       "beginnerClarity": 19,
@@ -42,7 +42,7 @@
     },
     "sourceAccuracy": {
       "passed": true,
-      "evidence": "A separate official-source check matched OpenAI Sora launch page and 2024 technical report, Google Research 2022 video generation and 2026 long-form consistency work, DeepMind Veo model documentation and Google Cloud first/last frames. Product-dependent statements are scoped; no assertion that generated scenes are physically verified."
+      "evidence": "A separate official-source check matched OpenAI Sora launch page and 2024 technical report, Google Research 2022 video generation and 2026 long-form consistency work, DeepMind Veo model documentation and Google Cloud first/last frames. Product-dependent statements are scoped; no assertion that generated scenes are physically verified. Verified official OpenAI Help Center Japanese Sora discontinuation notice: web/app sunset 2026-04-26, API sunset 2026-09-24; article describes original Sora exclusively as historical research."
     },
     "imageAccuracyAndAlt": {
       "passed": true,
@@ -102,6 +102,12 @@
       "claim": "Text prompts can be used to generate video through Google Cloud Veo; model access and output conditions vary by service.",
       "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-text?hl=ja",
       "sourceEvidence": "Official Vertex AI Veo text-to-video guide states that Veo in Vertex AI produces new videos from text prompts via Console/API. Article avoids unverified exact model pricing or capability claims.",
+      "verified": true
+    },
+    {
+      "claim": "The original Sora research article remains useful as a historical architecture reference, but the Sora web/app and API are not currently offered in October 2026.",
+      "sourceUrl": "https://help.openai.com/ja-jp/articles/20001152-what-to-know-about-the-sora-discontinuation",
+      "sourceEvidence": "OpenAI official Japanese Help Center 'Sora の提供終了について知っておくべきこと' directly states Sora Web/app ended 2026-04-26 and Sora API ended 2026-09-24. The article explicitly labels its older Sora model explanations as historical, not product recommendations.",
       "verified": true
     }
   ]

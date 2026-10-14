@@ -8,9 +8,9 @@ import { readAllArticles, readArticles } from "../src/lib/article-content";
 
 const ID="GEN-0017";
 const SLUG="video-generation-ai";
-const REVIEW_SHA="7afc0904a64718fed1f6ca6bfaee6521f2d644c3";
-const READY_SHA="66109c3fa565fd1cf6408693bbd28838318a042c";
-const AUDIT_SHA="ef3739775591314579e1862d525eb9413fcad154";
+const REVIEW_SHA="c707102eaac6f6b283d3f5341f2a38f031dc25fc";
+const READY_SHA="2ccc59305da589c25277ccae3110a5638bb09ef7";
+const AUDIT_SHA="8c654398a4ec47a65f5938e5f48f1440dce551b7";
 const FIGURES: Record<string,string>={
  "hero.svg":"2ccfdeea5f0dc82a601443211b94341f704da2c3",
  "fig-01-frames.svg":"4d8c916f948f7ba2f8b5dc36f0f2292d30e5d97d",
@@ -51,7 +51,7 @@ test("GEN-0017 scheduled Oct 16 after two published prerequisites and immutable 
  const report=parse(audit.toString("utf8"));
  assert.equal(report.readyArticleBlob,READY_SHA);
  assert.ok(report.qualityScore.achieved>=80);
- assert.equal(report.criticalClaims.length,7);
+ assert.equal(report.criticalClaims.length,8);
  assert.ok(Object.values(report.checks as Record<string,{passed:boolean}>).every(x=>x.passed));
 });
 
@@ -62,6 +62,8 @@ test("Beginner story teaches time coherence, frame sequencing, methods and AI vi
  for(const term of ["町内会","公園清掃","ほうき","午前9時","午前10時","フレーム","Image-to-Video",
  "Text-to-Video","時間的一貫性","拡散モデル","ノイズ","Sora","Veo",
  "肖像","著作権","SynthID","AIで作成したイメージ映像","架空"])assert.ok(body.includes(term),"Missing "+term);
+ assert.match(body,/2026年4月26日/);
+ assert.match(body,/2026年9月24日/);
  assert.match(body,/^## 今日の結論$/m);
  assert.match(body,/^## 分からなければ戻ろう$/m);
  assert.doesNotMatch(body,/\b(?:BAS|GEN|AGT|PHY|INF|SOC)-\d{4}\b/);
@@ -70,6 +72,7 @@ test("Beginner story teaches time coherence, frame sequencing, methods and AI vi
 test("Official URLs are included and all internal links target already published articles",()=>{
  const src=readFileSync("content/articles/video-generation-ai.md","utf8");
  for(const url of [
+ "https://help.openai.com/ja-jp/articles/20001152-what-to-know-about-the-sora-discontinuation",
  "https://openai.com/index/sora/",
  "https://openai.com/index/video-generation-models-as-world-simulators/",
  "https://research.google/blog/google-research-2022-beyond-language-vision-and-generative-models/",

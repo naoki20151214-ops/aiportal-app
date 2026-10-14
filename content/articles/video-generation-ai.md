@@ -48,7 +48,9 @@ tags: ["動画生成AI", "テキストから動画", "画像から動画", "Sora
 
 動画の続きを作ったり、最初と最後の画像を指定して中間の動きを生成したり、映像を編集したりする方式もあります。
 
-OpenAIの[Soraの研究紹介](https://openai.com/index/sora/)では、文章からの動画生成に加え、既存画像を動かしたり、既存動画を延長したりする研究上の機能が紹介されています。Google Cloudの[Veoの公式資料](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-first-and-last-frames)には、最初と最後のフレームを指定する動画生成の例があります。
+OpenAIの[Soraの研究紹介](https://openai.com/index/sora/)では、文章からの動画生成に加え、既存画像を動かしたり、既存動画を延長したりする研究上の機能が紹介されています。なお、これは**研究・技術史の例**です。OpenAIの[公式な提供終了案内](https://help.openai.com/ja-jp/articles/20001152-what-to-know-about-the-sora-discontinuation)によると、SoraのWeb・アプリ版は**2026年4月26日**、APIは**2026年9月24日**に提供を終了しています。現在利用できるサービスとして紹介しているわけではありません。
+
+Google Cloudの[Veoの公式資料](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-first-and-last-frames)には、最初と最後のフレームを指定する動画生成の例があります。
 
 ただし、**すべての製品がすべての入力方式を扱えるわけではありません**。サービスやモデル、利用条件によって異なります。
 
@@ -292,7 +294,8 @@ Google DeepMindの[Veo公式資料](https://deepmind.google/models/veo/)では�
 
 ## 参考資料（一次情報）
 
-- [OpenAI — Sora: Creating video from text](https://openai.com/index/sora/)
+- [OpenAI — Sora: Creating video from text（研究史上の事例）](https://openai.com/index/sora/)
+- [OpenAI Help Center — Sora提供終了について](https://help.openai.com/ja-jp/articles/20001152-what-to-know-about-the-sora-discontinuation)
 - [OpenAI — Video generation models as world simulators](https://openai.com/index/video-generation-models-as-world-simulators/)
 - [Google Research — Google Research, 2022 & beyond: Language, vision and generative models](https://research.google/blog/google-research-2022-beyond-language-vision-and-generative-models/)
 - [Google DeepMind — Veo](https://deepmind.google/models/veo/)
