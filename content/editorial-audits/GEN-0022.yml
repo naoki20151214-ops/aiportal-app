@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0022",
+  "slug": "ai-search",
+  "auditedOn": "2026-10-15",
+  "readyArticleBlob": "a8c0af526a90067bbc5a12d23fdd8b0c040fb970",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 91,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial assessment (0–100), not an independent human evaluation. Mandatory source, asset, CI and preview checks remain separately required.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 19,
+      "narrative": 19,
+      "visuals": 12,
+      "linksAndPrerequisites": 9,
+      "sourceReview": 8
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0022-narrative-draft-20261015",
+    "verifierId": "GPT-6-GEN-0022-distinct-official-source-pass-20261015",
+    "separateVerificationPass": true,
+    "independenceNote": "A separately performed source-focused review by the same GPT-6 assistant, not a second independent reviewer, model or human. This report records claim-to-URL correspondence and conceptual scope, not third-party certification."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Directly answers what AI search does beyond linking to results, with answer synthesis and source links; clarifies no binary split between traditional search and AI search; separates product search experience from RAG implementation."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "A fictional rainy astronomy club event anchors 'old vs updated' facts. Ordinary search, answering from retrieved materials, citations, query fan-out, RAG, and hybrid search are named only after their roles are demonstrated in accessible Japanese."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "A parent and child trust an old rooftop 18:30 notice, find a newer organizer notice at 19:00 indoors, and learn how to check organizer, event date and amended announcement. The story explicitly disclaims real products or historical incidents."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Separate pass checked Google Japan AI Mode announcement of Japanese rollout and query fan-out, Google May 2024 AI Overview post on integration and errors, official Search Help caution, OpenAI's ChatGPT search 2024 announcement and search Help, and Lewis et al. 2020 RAG paper. Model architectures are not asserted identical and capabilities are scoped."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original 1200x675 pastel SVG figures with role=img, Japanese accessible <title>/<desc>, distinct scene content, descriptive Markdown alt, and explanatory fictional-data disclaimer: hero, search comparison, flow, query fan-out, update/republish verification."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Nine article links all point only to previously published what-is-rag, hybrid-search, rag-retrieval, what-is-prompt, what-is-generative-ai and what-is-llm. Ready GEN-0019/20/21 are not linked."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "GEN-0022 is a pre-existing planned Registry node, not a duplicate: slug ai-search, level 1, prerequisite GEN-0002 (published). All 183 retained GitHub branches inspected; no name/ID matching branch. Search of prior PRs and code found no existing article."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Carefully differentiates citation from verification, warns that sources may be outdated, contradictory or inaccessible and advises extra checks for health, finance, law, transport and emergency contexts. No personal customer data or unsafe guidance."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Google AI Mode launched Japanese-language support in September 2025 and describes query fan-out as dividing a complex question into subtopics and performing related searches.",
+      "sourceUrl": "https://blog.google/intl/ja-jp/products/explore-get-answers/ai-mode-search/",
+      "sourceEvidence": "Google Japan 2025-09-09 announcement, section 'あらゆる複雑な質問に対応できる設計', specifically defines クエリ ファンアウト as breaking questions into サブトピック and searching サブクエリ; also details linked web sources and multimodal inputs.",
+      "verified": true
+    },
+    {
+      "claim": "AI Overviews uses generative models integrated with web search ranking systems; Google documented instances of misleading AI-generated answers and remedial efforts.",
+      "sourceUrl": "https://blog.google/products-and-platforms/products/search/ai-overviews-update-may-2024/",
+      "sourceEvidence": "Google Search official post (May 30, 2024) describes AI Overviews integration with core web ranking systems and explains mistaken or absurd answers, including incorrect interpretation of web content, with corrective steps.",
+      "verified": true
+    },
+    {
+      "claim": "Google AI Mode supports multi-part questions and follow-ups and warns AI results may misinterpret web content or omit context; important claims should be cross-checked.",
+      "sourceUrl": "https://support.google.com/websearch/answer/16011537?co=GENIE.Platform%3DDesktop&hl=en",
+      "sourceEvidence": "Official Google Search Help section 'How AI Mode works' explicitly documents query fan-out; 'How to double-check responses' warns inaccurate interpretation/missing context and recommends multiple sources and clicking cited links.",
+      "verified": true
+    },
+    {
+      "claim": "OpenAI introduced ChatGPT search in 2024 as an experience to obtain timely answers with links to relevant sources.",
+      "sourceUrl": "https://openai.com/ja-JP/index/introducing-chatgpt-search/",
+      "sourceEvidence": "Dated official 2024-10-31 introduction describes web search integrated with ChatGPT and links to relevant web sources in timely answers; current service mechanics are not inferred from historical launch wording.",
+      "verified": true
+    },
+    {
+      "claim": "ChatGPT's official search guidance explains web-based answers and cites potential errors, staleness and incomplete source results, requiring source/date verification.",
+      "sourceUrl": "https://help.openai.com/ja-jp/articles/9237897-searching-the-web-with-chatgpt",
+      "sourceEvidence": "Official OpenAI Help Center sections on 'ウェブ検索' and '情報源と検索結果の確認' explicitly state latest information with links and acknowledge incomplete, stale or incorrect sources or citations.",
+      "verified": true
+    },
+    {
+      "claim": "The foundational RAG research combines pretrained parametric language models with information retrieved from external nonparametric memory, distinct from a complete end-user AI search product.",
+      "sourceUrl": "https://arxiv.org/abs/2005.11401",
+      "sourceEvidence": "Lewis et al. 2020 paper abstract explicitly says pretrained seq2seq model plus Wikipedia dense-vector-index non-parametric memory accessed with a neural retriever; the article explains this as one technical pattern rather than claiming all products reproduce the paper exactly.",
+      "verified": true
+    }
+  ]
+}
