@@ -305,7 +305,7 @@ approvals:
     approvedOn: 2026-10-14
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0011-rag-retrieval-20261014
     originalReviewArticleBlob: 9eb4bd0c0a586aa0b68cc0a2ef96c50b487fa47c
     sourceArticleBlob: e9925518bacb829f70adef09fc3ea7ad9ba1c24c
@@ -313,9 +313,10 @@ approvals:
     editorialAuditBlob: 4a10a1d03246e32cab3f05fa05c3bf2a7f98c7ca
     illustrations: 6
     editorialChanges: Only review-to-ready frontmatter status changed; body preserved
-    evidence: Distinct source-verification and technical proofreading pass
-      performed by the same GPT-6 assistant after initial manuscript drafting;
-      Microsoft Learn and AWS Bedrock first-party documentation and six
-      SHA-pinned illustrations were inspected. Standing site-owner delegation
-      applies to this evergreen article. No independent human or separate
-      model reviewer is claimed.
+    evidence: Distinct source-verification and technical proofreading pass performed
+      by the same GPT-6 assistant after initial manuscript drafting; Microsoft
+      Learn and AWS Bedrock first-party documentation and six SHA-pinned
+      illustrations were inspected. Standing site-owner delegation applies to
+      this evergreen article. No independent human or separate model reviewer is
+      claimed.
+    publishedOn: 2026-10-14

@@ -23,6 +23,7 @@ export const publishedArticleSlugById = {
   "GEN-0008": "what-is-rag",
   "GEN-0009": "rag-chunking",
   "GEN-0010": "vector-database",
+  "GEN-0011": "rag-retrieval",
   "GEN-0090": "chatgpt-search",
   "GEN-0091": "gemini-long-context",
   "GEN-0092": "luma-dream-machine",
