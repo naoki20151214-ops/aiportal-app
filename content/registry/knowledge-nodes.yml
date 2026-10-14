@@ -548,7 +548,7 @@ nodes:
     category: "生成AI"
     level: 2
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "Embeddingを保存・検索するVector Databaseは何をしているのか？"
     prerequisites: ["BAS-0015","BAS-0016","GEN-0008"]
     children: []

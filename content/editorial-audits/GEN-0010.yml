@@ -1,0 +1,64 @@
+schemaVersion: 1
+id: "GEN-0010"
+slug: "vector-database"
+auditedOn: "2026-10-14"
+readyArticleBlob: "bc93a0363c3c7f7b21771ecce4841a5b15b5aa4b"
+scope: "standard-evergreen"
+decision: "pass"
+humanEscalationRequired: false
+blockingFindings: []
+reviewProcess:
+  writerId: "GPT-6-drafting-pass-20261014"
+  verifierId: "GPT-6-separate-primary-source-audit-pass-20261014"
+  separateVerificationPass: true
+  independenceNote: "Separate second technical verification pass by the same GPT-6 assistant; no separate human reviewer, distinct model or external independent evaluator is claimed."
+checks:
+  centralQuestion:
+    passed: true
+    evidence: "GEN-0010の中心疑問『Vector Databaseは何を保存し、どう近いものを検索するか？』に対し、元チャンクとID/版/ベクトルの対応、クエリEmbedding、距離/類似度、Exact/ANN、メタデータ絞込み、RAGの回答作成の区別まで一貫して解説。"
+  beginnerClarity:
+    passed: true
+    evidence: "Embeddingは数値表現を作るがVector Databaseは記録の保存・検索を担当する、と混同を防止。2次元ベクトルは架空の模式図と明記、実際は多次元で軸の意味が固定ではないと説明し、計算式を初学者に要求しない。"
+  narrativeExamples:
+    passed: true
+    evidence: "RAGとChunkingに続く町内会の清掃案内を9時旧版/10時改訂版で継続。キーワードが一致しなくても候補となる理由と、古い版が意味検索で上位になりうる失敗を物語で示し、版条件と権限チェックへ導く。"
+  sourceAccuracy:
+    passed: true
+    evidence: "第二の技術照合パスでMicrosoft Learn Azure AI Search vector overview/how-to-query/ranking/filtering、AWS Bedrock公式workflow、pgvector公式READMEを確認。同じEmbeddingモデル利用、ID/メタデータ連携、Exact vs ANN/HNSW、ハイブリッド検索、フィルタの前後適用を一般化しすぎず説明した。"
+  imageAccuracyAndAlt:
+    passed: true
+    evidence: "新規オリジナル1200×675 SVG図解6点はhero・記録・意味距離の架空2D図・登録/質問の二つの工程・Exact/ANN・新旧版と権限のフィルタにそれぞれ対応。全文の本文altを確認しSVGのtitle/descを備える。架空数値と実測を混同させない注記がある。"
+  internalLinks:
+    passed: true
+    evidence: "内部リンクの行先はrag-chunking、what-is-embedding、vectors-for-ai、what-is-ragの4種類のみ。2026-10-14 main Registryで全件published、未公開のGEN-0011をリンクとして作らない。"
+  prerequisites:
+    passed: true
+    evidence: "GEN-0010 prerequisites=[BAS-0015,BAS-0016,GEN-0008]はすべてpublished。関連するGEN-0009もpublished、次のGEN-0011 Retrievalの前提になることを確認。"
+  riskAndSafety:
+    passed: true
+    evidence: "一般技術教育のみで個別高リスク判断なし。類似度≠事実、近似検索の取りこぼし、古い索引更新、モデルの互換性、アクセス権限の検証、メタデータの自動正答保証の否定を明記した。"
+criticalClaims:
+  - claim: "文書のチャンクはEmbeddingモデルがベクトルへ変換し、元文書とのマッピングを維持してベクトル索引に登録できる。質問もベクトル化し類似するチャンクを検索してLLMへ渡す。"
+    sourceUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-how-it-works.html"
+    sourceEvidence: "AWS Bedrock公式『Pre-processing unstructured data』『Runtime execution』に『chunks are then converted to embeddings and written to a vector index, while maintaining a mapping to the original document』、質問のベクトル化からindex queryingとLLMへの文書追加までの図解がある。架空の町内会例と明確に区別。"
+    verified: true
+  - claim: "Azure AI Searchはベクトルのインデックス保存、類似性検索、テキスト・数値のmetadata filtering、キーワード検索と組み合わせるhybrid queryが可能。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-overview"
+    sourceEvidence: "Microsoft Learn『Vector Search Overview』のvector indexing/storing/query、metadata filters、hybrid search節は用途を詳述。対象が独立専用DBである必要はない点もAzure AI Searchの公式例で支持。"
+    verified: true
+  - claim: "質問のEmbeddingは登録文書と同じEmbeddingモデルで生成するのがベストプラクティスで、クエリの数値と文書の数値の互換性が重要。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-query"
+    sourceEvidence: "Microsoft『Create a Vector Query』の『Convert a query string input into a vector』は『As a best practice, always use the same embedding models used to generate embeddings in the source documents』と明記。次元と表現の互換性を確認せず異なるモデルを混ぜない説明と対応。"
+    verified: true
+  - claim: "ベクトル検索には全件比較するexhaustive kNNと、効率を上げる近似最近傍ANN/HNSWがあり、近似方式は速度とRecallのトレードオフを持つ。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-ranking"
+    sourceEvidence: "Microsoft『Vector Relevance and Ranking』はExhaustive KNNをbrute force scanと、HNSWをapproximate nearest neighbor ANNと説明。pgvector公式READMEもexact default/approximate index trades recall for speedを明示。記事ではANNが必ず完全な最短候補を返すと誤認させない。"
+    verified: true
+  - claim: "PostgreSQLのpgvector拡張はL2距離、コサイン距離、内積などの検索と、HNSW/IVFFlatの近似索引を提供する。"
+    sourceUrl: "https://github.com/pgvector/pgvector"
+    sourceEvidence: "pgvector公式リポジトリREADMEの『Querying』はL2、inner product、cosine distance等の演算子を列挙。『Indexing』はexact nearest neighborがデフォルト、HNSWとIVFFlat approximate indexが可能であることを明記。"
+    verified: true
+  - claim: "ベクトル類似度の上位結果と最新版や閲覧権限の正しさは別であり、テキスト・数値のfilterable metadataを検索の前後に適用する設計がある。"
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/search/vector-search-filters"
+    sourceEvidence: "Microsoft『Vector Query Filters』のOverviewではvector field itself not filterable、nonvector fieldへフィルタ、preFilter/postFilter/strictPostFilterのモードを説明。資料版と権限の例は記事側の架空ユースケースであり、自動的に新版が選ばれると断言していない。"
+    verified: true
