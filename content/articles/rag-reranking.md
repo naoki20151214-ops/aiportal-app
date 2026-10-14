@@ -6,7 +6,7 @@ description: "RAGのReranking（再順位付け）を、町内会の清掃案内
 category: "生成AI"
 level: 3
 type: "mechanism"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-14"
 updatedAt: "2026-10-14"
 author: "AI Portal編集部"
