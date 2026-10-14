@@ -261,3 +261,17 @@ approvals:
       see immutable audit. Same GPT-6 assistant performed drafting and
       second-pass verification, no separate human reviewer asserted."
     publishedOn: 2026-10-14
+  - id: "GEN-0009"
+    slug: "rag-chunking"
+    approvedOn: "2026-10-14"
+    approvedBy: "editorial-qa"
+    delegation: "site-owner-standing-policy-2026-10-13"
+    decision: "approved-for-publication"
+    sourceRef: "new/GEN-0009-chunking-20261014"
+    originalReviewArticleBlob: "502cabf0e63a3b361e4bf804f0aec5e9fb9e4cc0"
+    sourceArticleBlob: "73ff74027dfb23fab9bd2322998eaa1fc2fc3837"
+    editorialAuditPath: "content/editorial-audits/GEN-0009.yml"
+    editorialAuditBlob: "d45423b5d8c19a1c11270955891d87fe6486d256"
+    illustrations: 6
+    editorialChanges: "None; review→ready frontmatter only; original body unchanged"
+    evidence: "2026-10-14 standing editorial delegation: same GPT-6 assistant drafted the Chunking article and performed a distinct second factual/source and learning-quality check using Microsoft Azure AI Search and AWS Bedrock original documentation. Full SHA-bound audit is provided; no independent human reviewer is claimed."
