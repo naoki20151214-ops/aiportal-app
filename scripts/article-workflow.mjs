@@ -220,7 +220,7 @@ async function gatePullRequest(snapshot) {
       const claim=path.join(ROOT,`.github/article-reuse/${front.id}.yml`);
       const provenance=fs.existsSync(claim)?parse(fs.readFileSync(claim,'utf8')):null;
       if(provenance && (provenance.id!==front.id||!provenance.sourceRef))throw new Error('Malformed reuse provenance');
-      const result=checkReuseProvenance({row,sourceRef:provenance?.sourceRef,incomingBranch:branch});
+      const result=checkReuseProvenance({row,sourceRef:provenance?.sourceRef,incomingBranch:branch,incomingPrNumber:Number(prNum)});
       console.log(`${front.id}: ${result}`);
     }catch(e){errors.push(`${file.filename}: ${e.message}`);}
   }

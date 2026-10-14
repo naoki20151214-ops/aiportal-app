@@ -74,13 +74,19 @@ export function decideStart(row) {
   return {allowed:true, why:'No matching article in main, retained branches, or PR history at scan time. New drafting is eligible; claim the ID first.'};
 }
 
-export function checkReuseProvenance({row, sourceRef, incomingBranch}) {
+/** @param {{row: any, sourceRef?: string, incomingBranch: string, incomingPrNumber?: number}} args */
+export function checkReuseProvenance({row, sourceRef, incomingBranch, incomingPrNumber}) {
   if (!row) throw new Error('Unknown article ID');
   if (row.mainArticleStatus) throw new Error(`${row.id}: article already exists on main`);
   const candidates = row.branches.filter(b => b.branch !== incomingBranch);
   if (candidates.length === 0) {
     if (sourceRef) throw new Error(`${row.id}: declared reuse source has no verified article`);
-    if (row.prs.some(p => !p.merged)) throw new Error(`${row.id}: PR history suggests prior work; investigate before starting`);
+    // The PR being inspected is not *prior* work. Only another PR's
+    // evidence can block fresh drafting; retained source branches still
+    // require reuse declarations below.
+    const otherPrs = row.prs.filter(p => Number(p.number) !== Number(incomingPrNumber));
+    if (otherPrs.some(p => !p.merged))
+      throw new Error(`${row.id}: PR history suggests prior work; investigate before starting`);
     // A newly added PR article is normally draft/review/ready in the PR Registry.
     // Only existing main files, other retained branches, or PR history prove duplication.
     return 'NEW: no remote source found';
