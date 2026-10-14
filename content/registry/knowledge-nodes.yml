@@ -608,7 +608,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "planned"
+    status: "ready"
     centerQuestion: "複数のモダリティを理解・生成するAIはどう使われるのか？"
     prerequisites: ["BAS-0030","GEN-0001"]
     children: ["GEN-0016","GEN-0017","GEN-0018"]

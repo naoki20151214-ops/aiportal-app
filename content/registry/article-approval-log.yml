@@ -360,3 +360,26 @@ approvals:
       80-percent threshold. No independent human or different model review is claimed.
       Publication authorized for the first scheduled JST 20:00 slot on/after
       2026-10-15, not an immediate PR merge release.
+  - id: GEN-0015
+    slug: multimodal-ai
+    approvedOn: 2026-10-14
+    publishOn: 2026-10-16
+    approvedBy: editorial-qa
+    delegation: site-owner-standing-policy-2026-10-13
+    decision: approved-for-publication
+    sourceRef: new/GEN-0015-multimodal-ai-20261014
+    originalReviewArticleBlob: 10bb7d81b5f1a248f8baddf579c2418ddde7d35a
+    sourceArticleBlob: 46e2f5d9f4174588ab798f0b20567c347ab8428e
+    editorialAuditPath: content/editorial-audits/GEN-0015.yml
+    editorialAuditBlob: d9a63568aa73591d07d5b31df755939c99f06ffd
+    illustrations: 5
+    editorialChanges: Review-to-ready frontmatter status only; original body and five diagrams are SHA-immutable
+    evidence: Standing site-owner delegation for an evergreen beginner tutorial.
+      A separate primary-source verification pass by the same GPT-6 assistant
+      checked Google Cloud, DeepMind and original OpenAI CLIP sources, with
+      seven claim-specific evidence records and eight passing criteria.
+      Distinct focus from already-published BAS-0030 conceptual primer is
+      input-to-output modality workflows and their real-world limitations.
+      Internal rubric score 89/100 clears the 80-point threshold; no independent
+      human or different-model reviewer is asserted. Publication is reserved
+      for on-or-after 2026-10-16 20:00 JST, never immediate on PR merge.
