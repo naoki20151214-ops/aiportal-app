@@ -65,7 +65,7 @@ test("a differentiated 9k-character beginner story teaches diffusion and alterna
  assert.ok(body.length>9000,"Incomplete long-form beginner lesson");
  for(const term of ["町内会","午前9時","午前10時","プロンプト","拡散モデル",
    "ノイズ","学習","Cross-Attention","潜在","画素","自己回帰的","DALL",
-   "Imagen","Inpainting","18時","著作権","個人情報","元の資料"]){
+   "Imagen","Inpainting","18時","著作権","個人情報","正式な案内"]){
    assert.ok(body.includes(term),"Missing important teaching point "+term);
  }
  assert.match(body,/^## 今日の結論$/m);
