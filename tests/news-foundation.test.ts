@@ -82,7 +82,7 @@ test("Pending feed candidates are never approved news and no release API exists"
 
 test("News-to-learning suggestions include only published real learning pages",()=>{
   const published=readArticles(path.join(process.cwd(),"content/articles"));
-  const news=published.find(x=>x.id==="NEWS-0090");
+  const news=published.find(x=>x.slug==="apple-intelligence-update");
   assert.ok(news,"Existing published AI news available");
   const links=newsLearningLinks(news,published);
   assert.ok(links.length>=2);
