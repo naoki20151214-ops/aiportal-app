@@ -75,7 +75,8 @@ test("Pending feed candidates are never approved news and no release API exists"
   assert.ok(!job.steps.some(s=>/git push|auto-publish-approved|publish-approved/.test(String(s.run||""))));
   const collector=readFileSync("scripts/collect-news-candidates.mjs","utf8");
   assert.ok(collector.includes("artifacts/news-candidates.json"));
-  assert.ok(!/git push|writeFileSync\\(["']content\\/articles/.test(collector));
+  assert.ok(!collector.includes("git push"));
+  assert.ok(!collector.includes("content/articles/"));
   assert.ok(!workflow.jobs.collect.permissions);
 });
 
