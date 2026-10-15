@@ -51,3 +51,28 @@
 - Cloudflare側にWAF/Rate Limiting等の投稿制限を設定・確認する。公開前にヘルスチェックの応答と、同一オリジンPOSTが成功してD1に保存されることを実際に確認する。
 - **すべての準備を終えてから** `AI_PORTAL_READER_COMMENTS_ENABLED=1` をProductionで設定する。設定なしがデフォルトで、GETは503、画面は送信不可・問い合わせフォームへのリンクを表示する。環境設定やデータベースの存在を推測して有効だと報告しない。
 - 自由記述は広告・属性推測のターゲティングに使わず、編集者による傾向分析の参考にする。読者の自由記述を再公開する際は、別途権利・個人情報の確認が必要。
+
+
+### 編集者が投稿を確認する方法（管理者限定）
+
+本番Cloudflareダッシュボードの D1 → 対象のデータベース → Console から、管理権限を持つ運営者だけが投稿を確認する。公開サイトには閲覧・検索用APIを設けない。初回運用前に Cloudflare Pages の D1 binding `AI_PORTAL_FEEDBACK_DB` が参照するデータベースを特定し、意図したデータベースだけに SQL migration `0002_reader_comments.sql` を適用する。
+
+例：最近の投稿を25件に制限して確認する（D1管理コンソールに入力）。
+
+```sql
+SELECT received_at, slug, prompt_code, note
+FROM reader_comments
+ORDER BY received_at DESC
+LIMIT 25;
+```
+
+提出された自由記述には、利用者が意図せず連絡先や機微情報を書いている可能性がある。閲覧は運営者に限定し、外部のLLMや分析サービスへ生本文を自動送信しない。集計や記事改善メモに使うときは、引用せず、個人を特定できる内容を除去する。不要な投稿はCloudflare D1で削除する。最初の運用方針として180日を超えた本文を定期的に削除する（実行責任者と運用頻度を決めるまでは自動削除済みとみなさない）。例：
+
+```sql
+DELETE FROM reader_comments
+WHERE received_at < strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-180 days');
+```
+
+### 本番検証の完了条件
+
+`GET /api/reader-comment` が設定前 503 を返すことを確認。マイグレーション、D1 binding、Turnstileの公開鍵・秘密鍵、Rate Limiting を構成したあとだけ機能フラグを有効化する。健康確認 `GET` が `200 {"ok":true,"available":true}` を返し、**実機のブラウザで**同意・不同意の両条件で投稿を試し、ランダムな受付番号の返却と D1 にその投稿が1件だけ保存されたことを運営者自身が確認する。不正URL・未公開slug・間違ったTurnstileアクション・他オリジン・重複投稿の拒否を確認してから「本番受付開始」と報告する。
