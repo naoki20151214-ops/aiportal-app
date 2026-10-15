@@ -62,15 +62,38 @@ test("Surveys and next-link tracking are consent-only, passive, and published-pa
   assert.ok(survey.includes("アクセス解析に同意した場合だけ選択肢を計測します"));
   assert.ok(survey.includes("閉じる"));
   assert.ok(survey.includes('stage==="intent"?readerIntentChoices:readerOutcomeChoices'));
-  assert.ok(detail.includes('<ReaderSurvey stage="intent"'));
-  assert.ok(detail.includes('<ReaderSurvey stage="outcome"'));
-  assert.ok(detail.indexOf('<ReaderSurvey stage="intent"')<detail.indexOf('<ArticleBody content={articleContent}'));
-  assert.ok(detail.indexOf('<ReaderSurvey stage="outcome"')>detail.indexOf('<ArticleBody content={articleContent}'));
+  assert.ok(survey.includes('data-reader-survey-dock="true"'));
+  assert.ok(survey.includes('className="fixed right-3'));
+  assert.ok(survey.includes('style={{bottom:"calc(0.75rem + env(safe-area-inset-bottom))"}}'));
+  assert.ok(survey.includes('aria-expanded={open}'));
+  assert.ok(survey.includes('role="dialog" aria-modal="false"'));
+  assert.ok(survey.includes('max-h-[min(68dvh,31rem)]'));
+  assert.ok(survey.includes('onClick={()=>setOpen(value=>!value)}'));
+  assert.ok(survey.includes("感想・アンケート"));
+  assert.ok(survey.includes("読んだ理由"));
+  assert.ok(survey.includes("読後の感想"));
+  assert.ok(detail.includes('<ReaderSurvey slug={article.slug} context={readerContext} />'));
+  assert.equal((detail.match(/<ReaderSurvey /g)||[]).length,1);
+  assert.ok(detail.indexOf('<ReaderSurvey slug={article.slug}')>detail.indexOf('</main>'));
+  assert.ok(!detail.includes('<ReaderSurvey stage="intent"'));
+  assert.ok(!detail.includes('<ReaderSurvey stage="outcome"'));
   assert.ok(detail.includes('placement="news-learning"'));
   assert.ok(related.includes('placement="related"'));
   assert.ok(news.includes('placement="news-index"'));
   assert.ok(privacy.includes("読者の閲覧動機・読後の変化に関する任意アンケート"));
   assert.ok(privacy.includes("アクセス解析への同意がある場合に限り"));
+});
+
+test("Floating reader dock is opt-in and does not alter any article markdown",()=>{
+  const survey=readFileSync("src/components/reader-survey.tsx","utf8");
+  const detail=readFileSync("src/app/articles/[slug]/page.tsx","utf8");
+  assert.ok(survey.includes("const [open,setOpen]=useState(false)"));
+  assert.ok(survey.includes("if(event.key===\"Escape\")"));
+  assert.ok(survey.includes('onClick={()=>setOpen(false);')===false);
+  assert.ok(survey.includes("triggerRef.current?.focus()"));
+  assert.ok(survey.includes("readerIntentChoices, readerOutcomeChoices"));
+  assert.ok(detail.includes("<ArticleBody content={articleContent} article={article} />"));
+  assert.ok(detail.includes("<ArticleFeedback articleId={article.id}"));
 });
 
 test("No change to original article approval gate or daily release scheduler",()=>{
