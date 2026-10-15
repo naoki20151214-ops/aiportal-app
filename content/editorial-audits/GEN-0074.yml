@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "GEN-0074",
+  "slug": "image-to-video",
+  "auditedOn": "2026-10-15",
+  "readyArticleBlob": "36da383b9429272dd9330fa9ee9efb3fcc2f644f",
+  "scope": "standard-evergreen",
+  "decision": "pass",
+  "humanEscalationRequired": false,
+  "blockingFindings": [],
+  "qualityScore": {
+    "achieved": 91,
+    "required": 80,
+    "scale": "Internal GPT-6 editorial assessment (0–100), not third-party or independent-model review. Source-focused second pass conducted by the same assistant, with remaining quality gates enforced by CI.",
+    "dimensions": {
+      "accuracy": 24,
+      "beginnerClarity": 20,
+      "narrative": 19,
+      "visuals": 12,
+      "linksAndPrerequisites": 9,
+      "sourceReview": 7
+    }
+  },
+  "reviewProcess": {
+    "writerId": "GPT-6-GEN-0074-writing-20261015",
+    "verifierId": "GPT-6-GEN-0074-separate-source-evidence-pass-20261015",
+    "separateVerificationPass": true,
+    "independenceNote": "A distinct first-party-source review was performed by the same GPT-6 assistant; neither a different model nor an independent human reviewer is asserted."
+  },
+  "checks": {
+    "centralQuestion": {
+      "passed": true,
+      "evidence": "Focuses on one-image conditioning, new motion vs unknown unobserved views, first/last frame conditioning and verifying creative outputs rather than duplicating GEN-0017 general video fundamentals or GEN-0073 text-only shot design."
+    },
+    "beginnerClarity": {
+      "passed": true,
+      "evidence": "Recurring fictional coastal town guide Aoi animates a front-view lighthouse photograph, sees a made-up rear window when requesting orbiting camera, then learns to keep camera still and move waves or flowers instead. Explains visual input as constraints, not recording of future or unseen architecture."
+    },
+    "narrativeExamples": {
+      "passed": true,
+      "evidence": "Begins with mystery of an invented rear-window, tests why a single photograph cannot uniquely determine cloud direction, hidden backside, or intermediate motion; contrasts A/B/C choices and first-and-last frame proposal with careful fictional disclaimers."
+    },
+    "sourceAccuracy": {
+      "passed": true,
+      "evidence": "Claims reviewed against first-party Runway Academy prompt guide, Runway Sep 2026 Image-to-video official article and API example, Runway Nov 2025 photo prompting, Google Cloud's first/last frame guide, DeepMind Veo feature and provenance description, and Blattmann et al. 2023 Stable Video Diffusion original paper. No claim that every model supports dual frames or perfect unseen-view reconstruction."
+    },
+    "imageAccuracyAndAlt": {
+      "passed": true,
+      "evidence": "Five original 1200x675 SVG diagrams with role=img, Japanese <title>/<desc> and descriptive Markdown alt; figure Git blobs locked by dedicated test. Hero, text-vs-image, unseen rear area, three motion options and first/last frames are distinct."
+    },
+    "internalLinks": {
+      "passed": true,
+      "evidence": "Three direct internal links point only to previously published what-is-generative-ai, what-is-prompt and what-is-multimodal. Related scheduled GEN-0017/GEN-0073 are described in prose only rather than pointing to unpublished pages."
+    },
+    "prerequisites": {
+      "passed": true,
+      "evidence": "Canonical Registry GEN-0074 planned node, slug image-to-video and prerequisite GEN-0017; prerequisite is currently approved and queued Oct 16 at 20:00 JST. New publishOn Oct 25 is after parent slot, and current scheduler's published-only prerequisite check will defer if parent has not actually published."
+    },
+    "riskAndSafety": {
+      "passed": true,
+      "evidence": "Warns that animation is not a real-event record, that hidden areas may be fabricated, and calls out permission to use photographs, likeness/copyright considerations, output disclaimers and limits of provenance watermarking. Does not advise fabricating footage as evidence."
+    }
+  },
+  "criticalClaims": [
+    {
+      "claim": "Runway's prompt guide distinguishes Image to Video from Text to Video, with a supplied image establishing subject composition, lighting and style and a text prompt mainly steering motion.",
+      "sourceUrl": "https://academy.runwayml.com/guides/prompting-guide",
+      "sourceEvidence": "Official Runway Academy sections 'Text to Video', 'Image to Video', and 'Image Prompt' explain what the image supplies as first frame and the motion-focused prompt; also gives camera and timing elements and warns artifacts or contradictory motion cues can worsen results.",
+      "verified": true
+    },
+    {
+      "claim": "Runway's September 2026 first-party guide describes generating a clip from a single image as an initial reference frame, with prompted motion and final inspection.",
+      "sourceUrl": "https://runway.com/resources/image-to-video-guide",
+      "sourceEvidence": "Runway article dated September 12, 2026 defines image-to-video from a single still, describes the source image constraining initial composition/appearance and outlines uploading image, describing motion, camera setting, generation and review.",
+      "verified": true
+    },
+    {
+      "claim": "Runway's official prompt tips recommend separating camera motion, scene movement and atmosphere for photo-to-video prompting.",
+      "sourceUrl": "https://runway.com/resources/photo-to-video-tips",
+      "sourceEvidence": "Runway's November 5, 2025 first-party guide explicitly uses the three-part structure camera movement plus scene action plus atmosphere; advises simple, controllable motions and iterative evaluation, not guaranteed output precision.",
+      "verified": true
+    },
+    {
+      "claim": "Runway provides an image-to-video developer flow with a first-frame image and optional text specifying camera movement.",
+      "sourceUrl": "https://dev.runwayml.com/endpoints/image_to_video",
+      "sourceEvidence": "Runway Dev official image-to-video endpoint UI includes first-frame image input, separate prompt field such as camera movement, aspect ratio and duration settings; this shows an available product-specific configuration, not universal capability.",
+      "verified": true
+    },
+    {
+      "claim": "Google Cloud's Veo documentation demonstrates use of first and optional last frames with a prompt to synthesize video, but this does not recreate the real unseen intermediate history.",
+      "sourceUrl": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/generate-videos-from-first-and-last-frames",
+      "sourceEvidence": "Google Cloud first-and-last-frames official page states first/last frame generation and shows an optional ending frame plus a textual prompt. The limitation about historical reconstruction is logical underdetermination explained as an educational inference, not a reported Google benchmark.",
+      "verified": true
+    },
+    {
+      "claim": "Google DeepMind Veo distinguishes reference images for subject or style from first-and-last frame control and discusses SynthID provenance with remaining safety limitations.",
+      "sourceUrl": "https://deepmind.google/models/veo/",
+      "sourceEvidence": "Official DeepMind Veo 3.1 page sections 'Add ingredients', 'Match your style', 'Keep your characters consistent', 'First and last frame', and 'Safety' explicitly separate reference-image functions and describe SynthID and privacy/copyright safety evaluation.",
+      "verified": true
+    },
+    {
+      "claim": "The original Stable Video Diffusion paper presents latent video diffusion for image-to-video generation, video temporal layers and multi-view adaptation without demonstrating guaranteed correct unseen geometry.",
+      "sourceUrl": "https://arxiv.org/abs/2311.15127",
+      "sourceEvidence": "Blattmann et al. November 2023 paper abstract introduces image-to-video applications, temporal layers in video diffusion models and adaptation to camera motion/multi-view 3D priors; article only attributes research concepts, not exact reproduction of the lighthouse's hidden rear.",
+      "verified": true
+    }
+  ]
+}
