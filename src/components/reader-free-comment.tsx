@@ -6,17 +6,6 @@ import {readerCommentPrompts,validateReaderComment,type ReaderCommentPrompt} fro
 
 const siteKey=process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY||"";
 const contact="https://docs.google.com/forms/d/e/1FAIpQLSdP1r0fWxEinCVDqNuMT2nKvCX__2epeWHoxUWc623oxKCAvQ/viewform";
-type Widget={
-  render(element:HTMLElement,options:{
-    sitekey:string;action:string;appearance:"interaction-only";
-    execution:"render";language:string;
-    callback:(token:string)=>void;
-    "expired-callback":()=>void;"error-callback":()=>void;
-  }):string;
-  reset(id:string):void;remove(id:string):void;
-};
-declare global {interface Window {turnstile?:Widget}}
-
 type Pending={requestId:string;slug:string;promptCode:ReaderCommentPrompt;note:string};
 type Props={slug:string};
 
