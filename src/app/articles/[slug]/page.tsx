@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: Props) {
                 ))}
               </ul>
             </section>
-          )
+          )}
           {article.tags.length > 0 && (
             <ul aria-label="記事のタグ" className="flex flex-wrap gap-2 mt-8">
               {article.tags.map((tag) => <li key={tag} className="text-xs px-3 py-1 border border-gray-200 rounded-full text-gray-600">#{tag}</li>)}
