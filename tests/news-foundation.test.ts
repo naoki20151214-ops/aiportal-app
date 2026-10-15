@@ -17,8 +17,8 @@ const source = {id:"official-test",name:"Official Publisher",allowedHosts:["open
 test("News feed registry lists only official, HTTPS, restricted publisher hosts",()=>{
   const sources=validateSourceConfig(config);
   assert.ok(sources.length>=4);
-  assert.ok(sources.every(s=>s.kind.startsWith("official-")));
-  assert.ok(!sources.some(s=>/reddit|hackernews|techcrunch/.test(s.feedUrl)));
+  assert.ok(sources.every((s:{kind:string})=>s.kind.startsWith("official-")));
+  assert.ok(!sources.some((s:{feedUrl:string})=>/reddit|hackernews|techcrunch/.test(s.feedUrl)));
   assert.throws(()=>validateSourceConfig({schemaVersion:1,sources:[
     {id:"bad",name:"Bad",allowedHosts:["example.com"],feedUrl:"http://example.com/rss"}
   ]}),/Unsafe/);
@@ -71,8 +71,8 @@ test("Pending feed candidates are never approved news and no release API exists"
   assert.equal(workflow.permissions.contents,"read");
   assert.equal(workflow.on.schedule[0].cron,"0 22 * * *");
   const job=workflow.jobs.collect;
-  assert.ok(job.steps.some(s=>String(s.run||"").includes("collect-news-candidates.mjs")));
-  assert.ok(!job.steps.some(s=>/git push|auto-publish-approved|publish-approved/.test(String(s.run||""))));
+  assert.ok(job.steps.some((s:{run?:string})=>String(s.run||"").includes("collect-news-candidates.mjs")));
+  assert.ok(!job.steps.some((s:{run?:string})=>/git push|auto-publish-approved|publish-approved/.test(String(s.run||""))));
   const collector=readFileSync("scripts/collect-news-candidates.mjs","utf8");
   assert.ok(collector.includes("artifacts/news-candidates.json"));
   assert.ok(!collector.includes("git push"));
