@@ -1,0 +1,42 @@
+name: AI News Candidate Intake (private and read-only)
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # ~07:00 JST; GitHub cron may be delayed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aiportal-news-intake
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: github.repository == 'naoki20151214-ops/aiportal-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Collect only unverified official RSS metadata
+        run: node scripts/collect-news-candidates.mjs --lookback-hours=72
+      - name: Save private intake evidence, not public content
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-candidates-${{ github.run_id }}
+          path: artifacts/news-candidates.json
+          if-no-files-found: warn
+          retention-days: 14

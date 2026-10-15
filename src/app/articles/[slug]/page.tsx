@@ -5,6 +5,7 @@ import ArticleBody from "@/components/article-body";
 import ArticleFeedback from "@/components/article-feedback";
 import ArticleDifficulty from "@/components/article-difficulty";
 import RelatedArticles from "@/components/related-articles";
+import { newsLearningLinks } from "@/lib/news-learning-links";
 import SiteFooter from "@/components/site-footer";
 import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
@@ -50,6 +51,8 @@ export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) notFound();
+  const learning = article.category === "AIニュース" || article.type === "news"
+    ? newsLearningLinks(article, getAllArticles()) : [];
   const nextReading = getNextReadingMarkdown(article.id);
   const articleContent = linkPublishedReadingTargets(nextReading ? `${article.content}\n\n${nextReading}` : article.content);
 
@@ -87,6 +90,19 @@ export default async function ArticlePage({ params }: Props) {
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
           <ArticleBody content={articleContent} article={article} />
+          {learning.length > 0 && (
+            <section aria-labelledby="news-learning-title" className="mt-10 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:p-6">
+              <h2 id="news-learning-title" className="text-xl font-black text-gray-900">このニュースを理解するための基礎知識</h2>
+              <p className="mt-2 text-sm leading-7 text-gray-700">ニュースの背景が分かると、何が変わったのかをもっと深く考えられます。</p>
+              <ul className="mt-4 space-y-3">
+                {learning.map((target) => (
+                  <li key={target.slug}>
+                    <Link href={`/articles/${target.slug}`} className="text-sm font-bold text-blue-700 hover:underline">{target.title} →</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           {article.tags.length > 0 && (
             <ul aria-label="記事のタグ" className="flex flex-wrap gap-2 mt-8">
               {article.tags.map((tag) => <li key={tag} className="text-xs px-3 py-1 border border-gray-200 rounded-full text-gray-600">#{tag}</li>)}
