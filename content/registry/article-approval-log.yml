@@ -562,3 +562,17 @@ approvals:
     illustrations: 5
     editorialChanges: Only frontmatter review-to-ready status field changed; original story body and all five SVGs remain unchanged
     evidence: "Standing owner-delegated editorial policy, 2026-10-15. Separate source-verification pass by the same GPT-6 assistant checked six first-party sources, including Google's official prompt anatomy, Veo text guidance, Sora's historical report/shutdown and Google Research continuity research. Eight review categories passed and internal quality 90/100, without claiming independent human or model review. Queue after GEN-0017 at or after JST 20:00 on 2026-10-24; dependency must be published before release."
+  - id: GEN-0074
+    slug: image-to-video
+    approvedOn: 2026-10-15
+    publishOn: 2026-10-25
+    approvedBy: site-owner
+    decision: approved-for-publication
+    sourceRef: new/GEN-0074-image-to-video-20261015
+    originalReviewArticleBlob: f2db86d26b7600ef34c6e1289358589d2af2f5e8
+    sourceArticleBlob: 36da383b9429272dd9330fa9ee9efb3fcc2f644f
+    editorialAuditPath: content/editorial-audits/GEN-0074.yml
+    editorialAuditBlob: 7dbcea0a13bb4239bed9913d368d1d1c9f725921
+    illustrations: 5
+    editorialChanges: None; SHA-bound original article body and illustrations retained
+    evidence: Explicit site-owner acceptance (合格しました) in ChatGPT on 2026-10-15; schedule Oct 25 at 20:00 JST without immediate publication.
