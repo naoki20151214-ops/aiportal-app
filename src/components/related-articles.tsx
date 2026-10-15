@@ -1,7 +1,8 @@
-import Link from "next/link";
+import TrackedArticleLink from "@/components/tracked-article-link";
+import type {ReaderContext} from "@/lib/reader-research";
 import type { ArticleMetadata } from "@/types/article";
 
-export default function RelatedArticles({ articles }: { articles: ArticleMetadata[] }) {
+export default function RelatedArticles({ articles, sourceSlug, context }: { articles: ArticleMetadata[]; sourceSlug:string; context:ReaderContext }) {
   if (!articles.length) return null;
   return (
     <nav aria-label="関連記事" className="border-t border-gray-200 mt-10 pt-6">
@@ -9,7 +10,7 @@ export default function RelatedArticles({ articles }: { articles: ArticleMetadat
       <ul className="space-y-3">
         {articles.map((article) => (
           <li key={article.slug}>
-            <Link href={`/articles/${article.slug}`} className="text-sm text-blue-700 hover:underline">{article.title}</Link>
+            <TrackedArticleLink sourceSlug={sourceSlug} targetSlug={article.slug} context={context} placement="related" className="text-sm text-blue-700 hover:underline">{article.title}</TrackedArticleLink>
           </li>
         ))}
       </ul>
