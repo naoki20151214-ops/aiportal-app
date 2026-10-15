@@ -92,9 +92,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
-          <ReaderSurvey stage="intent" slug={article.slug} context={readerContext} />
           <ArticleBody content={articleContent} article={article} />
-          <ReaderSurvey stage="outcome" slug={article.slug} context={readerContext} />
           {learning.length > 0 && (
             <section aria-labelledby="news-learning-title" className="mt-10 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:p-6">
               <h2 id="news-learning-title" className="text-xl font-black text-gray-900">このニュースを理解するための基礎知識</h2>
@@ -120,6 +118,7 @@ export default async function ArticlePage({ params }: Props) {
           <Link href="/articles" className="text-sm font-bold text-blue-700 hover:underline">← 記事一覧に戻って次の記事を探す</Link>
         </div>
       </main>
+      <ReaderSurvey slug={article.slug} context={readerContext} />
       <SiteFooter />
     </div>
   );
