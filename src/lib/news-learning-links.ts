@@ -24,7 +24,7 @@ export function newsLearningLinks(
   publishedArticles: Pick<ArticleMetadata, "slug" | "title" | "status">[],
 ): { slug:string; title:string }[] {
   const allowed = new Map(publishedArticles.filter(a=>a.status==="published")
-    .map(a=>[a.slug,a.title]));
+    .map(a=>[a.slug,a.title] as const));
   const haystack = [news.title,news.description,...news.tags].join(" ");
   const candidates = [
     ...(news.id ? explicit[news.id] || [] : []),
