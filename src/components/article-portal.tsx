@@ -29,7 +29,7 @@ export default function ArticlePortal({ articles, categories, today, sidebarSlot
           <div className="flex items-center justify-between h-14">
             <Link href="/" className="text-2xl font-black tracking-tighter text-blue-700">AI PORTAL</Link>
             <div className="flex items-center gap-4 text-sm font-bold">
-              <Link href="/articles" className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-blue-700 hover:bg-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">
+              <Link href="/news" className="rounded-full border border-sky-200 bg-white px-3 py-2 text-blue-700 hover:bg-sky-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">\n                AIニュース\n              </Link>\n              <Link href="/articles" className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-blue-700 hover:bg-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">
                 記事一覧 <span aria-hidden="true">→</span>
               </Link>
               <span className="hidden md:inline text-xs text-gray-500">{formatArticleDate(today)}</span>
