@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "verificationPolicy": "publisher-rss-metadata-only; never claim story accuracy or publish automatically",
+  "sources": [
+    {
+      "id": "openai",
+      "name": "OpenAI News",
+      "kind": "official-company",
+      "feedUrl": "https://openai.com/news/rss.xml",
+      "allowedHosts": [
+        "openai.com"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "deepmind",
+      "name": "Google DeepMind",
+      "kind": "official-company",
+      "feedUrl": "https://deepmind.google/blog/rss.xml",
+      "allowedHosts": [
+        "deepmind.google"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI",
+      "kind": "official-company",
+      "feedUrl": "https://blog.google/technology/ai/rss",
+      "allowedHosts": [
+        "blog.google"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft Official Blog",
+      "kind": "official-company",
+      "feedUrl": "https://blogs.microsoft.com/feed/",
+      "allowedHosts": [
+        "blogs.microsoft.com",
+        "microsoft.com"
+      ],
+      "priority": 3
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face Blog",
+      "kind": "official-project",
+      "feedUrl": "https://huggingface.co/blog/feed.xml",
+      "allowedHosts": [
+        "huggingface.co"
+      ],
+      "priority": 3
+    }
+  ]
+}
