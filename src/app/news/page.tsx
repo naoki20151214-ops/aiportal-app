@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import TrackedArticleLink from "@/components/tracked-article-link";
 import { getAllArticles } from "@/lib/articles";
 import { newsLearningLinks } from "@/lib/news-learning-links";
 import { formatArticleDate } from "@/lib/dates";
@@ -81,9 +82,9 @@ export default function NewsIndexPage() {
                     <ul className="mt-2 space-y-2">
                       {newsLearningLinks(item,published).map(target=>(
                         <li key={target.slug}>
-                          <Link href={"/articles/"+target.slug} className="text-sm text-blue-700 hover:underline">
+                          <TrackedArticleLink sourceSlug={item.slug} targetSlug={target.slug} context="news" placement="news-index" className="text-sm text-blue-700 hover:underline">
                             {target.title} →
-                          </Link>
+                          </TrackedArticleLink>
                         </li>
                       ))}
                     </ul>

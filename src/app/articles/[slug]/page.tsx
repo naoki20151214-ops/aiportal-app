@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleBody from "@/components/article-body";
 import ArticleFeedback from "@/components/article-feedback";
+import ReaderSurvey from "@/components/reader-survey";
+import TrackedArticleLink from "@/components/tracked-article-link";
 import ArticleDifficulty from "@/components/article-difficulty";
 import RelatedArticles from "@/components/related-articles";
 import { newsLearningLinks } from "@/lib/news-learning-links";
@@ -53,6 +55,7 @@ export default async function ArticlePage({ params }: Props) {
   if (!article) notFound();
   const learning = article.category === "AIニュース" || article.type === "news"
     ? newsLearningLinks(article, getAllArticles()) : [];
+  const readerContext = article.category === "AIニュース" || article.type === "news" ? "news" : "learning";
   const nextReading = getNextReadingMarkdown(article.id);
   const articleContent = linkPublishedReadingTargets(nextReading ? `${article.content}\n\n${nextReading}` : article.content);
 
@@ -89,7 +92,9 @@ export default async function ArticlePage({ params }: Props) {
             </div>
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
+          <ReaderSurvey stage="intent" slug={article.slug} context={readerContext} />
           <ArticleBody content={articleContent} article={article} />
+          <ReaderSurvey stage="outcome" slug={article.slug} context={readerContext} />
           {learning.length > 0 && (
             <section aria-labelledby="news-learning-title" className="mt-10 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:p-6">
               <h2 id="news-learning-title" className="text-xl font-black text-gray-900">このニュースを理解するための基礎知識</h2>
@@ -97,7 +102,7 @@ export default async function ArticlePage({ params }: Props) {
               <ul className="mt-4 space-y-3">
                 {learning.map((target) => (
                   <li key={target.slug}>
-                    <Link href={`/articles/${target.slug}`} className="text-sm font-bold text-blue-700 hover:underline">{target.title} →</Link>
+                    <TrackedArticleLink sourceSlug={article.slug} targetSlug={target.slug} context="news" placement="news-learning" className="text-sm font-bold text-blue-700 hover:underline">{target.title} →</TrackedArticleLink>
                   </li>
                 ))}
               </ul>
@@ -110,7 +115,7 @@ export default async function ArticlePage({ params }: Props) {
           )}
         </article>
         <ArticleFeedback articleId={article.id} slug={article.slug} revision={article.updatedAt} title={article.title} />
-        <RelatedArticles articles={getRelatedArticles(article, getAllArticles())} />
+        <RelatedArticles articles={getRelatedArticles(article, getAllArticles())} sourceSlug={article.slug} context={readerContext} />
         <div className="border-t border-gray-200 mt-10 pt-6">
           <Link href="/articles" className="text-sm font-bold text-blue-700 hover:underline">← 記事一覧に戻って次の記事を探す</Link>
         </div>
