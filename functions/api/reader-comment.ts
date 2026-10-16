@@ -73,8 +73,14 @@ export async function onRequest({request,env}:ReaderContext):Promise<Response>{
     env.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl.hostname&&
     pageUrl.hostname!=="aiportal-app.pages.dev"&&
     pageUrl.hostname.endsWith(".aiportal-app.pages.dev");
-  const expectedAction=previewTestHost?"test":"reader_comment";
-  if(result.success!==true||result.hostname!==pageUrl.hostname||result.action!==expectedAction)
+  const acceptedPreviewTestResult=previewTestHost&&(
+    (result.hostname===pageUrl.hostname&&result.action==="test")||
+    // Cloudflare's published dummy Siteverify secret currently returns this
+    // fixed hostname with no action; it is accepted only on the pinned Preview host.
+    (result.hostname==="example.com"&&result.action===undefined)
+  );
+  const acceptedRealResult=result.hostname===pageUrl.hostname&&result.action==="reader_comment";
+  if(result.success!==true||!(previewTestHost?acceptedPreviewTestResult:acceptedRealResult))
     return json(403,{ok:false,error:"verification_rejected"});
 
   try{

@@ -57,7 +57,7 @@ GitHub Actions > `Prepare AI Portal Feedback Cloudflare Resources` > Run workflo
 
 自動化されたCloudflare challengeは本番用Turnstileで完了できない場合がある。Cloudflare公式のテストキーを使う場合は、既存の `Prepare AI Portal Feedback Cloudflare Resources` ワークフローで `environment=preview`, `operation=preview-test` を選び、対象Preview deploymentの完全なcommit SHAを指定する。専用処理はPreview D1の空状態とProductionのOFF/D1分離を先に確認し、テスト用の成功・失敗キーでSiteverify→API→D1を検証する。成功時の合成行だけをIDと本文の完全一致で削除し、最後にPreviewの実widgetとOFF設定を戻して503を確認する。Production設定は読み取りだけで変更しない。
 
-Cloudflareの公式テストキーは `action=test` を返す。その値を受け入れるサーバー分岐は、Preview環境フラグと完全一致する1つのPreview hostnameが両方指定されたときだけ有効にし、Productionや別ホストでは従来どおり `reader_comment` を要求する。テストキーでの成功は実訪問者が本番Turnstileを通過できる証明ではない。
+Cloudflareの公式テストキーは本番用と異なる検証メタデータを返す（`action=test`、またはテストsecretの応答例では `hostname=example.com` かつactionなし）。その値を受け入れるサーバー分岐は、Preview環境フラグと完全一致する1つのPreview hostnameが両方指定されたときだけ有効にし、Productionや別ホストでは従来どおり実hostnameと `reader_comment` actionを要求する。テストキーでの成功は実訪問者が本番Turnstileを通過できる証明ではない。
 
 ## 5. Productionの段階的準備
 

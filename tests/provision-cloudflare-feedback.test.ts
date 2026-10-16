@@ -107,7 +107,9 @@ test("Preview Turnstile E2E is isolated, fail-safe, and cleans only its syntheti
   assert.match(e2e, /Preview fail-key negative test wrote data to D1/);
   assert.match(e2e, /Preview restore verified: test mode OFF, intake OFF, real widget restored, GET returns HTTP 503/);
   assert.match(endpoint, /env\.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl\.hostname/);
-  assert.match(endpoint, /const expectedAction=previewTestHost\?"test":"reader_comment"/);
+  assert.match(endpoint, /result\.hostname==="example\.com"&&result\.action===undefined/);
+  assert.match(e2e, /async function waitForDeployment\(/);
+  assert.match(e2e, /await waitForDeployment\(base, activeDeploymentId\)/);
   assert.doesNotMatch(e2e, /console\.log\([^\n]*(positive|negative)\.marker/);
   assert.doesNotMatch(e2e, /console\.log\([^\n]*row\.note/);
 });
