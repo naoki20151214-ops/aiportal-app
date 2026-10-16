@@ -164,6 +164,8 @@ export async function stageCloudflare() {
     const queryPath = base + "/d1/database/" + productionDbId + "/query";
     const testMarker = process.env.PRODUCTION_TEST_NOTE ||
       "Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc";
+    if (process.env.PRODUCTION_TEST_NOTE && !/^[A-Za-z ]{8,300}$/.test(testMarker))
+      throw Error("Production test note must be the exact synthetic letters-only note; no row was deleted.");
     const found = await api("POST", queryPath, {
       sql: "SELECT id, slug, prompt_code FROM reader_comments WHERE note = ?",
       params: [testMarker],
