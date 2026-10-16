@@ -11,6 +11,20 @@
 - Independent daily candidate intake: .github/workflows/news-candidates.yml (22:00 UTC, around 07:00 Japan time)
 - Public /news: links exclusively to previously published news articles; article pages show "このニュースを理解するための基礎知識" links to already published lessons.
 
+## Official redirect host policy (2026-10-16)
+
+RSS candidate URLs remain restricted to each publisher's `allowedHosts`.
+`redirectHosts` is a separate, optional, explicitly vetted list used **only**
+when fetching the original page and following an HTTP redirect. It does not
+expand the RSS feed's trusted incoming URL domain. Each redirect remains HTTPS,
+credential-free, port-free and domain-checked, with at most three hops.
+
+Observed official example: DeepMind's `deepmind.google/blog/introducing-gemini-4-argon`
+redirects to Google's official `blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/`.
+DeepMind therefore allows only `blog.google` as an extra redirect target.
+Never whitelist an arbitrary Google-associated third-party site or wildcard.
+A successful fetch is **not** a verified news claim or proof of availability.
+
 ## Non-publication guarantee
 
 RSS feeds can contain unverified titles, dates and claims. Storing a publisher headline is not journalistic verification. The intake does **not** copy article bodies, call an LLM, create Markdown, modify a Registry or approval ledger, push Git commits, or execute the evening learning-article workflow.
