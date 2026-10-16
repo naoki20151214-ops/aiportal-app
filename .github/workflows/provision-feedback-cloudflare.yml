@@ -14,7 +14,7 @@ on:
           - production
         default: preview
       operation:
-        description: "plan is safe; audit read-only; stage creates resources but keeps voting disabled"
+        description: "plan is safe; audit read-only; stage creates D1/Turnstile for votes and comments, both OFF"
         required: true
         type: choice
         options:
@@ -50,7 +50,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-      - name: Cloudflare resources (never enable public voting)
+      - name: Cloudflare resources (never enable public feedback or comments)
         env:
           CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2

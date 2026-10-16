@@ -22,6 +22,23 @@ test("feedback migration contains only non-destructive CREATE statements", () =>
   ), /migration/);
 });
 
+test("reader-comment migration is non-destructive and will be staged alongside original feedback", () => {
+  const text = readFileSync("migrations/0002_reader_comments.sql", "utf8");
+  const sql = statements(text);
+  assert.equal(sql.length, 2);
+  assert.match(sql[0], /^CREATE TABLE IF NOT EXISTS reader_comments/);
+  assert.match(sql[1], /^CREATE INDEX IF NOT EXISTS idx_reader_comments_article_date/);
+
+  const provisioner = readFileSync("scripts/provision-cloudflare-feedback.mjs", "utf8");
+  assert.match(provisioner, /"migrations\/0001_article_feedback\.sql"/);
+  assert.match(provisioner, /"migrations\/0002_reader_comments\.sql"/);
+  assert.match(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "0"\}/);
+  assert.match(provisioner, /currentVars\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value === "1"/);
+  assert.match(provisioner, /verified\.env_vars\?\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value !== "0"/);
+  assert.match(provisioner, /\.size !== 5/);
+  assert.doesNotMatch(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "1"\}/);
+});
+
 test("planning without a Cloudflare secret performs no remote writes", async () => {
   const original = process.env.CLOUDFLARE_FEEDBACK_API_TOKEN;
   delete process.env.CLOUDFLARE_FEEDBACK_API_TOKEN;

@@ -28,7 +28,7 @@ export function parseOptions() {
 export function statements(sql) {
   const withoutComments = sql.split("\n").filter(line => !/^\s*--/.test(line)).join("\n");
   const parts = withoutComments.split(";").map(x => x.trim()).filter(Boolean);
-  if (parts.length < 3 || parts.length > 8 ||
+  if (parts.length < 2 || parts.length > 8 ||
       parts.some(x => !/^CREATE\s+(TABLE|INDEX)\s+IF\s+NOT\s+EXISTS\s+/i.test(x) ||
           /\b(DROP|ALTER|INSERT|UPDATE|DELETE|REPLACE|ATTACH|PRAGMA)\b/i.test(x)))
     throw Error("Unexpected D1 migration; refusing to modify existing data.");
@@ -66,8 +66,8 @@ export async function stageCloudflare() {
   const config = parseOptions();
   console.log("AI Portal feedback: " + operation + " " + target);
   if (operation === "plan") {
-    console.log("Plan: scoped D1 " + config.dbName + ", migration, Invisible Turnstile for " +
-      config.hostname + ", Pages binding; collection remains disabled.");
+    console.log("Plan: scoped D1 " + config.dbName + ", both migrations, Invisible Turnstile for " +
+      config.hostname + ", Pages binding; all feedback and reader comments remain disabled.");
     return "plan";
   }
   const base = "/accounts/" + accountId;
@@ -78,7 +78,8 @@ export async function stageCloudflare() {
   const current = project.deployment_configs?.[target] || {};
   const currentVars = current.env_vars || {};
   if (currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ||
-      currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1")
+      currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ||
+      currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value === "1")
     throw Error("Feedback is already enabled. Stage must not change an active environment.");
 
   const databases = await api("GET", base + "/d1/database?name=" +
@@ -98,6 +99,7 @@ export async function stageCloudflare() {
       binding: !!existingDb[0]?.uuid && current.d1_databases?.[binding]?.id === existingDb[0].uuid,
       serverFlag: currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ? "on" : "off",
       publicFlag: currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ? "on" : "off",
+      readerCommentsFlag: currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value === "1" ? "on" : "off",
     };
     console.log("Read-only audit: " + JSON.stringify(status));
     return status;
@@ -113,19 +115,26 @@ export async function stageCloudflare() {
       current.d1_databases[binding].id !== db.uuid)
     throw Error("Existing Pages D1 binding differs; refusing to overwrite it.");
 
-  const sql = fs.readFileSync("migrations/0001_article_feedback.sql", "utf8");
-  for (const statement of statements(sql)) {
-    const response = await api("POST", base + "/d1/database/" + db.uuid + "/query", {sql:statement});
-    if (!Array.isArray(response) || !response.every(row => row.success === true))
-      throw Error("D1 schema migration failed.");
+  // Both original article feedback and the separate optional reader-comment
+  // schema are staged without enabling either submission endpoint.
+  for (const migration of [
+    "migrations/0001_article_feedback.sql",
+    "migrations/0002_reader_comments.sql",
+  ]) {
+    const sql = fs.readFileSync(migration, "utf8");
+    for (const statement of statements(sql)) {
+      const response = await api("POST", base + "/d1/database/" + db.uuid + "/query", {sql:statement});
+      if (!Array.isArray(response) || !response.every(row => row.success === true))
+        throw Error("D1 schema migration failed for " + migration + ".");
+    }
   }
   const verify = await api("POST", base + "/d1/database/" + db.uuid + "/query", {
-    sql: "SELECT name FROM sqlite_master WHERE type IN ('table','index') AND name IN ('article_feedback','idx_article_feedback_article_date','idx_article_feedback_kind_date') ORDER BY name",
+    sql: "SELECT name FROM sqlite_master WHERE type IN ('table','index') AND name IN ('article_feedback','idx_article_feedback_article_date','idx_article_feedback_kind_date','reader_comments','idx_reader_comments_article_date') ORDER BY name",
   });
   if (!Array.isArray(verify) || verify.length !== 1 ||
-      new Set((verify[0]?.results || []).map(x => x.name)).size !== 3)
-    throw Error("D1 table and two indexes could not be verified.");
-  console.log("D1 schema and indexes verified.");
+      new Set((verify[0]?.results || []).map(x => x.name)).size !== 5)
+    throw Error("D1 article feedback and reader-comment schema could not be verified.");
+  console.log("D1 article feedback and reader-comment tables and indexes verified.");
 
   let widget = existingWidget[0];
   if (!widget) {
@@ -151,6 +160,7 @@ export async function stageCloudflare() {
         NEXT_PUBLIC_TURNSTILE_SITE_KEY: {type: "plain_text", value: widget.sitekey},
         AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+        AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
       },
     },
   }});
@@ -159,11 +169,12 @@ export async function stageCloudflare() {
       verified.env_vars?.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.value !== widget.sitekey ||
       verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
       verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
+      verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0" ||
       !verified.env_vars?.TURNSTILE_SECRET_KEY)
     throw Error("Pages binding verification failed; DO NOT enable feedback.");
 
-  console.log("STAGED, NOT ACTIVE: Cloudflare D1 and Turnstile are configured, both voting flags OFF.");
-  console.log("Next: WAF rate limiting, preview redeploy and real POST/PATCH smoke tests.");
+  console.log("STAGED, NOT ACTIVE: Cloudflare D1, reader comments and Turnstile configured; all submission flags OFF.");
+  console.log("Next: WAF rate limiting, preview redeploy and real POST/PATCH and reader-comment smoke tests.");
   return "staged";
 }
 
