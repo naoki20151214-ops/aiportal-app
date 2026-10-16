@@ -21,9 +21,11 @@ const isSlug = (slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug);
 // The staged ready file is hashed before publication; only approved status/date
 // metadata can then change. Do not substitute a different edited manuscript.
 function gitBlobSha(source) {
+  // Match Git's canonical text blob even when a Windows checkout has CRLF.
+  const canonical = source.replace(/\r\n/g, "\n");
   return createHash("sha1")
-    .update("blob " + Buffer.byteLength(source, "utf8") + "\0")
-    .update(source, "utf8")
+    .update("blob " + Buffer.byteLength(canonical, "utf8") + "\0")
+    .update(canonical, "utf8")
     .digest("hex");
 }
 

@@ -12,9 +12,12 @@ const REQUIRED_CHECKS = [
 ];
 
 export function gitBlobSha(text) {
+  // Approval ledgers store Git's canonical text blob hash; normalize Windows
+  // checkout line endings before comparing the immutable evidence.
+  const canonical = text.replace(/\r\n/g, "\n");
   return createHash("sha1")
-    .update("blob " + Buffer.byteLength(text, "utf8") + "\0")
-    .update(text, "utf8")
+    .update("blob " + Buffer.byteLength(canonical, "utf8") + "\0")
+    .update(canonical, "utf8")
     .digest("hex");
 }
 
