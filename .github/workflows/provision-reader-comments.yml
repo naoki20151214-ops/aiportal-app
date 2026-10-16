@@ -1,0 +1,66 @@
+name: Prepare Reader Comments Storage (no public submission)
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Cloudflare environment; preview first"
+        required: true
+        type: choice
+        options:
+          - preview
+          - production
+        default: preview
+      operation:
+        description: "plan only prints; audit inspects; stage provisions DB/table without enabling submissions"
+        required: true
+        type: choice
+        options:
+          - plan
+          - audit
+          - stage
+        default: plan
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aiportal-reader-comments-provision
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: >-
+      github.repository == 'naoki20151214-ops/aiportal-app' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'issue_comment' &&
+        github.actor == 'naoki20151214-ops' &&
+        github.event.issue.number == 144 &&
+        github.event.comment.body == '/reader-comment-stage-preview'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout latest trusted main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Secure staging of existing feedback prerequisites and comments table
+        env:
+          CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2
+          CLOUDFLARE_PAGES_PROJECT: aiportal-app
+          MODE: ${{ github.event_name == 'issue_comment' && 'stage' || inputs.operation }}
+          TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
+        run: |
+          set -eu
+          if [ "$MODE" = "stage" ]; then
+            node scripts/provision-cloudflare-feedback.mjs --mode=stage --environment="$TARGET"
+          fi
+          node scripts/provision-cloudflare-reader-comments.mjs --mode="$MODE" --environment="$TARGET"
