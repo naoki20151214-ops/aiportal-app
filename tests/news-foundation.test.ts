@@ -22,6 +22,15 @@ test("News feed registry lists only official, HTTPS, restricted publisher hosts"
   assert.throws(()=>validateSourceConfig({schemaVersion:1,sources:[
     {id:"bad",name:"Bad",allowedHosts:["example.com"],feedUrl:"http://example.com/rss"}
   ]}),/Unsafe/);
+  const deepmind=sources.find((s:{id:string})=>s.id==="deepmind");
+  assert.deepEqual(deepmind?.redirectHosts,["blog.google"]);
+  assert.equal(safeUrl("https://blog.google/official",[...deepmind.allowedHosts,...deepmind.redirectHosts]),
+    "https://blog.google/official");
+  assert.equal(safeUrl("https://blog.google/official",deepmind.allowedHosts),null);
+  assert.throws(()=>validateSourceConfig({schemaVersion:1,sources:[{
+    id:"bad",name:"Bad",allowedHosts:["example.com"],
+    redirectHosts:["*.example.com"],feedUrl:"https://example.com/rss",
+  }]}),/Invalid official news redirect hosts/);
   assert.equal(safeUrl("https://evil.example/claim",["openai.com"]),null);
   assert.equal(safeUrl("http://openai.com/news",["openai.com"]),null);
   assert.equal(safeUrl("https://openai.com.evil.example/news",["openai.com"]),null);
