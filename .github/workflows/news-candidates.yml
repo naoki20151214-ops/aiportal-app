@@ -51,3 +51,14 @@ jobs:
           path: artifacts/news-primary-evidence.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Triage candidate metadata for private human editorial review
+        if: success()
+        run: node scripts/triage-news-evidence.mjs
+      - name: Save private draft-only editorial triage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-editorial-triage-${{ github.run_id }}
+          path: artifacts/news-editorial-triage.json
+          if-no-files-found: warn
+          retention-days: 14
