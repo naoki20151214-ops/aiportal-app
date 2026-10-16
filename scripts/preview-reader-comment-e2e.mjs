@@ -51,6 +51,11 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function syntheticReference() {
+  return randomUUID().replaceAll("-", "").replace(/[0-9]/g, digit =>
+    String.fromCharCode(97 + Number(digit)));
+}
+
 async function d1Query(dbId, sql, params = []) {
   const body = params.length ? {sql, params} : {sql};
   return cloudflare("POST", `/accounts/${accountId}/d1/database/${dbId}/query`, body);
@@ -210,8 +215,8 @@ async function main() {
   const productionApi = "https://aiportal.blog/api/reader-comment";
   console.log("Preview target selected by exact SHA: " + target.hostname + ".");
   const testCases = [
-    {id: randomUUID(), marker: `Synthetic Preview E2E reference: ${randomUUID()}`},
-    {id: randomUUID(), marker: `Synthetic Preview E2E negative: ${randomUUID()}`},
+    {id: randomUUID(), marker: `Synthetic Preview reference: ${syntheticReference()}`},
+    {id: randomUUID(), marker: `Synthetic Preview negative: ${syntheticReference()}`},
   ];
   let configurationChanged = false;
   let activeDeploymentId = selected.id;

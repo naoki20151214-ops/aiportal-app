@@ -73,6 +73,7 @@ test("Question prompts are concrete, bounded, and not sent to GA4",()=>{
   assert.equal(validate({...sample,requestId:"invalid"}).ok,false);
   assert.equal(validate({...sample,turnstileToken:""}).ok,false);
   assert.equal(validate({...sample,note:"  テストの疑問を教えてください。  "}).ok,true);
+  assert.equal(validate({...sample,note:"Synthetic Preview reference: abcdefghijklmnopqrstuvwxyz"}).ok,true);
 });
 
 test("Free-comment endpoint is unavailable until flag, D1 and Turnstile are configured",async()=>{
