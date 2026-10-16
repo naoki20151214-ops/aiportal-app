@@ -44,7 +44,9 @@ const enabled=(database:ReturnType<typeof db>)=>({
   AI_PORTAL_FEEDBACK_DB:database.handle,
   TURNSTILE_SECRET_KEY:"secret",
 });
-async function withVerified(fn:()=>Promise<void>,verification={success:true,hostname:"aiportal.blog",action:"reader_comment"}){
+async function withVerified(fn:()=>Promise<void>,verification:{success:boolean;hostname:string;action?:string}={
+  success:true,hostname:"aiportal.blog",action:"reader_comment",
+}){
   const original=globalThis.fetch;
   let calls=0;
   globalThis.fetch=(async (url:RequestInfo|URL)=>{
@@ -117,6 +119,15 @@ test("Cloudflare dummy Turnstile action=test is accepted only on the exact confi
     assert.equal(response.status,201);
   },{success:true,hostname:host,action:"test"});
   assert.equal(database.rows.size,1);
+
+  const exampleDb=db();
+  const exampleEnv={...enabled(exampleDb),AI_PORTAL_TURNSTILE_TEST_MODE:"1",
+    AI_PORTAL_TURNSTILE_TEST_HOSTNAME:host};
+  await withVerified(async()=>{
+    const response=await onRequest({request:request(sample,"POST",`https://${host}`,host),env:exampleEnv});
+    assert.equal(response.status,201);
+  },{success:true,hostname:"example.com"});
+  assert.equal(exampleDb.rows.size,1);
 
   const wrongHostDb=db();
   await withVerified(async()=>{

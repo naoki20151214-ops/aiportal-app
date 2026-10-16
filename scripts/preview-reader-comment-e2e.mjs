@@ -88,6 +88,7 @@ async function deleteMarkerRows(dbId, marker) {
 
 async function waitForAvailability(url, expectedStatus, expectedBody) {
   const deadline = Date.now() + 10 * 60 * 1000;
+  let lastObserved = "no response";
   while (Date.now() < deadline) {
     try {
       const response = await fetch(url, {
@@ -95,19 +96,37 @@ async function waitForAvailability(url, expectedStatus, expectedBody) {
         signal: AbortSignal.timeout(10000),
       });
       const body = await response.json().catch(() => null);
+      lastObserved = `HTTP ${response.status}${typeof body?.error === "string" ? ` (${body.error})` : ""}`;
       if (response.status === expectedStatus &&
           body?.ok === expectedBody.ok && body?.available === expectedBody.available &&
           body?.error === expectedBody.error) return;
     } catch { /* Retry transient deploy propagation or network errors. */ }
     await new Promise(resolve => setTimeout(resolve, 10000));
   }
-  throw new Error(`Preview API did not reach the expected HTTP ${expectedStatus} state.`);
+  throw new Error(`Preview API did not reach expected HTTP ${expectedStatus}; last response ${lastObserved}.`);
 }
 
 async function retryPreviewDeployment(base, deploymentId) {
   const result = await cloudflare("POST",
     `${base}/pages/projects/${projectName}/deployments/${deploymentId}/retry`);
   assert(result && typeof result === "object", "Preview deployment retry was not acknowledged.");
+  return typeof result.id === "string" ? result.id : deploymentId;
+}
+
+async function waitForDeployment(base, deploymentId) {
+  const path = `${base}/pages/projects/${projectName}/deployments/${deploymentId}`;
+  const deadline = Date.now() + 10 * 60 * 1000;
+  let lastStatus = "unknown";
+  while (Date.now() < deadline) {
+    const deployment = await cloudflare("GET", path);
+    lastStatus = `${deployment?.environment || "unknown"}/${deployment?.latest_stage?.status || "unknown"}`;
+    if (deployment?.environment === "preview" && deployment.latest_stage?.status === "success")
+      return;
+    if (["failure", "canceled", "skipped"].includes(deployment?.latest_stage?.status))
+      throw new Error(`Preview deployment ended in ${lastStatus}.`);
+    await new Promise(resolve => setTimeout(resolve, 10000));
+  }
+  throw new Error(`Preview deployment did not finish; last state ${lastStatus}.`);
 }
 
 async function postComment(apiUrl, origin, requestId, note) {
@@ -175,19 +194,27 @@ async function main() {
     .sort((a, b) => Date.parse(b.created_on) - Date.parse(a.created_on))[0] : undefined;
   assert(selected?.id && typeof selected.url === "string",
     "A successful Preview deployment for the requested source commit was not found.");
-  const target = new URL(selected.url);
+  const deploymentHosts = [selected.url, ...(Array.isArray(selected.aliases) ? selected.aliases : [])]
+    .filter(value => typeof value === "string")
+    .map(value => { try { return new URL(value); } catch { return null; } })
+    .filter(value => value && value.protocol === "https:" &&
+      value.hostname.endsWith(".aiportal-app.pages.dev") && value.hostname !== "aiportal-app.pages.dev");
+  const stableAlias = deploymentHosts.find(value => value.hostname !== new URL(selected.url).hostname);
+  const target = stableAlias || new URL(selected.url);
   assert(target.protocol === "https:" && target.hostname.endsWith(".aiportal-app.pages.dev") &&
     target.hostname !== "aiportal-app.pages.dev",
-  "Selected deployment is not an exact hashed Pages Preview hostname.");
+  "Selected deployment is not a valid Pages Preview hostname.");
   assert(widget.domains.some(domain => target.hostname === domain || target.hostname.endsWith("." + domain)),
     "Preview's original Turnstile widget does not allow the selected deployment hostname.");
   const apiUrl = new URL("/api/reader-comment", target).toString();
   const productionApi = "https://aiportal.blog/api/reader-comment";
+  console.log("Preview target selected by exact SHA: " + target.hostname + ".");
   const testCases = [
     {id: randomUUID(), marker: `Synthetic Preview E2E reference: ${randomUUID()}`},
     {id: randomUUID(), marker: `Synthetic Preview E2E negative: ${randomUUID()}`},
   ];
   let configurationChanged = false;
+  let activeDeploymentId = selected.id;
   let primaryError;
   const errors = [];
 
@@ -224,13 +251,14 @@ async function main() {
       "Production API is not disabled before the Preview test.");
 
     await setPreview({sitekey: passSitekey, secret: passSecret, testMode: true, enabled: true});
-    await retryPreviewDeployment(base, selected.id);
+    activeDeploymentId = await retryPreviewDeployment(base, activeDeploymentId);
+    await waitForDeployment(base, activeDeploymentId);
     await waitForAvailability(apiUrl, 200, {ok: true, available: true});
 
     const positive = testCases[0];
     const accepted = await postComment(apiUrl, target.origin, positive.id, positive.marker);
     assert(accepted.status === 201 && accepted.ok === true && accepted.receipt === positive.id,
-      `Preview pass-key submission was not acknowledged (HTTP ${accepted.status}).`);
+      `Preview pass-key submission was not acknowledged (HTTP ${accepted.status}; ${accepted.error || "no app error"}).`);
     const stored = await commentRows(previewDb, positive.marker);
     assert(stored.length === 1 && stored[0].id === positive.id &&
       stored[0].slug === "hybrid-search" && stored[0].prompt_code === "helpful_part",
@@ -242,12 +270,13 @@ async function main() {
     console.log("Preview successful-test row deleted by exact ID and marker; D1 count is zero.");
 
     await setPreview({sitekey: failSitekey, secret: failSecret, testMode: true, enabled: true});
-    await retryPreviewDeployment(base, selected.id);
+    activeDeploymentId = await retryPreviewDeployment(base, activeDeploymentId);
+    await waitForDeployment(base, activeDeploymentId);
     await waitForAvailability(apiUrl, 200, {ok: true, available: true});
     const negative = testCases[1];
     const rejected = await postComment(apiUrl, target.origin, negative.id, negative.marker);
     assert(rejected.status === 403 && rejected.ok === false && rejected.error === "verification_rejected",
-      `Preview fail-key submission did not reject safely (HTTP ${rejected.status}).`);
+      `Preview fail-key submission did not reject safely (HTTP ${rejected.status}; ${rejected.error || "no app error"}).`);
     assert((await commentRows(previewDb, negative.marker)).length === 0 && await countRows(previewDb) === 0,
       "Preview fail-key negative test wrote data to D1.");
     console.log("Preview test-key negative case: Siteverify rejection returned HTTP 403; no D1 row written.");
@@ -266,11 +295,12 @@ async function main() {
         catch { errors.push("An exact synthetic Preview marker could not be verified/removed."); }
       }
       try {
-        await retryPreviewDeployment(base, selected.id);
+        activeDeploymentId = await retryPreviewDeployment(base, activeDeploymentId);
+        await waitForDeployment(base, activeDeploymentId);
         await waitForAvailability(apiUrl, 503, {ok: false, error: "comments_unavailable"});
         console.log("Preview restore verified: test mode OFF, intake OFF, real widget restored, GET returns HTTP 503.");
-      } catch {
-        errors.push("Preview redeploy or disabled-API readback failed.");
+      } catch (error) {
+        errors.push(error instanceof Error ? error.message : "Preview redeploy or disabled-API readback failed.");
       }
     }
     try {

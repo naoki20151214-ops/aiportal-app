@@ -46,7 +46,7 @@ jobs:
         github.event.issue.number == 144 &&
         github.event.comment.body == '/feedback-stage-preview'))
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Checkout trusted main
         uses: actions/checkout@v4
