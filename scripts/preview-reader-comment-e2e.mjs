@@ -42,7 +42,7 @@ async function cloudflare(method, path, body) {
   }
   if (!response.ok || payload?.success !== true) {
     const codes = (payload?.errors || []).map(error => Number(error.code) || 0).join(",");
-    throw new Error(`Cloudflare API request failed (HTTP ${response.status}; codes ${codes}).`);
+    throw new Error(`Cloudflare API ${method} ${path} failed (HTTP ${response.status}; codes ${codes}).`);
   }
   return payload.result;
 }
@@ -52,7 +52,8 @@ function assert(condition, message) {
 }
 
 async function d1Query(dbId, sql, params = []) {
-  return cloudflare("POST", `/accounts/${accountId}/d1/database/${dbId}/query`, {sql, params});
+  const body = params.length ? {sql, params} : {sql};
+  return cloudflare("POST", `/accounts/${accountId}/d1/database/${dbId}/query`, body);
 }
 
 async function commentRows(dbId, note) {

@@ -101,6 +101,8 @@ test("Preview Turnstile E2E is isolated, fail-safe, and cleans only its syntheti
   assert.match(e2e, /const failSecret = "2x0000000000000000000000000000000AA"/);
   assert.match(e2e, /XXXX\.DUMMY\.TOKEN\.XXXX/);
   assert.match(e2e, /DELETE FROM reader_comments WHERE id = \? AND note = \?/);
+  assert.match(e2e, /const body = params\.length \? \{sql, params\} : \{sql\}/);
+  assert.match(e2e, /Cloudflare API \$\{method\} \$\{path\} failed/);
   assert.match(e2e, /Preview fail-key negative test wrote data to D1/);
   assert.match(e2e, /Preview restore verified: test mode OFF, intake OFF, real widget restored, GET returns HTTP 503/);
   assert.match(endpoint, /env\.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl\.hostname/);
