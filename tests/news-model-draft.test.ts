@@ -66,13 +66,13 @@ test("Mocked complete structured response only creates a private UNREVIEWED draf
   const result=await generatePrivateJapaneseDraft(packet,{
     apiKey:"test-key-more-than-16-characters",
     model:"gpt-test-model",
-    fetchImpl:async (url:string,options:{headers:Record<string,string>,body:string,method:string,redirect:string})=>{
+    fetchImpl:async (url,options)=>{
       calls++;
-      endpoint=url;
-      headers=options.headers;
-      assert.equal(options.method,"POST");
-      assert.equal(options.redirect,"error");
-      assert.equal(JSON.parse(options.body).store,false);
+      endpoint=String(url);
+      headers=options?.headers as Record<string,string>;
+      assert.equal(options?.method,"POST");
+      assert.equal(options?.redirect,"error");
+      assert.equal(JSON.parse(String(options?.body)).store,false);
       return new Response(JSON.stringify(mockResponse()),{
         headers:{"content-type":"application/json"},status:200,
       });
