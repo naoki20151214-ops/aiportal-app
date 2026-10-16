@@ -167,7 +167,7 @@ async function main() {
   "Preview's original Turnstile widget could not be verified for restoration.");
 
   const deployments = await cloudflare("GET",
-    `${projectPath}/deployments?env=preview&per_page=100`);
+    `${projectPath}/deployments?env=preview&per_page=25`);
   const selected = Array.isArray(deployments) ? deployments
     .filter(item => item.environment === "preview" &&
       item.deployment_trigger?.metadata?.commit_hash === commitSha &&
