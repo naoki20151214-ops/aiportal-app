@@ -10,6 +10,8 @@ type ReaderDatabase={
 };
 type ReaderEnvironment={
   AI_PORTAL_READER_COMMENTS_ENABLED?:string;
+  AI_PORTAL_TURNSTILE_TEST_MODE?:string;
+  AI_PORTAL_TURNSTILE_TEST_HOSTNAME?:string;
   AI_PORTAL_FEEDBACK_DB?:ReaderDatabase;
   TURNSTILE_SECRET_KEY?:string;
 };
@@ -64,7 +66,15 @@ export async function onRequest({request,env}:ReaderContext):Promise<Response>{
     if(!response.ok)return json(502,{ok:false,error:"verification_unavailable"});
     result=await response.json() as typeof result;
   }catch{return json(502,{ok:false,error:"verification_unavailable"});}
-  if(result.success!==true||result.hostname!==pageUrl.hostname||result.action!=="reader_comment")
+  // Cloudflare's official dummy keys return action="test". Permit that only
+  // for the exact Pages Preview host explicitly pinned in Preview settings;
+  // Production and every unconfigured host still require reader_comment.
+  const previewTestHost=env.AI_PORTAL_TURNSTILE_TEST_MODE==="1"&&
+    env.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl.hostname&&
+    pageUrl.hostname!=="aiportal-app.pages.dev"&&
+    pageUrl.hostname.endsWith(".aiportal-app.pages.dev");
+  const expectedAction=previewTestHost?"test":"reader_comment";
+  if(result.success!==true||result.hostname!==pageUrl.hostname||result.action!==expectedAction)
     return json(403,{ok:false,error:"verification_rejected"});
 
   try{
