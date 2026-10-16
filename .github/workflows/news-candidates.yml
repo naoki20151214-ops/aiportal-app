@@ -40,3 +40,25 @@ jobs:
           path: artifacts/news-candidates.json
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Inspect official pages for private editorial evidence only
+        run: node scripts/check-news-primary-pages.mjs
+      - name: Save private primary-source evidence (never approved)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-primary-evidence-${{ github.run_id }}
+          path: artifacts/news-primary-evidence.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Triage candidate metadata for private human editorial review
+        if: success()
+        run: node scripts/triage-news-evidence.mjs
+      - name: Save private draft-only editorial triage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-editorial-triage-${{ github.run_id }}
+          path: artifacts/news-editorial-triage.json
+          if-no-files-found: warn
+          retention-days: 14
