@@ -14,18 +14,27 @@ on:
           - production
         default: preview
       operation:
-        description: "plan, audit, stage, Production restore-off, or isolated Preview Turnstile E2E"
+        description: "plan, audit, stage, one-time Production comments smoke test, restore-off, or Preview E2E"
         required: true
         type: choice
         options:
           - plan
           - audit
           - stage
+          - production-test-on
           - restore-off
           - preview-test
         default: plan
       preview_commit:
         description: "Full source commit SHA for the successful Cloudflare Pages Preview deployment (preview-test only)"
+        required: false
+        type: string
+      production_test_note:
+        description: "Exact synthetic note to delete during Production restore-off; never logged"
+        required: false
+        type: string
+      production_baseline_rows:
+        description: "Pre-test Production reader_comments row count for exact restore verification"
         required: false
         type: string
 
@@ -61,6 +70,8 @@ jobs:
           MODE: ${{ github.event_name == 'issue_comment' && 'stage' || inputs.operation }}
           TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
           PREVIEW_COMMIT_SHA: ${{ inputs.preview_commit }}
+          PRODUCTION_TEST_NOTE: ${{ inputs.production_test_note }}
+          PRODUCTION_BASELINE_ROWS: ${{ inputs.production_baseline_rows }}
         run: |
           if [ "$MODE" = "preview-test" ] && [ "$TARGET" != "preview" ]; then
             echo "Preview E2E is restricted to the Preview environment."
@@ -70,12 +81,27 @@ jobs:
             echo "Preview E2E requires a full source commit SHA."
             exit 1
           fi
-      - name: Cloudflare resources (never enable public feedback or comments)
+          if [ "$MODE" = "production-test-on" ] && [ "$TARGET" != "production" ]; then
+            echo "Production smoke test is restricted to the Production environment."
+            exit 1
+          fi
+          if [ "$MODE" = "production-test-on" ] && { [ -z "$PRODUCTION_BASELINE_ROWS" ] || ! [[ "$PRODUCTION_BASELINE_ROWS" =~ ^[0-9]+$ ]]; }; then
+            echo "Production smoke test requires the verified baseline row count."
+            exit 1
+          fi
+          if [ "$MODE" = "restore-off" ] && [ "$TARGET" != "production" ]; then
+            echo "Restore-off is restricted to the Production environment."
+            exit 1
+          fi
+      - name: Cloudflare resources and guarded smoke test
         if: inputs.operation != 'preview-test'
         env:
           CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2
           CLOUDFLARE_PAGES_PROJECT: aiportal-app
+          PRODUCTION_TEST_NOTE: ${{ inputs.production_test_note }}
+          PRODUCTION_BASELINE_ROWS: ${{ inputs.production_baseline_rows }}
+          PRODUCTION_EXPECTED_MAIN_SHA: ${{ github.sha }}
           MODE: ${{ github.event_name == 'issue_comment' && 'stage' || inputs.operation }}
           TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
         run: |
