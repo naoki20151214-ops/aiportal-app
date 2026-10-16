@@ -33,6 +33,7 @@ test("Official page evidence extracts bounded title, date and lead, never verifi
   assert.equal(result.claimVerification, "not-performed");
   assert.equal(result.editorialStatus, "unreviewed");
   assert.equal(result.publicationEligible, false);
+  if (!("finalUrl" in result)) throw new Error("Expected retrieved page URL");
   assert.equal(result.finalUrl, candidate.originalUrl);
   assert.ok(!("fullArticle" in result));
 });
@@ -73,6 +74,7 @@ test("Missing publication date cannot be silently inferred from RSS", async () =
     new Response('<html><head><title>No Date</title></head><body><h1>Launch update</h1></body></html>',
       {headers: {"content-type": "text/html"}}));
   assert.equal(result.status, "retrieved-for-editorial-review");
+  if (!("pagePublishedAt" in result)) throw new Error("Expected retrieved page metadata");
   assert.equal(result.pagePublishedAt, null);
   assert.equal(result.claimVerification, "not-performed");
 });
