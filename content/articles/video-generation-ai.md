@@ -6,9 +6,9 @@ description: "文章や写真から動画を作るAIの仕組みを、公園清�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-16"
-updatedAt: "2026-10-16"
+status: "published"
+publishedAt: "2026-10-17"
+updatedAt: "2026-10-17"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/video-generation-ai/hero.svg"
 tags: ["動画生成AI", "テキストから動画", "画像から動画", "Sora", "Veo", "拡散モデル", "時間的一貫性"]

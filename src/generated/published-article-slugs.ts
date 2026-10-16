@@ -26,6 +26,7 @@ export const publishedArticleSlugById = {
   "GEN-0011": "rag-retrieval",
   "GEN-0012": "rag-reranking",
   "GEN-0013": "hybrid-search",
+  "GEN-0017": "video-generation-ai",
   "GEN-0090": "chatgpt-search",
   "GEN-0091": "gemini-long-context",
   "GEN-0092": "luma-dream-machine",

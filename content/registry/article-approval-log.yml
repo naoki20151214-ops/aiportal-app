@@ -393,7 +393,7 @@ approvals:
     publishOn: 2026-10-16
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0017-video-generation-20261014
     originalReviewArticleBlob: c707102eaac6f6b283d3f5341f2a38f031dc25fc
     sourceArticleBlob: 2ccc59305da589c25277ccae3110a5638bb09ef7
@@ -413,6 +413,7 @@ approvals:
       Prerequisites GEN-0001 and BAS-0030 are published; GEN-0015 has been
       retired as a duplicate. Queued at 20:00 JST on or after 2026-10-16, not
       immediately upon merge."
+    publishedOn: 2026-10-17
   - id: GEN-0018
     slug: audio-generation-ai
     approvedOn: 2026-10-14
@@ -530,8 +531,14 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0022.yml
     editorialAuditBlob: fb43cf5d7a51f4e7bf5e292b406205d152afd1f2
     illustrations: 5
-    editorialChanges: Only frontmatter status review-to-ready; original narrative body and all five diagrams unchanged
-    evidence: "2026-10-15 standing site-owner editorial delegation. A distinct primary-source checking pass by the same GPT-6 assistant verified Google Search AI Mode, Google AI Overviews, OpenAI search and the Lewis 2020 paper. All eight editorial gates passed, internal score 91/100. No independent human or model review claimed. Reserve 2026-10-22 20:00 JST after the existing six pending slots."
+    editorialChanges: Only frontmatter status review-to-ready; original narrative
+      body and all five diagrams unchanged
+    evidence: 2026-10-15 standing site-owner editorial delegation. A distinct
+      primary-source checking pass by the same GPT-6 assistant verified Google
+      Search AI Mode, Google AI Overviews, OpenAI search and the Lewis 2020
+      paper. All eight editorial gates passed, internal score 91/100. No
+      independent human or model review claimed. Reserve 2026-10-22 20:00 JST
+      after the existing six pending slots.
   - id: GEN-0040
     slug: reasoning-model
     approvedOn: 2026-10-15
@@ -545,8 +552,14 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0040.yml
     editorialAuditBlob: e3b3dee67ddd1c1e25cccc7bdecd42465779ae7f
     illustrations: 5
-    editorialChanges: Frontmatter review-to-ready status only, approved manuscript body and five figures preserved
-    evidence: "2026-10-15 site-owner standing editorial delegation. A source-focused verification pass by the same GPT-6 assistant checked the original OpenAI o1 and o3 publications, Google's Gemini thinking sources, and DeepSeek-R1 paper. All eight hard editorial criteria passed, internal rubric 90/100. No separate human or independent model review claimed. Queue for JST 20:00 on or after 2026-10-23, following GEN-0022. Not an immediate release."
+    editorialChanges: Frontmatter review-to-ready status only, approved manuscript
+      body and five figures preserved
+    evidence: 2026-10-15 site-owner standing editorial delegation. A source-focused
+      verification pass by the same GPT-6 assistant checked the original OpenAI
+      o1 and o3 publications, Google's Gemini thinking sources, and DeepSeek-R1
+      paper. All eight hard editorial criteria passed, internal rubric 90/100.
+      No separate human or independent model review claimed. Queue for JST 20:00
+      on or after 2026-10-23, following GEN-0022. Not an immediate release.
   - id: GEN-0073
     slug: text-to-video
     approvedOn: 2026-10-15
@@ -560,8 +573,16 @@ approvals:
     editorialAuditPath: content/editorial-audits/GEN-0073.yml
     editorialAuditBlob: b80e06b6eba38f2865ecca50cb52a7d0df98c360
     illustrations: 5
-    editorialChanges: Only frontmatter review-to-ready status field changed; original story body and all five SVGs remain unchanged
-    evidence: "Standing owner-delegated editorial policy, 2026-10-15. Separate source-verification pass by the same GPT-6 assistant checked six first-party sources, including Google's official prompt anatomy, Veo text guidance, Sora's historical report/shutdown and Google Research continuity research. Eight review categories passed and internal quality 90/100, without claiming independent human or model review. Queue after GEN-0017 at or after JST 20:00 on 2026-10-24; dependency must be published before release."
+    editorialChanges: Only frontmatter review-to-ready status field changed;
+      original story body and all five SVGs remain unchanged
+    evidence: Standing owner-delegated editorial policy, 2026-10-15. Separate
+      source-verification pass by the same GPT-6 assistant checked six
+      first-party sources, including Google's official prompt anatomy, Veo text
+      guidance, Sora's historical report/shutdown and Google Research continuity
+      research. Eight review categories passed and internal quality 90/100,
+      without claiming independent human or model review. Queue after GEN-0017
+      at or after JST 20:00 on 2026-10-24; dependency must be published before
+      release.
   - id: GEN-0074
     slug: image-to-video
     approvedOn: 2026-10-15
@@ -575,4 +596,5 @@ approvals:
     editorialAuditBlob: 7dbcea0a13bb4239bed9913d368d1d1c9f725921
     illustrations: 5
     editorialChanges: None; SHA-bound original article body and illustrations retained
-    evidence: Explicit site-owner acceptance (合格しました) in ChatGPT on 2026-10-15; schedule Oct 25 at 20:00 JST without immediate publication.
+    evidence: Explicit site-owner acceptance (合格しました) in ChatGPT on 2026-10-15;
+      schedule Oct 25 at 20:00 JST without immediate publication.
