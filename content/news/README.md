@@ -77,3 +77,26 @@ Even when the mechanical checklist succeeds, it returns
 No workflow consumes human approvals to draft or publish news yet. The next
 stage must implement a separately audited news-writing and release mechanism.
 The learning-article publication ledger and 20:00 JST quota remain unchanged.
+
+## Drafting groundwork: human importance + Japanese source-bound packet
+
+The manual-only contract in `scripts/news-draft-contract.mjs` is described in
+[`JAPANESE-DRAFT-PIPELINE.md`](./JAPANESE-DRAFT-PIPELINE.md).
+Named reviewers can add grounded 0–10 point editorial priority (impact,
+audience breadth, novelty and practical value) with a written rationale
+for every dimension. Priority is advisory; it is not automated acceptance.
+
+After the existing human primary-source review gate passes, an optional
+**manual** command `node scripts/prepare-news-draft-packets.mjs` creates
+`artifacts/news-draft-packets.json` from private human review data.
+It packages only the human-reviewed claim-to-source mappings and restrictive
+Japanese writing instructions for a future language model. It does **not**
+invoke a language model and does **not** produce Japanese articles today.
+
+`validateGeneratedJapaneseDraft` provides a fail-closed structural
+contract for a future model response, requiring citations to reviewed
+claim IDs for the lead and every section. It cannot establish that the
+generated Japanese is factually correct. Every generated draft will require
+a separate human fact check and new independent release design.
+Nothing in this stage modifies the daily RSS cron or the 20:00 JST
+learning-article publication workflow.
