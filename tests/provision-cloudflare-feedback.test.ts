@@ -80,5 +80,9 @@ test("staging workflow is manual and never turns the feedback switch on", () => 
   assert.match(provisioner, /Production intake flags verified OFF; Production D1 binding preserved/);
   assert.match(provisioner, /Synthetic test-row matches after cleanup: 0/);
   assert.match(provisioner, /83018ded-a41d-4418-b4b5-57adb951242a/);
+  assert.match(provisioner, /1638204a-38f2-44a7-aef9-aae99b658d77/);
+  assert.match(provisioner, /Temporary Production deployment retry requested after intake flags were verified OFF/);
+  assert.match(provisioner, /Production reader-comment API verified HTTP 503/);
+  assert.match(provisioner, /Production reader-comment API did not return the expected 503/);
   assert.doesNotMatch(workflow, /CLOUDFLARE_FEEDBACK_API_TOKEN: [a-zA-Z0-9]{25}/);
 });

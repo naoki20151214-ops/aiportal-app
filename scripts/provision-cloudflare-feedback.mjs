@@ -132,7 +132,31 @@ export async function stageCloudflare() {
       throw Error("Production reader-comment count verification failed.");
     console.log("Production intake flags verified OFF; Production D1 binding preserved.");
     console.log("Synthetic test-row matches after cleanup: 0; Production reader_comments rows: " + totalRows + ".");
-    return "restored-off";
+    // Pages deployments snapshot environment configuration. Retry the exact
+    // temporary smoke-test deployment only after the project-level OFF readback.
+    const smokeDeploymentId = "1638204a-38f2-44a7-aef9-aae99b658d77";
+    const deploymentPath = base + "/pages/projects/" + projectName + "/deployments/" + smokeDeploymentId;
+    const smokeDeployment = await api("GET", deploymentPath);
+    if (smokeDeployment?.environment !== "production" ||
+        smokeDeployment?.deployment_trigger?.metadata?.commit_hash !== "7613196b06df45ac36e2819f844d96e3686e9460" ||
+        smokeDeployment?.deployment_trigger?.metadata?.branch !== "main")
+      throw Error("Temporary smoke-test deployment identity did not match; no retry was started.");
+    await api("POST", deploymentPath + "/retry");
+    console.log("Temporary Production deployment retry requested after intake flags were verified OFF.");
+    const deadline = Date.now() + 10 * 60 * 1000;
+    while (Date.now() < deadline) {
+      const response = await fetch("https://aiportal.blog/api/reader-comment", {
+        headers: {Accept: "application/json", "Cache-Control": "no-cache"},
+        signal: AbortSignal.timeout(10000),
+      });
+      const body = await response.json().catch(() => null);
+      if (response.status === 503 && body?.ok === false && body?.error === "comments_unavailable") {
+        console.log("Production reader-comment API verified HTTP 503 after the OFF deployment.");
+        return "restored-off";
+      }
+      await new Promise(resolve => setTimeout(resolve, 10000));
+    }
+    throw Error("Production reader-comment API did not return the expected 503 after the deployment retry.");
   }
   if (currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ||
       currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ||
