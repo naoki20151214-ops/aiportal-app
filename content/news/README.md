@@ -33,3 +33,33 @@ Even a complete failure of this step does not modify site content or the learnin
 ## Failures and review
 
 An unavailable source is recorded as an error, never fabricated. If all sources fail, collection exits nonzero but the artifact is still uploaded. No live pricing, partner endorsements, sponsor placements or advertisement identifiers are configured. AI news pages are editorial-only during Phase 1; any future sponsored placement requires a relevance reason, visible PR/広告 label and an approved partner relationship.
+
+## Private editorial queue and quality gate (drafting only)
+
+The intake now writes `artifacts/news-editorial-triage.json` as another private
+GitHub Actions artifact. Its topic labels and lexical similarity hints help an
+editor decide what to investigate; they are NOT semantic verification or final
+importance rankings. Suggested duplicates are **not removed**. Missing page dates
+and major RSS/page date discrepancies are flagged for manual review, not repaired
+automatically.
+
+The pure function `validateNewsEditorialReview` in
+`scripts/news-editorial-gate.mjs` checks that an explicitly identified human
+reviewer documented:
+
+- The original official source was read, and publication date, key claims,
+  availability/limitations and possible overlap were checked.
+- Independent context was considered, including noting where no independent
+  evidence could be found.
+- A reader-focused explanation of why the story matters and what changes.
+- Each proposed factual claim mapped to an HTTPS source URL and a short
+  supporting passage, with at least one claim-to-source record.
+- An explicit `draft-ready` decision. Claims must actually be checked by the
+  human reviewer; the validator cannot verify that the quotation proves the
+  claim.
+
+Even when the mechanical checklist succeeds, it returns
+`draftEligible: true` and **`publicationEligible: false`**.
+No workflow consumes human approvals to draft or publish news yet. The next
+stage must implement a separately audited news-writing and release mechanism.
+The learning-article publication ledger and 20:00 JST quota remain unchanged.
