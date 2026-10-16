@@ -145,3 +145,12 @@ test("UI stays compact, asks one relevant followup, and never claims persistence
   assert.ok(migration.includes("CREATE TABLE IF NOT EXISTS reader_comments"));
   assert.ok(publisher.includes("0 11 * * *"));
 });
+
+test("Pages Functions route manifest includes both feedback APIs and excludes the rest of the site",()=>{
+  const manifest=JSON.parse(readFileSync("public/_routes.json","utf8")) as {
+    version:number;include:string[];exclude:string[];
+  };
+  assert.equal(manifest.version,1);
+  assert.deepEqual([...manifest.include].sort(),["/api/feedback","/api/reader-comment"]);
+  assert.deepEqual(manifest.exclude,[]);
+});
