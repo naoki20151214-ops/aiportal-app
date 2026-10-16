@@ -45,6 +45,14 @@ export function validateSourceConfig(config) {
       !source.allowedHosts.length || !source.allowedHosts.every((h) =>
         /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(h)))
       throw new Error("Untrusted news source host configuration");
+    // Redirect targets are editorial-fetch-only. They never widen which URLs
+    // may arrive directly from the publisher's RSS feed.
+    if (source.redirectHosts !== undefined &&
+        (!Array.isArray(source.redirectHosts) || source.redirectHosts.length > 5 ||
+         !source.redirectHosts.every((h) => typeof h === "string" &&
+           /^[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(h) &&
+           !source.allowedHosts.includes(h))))
+      throw new Error("Invalid official news redirect hosts");
     if (!safeUrl(source.feedUrl, source.allowedHosts)) throw new Error("Unsafe RSS source URL");
   }
   return config.sources;

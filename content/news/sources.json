@@ -20,7 +20,10 @@
       "allowedHosts": [
         "deepmind.google"
       ],
-      "priority": 1
+      "priority": 1,
+      "redirectHosts": [
+        "blog.google"
+      ]
     },
     {
       "id": "google-ai",
