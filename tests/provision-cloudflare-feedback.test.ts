@@ -42,7 +42,11 @@ test("reader-comment migration is non-destructive and will be staged alongside o
   assert.match(provisioner, /currentVars\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value === "1"/);
   assert.match(provisioner, /verified\.env_vars\?\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value !== "0"/);
   assert.match(provisioner, /\.size !== 6/);
-  assert.doesNotMatch(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "1"\}/);
+  assert.match(provisioner, /if \(operation === "production-test-on"\)/);
+  assert.match(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "1"\}/);
+  assert.match(provisioner, /Production comments-only flag verification failed/);
+  assert.match(provisioner, /Production test activation failed; flags restored OFF and HTTP 503 verified/);
+  assert.match(provisioner, /await waitForReaderCommentStatus\(503\);/);
 });
 
 test("planning without a Cloudflare secret performs no remote writes", async () => {
@@ -55,7 +59,7 @@ test("planning without a Cloudflare secret performs no remote writes", async () 
   }
 });
 
-test("staging workflow is manual and never turns the feedback switch on", () => {
+test("Cloudflare workflow is manually scoped and production test mode enables only comments", () => {
   const workflow = readFileSync(".github/workflows/provision-feedback-cloudflare.yml", "utf8");
   assert.match(workflow, /workflow_dispatch:/);
   assert.doesNotMatch(workflow, /^(  push:|  schedule:|  pull_request:)/m);
@@ -72,18 +76,36 @@ test("staging workflow is manual and never turns the feedback switch on", () => 
   assert.match(provisioner, /NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: \{type: "plain_text", value: "0"\}/);
   assert.match(provisioner, /current.d1_databases\[binding\].id !== db.uuid/);
   assert.match(workflow, /- restore-off/);
+  assert.match(workflow, /- production-test-on/);
+  assert.match(workflow, /Production smoke test is restricted to the Production environment/);
+  assert.match(workflow, /Production smoke test requires the verified baseline row count/);
+  assert.match(workflow, /production_test_note:/);
+  assert.match(workflow, /production_baseline_rows:/);
+  assert.match(workflow, /PRODUCTION_BASELINE_ROWS: \$\{\{ inputs\.production_baseline_rows \}\}/);
+  assert.match(workflow, /PRODUCTION_EXPECTED_MAIN_SHA: \$\{\{ github\.sha \}\}/);
   assert.match(provisioner, /if \(operation === "restore-off"\)/);
-  assert.match(provisioner, /Restore-off is restricted to Production/);
+  assert.match(provisioner, /Production smoke-test operations are restricted to Production/);
   assert.match(provisioner, /Production D1 binding did not match the verified database/);
   assert.match(provisioner, /DELETE FROM reader_comments WHERE id = \? AND note = \?/);
   assert.match(provisioner, /Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc/);
+  assert.match(provisioner, /matches\[0\]\?\.slug !== "hybrid-search"/);
+  assert.match(provisioner, /matches\[0\]\?\.prompt_code !== "helpful_part"/);
   assert.match(provisioner, /Production intake flags verified OFF; Production D1 binding preserved/);
   assert.match(provisioner, /Synthetic test-row matches after cleanup: 0/);
+  assert.match(provisioner, /Production reader-comment row count did not return to the recorded baseline/);
   assert.match(provisioner, /83018ded-a41d-4418-b4b5-57adb951242a/);
-  assert.match(provisioner, /1638204a-38f2-44a7-aef9-aae99b658d77/);
-  assert.match(provisioner, /Temporary Production deployment retry requested after intake flags were verified OFF/);
+  assert.match(provisioner, /PRODUCTION_EXPECTED_MAIN_SHA/);
+  assert.match(provisioner, /if \(operation === "production-test-on"\)/);
+  assert.match(provisioner, /currentVars\.AI_PORTAL_FEEDBACK_ENABLED\?\.value !== "0"/);
+  assert.match(provisioner, /currentVars\.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED\?\.value !== "0"/);
+  assert.match(provisioner, /details\.domains\?\.includes\("aiportal\.blog"\)/);
+  assert.match(provisioner, /deployments\?env=production&per_page=25/);
+  assert.match(provisioner, /Trusted main Production deployment retry requested after intake flags were verified OFF/);
   assert.match(provisioner, /Production reader-comment API verified HTTP 503/);
-  assert.match(provisioner, /Production reader-comment API did not return the expected 503/);
+  assert.match(provisioner, /did not return the expected HTTP " \+ expectedStatus/);
+  assert.match(provisioner, /turnstileHostname/);
+  assert.match(provisioner, /readerCommentsRows/);
+  assert.match(provisioner, /productionDeploymentSha/);
   assert.doesNotMatch(workflow, /CLOUDFLARE_FEEDBACK_API_TOKEN: [a-zA-Z0-9]{25}/);
 });
 

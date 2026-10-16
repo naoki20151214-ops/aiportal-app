@@ -13,11 +13,11 @@ const target = process.argv.find(x => x.startsWith("--environment="))?.slice(14)
 const binding = "AI_PORTAL_FEEDBACK_DB";
 
 export function parseOptions() {
-  if (!["plan", "audit", "stage", "restore-off"].includes(operation) ||
+  if (!["plan", "audit", "stage", "restore-off", "production-test-on"].includes(operation) ||
       !["preview", "production"].includes(target))
     throw Error("Invalid setup mode or target environment.");
-  if (operation === "restore-off" && target !== "production")
-    throw Error("Restore-off is restricted to Production.");
+  if (["restore-off", "production-test-on"].includes(operation) && target !== "production")
+    throw Error("Production smoke-test operations are restricted to Production.");
   if (!/^[0-9a-f]{32}$/i.test(accountId) || projectName !== "aiportal-app")
     throw Error("Cloudflare account/project scope not verified.");
   return {
@@ -79,8 +79,60 @@ export async function stageCloudflare() {
     throw Error("Unexpected Cloudflare Pages project; no changes made.");
   const current = project.deployment_configs?.[target] || {};
   const currentVars = current.env_vars || {};
+  const productionDbId = "83018ded-a41d-4418-b4b5-57adb951242a";
+  const expectedSha = process.env.PRODUCTION_EXPECTED_MAIN_SHA || process.env.GITHUB_SHA || "";
+  const findTrustedProductionDeployment = async () => {
+    if (!/^[0-9a-f]{40}$/i.test(expectedSha))
+      throw Error("Trusted main SHA is unavailable; no Production deployment was retried.");
+    const deployments = await api("GET", base + "/pages/projects/" + projectName +
+      "/deployments?env=production&per_page=25");
+    const deployment = Array.isArray(deployments) ? deployments.find(item =>
+      item?.environment === "production" && item?.latest_stage?.status === "success" &&
+      item?.deployment_trigger?.metadata?.branch === "main" &&
+      item?.deployment_trigger?.metadata?.commit_hash === expectedSha) : undefined;
+    if (!deployment || typeof deployment.id !== "string")
+      throw Error("No successful Production deployment matched trusted main SHA.");
+    return deployment;
+  };
+  const retryProductionDeployment = async deployment => {
+    await api("POST", base + "/pages/projects/" + projectName + "/deployments/" + deployment.id + "/retry");
+  };
+  const waitForReaderCommentStatus = async expectedStatus => {
+    const deadline = Date.now() + 10 * 60 * 1000;
+    while (Date.now() < deadline) {
+      const response = await fetch("https://aiportal.blog/api/reader-comment", {
+        headers: {Accept: "application/json", "Cache-Control": "no-cache"},
+        signal: AbortSignal.timeout(10000),
+      });
+      const body = await response.json().catch(() => null);
+      if (expectedStatus === 503 && response.status === 503 &&
+          body?.ok === false && body?.error === "comments_unavailable") return;
+      if (expectedStatus === 200 && response.status === 200 &&
+          body?.ok === true && body?.available === true) return;
+      await new Promise(resolve => setTimeout(resolve, 10000));
+    }
+    throw Error("Production reader-comment API did not return the expected HTTP " + expectedStatus + ".");
+  };
+  const restoreProductionFlagsOff = async () => {
+    await api("PATCH", projectPath, {deployment_configs: {production: {
+      d1_databases: {[binding]: {id: productionDbId}},
+      env_vars: {
+        AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+        NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+        AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
+      },
+    }}});
+    const verified = (await api("GET", projectPath)).deployment_configs?.production;
+    if (verified?.d1_databases?.[binding]?.id !== productionDbId ||
+        verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
+        verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
+      throw Error("Production restore-off verification failed.");
+    const deployment = await findTrustedProductionDeployment();
+    await retryProductionDeployment(deployment);
+    await waitForReaderCommentStatus(503);
+  };
   if (operation === "restore-off") {
-    const productionDbId = "83018ded-a41d-4418-b4b5-57adb951242a";
     if (target !== "production" ||
         current.d1_databases?.[binding]?.id !== productionDbId)
       throw Error("Production D1 binding did not match the verified database; no changes made.");
@@ -100,15 +152,26 @@ export async function stageCloudflare() {
         verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
         verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
       throw Error("Production restore-off verification failed.");
+    // Pages deployments snapshot environment configuration. Re-deploy the
+    // successful Production deployment for this workflow's trusted main SHA,
+    // never a stale hard-coded commit from an earlier smoke test.
+    const smokeDeployment = await findTrustedProductionDeployment();
+    await retryProductionDeployment(smokeDeployment);
+    console.log("Trusted main Production deployment retry requested after intake flags were verified OFF.");
+    await waitForReaderCommentStatus(503);
+    console.log("Production reader-comment API verified HTTP 503 after the OFF deployment.");
+    // Confirm the database cleanup only after the public endpoint is safely OFF.
     const queryPath = base + "/d1/database/" + productionDbId + "/query";
-    const testMarker = "Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc";
+    const testMarker = process.env.PRODUCTION_TEST_NOTE ||
+      "Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc";
     const found = await api("POST", queryPath, {
-      sql: "SELECT id FROM reader_comments WHERE note = ?",
+      sql: "SELECT id, slug, prompt_code FROM reader_comments WHERE note = ?",
       params: [testMarker],
     });
     const matches = found?.[0]?.results;
     if (!Array.isArray(matches) || matches.length > 1 ||
-        (matches.length === 1 && typeof matches[0]?.id !== "string"))
+        (matches.length === 1 && (typeof matches[0]?.id !== "string" ||
+          matches[0]?.slug !== "hybrid-search" || matches[0]?.prompt_code !== "helpful_part")))
       throw Error("Synthetic test-row lookup was ambiguous; no row was deleted.");
     if (matches.length === 1) {
       const deleted = await api("POST", queryPath, {
@@ -130,33 +193,15 @@ export async function stageCloudflare() {
     const totalRows = total?.[0]?.results?.[0]?.total;
     if (!Number.isSafeInteger(totalRows) || totalRows < 0)
       throw Error("Production reader-comment count verification failed.");
+    const baselineRowsText = process.env.PRODUCTION_BASELINE_ROWS;
+    if (baselineRowsText !== undefined && baselineRowsText !== "") {
+      const baselineRows = Number(baselineRowsText);
+      if (!Number.isSafeInteger(baselineRows) || baselineRows < 0 || totalRows !== baselineRows)
+        throw Error("Production reader-comment row count did not return to the recorded baseline.");
+    }
     console.log("Production intake flags verified OFF; Production D1 binding preserved.");
     console.log("Synthetic test-row matches after cleanup: 0; Production reader_comments rows: " + totalRows + ".");
-    // Pages deployments snapshot environment configuration. Retry the exact
-    // temporary smoke-test deployment only after the project-level OFF readback.
-    const smokeDeploymentId = "1638204a-38f2-44a7-aef9-aae99b658d77";
-    const deploymentPath = base + "/pages/projects/" + projectName + "/deployments/" + smokeDeploymentId;
-    const smokeDeployment = await api("GET", deploymentPath);
-    if (smokeDeployment?.environment !== "production" ||
-        smokeDeployment?.deployment_trigger?.metadata?.commit_hash !== "7613196b06df45ac36e2819f844d96e3686e9460" ||
-        smokeDeployment?.deployment_trigger?.metadata?.branch !== "main")
-      throw Error("Temporary smoke-test deployment identity did not match; no retry was started.");
-    await api("POST", deploymentPath + "/retry");
-    console.log("Temporary Production deployment retry requested after intake flags were verified OFF.");
-    const deadline = Date.now() + 10 * 60 * 1000;
-    while (Date.now() < deadline) {
-      const response = await fetch("https://aiportal.blog/api/reader-comment", {
-        headers: {Accept: "application/json", "Cache-Control": "no-cache"},
-        signal: AbortSignal.timeout(10000),
-      });
-      const body = await response.json().catch(() => null);
-      if (response.status === 503 && body?.ok === false && body?.error === "comments_unavailable") {
-        console.log("Production reader-comment API verified HTTP 503 after the OFF deployment.");
-        return "restored-off";
-      }
-      await new Promise(resolve => setTimeout(resolve, 10000));
-    }
-    throw Error("Production reader-comment API did not return the expected 503 after the deployment retry.");
+    return "restored-off";
   }
   if (currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ||
       currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ||
@@ -174,16 +219,96 @@ export async function stageCloudflare() {
   if (existingWidget.length > 1) throw Error("Duplicate feedback Turnstile widgets.");
 
   if (operation === "audit") {
+    const productionDbId = target === "production" ?
+      "83018ded-a41d-4418-b4b5-57adb951242a" : existingDb[0]?.uuid;
+    const widgetDetails = existingWidget[0]?.sitekey ?
+      await api("GET", base + "/challenges/widgets/" + encodeURIComponent(existingWidget[0].sitekey)) : undefined;
+    const rowCountResult = productionDbId ? await api("POST",
+      base + "/d1/database/" + productionDbId + "/query",
+      {sql: "SELECT COUNT(*) AS total FROM reader_comments"}) : undefined;
+    const readerCommentsRows = rowCountResult?.[0]?.results?.[0]?.total;
+    if (!Number.isSafeInteger(readerCommentsRows) || readerCommentsRows < 0)
+      throw Error("Production reader-comment baseline count could not be verified.");
+    const expectedSha = process.env.PRODUCTION_EXPECTED_MAIN_SHA || process.env.GITHUB_SHA || "";
+    const deploymentList = await api("GET", projectPath + "/deployments?env=" + target + "&per_page=25");
+    const currentDeployment = Array.isArray(deploymentList) ? deploymentList.find(deployment =>
+      deployment?.environment === target && deployment?.latest_stage?.status === "success" &&
+      deployment?.deployment_trigger?.metadata?.branch === "main" &&
+      deployment?.deployment_trigger?.metadata?.commit_hash === expectedSha) : undefined;
     const status = {
       database: !!existingDb[0]?.uuid,
       widget: !!existingWidget[0]?.sitekey,
-      binding: !!existingDb[0]?.uuid && current.d1_databases?.[binding]?.id === existingDb[0].uuid,
-      serverFlag: currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ? "on" : "off",
-      publicFlag: currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ? "on" : "off",
-      readerCommentsFlag: currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value === "1" ? "on" : "off",
+      binding: !!productionDbId && current.d1_databases?.[binding]?.id === productionDbId,
+      turnstileHostname: widgetDetails?.domains?.includes(config.hostname) === true,
+      turnstileInvisible: widgetDetails?.mode === "invisible",
+      turnstileSecretConfigured: typeof widgetDetails?.secret === "string" && widgetDetails.secret.length >= 12,
+      serverFlag: currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value ?? "missing",
+      publicFlag: currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value ?? "missing",
+      readerCommentsFlag: currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value ?? "missing",
+      readerCommentsRows,
+      productionDeploymentId: currentDeployment?.id ?? null,
+      productionDeploymentSha: currentDeployment?.deployment_trigger?.metadata?.commit_hash ?? null,
+      productionDeploymentStatus: currentDeployment?.latest_stage?.status ?? null,
+      expectedMainSha: expectedSha || null,
+      deploymentMatchesMain: typeof currentDeployment?.deployment_trigger?.metadata?.commit_hash === "string" &&
+        currentDeployment.deployment_trigger.metadata.commit_hash === expectedSha,
     };
     console.log("Read-only audit: " + JSON.stringify(status));
     return status;
+  }
+  if (operation === "production-test-on") {
+    if (current.d1_databases?.[binding]?.id !== productionDbId ||
+        currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
+        currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
+        currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
+      throw Error("Production preflight failed: the expected binding and all-OFF flags are required.");
+    const deployments = await findTrustedProductionDeployment();
+    const dbCheck = await api("POST", base + "/d1/database/" + productionDbId + "/query",
+      {sql: "SELECT COUNT(*) AS total FROM reader_comments"});
+    const baselineRows = dbCheck?.[0]?.results?.[0]?.total;
+    if (!Number.isSafeInteger(baselineRows) || baselineRows < 0)
+      throw Error("Production D1 baseline count could not be verified.");
+    const expectedBaselineText = process.env.PRODUCTION_BASELINE_ROWS;
+    if (expectedBaselineText === undefined || expectedBaselineText === "" ||
+        !/^\d+$/.test(expectedBaselineText) || Number(expectedBaselineText) !== baselineRows)
+      throw Error("Production D1 baseline did not match the preflight audit; no flags were changed.");
+    const widgetsForTest = await api("GET", base + "/challenges/widgets?per_page=100");
+    const widget = Array.isArray(widgetsForTest) ? widgetsForTest.find(item =>
+      item?.name === "AI Portal feedback production") : undefined;
+    const details = widget?.sitekey ? await api("GET", base + "/challenges/widgets/" +
+      encodeURIComponent(widget.sitekey)) : undefined;
+    if (details?.mode !== "invisible" || !details.domains?.includes("aiportal.blog") ||
+        typeof details.secret !== "string" || details.secret.length < 12)
+      throw Error("Production Turnstile preflight failed; no flags were changed.");
+    try {
+      await api("PATCH", projectPath, {deployment_configs: {production: {
+        d1_databases: {[binding]: {id: productionDbId}},
+        env_vars: {
+          AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+          NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+          AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "1"},
+        },
+      }}});
+      const enabled = (await api("GET", projectPath)).deployment_configs?.production;
+      if (enabled?.d1_databases?.[binding]?.id !== productionDbId ||
+          enabled.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
+          enabled.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
+          enabled.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "1")
+        throw Error("Production comments-only flag verification failed.");
+      await retryProductionDeployment(deployments);
+      await waitForReaderCommentStatus(200);
+      console.log("Production comments-only test flag is ON; article feedback remains OFF.");
+      console.log("Production reader-comment API verified HTTP 200; D1 baseline rows: " + baselineRows + ".");
+      return "production-test-on";
+    } catch (error) {
+      try {
+        await restoreProductionFlagsOff();
+        console.log("Production test activation failed; flags restored OFF and HTTP 503 verified.");
+      } catch {
+        console.log("Production test activation failed; OFF restoration was attempted and requires urgent verification.");
+      }
+      throw error;
+    }
   }
   let db = existingDb[0];
   if (!db) {
