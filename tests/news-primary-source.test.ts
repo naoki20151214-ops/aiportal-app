@@ -63,7 +63,7 @@ test("DeepMind RSS links may redirect to preapproved official Google blog only",
   const original = {...candidate,
     originalUrl: "https://deepmind.google/blog/introducing-gemini-4-argon"};
   const finalUrl = "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon";
-  const called = [];
+  const called: string[] = [];
   const result = await fetchPrimaryPage(original, deepmind, async input => {
     called.push(input);
     if (called.length === 1) return new Response(null, {status: 301,
