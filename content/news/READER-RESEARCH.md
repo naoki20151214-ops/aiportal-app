@@ -76,3 +76,15 @@ WHERE received_at < strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-180 days');
 ### 本番検証の完了条件
 
 `GET /api/reader-comment` が設定前 503 を返すことを確認。マイグレーション、D1 binding、Turnstileの公開鍵・秘密鍵、Rate Limiting を構成したあとだけ機能フラグを有効化する。健康確認 `GET` が `200 {"ok":true,"available":true}` を返し、**実機のブラウザで**同意・不同意の両条件で投稿を試し、ランダムな受付番号の返却と D1 にその投稿が1件だけ保存されたことを運営者自身が確認する。不正URL・未公開slug・間違ったTurnstileアクション・他オリジン・重複投稿の拒否を確認してから「本番受付開始」と報告する。
+
+### GitHubから安全に設定する手順（2026-10-16）
+
+1. Cloudflare Dashboard の **My Profile → API Tokens → Create Token → Create Custom Token** で新規トークンを作り、対象を **AI Portal のアカウントだけ** に限定する。Cloudflare Docs の必要な権限名を確認し、少なくとも Account の **Cloudflare Pages Edit、D1 Edit、Turnstile Edit** を必要な範囲だけ付与する。無関係なゾーンのDNS編集や広範な管理権限は付与しない。
+2. トークン自体を**チャット・Issue・PR・スクリーンショットに貼らない**。GitHub リポジトリ **Settings → Secrets and variables → Actions → New repository secret** に、名前 `CLOUDFLARE_FEEDBACK_API_TOKEN` で保存する。GitHub Actionsが参照するだけで、コンソールへ値を出さない。
+3. `.github/workflows/provision-reader-comments.yml` の **workflow_dispatch** で `environment=preview, operation=plan` → `audit` → `stage` と進める。ステージングは既存の `provision-cloudflare-feedback.mjs` で専用の D1 と Turnstile を作った後、`0002_reader_comments.sql` を適用・監査する。どの段階でも **公開フラグはOFF**。初期設定後は、新しい Preview をデプロイし、設定反映を確認する。
+   - Preview のみ、所有者が [Issue #144](https://github.com/naoki20151214-ops/aiportal-app/issues/144) に **`/reader-comment-stage-preview`** と単独行コメントすると、上記の `stage` を安全に起動できる。秘密鍵がなければ処理は失敗して終了する。
+   - Production の `stage` は、作業対象・影響を画面で確認できる **workflow_dispatch** だけから起動する。勝手に実行しない。
+4. 本番有効化は、Cloudflare の WAF/Rate Limiting（`/api/reader-comment` の POST、必要に応じて既存 `/api/feedback`）、D1・Turnstile・環境変数設定、**デプロイ後のGET/POSTとD1の保存成功確認**がそろってから。今回のワークフローは意図的に `AI_PORTAL_READER_COMMENTS_ENABLED` をONにしない。作業途中に「受付中」と報告しない。
+5. 本番で自由記述が送信できるようになるには、Pages Production の `AI_PORTAL_READER_COMMENTS_ENABLED=1` と D1 binding `AI_PORTAL_FEEDBACK_DB`、`TURNSTILE_SECRET_KEY`、ビルド時の `NEXT_PUBLIC_TURNSTILE_SITE_KEY` が揃い、再デプロイが必要。毎回のテストは **投稿成功の見た目だけでなく、D1に1件保存された証拠**を確認する。
+
+既存の2026-10-16 GitHub Actions実行は `Missing CLOUDFLARE_FEEDBACK_API_TOKEN GitHub Actions secret.` で停止している。これはCloudflare認証情報の未設定であり、記事・ニュースの公開システム障害ではない。
