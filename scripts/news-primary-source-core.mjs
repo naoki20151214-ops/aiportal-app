@@ -113,7 +113,10 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
       if (REDIRECT_STATUSES.has(response.status)) {
         if (redirects === MAX_REDIRECTS) throw new Error("redirect-limit");
         const location = response.headers.get("location");
-        const next = location ? safeUrl(new URL(location, current).href, source.allowedHosts) : null;
+        // A publisher may redirect an article to another *explicitly approved*
+        // official domain. Never accept these domains as direct RSS candidates.
+        const redirectHosts = [...source.allowedHosts, ...(source.redirectHosts ?? [])];
+        const next = location ? safeUrl(new URL(location, current).href, redirectHosts) : null;
         if (!next) throw new Error("unsafe-redirect");
         await response.body?.cancel().catch(() => {});
         current = next;
