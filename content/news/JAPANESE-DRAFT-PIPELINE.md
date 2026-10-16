@@ -130,3 +130,52 @@ sections = {
 - ニュース専用の承認台帳・時刻ゲート・一日最大枠・本番公開の安全設計
 
 学習記事の `publish-approved.yml` の20時JSTゲートとは完全に独立させる。
+
+## オプション：モデルによる非公開草稿の試験生成
+
+`scripts/news-model-draft-core.mjs` と
+`scripts/generate-private-news-draft.mjs` に、出典確認済みの主張を
+JSON Schemaの厳格な形式で日本語草稿に変換するモデル接続コードを追加。
+
+**重要：何も設定しない状態ではモデルへのリクエストは実行されない。**
+手動 `--execute` を明示した場合にだけ外部APIを呼ぶ。
+これをRSS収集用のGitHub Actionsや20時の学習記事公開処理に接続しない。
+APIの利用には別途、利用者による設定と料金管理が必要。
+
+実際の編集者レビュー済みのプライベートな
+`artifacts/news-draft-packets.json` を準備した後、まずは無料のドライラン：
+
+```bash
+node scripts/generate-private-news-draft.mjs --candidate=<24文字の候補ID>
+```
+
+このコマンドは候補ID・根拠付き主張の件数・入力SHA-256などを確認するだけ。
+**モデルAPIは呼び出さない（費用も発生しない）。**
+
+将来、担当者が費用と規約を確認しAPIキー・モデル名を自身の秘密情報管理で
+設定した後だけ、以下の手動コマンドを使う：
+
+```bash
+node scripts/generate-private-news-draft.mjs --candidate=<24文字の候補ID> --execute
+```
+
+環境変数：`OPENAI_API_KEY`、`OPENAI_NEWS_DRAFT_MODEL`。
+後者には、JSON Schema付きResponses APIに対応する実際のモデルを明示すること。
+現時点でモデル・キーの既定値は存在しない。キーをGitHub Issue、
+PR、チャット、シェルの実行ログ、リポジトリに貼らないこと。
+
+1回の手動実行では1候補に対して1リクエストのみ（再試行なし）。
+APIレスポンスはサイズ上限・タイムアウト・JSON Schema・元の出典IDの
+照合で検査し、`artifacts/news-generated-draft.json` に非公開保存。
+既存の同名ファイルは上書きしない。APIへの入力内容は
+実際に外部のモデルサービスへ送信されるため、秘密情報・個人情報・
+未公開の機密資料を含めないこと。
+
+`store: false` 指定、外部ツール呼出無効、固定API宛先、
+応答やキーのログ出力なし。モデルが拒否・失敗した場合は
+**下書きを出力しない**。生のRSSは生成入力に渡さない。
+
+この試験コードは日本語草稿の**形式を検査するだけ**。
+出典IDが合っていても、文章内容が出典と一致しているとは限らない。
+人間による事実・数値・条件の再検証後に別の承認作業が必要。
+記事の自動承認・自動公開機能は依然として未実装・無効。
