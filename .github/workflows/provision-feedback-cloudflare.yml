@@ -14,13 +14,14 @@ on:
           - production
         default: preview
       operation:
-        description: "plan is safe; audit read-only; stage creates D1/Turnstile for votes and comments, both OFF"
+        description: "plan, read-only audit, non-activating stage, or Production-only restore-off"
         required: true
         type: choice
         options:
           - plan
           - audit
           - stage
+          - restore-off
         default: plan
 
 permissions:

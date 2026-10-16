@@ -13,9 +13,11 @@ const target = process.argv.find(x => x.startsWith("--environment="))?.slice(14)
 const binding = "AI_PORTAL_FEEDBACK_DB";
 
 export function parseOptions() {
-  if (!["plan", "audit", "stage"].includes(operation) ||
+  if (!["plan", "audit", "stage", "restore-off"].includes(operation) ||
       !["preview", "production"].includes(target))
     throw Error("Invalid setup mode or target environment.");
+  if (operation === "restore-off" && target !== "production")
+    throw Error("Restore-off is restricted to Production.");
   if (!/^[0-9a-f]{32}$/i.test(accountId) || projectName !== "aiportal-app")
     throw Error("Cloudflare account/project scope not verified.");
   return {
@@ -77,6 +79,61 @@ export async function stageCloudflare() {
     throw Error("Unexpected Cloudflare Pages project; no changes made.");
   const current = project.deployment_configs?.[target] || {};
   const currentVars = current.env_vars || {};
+  if (operation === "restore-off") {
+    const productionDbId = "83018ded-a41d-4418-b4b5-57adb951242a";
+    if (target !== "production" ||
+        current.d1_databases?.[binding]?.id !== productionDbId)
+      throw Error("Production D1 binding did not match the verified database; no changes made.");
+    await api("PATCH", projectPath, {deployment_configs: {
+      production: {
+        d1_databases: {[binding]: {id: productionDbId}},
+        env_vars: {
+          AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+          NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
+          AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
+        },
+      },
+    }});
+    const verified = (await api("GET", projectPath)).deployment_configs?.production;
+    if (verified?.d1_databases?.[binding]?.id !== productionDbId ||
+        verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
+        verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
+      throw Error("Production restore-off verification failed.");
+    const queryPath = base + "/d1/database/" + productionDbId + "/query";
+    const testMarker = "Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc";
+    const found = await api("POST", queryPath, {
+      sql: "SELECT id FROM reader_comments WHERE note = ?",
+      params: [testMarker],
+    });
+    const matches = found?.[0]?.results;
+    if (!Array.isArray(matches) || matches.length > 1 ||
+        (matches.length === 1 && typeof matches[0]?.id !== "string"))
+      throw Error("Synthetic test-row lookup was ambiguous; no row was deleted.");
+    if (matches.length === 1) {
+      const deleted = await api("POST", queryPath, {
+        sql: "DELETE FROM reader_comments WHERE id = ? AND note = ?",
+        params: [matches[0].id, testMarker],
+      });
+      if (deleted?.[0]?.success !== true || deleted[0]?.meta?.changes !== 1)
+        throw Error("Exact synthetic test-row deletion was not confirmed.");
+    }
+    const remaining = await api("POST", queryPath, {
+      sql: "SELECT COUNT(*) AS matches FROM reader_comments WHERE note = ?",
+      params: [testMarker],
+    });
+    if (remaining?.[0]?.results?.[0]?.matches !== 0)
+      throw Error("Synthetic test-row cleanup verification failed.");
+    const total = await api("POST", queryPath, {
+      sql: "SELECT COUNT(*) AS total FROM reader_comments",
+    });
+    const totalRows = total?.[0]?.results?.[0]?.total;
+    if (!Number.isSafeInteger(totalRows) || totalRows < 0)
+      throw Error("Production reader-comment count verification failed.");
+    console.log("Production intake flags verified OFF; Production D1 binding preserved.");
+    console.log("Synthetic test-row matches after cleanup: 0; Production reader_comments rows: " + totalRows + ".");
+    return "restored-off";
+  }
   if (currentVars.AI_PORTAL_FEEDBACK_ENABLED?.value === "1" ||
       currentVars.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "1" ||
       currentVars.AI_PORTAL_READER_COMMENTS_ENABLED?.value === "1")
