@@ -38,11 +38,21 @@ Cloudflareアカウントを直接変更できるChatGPT接続がないため、
 3. Turnstileのサイトキーを作り、Productionの`aiportal.blog`を許可する。完全に目立たない動作を優先するなら**Invisible**モード。Managedの場合はリスクがあるアクセスで操作を求められる可能性がある（ブラウザー環境により常に1タップとは限らない）
 4. サーバーのSecret `TURNSTILE_SECRET_KEY` を設定する。GitHubへシークレットをコミットしない。Previewは別のTurnstileウィジェット/鍵を用いる
 5. Cloudflare WAF/Rate Limitingで`POST /api/feedback`と`PATCH /api/feedback`の連続投稿を制限する（必要に応じて`GET`の異常な連打も制限）。Turnstileだけでスパム対策を完結させない
-6. コメントの保持期間、削除手順と運営者の閲覧権限を決める。自由記述に個人情報が含まれた場合の削除手順も確認し、プライバシー記載と一致させる
+6. 読者コメントは受信時刻から180日保管し、毎日自動削除する。個人情報が含まれた場合は期間前でも管理者が削除する。運用手順とプライバシー記載が一致していることを確認する
 7. 上記が検証できたらサーバーの環境変数 `AI_PORTAL_FEEDBACK_ENABLED=1`、**静的ビルド時**の環境変数 `NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED=1`、`NEXT_PUBLIC_TURNSTILE_SITE_KEY=<公開サイトキー>` を設定し、Cloudflare Pagesを**再ビルド・再デプロイ**する（後から設定値だけを追加してもStatic Exportのクライアントバンドルは変わらない）
 8. iPhone/Android/PCで保存確認：GET 200、POST 201、理由・回答変更のPATCH 200、訂正POST 201。D1の記録が本当に更新され、再試行しても重複せず、未設定やエラーでは成功を表示しないことを確認する。Preview環境で先に検証する
 
 **重要：** この作業に利用するGitHubコネクタだけではCloudflare管理画面にあるD1の作成、バインディング、Turnstileの鍵、WAF設定を操作できない。これらは設定実施と本番保存実証が完了するまで「未稼働」として扱う。
+
+## 読者コメントの保持と自動削除（2026-10-17）
+
+- `reader_comments` だけを対象に、`received_at` が実行時刻から180日前のUTC境界より**古い**行を毎日削除する。境界と同時刻の行は削除せず、次回の実行で再判定する。
+- `.github/workflows/expire-reader-comments.yml` は毎日 04:17 UTC（日本時間 13:17）に `main` から実行する。固定した `aiportal-feedback-production` のD1 UUIDと名称をAPIで照合してからDELETEし、Preview・`article_feedback`・他テーブルには触れない。
+- Productionのコメント受付フラグは、この処理と独立してすべて `0` のままとする。手動の `workflow_dispatch` も同じProduction D1だけを対象にする。
+- API成功時は削除件数と cutoff だけを出力する。失敗時はコメント本文・API応答・資格情報を出さず、固定メッセージでActions runを失敗させる。
+- 運用者はGitHub Actionsの「Expire reader comments (Production)」の実行履歴を監視し、失敗runを確認する。失敗時はD1の到達性・テーブル/索引・権限・Actions secretの有無を確認し、修復後に同じworkflowを手動実行する。ジョブは冪等なので再実行しても対象外の行に影響しない。GitHubの通知先はRepository ownerのActions失敗通知設定に従う。
+- テストでは固定UTC時刻に対して「180日前ぴったり」「1ミリ秒古い」「新しい行」、正常削除、削除0件、D1識別不一致、API失敗を確認する。実Productionの手動runは受付OFFとD1件数確認後に行い、結果は削除件数のみ確認する。
+- ワークフローは既存Repository secret `CLOUDFLARE_FEEDBACK_API_TOKEN` を使い、新しい権限や資格情報は作らない。リポジトリの現在のトークンは対象Cloudflareアカウントに限定されている。より小さい権限境界が必要になった場合は、D1 Read/Writeだけを持つ専用トークンへの移行を別途行う。
 
 ## 実装の技術仕様
 - `functions/api/feedback.ts` には`GET`（安全な利用可能状態検査）、`POST`（新規投票・訂正）、`PATCH`（投票の変更・理由の追加）の3操作を実装

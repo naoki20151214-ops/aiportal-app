@@ -28,7 +28,7 @@ export function parseOptions() {
 export function statements(sql) {
   const withoutComments = sql.split("\n").filter(line => !/^\s*--/.test(line)).join("\n");
   const parts = withoutComments.split(";").map(x => x.trim()).filter(Boolean);
-  if (parts.length < 2 || parts.length > 8 ||
+  if (parts.length < 1 || parts.length > 8 ||
       parts.some(x => !/^CREATE\s+(TABLE|INDEX)\s+IF\s+NOT\s+EXISTS\s+/i.test(x) ||
           /\b(DROP|ALTER|INSERT|UPDATE|DELETE|REPLACE|ATTACH|PRAGMA)\b/i.test(x)))
     throw Error("Unexpected D1 migration; refusing to modify existing data.");
@@ -120,6 +120,7 @@ export async function stageCloudflare() {
   for (const migration of [
     "migrations/0001_article_feedback.sql",
     "migrations/0002_reader_comments.sql",
+    "migrations/0003_reader_comments_retention_index.sql",
   ]) {
     const sql = fs.readFileSync(migration, "utf8");
     for (const statement of statements(sql)) {
@@ -129,10 +130,10 @@ export async function stageCloudflare() {
     }
   }
   const verify = await api("POST", base + "/d1/database/" + db.uuid + "/query", {
-    sql: "SELECT name FROM sqlite_master WHERE type IN ('table','index') AND name IN ('article_feedback','idx_article_feedback_article_date','idx_article_feedback_kind_date','reader_comments','idx_reader_comments_article_date') ORDER BY name",
+    sql: "SELECT name FROM sqlite_master WHERE type IN ('table','index') AND name IN ('article_feedback','idx_article_feedback_article_date','idx_article_feedback_kind_date','reader_comments','idx_reader_comments_article_date','idx_reader_comments_received_at') ORDER BY name",
   });
   if (!Array.isArray(verify) || verify.length !== 1 ||
-      new Set((verify[0]?.results || []).map(x => x.name)).size !== 5)
+      new Set((verify[0]?.results || []).map(x => x.name)).size !== 6)
     throw Error("D1 article feedback and reader-comment schema could not be verified.");
   console.log("D1 article feedback and reader-comment tables and indexes verified.");
 

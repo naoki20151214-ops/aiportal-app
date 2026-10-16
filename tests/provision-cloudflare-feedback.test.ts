@@ -29,13 +29,19 @@ test("reader-comment migration is non-destructive and will be staged alongside o
   assert.match(sql[0], /^CREATE TABLE IF NOT EXISTS reader_comments/);
   assert.match(sql[1], /^CREATE INDEX IF NOT EXISTS idx_reader_comments_article_date/);
 
+  const retentionText = readFileSync("migrations/0003_reader_comments_retention_index.sql", "utf8");
+  const retentionSql = statements(retentionText);
+  assert.equal(retentionSql.length, 1);
+  assert.match(retentionSql[0], /^CREATE INDEX IF NOT EXISTS idx_reader_comments_received_at ON reader_comments\(received_at\)$/);
+
   const provisioner = readFileSync("scripts/provision-cloudflare-feedback.mjs", "utf8");
   assert.match(provisioner, /"migrations\/0001_article_feedback\.sql"/);
   assert.match(provisioner, /"migrations\/0002_reader_comments\.sql"/);
+  assert.match(provisioner, /"migrations\/0003_reader_comments_retention_index\.sql"/);
   assert.match(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "0"\}/);
   assert.match(provisioner, /currentVars\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value === "1"/);
   assert.match(provisioner, /verified\.env_vars\?\.AI_PORTAL_READER_COMMENTS_ENABLED\?\.value !== "0"/);
-  assert.match(provisioner, /\.size !== 5/);
+  assert.match(provisioner, /\.size !== 6/);
   assert.doesNotMatch(provisioner, /AI_PORTAL_READER_COMMENTS_ENABLED: \{type: "plain_text", value: "1"\}/);
 });
 
