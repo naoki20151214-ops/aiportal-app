@@ -8,9 +8,10 @@ import { parse } from "yaml";
 import { publishApproved } from "../scripts/auto-publish-approved.mjs";
 const atJst20 = (date: string) => new Date(date + "T11:00:00.000Z");
 function gitBlobSha(source: string): string {
+  const canonical = source.replace(/\r\n/g, "\n");
   return createHash("sha1")
-    .update("blob " + Buffer.byteLength(source, "utf8") + "\0")
-    .update(source, "utf8")
+    .update("blob " + Buffer.byteLength(canonical, "utf8") + "\0")
+    .update(canonical, "utf8")
     .digest("hex");
 }
 function fixture(options: {accept?: boolean; ready?: boolean; dependencyPublished?: boolean; image?: boolean; publishOn?: string}={}){
@@ -56,6 +57,16 @@ test("one accepted ready article becomes published, original body remains intact
     assert.ok(newText.endsWith(old));
     const second=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
     assert.deepEqual(second.published,[]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+test("clean Windows CRLF checkouts still verify the approved canonical Git blob",()=>{
+  const root=fixture();try{
+    const articlePath=path.join(root,"content/articles/example.md");
+    const crlf=readFileSync(articlePath,"utf8").replace(/\n/g,"\r\n");
+    writeFileSync(articlePath,crlf);
+    const result=publishApproved(root,{apply:true,now:atJst20("2026-10-13")});
+    assert.deepEqual(result.published,["BAS-0099"]);
+    assert.match(readFileSync(articlePath,"utf8"),/publishedAt: "2026-10-13"/);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
 test("review or no explicit acceptance never causes publication",()=>{
@@ -174,6 +185,9 @@ test("an overdue approved article can publish after its scheduled JST instant, o
     assert.deepEqual(late.published,["BAS-0099"]);
     const ledger=parse(readFileSync(path.join(root,"content/registry/article-approval-log.yml"),"utf8"));
     assert.equal(ledger.approvals[0].publishedOn,"2026-10-16");
+    const article=readFileSync(path.join(root,"content/articles/example.md"),"utf8");
+    assert.match(article,/publishedAt: "2026-10-16"/);
+    assert.equal(ledger.approvals[0].publishOn,"2026-10-15");
     assert.deepEqual(publishApproved(root,{apply:true,now:new Date("2026-10-16T11:00:00Z")}).published,[]);
   }finally{rmSync(root,{recursive:true,force:true});}
 });

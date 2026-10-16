@@ -20,7 +20,7 @@ const FIGURES: Record<string,string>={
 };
 const blob=(bytes:Buffer)=>createHash("sha1").update("blob "+bytes.length+"\0").update(bytes).digest("hex");
 
-test("GEN-0017 scheduled Oct 16 after two published prerequisites and immutable editorial audit",()=>{
+test("GEN-0017 preserves approved provenance and distinguishes scheduled from actual publication date",()=>{
  const registry=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
  const ledger=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
  const node=registry.nodes.find((x:{id:string})=>x.id===ID);
@@ -35,7 +35,6 @@ test("GEN-0017 scheduled Oct 16 after two published prerequisites and immutable 
  const doc=readAllArticles("content/articles").find(x=>x.id===ID);
  assert.ok(doc);
  assert.equal(doc.status,node.status);
- assert.equal(doc.publishedAt,"2026-10-16");
  const row=ledger.approvals.find((x:{id:string})=>x.id===ID);
  assert.ok(row);
  assert.equal(row.approvedBy,"editorial-qa");
@@ -46,6 +45,13 @@ test("GEN-0017 scheduled Oct 16 after two published prerequisites and immutable 
  assert.equal(row.editorialAuditBlob,AUDIT_SHA);
  assert.equal(row.publishOn,"2026-10-16");
  assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+  if(node.status==="published"){
+    assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+    assert.ok(row.publishedOn>=row.publishOn,"Actual publication must not predate its scheduled JST day");
+    assert.equal(doc.publishedAt,row.publishedOn);
+  }else{
+    assert.equal(doc.publishedAt,row.publishOn,"Queued article keeps its planned date until publication");
+  }
  const audit=readFileSync(row.editorialAuditPath);
  assert.equal(blob(audit),AUDIT_SHA);
  const report=parse(audit.toString("utf8"));

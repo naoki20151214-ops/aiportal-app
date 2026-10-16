@@ -13,6 +13,11 @@ const SLUG = "example";
 const URL_ONE = "https://www.nist.gov/artificial-intelligence";
 const URL_TWO = "https://developers.google.com/machine-learning/crash-course";
 
+test("Git blob provenance hashing is stable across Windows CRLF checkout conversion",()=>{
+  const canonical=source();
+  assert.equal(gitBlobSha(canonical.replace(/\n/g,"\r\n")),gitBlobSha(canonical));
+});
+
 function source() {
   return [
     "---",
