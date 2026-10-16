@@ -71,5 +71,14 @@ test("staging workflow is manual and never turns the feedback switch on", () => 
   assert.match(provisioner, /AI_PORTAL_FEEDBACK_ENABLED: \{type: "plain_text", value: "0"\}/);
   assert.match(provisioner, /NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: \{type: "plain_text", value: "0"\}/);
   assert.match(provisioner, /current.d1_databases\[binding\].id !== db.uuid/);
+  assert.match(workflow, /- restore-off/);
+  assert.match(provisioner, /if \(operation === "restore-off"\)/);
+  assert.match(provisioner, /Restore-off is restricted to Production/);
+  assert.match(provisioner, /Production D1 binding did not match the verified database/);
+  assert.match(provisioner, /DELETE FROM reader_comments WHERE id = \? AND note = \?/);
+  assert.match(provisioner, /Synthetic Production E2E reference: 41ff066f-2394-4def-9524-e979ddf8bccc/);
+  assert.match(provisioner, /Production intake flags verified OFF; Production D1 binding preserved/);
+  assert.match(provisioner, /Synthetic test-row matches after cleanup: 0/);
+  assert.match(provisioner, /83018ded-a41d-4418-b4b5-57adb951242a/);
   assert.doesNotMatch(workflow, /CLOUDFLARE_FEEDBACK_API_TOKEN: [a-zA-Z0-9]{25}/);
 });
