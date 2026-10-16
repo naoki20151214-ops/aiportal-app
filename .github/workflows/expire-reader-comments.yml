@@ -1,0 +1,32 @@
+name: Expire reader comments (Production)
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expire-reader-comments-production
+  cancel-in-progress: false
+
+jobs:
+  expire:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - name: Delete expired comments from the fixed Production D1 only
+        env:
+          CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
+        run: node scripts/expire-reader-comments.mjs
