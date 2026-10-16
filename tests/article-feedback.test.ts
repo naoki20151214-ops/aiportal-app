@@ -273,7 +273,7 @@ test("storage outage is not mistaken for successful persisted feedback", async (
 
 test("static articles bypass Pages Functions, and rating never requires a send button", () => {
   const routes = JSON.parse(readFileSync("public/_routes.json", "utf8"));
-  assert.deepEqual(routes, { version: 1, include: ["/api/feedback"], exclude: [] });
+  assert.deepEqual(routes, { version: 1, include: ["/api/feedback", "/api/reader-comment"], exclude: [] });
   const front = readFileSync("src/components/article-feedback.tsx", "utf8");
   assert.match(front, /data-feedback-widget="one-tap"/);
   assert.match(front, /😊 わかった/);
