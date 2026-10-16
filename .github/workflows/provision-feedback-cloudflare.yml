@@ -14,7 +14,7 @@ on:
           - production
         default: preview
       operation:
-        description: "plan, read-only audit, non-activating stage, or Production-only restore-off"
+        description: "plan, audit, stage, Production restore-off, or isolated Preview Turnstile E2E"
         required: true
         type: choice
         options:
@@ -22,7 +22,12 @@ on:
           - audit
           - stage
           - restore-off
+          - preview-test
         default: plan
+      preview_commit:
+        description: "Full source commit SHA for the successful Cloudflare Pages Preview deployment (preview-test only)"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -51,7 +56,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
+      - name: Verify operation scope
+        env:
+          MODE: ${{ github.event_name == 'issue_comment' && 'stage' || inputs.operation }}
+          TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
+          PREVIEW_COMMIT_SHA: ${{ inputs.preview_commit }}
+        run: |
+          if [ "$MODE" = "preview-test" ] && [ "$TARGET" != "preview" ]; then
+            echo "Preview E2E is restricted to the Preview environment."
+            exit 1
+          fi
+          if [ "$MODE" = "preview-test" ] && ! [[ "$PREVIEW_COMMIT_SHA" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo "Preview E2E requires a full source commit SHA."
+            exit 1
+          fi
       - name: Cloudflare resources (never enable public feedback or comments)
+        if: inputs.operation != 'preview-test'
         env:
           CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: fd4fe7df0d653a3c4c5969244430f6e2
@@ -60,3 +80,9 @@ jobs:
           TARGET: ${{ github.event_name == 'issue_comment' && 'preview' || inputs.environment }}
         run: |
           node scripts/provision-cloudflare-feedback.mjs --mode="$MODE" --environment="$TARGET"
+      - name: Isolated Preview Turnstile and D1 end-to-end test
+        if: inputs.operation == 'preview-test' && inputs.environment == 'preview'
+        env:
+          CLOUDFLARE_FEEDBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_FEEDBACK_API_TOKEN }}
+          PREVIEW_COMMIT_SHA: ${{ inputs.preview_commit }}
+        run: node scripts/preview-reader-comment-e2e.mjs

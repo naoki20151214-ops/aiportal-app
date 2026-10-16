@@ -86,3 +86,25 @@ test("staging workflow is manual and never turns the feedback switch on", () => 
   assert.match(provisioner, /Production reader-comment API did not return the expected 503/);
   assert.doesNotMatch(workflow, /CLOUDFLARE_FEEDBACK_API_TOKEN: [a-zA-Z0-9]{25}/);
 });
+
+test("Preview Turnstile E2E is isolated, fail-safe, and cleans only its synthetic row", () => {
+  const workflow = readFileSync(".github/workflows/provision-feedback-cloudflare.yml", "utf8");
+  const e2e = readFileSync("scripts/preview-reader-comment-e2e.mjs", "utf8");
+  const endpoint = readFileSync("functions/api/reader-comment.ts", "utf8");
+  assert.match(workflow, /- preview-test/);
+  assert.match(workflow, /inputs\.environment == 'preview'/);
+  assert.match(workflow, /Full source commit SHA for the successful Cloudflare Pages Preview deployment/);
+  assert.match(e2e, /const productionDbId = "83018ded-a41d-4418-b4b5-57adb951242a"/);
+  assert.match(e2e, /Preview D1 binding is absent or not separated from Production/);
+  assert.match(e2e, /A Production intake flag is not OFF/);
+  assert.match(e2e, /const passSitekey = "1x00000000000000000000BB"/);
+  assert.match(e2e, /const failSecret = "2x0000000000000000000000000000000AA"/);
+  assert.match(e2e, /XXXX\.DUMMY\.TOKEN\.XXXX/);
+  assert.match(e2e, /DELETE FROM reader_comments WHERE id = \? AND note = \?/);
+  assert.match(e2e, /Preview fail-key negative test wrote data to D1/);
+  assert.match(e2e, /Preview restore verified: test mode OFF, intake OFF, real widget restored, GET returns HTTP 503/);
+  assert.match(endpoint, /env\.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl\.hostname/);
+  assert.match(endpoint, /const expectedAction=previewTestHost\?"test":"reader_comment"/);
+  assert.doesNotMatch(e2e, /console\.log\([^\n]*(positive|negative)\.marker/);
+  assert.doesNotMatch(e2e, /console\.log\([^\n]*row\.note/);
+});

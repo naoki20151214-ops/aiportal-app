@@ -8,6 +8,7 @@
 
 - GitHub main: 読者の動機・読後の変化に関するGA4計測の実装済み。
 - 自由記述フォーム/API・D1 migration `migrations/0002_reader_comments.sql` をmainへマージ済み。
+- 読者コメントは受信日時から180日で期限切れとなり、Production D1 IDを固定した毎日のGitHub Actions処理で削除する。Privacy Policyにも同じ保持期間・早期削除を記載済み。
 - 2026-10-16のGitHub Actions `Prepare AI Portal Feedback Cloudflare Resources` staging試行（Run ID `38828127851`）は `Missing CLOUDFLARE_FEEDBACK_API_TOKEN GitHub Actions secret.` で停止。Cloudflare API呼び出しより前のエラーで、stageのCloudflare変更は行われていない。
 - 初期状態では `AI_PORTAL_READER_COMMENTS_ENABLED=1` の存在を確認していないため **自由記述は受け付けない**。
 
@@ -54,6 +55,10 @@ GitHub Actions > `Prepare AI Portal Feedback Cloudflare Resources` > Run workflo
 - **実際にD1で該当の受付レコードが1件だけあることを確認するまで、送信成功と判定しない。**
 - Previewホスト名がTurnstile設定の許可ドメインに含まれるか確認する。ランダムhash付きのPreview URLは許可されない場合があるため、実ドメイン・設定を照合すること。
 
+自動化されたCloudflare challengeは本番用Turnstileで完了できない場合がある。Cloudflare公式のテストキーを使う場合は、既存の `Prepare AI Portal Feedback Cloudflare Resources` ワークフローで `environment=preview`, `operation=preview-test` を選び、対象Preview deploymentの完全なcommit SHAを指定する。専用処理はPreview D1の空状態とProductionのOFF/D1分離を先に確認し、テスト用の成功・失敗キーでSiteverify→API→D1を検証する。成功時の合成行だけをIDと本文の完全一致で削除し、最後にPreviewの実widgetとOFF設定を戻して503を確認する。Production設定は読み取りだけで変更しない。
+
+Cloudflareの公式テストキーは `action=test` を返す。その値を受け入れるサーバー分岐は、Preview環境フラグと完全一致する1つのPreview hostnameが両方指定されたときだけ有効にし、Productionや別ホストでは従来どおり `reader_comment` を要求する。テストキーでの成功は実訪問者が本番Turnstileを通過できる証明ではない。
+
 ## 5. Productionの段階的準備
 
 Previewが通った場合に限り、Productionを `operation=stage` でセットアップ（ステージング時点でフラグは0）。本番D1はPreviewと別のDBを使い、間違ったDBとの紐付けがないことを検証する。料金・使用量・権限・ログ設定も確認する。
@@ -71,7 +76,7 @@ ORDER BY received_at DESC
 LIMIT 25;
 ```
 
-個人情報が含まれた投稿はそのままAIや外部分析へ送らない。必要に応じて削除する。最初の保管期限目標は180日（自動削除は別途運用・監査が必要）。
+個人情報が含まれた投稿はそのままAIや外部分析へ送らない。必要に応じて早期削除する。受信後180日を超えたレコードは `.github/workflows/expire-reader-comments.yml` が毎日削除する。手動実行も同じ固定Production D1だけを対象とする。
 
 ## 絶対に避けること
 

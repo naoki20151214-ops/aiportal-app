@@ -10,7 +10,7 @@ const sample={
   note:"この説明の違いがまだよくわかりません。",turnstileToken:"test-token",
 };
 const validate=(data:unknown)=>validateReaderComment(data);
-const request=(body:unknown,method="POST",origin="https://aiportal.blog")=>new Request("https://aiportal.blog/api/reader-comment",{
+const request=(body:unknown,method="POST",origin="https://aiportal.blog",host="aiportal.blog")=>new Request(`https://${host}/api/reader-comment`,{
   method,headers:{Origin:origin,"Content-Type":"application/json"},body:method==="GET"?undefined:JSON.stringify(body),
 });
 function db(opts:{missing?:boolean;writesFail?:boolean}={}){
@@ -106,6 +106,34 @@ test("Turnstile must confirm exact hostname and the reader_comment action",async
   },{success:true,hostname:"aiportal.blog",action:"article_feedback"});
   assert.equal(bad,1);
   assert.equal(database.rows.size,0);
+});
+
+test("Cloudflare dummy Turnstile action=test is accepted only on the exact configured Pages Preview host",async()=>{
+  const host="c33fde3a.aiportal-app.pages.dev",database=db();
+  const env={...enabled(database),AI_PORTAL_TURNSTILE_TEST_MODE:"1",
+    AI_PORTAL_TURNSTILE_TEST_HOSTNAME:host};
+  await withVerified(async()=>{
+    const response=await onRequest({request:request(sample,"POST",`https://${host}`,host),env});
+    assert.equal(response.status,201);
+  },{success:true,hostname:host,action:"test"});
+  assert.equal(database.rows.size,1);
+
+  const wrongHostDb=db();
+  await withVerified(async()=>{
+    const response=await onRequest({request:request(sample,"POST","https://other.aiportal-app.pages.dev","other.aiportal-app.pages.dev"),
+      env:{...enabled(wrongHostDb),AI_PORTAL_TURNSTILE_TEST_MODE:"1",AI_PORTAL_TURNSTILE_TEST_HOSTNAME:host}});
+    assert.equal(response.status,403);
+  },{success:true,hostname:"other.aiportal-app.pages.dev",action:"test"});
+  assert.equal(wrongHostDb.rows.size,0);
+
+  const productionDb=db();
+  await withVerified(async()=>{
+    const response=await onRequest({request:request(sample,"POST","https://aiportal.blog"),
+      env:{...enabled(productionDb),AI_PORTAL_TURNSTILE_TEST_MODE:"1",
+        AI_PORTAL_TURNSTILE_TEST_HOSTNAME:"aiportal.blog"}});
+    assert.equal(response.status,403);
+  },{success:true,hostname:"aiportal.blog",action:"test"});
+  assert.equal(productionDb.rows.size,0);
 });
 
 test("Valid free-form comments are stored separately, deduped, and never exposed by GET",async()=>{
