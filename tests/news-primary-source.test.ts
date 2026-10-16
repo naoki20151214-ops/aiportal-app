@@ -56,6 +56,34 @@ test("HTTPS, official host, redirects and max hops block off-site fetching", asy
   assert.equal(looping.reason, "redirect-limit");
 });
 
+
+test("DeepMind RSS links may redirect to preapproved official Google blog only", async () => {
+  const deepmind = {id: "deepmind", allowedHosts: ["deepmind.google"],
+    redirectHosts: ["blog.google"]};
+  const original = {...candidate,
+    originalUrl: "https://deepmind.google/blog/introducing-gemini-4-argon"};
+  const finalUrl = "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon";
+  const called = [];
+  const result = await fetchPrimaryPage(original, deepmind, async input => {
+    called.push(input);
+    if (called.length === 1) return new Response(null, {status: 301,
+      headers: {location: finalUrl}});
+    return new Response(html, {headers: {"content-type": "text/html"}});
+  });
+  assert.equal(result.status, "retrieved-for-editorial-review");
+  if (!("finalUrl" in result)) throw Error("Expected official final URL");
+  assert.equal(result.finalUrl, finalUrl);
+  assert.deepEqual(called, [original.originalUrl, finalUrl]);
+  assert.equal(result.publicationEligible, false);
+  const spoofed = await fetchPrimaryPage(original, deepmind, async () =>
+    new Response(null, {status: 302,
+      headers: {location: "https://blog.google.evil.example/claim"}}));
+  assert.equal(spoofed.reason, "unsafe-redirect");
+  const direct = await fetchPrimaryPage({...original, originalUrl: finalUrl},
+    deepmind, async () => {throw Error("Direct alternate-domain feed URLs must never be fetched");});
+  assert.equal(direct.reason, "unsafe-candidate-url");
+});
+
 test("Only bounded HTML is accepted; PDF and oversized responses are rejected", async () => {
   const pdf = await fetchPrimaryPage(candidate, source, async () =>
     new Response("PDF", {headers: {"content-type": "application/pdf"}}));
