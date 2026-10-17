@@ -64,7 +64,12 @@ export default function NewsIndexPage() {
           ) : (
             <div className="mt-6 grid gap-5 md:grid-cols-2">
               {news.map(item=>(
-                <article key={item.slug} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <article key={item.slug} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                  <Link href={"/articles/"+item.slug} aria-label={item.title} className="block aspect-video overflow-hidden bg-slate-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- News thumbnails are editorially controlled assets. */}
+                    <img src={item.thumbnail} alt="" loading="lazy" className="h-full w-full object-cover" />
+                  </Link>
+                  <div className="p-5">
                   <time className="text-xs text-gray-500" dateTime={item.publishedAt}>
                     {formatArticleDate(item.publishedAt)}
                   </time>
@@ -88,6 +93,7 @@ export default function NewsIndexPage() {
                         </li>
                       ))}
                     </ul>
+                  </div>
                   </div>
                 </article>
               ))}
