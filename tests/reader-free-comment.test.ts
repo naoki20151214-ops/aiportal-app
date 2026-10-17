@@ -41,6 +41,7 @@ function db(opts:{missing?:boolean;writesFail?:boolean}={}){
 }
 const enabled=(database:ReturnType<typeof db>)=>({
   AI_PORTAL_READER_COMMENTS_ENABLED:"1",
+  AI_PORTAL_READER_COMMENTS_EXPIRES_AT:new Date(Date.now()+5*60*1000).toISOString(),
   AI_PORTAL_FEEDBACK_DB:database.handle,
   TURNSTILE_SECRET_KEY:"secret",
 });
@@ -90,6 +91,35 @@ test("Free-comment endpoint is unavailable until flag, D1 and Turnstile are conf
   const available=await onRequest({request:new Request("https://aiportal.blog/api/reader-comment"),env:enabled(database)});
   assert.equal(available.status,200);
   assert.deepEqual(await available.json(),{ok:true,available:true});
+});
+
+test("Expired, missing, malformed, or excessively long comment leases fail closed",async()=>{
+  const database=db();
+  const baseline=enabled(database);
+  for(const value of [undefined,"", "not-a-date",
+    new Date(Date.now()-1000).toISOString(),
+    new Date(Date.now()+11*60*1000).toISOString()]){
+    const env={...baseline,AI_PORTAL_READER_COMMENTS_EXPIRES_AT:value};
+    const get=await onRequest({request:request(sample,"GET"),env});
+    assert.equal(get.status,503);
+    const post=await onRequest({request:request(sample),env});
+    assert.equal(post.status,503);
+  }
+  assert.equal(database.rows.size,0);
+});
+
+test("The lease is checked again after Turnstile before any D1 insertion",async()=>{
+  const database=db(),env=enabled(database);
+  const originalFetch=globalThis.fetch;
+  globalThis.fetch=(async()=>{
+    env.AI_PORTAL_READER_COMMENTS_EXPIRES_AT=new Date(Date.now()-1000).toISOString();
+    return Response.json({success:true,hostname:"aiportal.blog",action:"reader_comment"});
+  }) as typeof fetch;
+  try{
+    const result=await onRequest({request:request(sample),env});
+    assert.equal(result.status,503);
+    assert.equal(database.rows.size,0);
+  }finally{globalThis.fetch=originalFetch;}
 });
 
 test("Free-comment API validates cross-site requests, published slugs and payloads before Turnstile",async()=>{

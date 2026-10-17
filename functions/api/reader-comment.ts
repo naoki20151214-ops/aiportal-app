@@ -10,6 +10,7 @@ type ReaderDatabase={
 };
 type ReaderEnvironment={
   AI_PORTAL_READER_COMMENTS_ENABLED?:string;
+  AI_PORTAL_READER_COMMENTS_EXPIRES_AT?:string;
   AI_PORTAL_TURNSTILE_TEST_MODE?:string;
   AI_PORTAL_TURNSTILE_TEST_HOSTNAME?:string;
   AI_PORTAL_FEEDBACK_DB?:ReaderDatabase;
@@ -21,6 +22,18 @@ const json=(status:number,data:Record<string,unknown>)=>Response.json(data,{
 });
 const publishedSlugs=new Set<string>(Object.values(publishedArticleSlugById));
 
+// A temporary enabled environment must have a short-lived UTC lease.
+// After expiry, GET and POST fail closed even if an old deployment remains live.
+// Permanent reader-comment launch requires a separately reviewed change.
+const MAX_COMMENT_WINDOW_MS=10*60*1000;
+function windowOpen(env:ReaderEnvironment):boolean{
+  const value=env.AI_PORTAL_READER_COMMENTS_EXPIRES_AT;
+  if(typeof value!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$/.test(value))return false;
+  const deadline=Date.parse(value);
+  const remaining=deadline-Date.now();
+  return Number.isFinite(deadline)&&remaining>0&&remaining<=MAX_COMMENT_WINDOW_MS;
+}
+
 /**
  * Cloudflare Pages Function for opt-in free-text editorial feedback.
  * Distinct from GA4 and original article-feedback API.
@@ -29,7 +42,8 @@ const publishedSlugs=new Set<string>(Object.values(publishedArticleSlugById));
 export async function onRequest({request,env}:ReaderContext):Promise<Response>{
   if(request.method!=="GET"&&request.method!=="POST")
     return json(405,{ok:false,error:"method_not_allowed"});
-  if(env.AI_PORTAL_READER_COMMENTS_ENABLED!=="1"||!env.AI_PORTAL_FEEDBACK_DB||!env.TURNSTILE_SECRET_KEY)
+  if(env.AI_PORTAL_READER_COMMENTS_ENABLED!=="1"||!env.AI_PORTAL_FEEDBACK_DB||
+      !env.TURNSTILE_SECRET_KEY||!windowOpen(env))
     return json(503,{ok:false,error:"comments_unavailable"});
 
   const db=env.AI_PORTAL_FEEDBACK_DB;
@@ -83,6 +97,8 @@ export async function onRequest({request,env}:ReaderContext):Promise<Response>{
   if(result.success!==true||!(previewTestHost?acceptedPreviewTestResult:acceptedRealResult))
     return json(403,{ok:false,error:"verification_rejected"});
 
+  // A verification that outlives the lease must not write to the database.
+  if(!windowOpen(env))return json(503,{ok:false,error:"comments_unavailable"});
   try{
     // An identical requestId is idempotent; never rewrite a different comment.
     const inserted=await db.prepare(
