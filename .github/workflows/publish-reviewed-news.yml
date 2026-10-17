@@ -1,0 +1,65 @@
+name: Publish Reviewed AI News (two daily slots)
+on:
+  schedule:
+    - cron: '0 0 * * *' # 09:00 JST
+    - cron: '0 9 * * *' # 18:00 JST
+  workflow_dispatch: # manual recovery; same clock, evidence and 2/day rules
+
+permissions:
+  contents: write
+
+# Must remain serialized with the evergreen publisher's 20:00 JST main push.
+concurrency:
+  group: aiportal-approved-publication-main
+  cancel-in-progress: false
+
+jobs:
+  news:
+    if: github.repository == 'naoki20151214-ops/aiportal-app' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Prepare only locally approved news images
+        run: node scripts/prepare-news-media.mjs
+      - name: Promote at most one date-due approved news article
+        id: release
+        run: node scripts/publish-news-queue.mjs --apply
+      - name: Test and validate immutable news archive
+        if: steps.release.outputs.changed == 'true'
+        run: |
+          npm test
+          npm run news:archive:check
+      - name: Lint
+        if: steps.release.outputs.changed == 'true'
+        run: npm run lint
+      - name: Build static site
+        if: steps.release.outputs.changed == 'true'
+        run: npm run build
+      - name: Commit validated news and archive to main
+        if: steps.release.outputs.changed == 'true'
+        env:
+          NEWS_SLUG: ${{ steps.release.outputs.slug }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "content/articles/${NEWS_SLUG}.md" content/registry/knowledge-nodes.yml content/news/news-approval-queue.yml content/news/news-archive.json content/news/news-archive.csv src/generated/published-article-slugs.ts
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish vetted AI news in the scheduled JST slot"
+          git push origin HEAD:main
+      - name: Report without creating filler news
+        if: always()
+        run: |
+          echo "News slots never create articles or approvals."
+          echo "Only owner-approved ready stories can be published."
