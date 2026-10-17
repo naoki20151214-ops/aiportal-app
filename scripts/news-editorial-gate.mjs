@@ -38,7 +38,7 @@ function limitedText(text, minimum, maximum) {
     text.length <= maximum && !/[\u0000-\u001f\u007f]/.test(text);
 }
 
-export function triageNewsEvidence(report, archive = null) {
+export function triageNewsEvidence(report, archive = /** @type {any} */ (null)) {
   if (!report || report.schemaVersion !== 1 ||
       report.status !== "editorial-evidence-only" ||
       report.publishingEnabled !== false || report.editorialApprovals !== 0 ||
