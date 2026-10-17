@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 501
+nodeCount: 502
 
 nodes:
   - id: "BAS-0001"
@@ -6108,4 +6108,17 @@ nodes:
     prerequisites: []
     children: []
     related: ["BAS-0001","GEN-0004"]
+    priority: "A"
+
+  - id: "NEWS-0093"
+    title: "AIが売上を100万倍に!? AWSが明かした「正常に動くAI」の落とし穴"
+    slug: "aws-agent-million-fold-error"
+    category: "AIニュース"
+    level: 0
+    type: "news"
+    status: "review"
+    centerQuestion: "AIエージェントは正常に動いていても、なぜ数字を間違えるのか？"
+    prerequisites: []
+    children: []
+    related: ["GEN-0004","AGT-0001"]
     priority: "A"
