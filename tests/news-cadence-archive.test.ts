@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
+import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync} from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import {test} from "node:test";
 import {parse} from "yaml";
 import {
@@ -58,16 +60,43 @@ test("Twice-daily news slots are independent of the evergreen 20:00 publication 
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);
   assert.match(evergreen,/group: aiportal-approved-publication-main/);
 });
-test("Empty owner-approval queue cannot publish a merely-ready story or a private RSS item",()=>{
-  const approvals=parse(read("content/news/news-approval-queue.yml"));
-  assert.equal(approvals.schemaVersion,1);
-  assert.deepEqual(approvals.approvals,[]);
-  const october18=new Date("2026-10-18T09:30:00+09:00");
-  const dry=chooseNewsRelease(process.cwd(),october18);
-  assert.equal(dry.changed,false);
-  assert.match(String(dry.reason),/No date-due/);
-  assert.equal(dry.availableSlots,2);
-  const attempted=publishNews(process.cwd(),{apply:true,now:october18});
-  assert.equal(attempted.changed,false);
-  assert.match(String("reason" in attempted ? attempted.reason : ""),/No date-due/);
+test("Unapproved stories are never published, even when approval queue later contains accepted stories",()=>{
+  const tmp=mkdtempSync(path.join(os.tmpdir(),"aiportal-news-queue-"));
+  try{
+    for(const rel of [
+      "content/news/news-cadence.yml",
+      "content/news/news-approval-queue.yml",
+      "content/news/news-publication-log.yml",
+      "content/news/news-editorial-decisions.yml",
+      "content/registry/knowledge-nodes.yml",
+    ]){
+      const dest=path.join(tmp,rel);
+      mkdirSync(path.dirname(dest),{recursive:true});
+      writeFileSync(dest,read(rel));
+    }
+    writeFileSync(path.join(tmp,"content/news/news-approval-queue.yml"),
+      'schemaVersion: 1\ntimezone: "Asia/Tokyo"\napprovals: []\n');
+    const now=new Date("2026-10-18T09:30:00+09:00");
+    const dry=chooseNewsRelease(tmp,now);
+    assert.equal(dry.changed,false);
+    assert.match(String(dry.reason),/No date-due/);
+    assert.equal(dry.availableSlots,2);
+    const attempted=publishNews(tmp,{apply:true,now});
+    assert.equal(attempted.changed,false);
+    assert.match(String("reason" in attempted ? attempted.reason : ""),/No date-due/);
+    const history=parse(read("content/news/news-publication-log.yml"));
+    history.releases.push(
+      {id:"NEWS-8001",decision:"published",publishOn:"2026-10-18"},
+      {id:"NEWS-8002",decision:"published",publishOn:"2026-10-18"}
+    );
+    writeFileSync(path.join(tmp,"content/news/news-publication-log.yml"),
+      "schemaVersion: 1\nreleases:\n"+history.releases.map((r:{id:string;decision:string;publishOn:string})=>
+        '  - id: "'+r.id+'"\n    decision: "'+r.decision+'"\n    publishOn: "'+r.publishOn+'"\n').join(""));
+    const blocked=chooseNewsRelease(tmp,now);
+    assert.equal(blocked.changed,false);
+    assert.match(String(blocked.reason),/quota reached/);
+    assert.equal(blocked.availableSlots,0);
+  } finally {
+    rmSync(tmp,{recursive:true,force:true});
+  }
 });
