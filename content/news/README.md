@@ -1,6 +1,16 @@
-# AI Portal AI News: Phase 1 + private Phase 2 review evidence
+# AI Portal AI News: official intake, review evidence and owner-approved release
 
 **News intake and private official-page evidence are not fact-checking, approval, article drafting or publishing.**
+
+**2026-10-18 release expansion:** The independent owner-approved publishing lane now has
+two scheduled slots, 09:00 and 18:00 JST, with no more than two published news
+stories per calendar day. The publication queue starts empty. No RSS candidate,
+merely-ready article, or AI-generated draft enters this lane without explicit
+owner approval bound to an immutable original manuscript and hero artwork.
+See [NEWS-OPERATIONS.md](./NEWS-OPERATIONS.md) and the Git-owned
+[news-archive.json](./news-archive.json) / [news-archive.csv](./news-archive.csv)
+for published and rejected-topic history. The learning article 20:00
+JST approval system is still independent.
 
 - Curated official feed allowlist: content/news/sources.json
 - Safe URLs, time-window checks and URL/title exact duplicate filtering: scripts/news-candidate-core.mjs
@@ -34,7 +44,7 @@ Before any news publication:
 2. Mark preprints as non-peer-reviewed unless independently proven otherwise.
 3. Compare stories semantically with previously covered topics (Phase 1 does only exact URL/title dedup).
 4. Apply a separately reviewed, news-specific editorial audit; if uncertain or no news, do not publish.
-5. Implement independent JST clock gate, daily news quota and serial Git main push rules that cannot interrupt the existing learning schedule.
+5. Apply independent JST clock gate, daily news quota, owner-bound immutable proof and serial Git main push checks before any publication; never interrupt the existing learning schedule.
 
 ## Private primary-source review evidence
 
@@ -74,8 +84,10 @@ reviewer documented:
 
 Even when the mechanical checklist succeeds, it returns
 `draftEligible: true` and **`publicationEligible: false`**.
-No workflow consumes human approvals to draft or publish news yet. The next
-stage must implement a separately audited news-writing and release mechanism.
+The private RSS intake never approves or publishes news. A separate release
+workflow now consumes only explicit site-owner approvals from the immutable
+news-specific queue. Drafting and release remain distinct and require human
+editorial verification.
 The learning-article publication ledger and 20:00 JST quota remain unchanged.
 
 ## Drafting groundwork: human importance + Japanese source-bound packet
