@@ -120,6 +120,24 @@ test("A named reviewer, all checks and claim-to-source citations are required", 
   assert.equal(validateNewsEditorialReview(sampleReview, {...triage, retrievalStatus: "fetch-failed"}).valid, false);
 });
 
+test("Official China-model and cybersecurity pages remain manual leads, not unapproved RSS intake", () => {
+  const watch = JSON.parse(readFileSync("content/news/editorial-source-watchlist.json", "utf8"));
+  const active = JSON.parse(readFileSync("content/news/sources.json", "utf8"));
+  assert.equal(watch.enabledInScheduledIntake,false);
+  assert.equal(watch.publicationEligible,false);
+  assert.equal(watch.entries.length,7);
+  assert.equal(active.sources.length,6);
+  const activeIds = new Set(active.sources.map((x:{id:string})=>x.id));
+  for(const entry of watch.entries) {
+    assert.equal(entry.discovery,"manual-only");
+    assert.ok(entry.feedStatus.includes("not-verified") || entry.feedStatus.includes("not-admitted"));
+    assert.ok(!activeIds.has(entry.id));
+    assert.equal(new URL(entry.officialPage).protocol,"https:");
+  }
+  assert.ok(watch.entries.some((x:{id:string})=>x.id==="qwen"));
+  assert.ok(watch.entries.some((x:{id:string})=>x.id==="google-threat-intelligence"));
+});
+
 test("Only read-only intake creates private triage, not the 20:00 learning publication workflow", () => {
   const intake = parse(readFileSync(".github/workflows/news-candidates.yml", "utf8"));
   const steps = intake.jobs.collect.steps as Array<{run?:string; with?:{path?:string}}>;
