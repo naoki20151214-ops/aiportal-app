@@ -11,7 +11,7 @@ const assets=[
    "public/images/news/gpt-rosalind-academic-plan.webp"],
 ];
 for(const [source,dest] of assets){
-  const input=fs.readFileSync(path.join(root,source),"utf8").replace(/\\s+/g,"");
+  const input=fs.readFileSync(path.join(root,source),"utf8").replace(/\s+/g,"");
   if(!/^[A-Za-z0-9+/]+={0,2}$/.test(input) || input.length%4!==0)throw Error("Invalid news media base64: "+source);
   const media=Buffer.from(input,"base64");
   if(media.subarray(0,4).toString("ascii")!=="RIFF" || media.subarray(8,12).toString("ascii")!=="WEBP")throw Error("Invalid WebP news media: "+source);
