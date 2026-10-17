@@ -39,6 +39,7 @@ const WRITING_INSTRUCTIONS = [
   "claimsに書かれていない数値・発表日・対応地域・価格・利用資格・性能比較・人物の発言を新しく作らないでください。",
   "不確かな点や利用条件はlimitationsに明示し、企業の主張は『発表元によると』など帰属を明らかにしてください。",
   "各節は『何が起きたか』『なぜ重要か』『何が変わるか』『確認できていないこと』の順。専門用語より読者の疑問を優先してください。",
+  "見出しを読んだだけでは分からない確認済みの発見と、読者が1分後に得られる実益を軸に説明してください。実益に根拠が足りない場合は作らないでください。",
   "必ずJSONを返し、各節のclaimIdsに根拠として使ったclaimsのIDを指定してください。根拠のない節は書かず、人間の追加調査が必要だと伝えてください。",
   "外部リンク、広告、アフィリエイト、商品推奨、内部リンク、画像、HTMLを作らないでください。",
   "生成した文章は事実確認済みではありません。必ず編集者の日本語原稿レビューを必要とします。",
@@ -66,6 +67,8 @@ export function prepareJapaneseDraftPacket(review, triageItem) {
     context: {
       whyItMatters: review.whyItMatters,
       whatChanges: review.whatChanges,
+      headlineBeyond: review.headlineBeyond,
+      readerPayoff: review.readerPayoff,
       limitations: review.limitations,
     },
     claims,
