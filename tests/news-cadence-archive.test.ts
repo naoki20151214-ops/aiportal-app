@@ -22,7 +22,7 @@ test("News history contains published and rejected stories with original sources
   assert.ok(rosalind);
   assert.equal(rosalind.status,"published");
   assert.ok(rosalind.sourceUrls.some((u:string)=>u.includes("openai.com/ja-JP/index/introducing-the-rosalind-academic-plan")));
-  assert.ok(rosalind.ctaSlugs.includes("ai-hallucination"));
+  assert.ok((rosalind.ctaSlugs as string[]).includes("ai-hallucination"));
   assert.equal(rosalind.image,"/images/news/gpt-rosalind-academic-plan.webp");
   const aws=archive.entries.find((e:{id:string})=>e.id==="NEWS-0093");
   assert.ok(aws);
@@ -65,9 +65,9 @@ test("Empty owner-approval queue cannot publish a merely-ready story or a privat
   const october18=new Date("2026-10-18T09:30:00+09:00");
   const dry=chooseNewsRelease(process.cwd(),october18);
   assert.equal(dry.changed,false);
-  assert.match(dry.reason,/No date-due/);
+  assert.match(String(dry.reason),/No date-due/);
   assert.equal(dry.availableSlots,2);
   const attempted=publishNews(process.cwd(),{apply:true,now:october18});
   assert.equal(attempted.changed,false);
-  assert.match(attempted.reason,/No date-due/);
+  assert.match(String("reason" in attempted ? attempted.reason : ""),/No date-due/);
 });
