@@ -1,3 +1,4 @@
+import {findNewsOverlaps} from "./build-news-archive.mjs";
 // Private editorial triage: topic hints and potential duplicates are review aids,
 // not confirmations of news claims, editorial approvals, or publication permission.
 const TOPIC_RULES = [
@@ -37,12 +38,17 @@ function limitedText(text, minimum, maximum) {
     text.length <= maximum && !/[\u0000-\u001f\u007f]/.test(text);
 }
 
-export function triageNewsEvidence(report) {
+export function triageNewsEvidence(report, archive = null) {
   if (!report || report.schemaVersion !== 1 ||
       report.status !== "editorial-evidence-only" ||
       report.publishingEnabled !== false || report.editorialApprovals !== 0 ||
       !Array.isArray(report.results) || report.results.length > 100)
     throw new Error("Not a private unapproved evidence report");
+  if (archive !== null && (archive?.schemaVersion !== 1 ||
+      !Array.isArray(archive.entries) || archive.entries.length > 10000 ||
+      archive.entries.some(entry => !entry || typeof entry.id !== "string" ||
+        typeof entry.status !== "string" || !Array.isArray(entry.sourceUrls))))
+    throw new Error("Invalid canonical news archive");
   const ids = new Set();
   const items = report.results.map(item => {
     if (!/^[a-f0-9]{24}$/.test(item?.candidateId ?? "") ||
@@ -51,6 +57,11 @@ export function triageNewsEvidence(report) {
     ids.add(item.candidateId);
     const text = [item.rssTitle, item.headline, item.documentTitle].filter(Boolean).join(" ");
     const topics = TOPIC_RULES.filter(([, rule]) => rule.test(text)).map(([name]) => name);
+    // Historical overlap includes published AND rejected stories.
+    // This is a prompt for human review, not a semantic duplicate assertion.
+    const historicalMatches = archive === null ? [] : findNewsOverlaps(archive, {
+      originalUrl: item.originalUrl, title: item.rssTitle,
+    });
     const rssDate = Date.parse(item.rssPublishedAt);
     const pageDate = validDate(item.pagePublishedAt) ? Date.parse(item.pagePublishedAt) : null;
     return {
@@ -65,6 +76,9 @@ export function triageNewsEvidence(report) {
       importanceNeedsReview: true,
       accuracyNeedsReview: true,
       possibleDuplicateIds: [],
+      historicalMatches,
+      historicalMatchNeedsReview: historicalMatches.length > 0,
+      rejectedHistoricalMatchNeedsReview: historicalMatches.some(match => match.status === "rejected"),
       editorialDecision: "unreviewed",
       publicationEligible: false,
     };
@@ -85,7 +99,7 @@ export function triageNewsEvidence(report) {
     stage: "private-editorial-triage",
     publishingEnabled: false,
     newsApprovedCount: 0,
-    note: "Topic and duplicate hints are heuristics. Every candidate needs original-source fact checking and a human editorial judgment.",
+    note: "Topic and duplicate hints (including historical rejected stories) require human review. A lexical or URL match is not a fact check, rejection, approval or publication permission.",
     items,
   };
 }
