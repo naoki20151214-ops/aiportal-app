@@ -224,6 +224,7 @@ async function main() {
   const errors = [];
 
   const setPreview = async ({sitekey, secret, testMode, enabled}) => {
+    const expiresAt = enabled ? new Date(Date.now()+10*60*1000).toISOString() : "";
     await cloudflare("PATCH", projectPath, {deployment_configs: {preview: {
       d1_databases: {[binding]: {id: previewDb}},
       env_vars: {
@@ -232,6 +233,7 @@ async function main() {
         AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: enabled ? "1" : "0"},
+        AI_PORTAL_READER_COMMENTS_EXPIRES_AT: {type: "plain_text", value: expiresAt},
         AI_PORTAL_TURNSTILE_TEST_MODE: {type: "plain_text", value: testMode ? "1" : "0"},
         AI_PORTAL_TURNSTILE_TEST_HOSTNAME: {type: "plain_text", value: testMode ? target.hostname : ""},
       },
@@ -243,6 +245,7 @@ async function main() {
       verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value === "0" &&
       verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value === "0" &&
       verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value === (enabled ? "1" : "0") &&
+      verified.env_vars?.AI_PORTAL_READER_COMMENTS_EXPIRES_AT?.value === expiresAt &&
       verified.env_vars?.AI_PORTAL_TURNSTILE_TEST_MODE?.value === (testMode ? "1" : "0") &&
       !!verified.env_vars?.TURNSTILE_SECRET_KEY,
     "Preview test configuration readback failed.");
