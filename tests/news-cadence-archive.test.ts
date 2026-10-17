@@ -57,9 +57,9 @@ test("Twice-daily news slots are independent of the evergreen 20:00 publication 
   assert.match(workflow,/publish-news-queue\.mjs --apply/);
   assert.doesNotMatch(workflow,/auto-publish-approved\.mjs/);
   const intake=read(".github/workflows/news-candidates.yml");
-  assert.match(intake,/cron: '0 22 \\* \\* \\*'/);
-  assert.match(intake,/cron: '0 7 \\* \\* \\*'/);
-  assert.doesNotMatch(intake,/publish-news-queue\\.mjs --apply/);
+  assert.match(intake,/cron: '0 22 \* \* \*'/);
+  assert.match(intake,/cron: '0 7 \* \* \*'/);
+  assert.doesNotMatch(intake,/publish-news-queue\.mjs --apply/);
   const evergreen=read(".github/workflows/publish-approved.yml");
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);
   assert.match(evergreen,/group: aiportal-approved-publication-main/);
