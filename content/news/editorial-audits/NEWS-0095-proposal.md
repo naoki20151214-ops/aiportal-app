@@ -1,4 +1,4 @@
-# NEWS-0095｜非公開・一次情報確認メモ
+# NEWS-0095｜サイト未公開・一次情報確認メモ
 
 - 状態: `proposal-only / not-approved / not-published`
 - 発表日: 2026-10-15（Anthropic公式）
