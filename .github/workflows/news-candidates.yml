@@ -3,6 +3,7 @@ name: AI News Candidate Intake (private and read-only)
 on:
   schedule:
     - cron: '0 22 * * *' # ~07:00 JST; GitHub cron may be delayed
+    - cron: '0 7 * * *'  # ~16:00 JST; afternoon second intake, never publication
   workflow_dispatch:
 
 permissions:

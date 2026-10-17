@@ -1,0 +1,4 @@
+schemaVersion: 1
+description: "Future news approvals only. Empty by default: RSS candidates and ready drafts are never approvals."
+timezone: "Asia/Tokyo"
+approvals: []

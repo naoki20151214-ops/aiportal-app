@@ -15,7 +15,10 @@
     "article:preflight": "node scripts/article-workflow.mjs preflight",
     "article:gate": "node scripts/article-workflow.mjs gate",
     "article:ci": "node scripts/article-workflow.mjs ci",
-    "predev": "node scripts/prepare-news-media.mjs"
+    "predev": "node scripts/prepare-news-media.mjs",
+    "news:archive": "node scripts/build-news-archive.mjs --write",
+    "news:archive:check": "node scripts/build-news-archive.mjs --check",
+    "news:queue:check": "node scripts/publish-news-queue.mjs --check"
   },
   "dependencies": {
     "@next/third-parties": "^16.4.0",

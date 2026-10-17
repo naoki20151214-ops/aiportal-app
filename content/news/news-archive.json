@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "sourceOfTruth": "GitHub main + content/news",
+  "summary": {
+    "total": 4,
+    "published": 3,
+    "ready": 0,
+    "review": 0,
+    "rejected": 1
+  },
+  "entries": [
+    {
+      "id": "NEWS-0092",
+      "slug": "gpt-rosalind-academic-plan",
+      "title": "AIが科学者の助手に！OpenAI、研究室向けの無償プランを発表",
+      "status": "published",
+      "topic": "GPT-Rosalindの大学研究室向けプランは何を支援し、誰が利用できるのか？",
+      "description": "OpenAIが米国の大学研究室向けにGPT-Rosalindの無償プランを発表。論文調査や科学データの分析をどう支援するのか、1分で解説。",
+      "publishedAt": "2026-10-17",
+      "updatedAt": "2026-10-17",
+      "scheduledAtJst": null,
+      "sourceUrls": [
+        "https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/",
+        "https://help.openai.com/en/articles/20001602-rosalind-academic-plan"
+      ],
+      "sourceIds": [
+        "openai"
+      ],
+      "primarySource": "https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/",
+      "ctaSlugs": [
+        "ai-hallucination"
+      ],
+      "image": "/images/news/gpt-rosalind-academic-plan.webp",
+      "approvalState": "published",
+      "approvalEvidence": "User accepted the one-minute manuscript and the approved news infographic on 2026-10-17. Release is an independent, CI-gated PR.",
+      "publishedReleaseAtJst": "2026-10-17T16:00:00+09:00",
+      "articlePath": "content/articles/gpt-rosalind-academic-plan.md",
+      "articleUrl": "https://aiportal.blog/articles/gpt-rosalind-academic-plan"
+    },
+    {
+      "id": "NEWS-0090",
+      "slug": "apple-intelligence-update",
+      "title": "Apple Intelligenceは何が変わった？Siri AIと次世代機能を整理【2026年版】",
+      "status": "published",
+      "topic": "Apple IntelligenceとSiri AIの2026年時点の変化は何か？",
+      "description": "2026年に提供が始まった次世代Apple IntelligenceとSiri AIについて、できること、プライバシー設計、日本語対応の状況を公式情報から整理します。",
+      "publishedAt": "2026-10-03",
+      "updatedAt": "2026-10-03",
+      "scheduledAtJst": null,
+      "sourceUrls": [
+        "https://www.apple.com/jp/newsroom/2026/09/the-next-generation-of-apple-intelligence-is-available-today/",
+        "https://www.apple.com/jp/apple-intelligence/",
+        "https://www.apple.com/jp/newsroom/2026/06/apple-introduces-siri-ai-a-profoundly-more-capable-and-personal-assistant/"
+      ],
+      "sourceIds": [],
+      "primarySource": "https://www.apple.com/jp/newsroom/2026/09/the-next-generation-of-apple-intelligence-is-available-today/",
+      "ctaSlugs": [],
+      "image": "/images/article-placeholder.svg",
+      "approvalState": null,
+      "approvalEvidence": null,
+      "publishedReleaseAtJst": null,
+      "articlePath": "content/articles/apple-intelligence-update.md",
+      "articleUrl": "https://aiportal.blog/articles/apple-intelligence-update"
+    },
+    {
+      "id": "NEWS-0091",
+      "slug": "openai-gpt5-training",
+      "title": "GPT-5からGPT-6.1へ｜OpenAIモデルの進化を追うときに見るべきポイント",
+      "status": "published",
+      "topic": "OpenAIモデルの世代交代をどの観点で追えばよいか？",
+      "description": "GPT-5の登場からGPT-6 Astra、GPT-6.1 Solまでの流れを公式情報で整理し、モデル更新を追うときに性能・速度・コスト・提供場所をどう見るか解説します。",
+      "publishedAt": "2026-10-03",
+      "updatedAt": "2026-10-03",
+      "scheduledAtJst": null,
+      "sourceUrls": [
+        "https://openai.com/ja-JP/gpt-5/",
+        "https://openai.com/index/gpt-6-astra/",
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://openai.com/index/introducing-gpt-6-1-sol/",
+        "https://openai.com/ja-JP/products/release-notes/"
+      ],
+      "sourceIds": [
+        "openai"
+      ],
+      "primarySource": "https://openai.com/ja-JP/gpt-5/",
+      "ctaSlugs": [],
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=200&h=150&fit=crop",
+      "approvalState": null,
+      "approvalEvidence": null,
+      "publishedReleaseAtJst": null,
+      "articlePath": "content/articles/openai-gpt5-training.md",
+      "articleUrl": "https://aiportal.blog/articles/openai-gpt5-training"
+    },
+    {
+      "id": "NEWS-0093",
+      "slug": "aws-agent-million-fold-error",
+      "title": "AIが売上を100万倍に!? AWSが明かした「正常に動くAI」の落とし穴",
+      "status": "rejected",
+      "topic": "A striking headline did not lead to a worthwhile new discovery or reader benefit. Owner rejected after reading; never treat the old draft as approved.",
+      "description": "",
+      "publishedAt": null,
+      "updatedAt": null,
+      "scheduledAtJst": null,
+      "sourceUrls": [
+        "https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/"
+      ],
+      "sourceIds": [],
+      "primarySource": "https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/",
+      "ctaSlugs": [],
+      "image": null,
+      "approvalState": "rejected",
+      "approvalEvidence": "A striking headline did not lead to a worthwhile new discovery or reader benefit. Owner rejected after reading; never treat the old draft as approved.",
+      "publishedReleaseAtJst": null,
+      "articlePath": null,
+      "articleUrl": null,
+      "retainedDraftPR": "https://github.com/naoki20151214-ops/aiportal-app/pull/201"
+    }
+  ]
+}

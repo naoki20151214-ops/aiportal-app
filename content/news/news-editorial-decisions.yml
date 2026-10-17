@@ -1,0 +1,11 @@
+schemaVersion: 1
+description: "Editorial decisions also track rejected topics to avoid recycling weak news."
+decisions:
+  - id: "NEWS-0093"
+    slug: "aws-agent-million-fold-error"
+    status: "rejected"
+    decisionOn: "2026-10-17"
+    title: "AIが売上を100万倍に!? AWSが明かした「正常に動くAI」の落とし穴"
+    primarySource: "https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/"
+    retainedDraftPR: "https://github.com/naoki20151214-ops/aiportal-app/pull/201"
+    reason: "A striking headline did not lead to a worthwhile new discovery or reader benefit. Owner rejected after reading; never treat the old draft as approved."
