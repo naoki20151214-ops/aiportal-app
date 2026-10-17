@@ -120,13 +120,15 @@ export async function stageCloudflare() {
         AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
+        AI_PORTAL_READER_COMMENTS_EXPIRES_AT: {type: "plain_text", value: ""},
       },
     }}});
     const verified = (await api("GET", projectPath)).deployment_configs?.production;
     if (verified?.d1_databases?.[binding]?.id !== productionDbId ||
         verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
         verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
-        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0" ||
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_EXPIRES_AT?.value !== "")
       throw Error("Production restore-off verification failed.");
     const deployment = await findTrustedProductionDeployment();
     await retryProductionDeployment(deployment);
@@ -143,6 +145,7 @@ export async function stageCloudflare() {
           AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
           NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
           AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
+          AI_PORTAL_READER_COMMENTS_EXPIRES_AT: {type: "plain_text", value: ""},
         },
       },
     }});
@@ -150,7 +153,8 @@ export async function stageCloudflare() {
     if (verified?.d1_databases?.[binding]?.id !== productionDbId ||
         verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
         verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
-        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0")
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0" ||
+        verified.env_vars?.AI_PORTAL_READER_COMMENTS_EXPIRES_AT?.value !== "")
       throw Error("Production restore-off verification failed.");
     // Pages deployments snapshot environment configuration. Re-deploy the
     // successful Production deployment for this workflow's trusted main SHA,
@@ -282,6 +286,9 @@ export async function stageCloudflare() {
     if (details?.mode !== "invisible" || !details.domains?.includes("aiportal.blog") ||
         typeof details.secret !== "string" || details.secret.length < 12)
       throw Error("Production Turnstile preflight failed; no flags were changed.");
+    // Fixed deadline enforced by the API even if the operator loses access.
+    // Deployment delay consumes the lease; it never extends the exposure.
+    const testWindowExpiresAt = new Date(Date.now()+10*60*1000).toISOString();
     try {
       await api("PATCH", projectPath, {deployment_configs: {production: {
         d1_databases: {[binding]: {id: productionDbId}},
@@ -289,13 +296,15 @@ export async function stageCloudflare() {
           AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
           NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
           AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "1"},
+          AI_PORTAL_READER_COMMENTS_EXPIRES_AT: {type: "plain_text", value: testWindowExpiresAt},
         },
       }}});
       const enabled = (await api("GET", projectPath)).deployment_configs?.production;
       if (enabled?.d1_databases?.[binding]?.id !== productionDbId ||
           enabled.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
           enabled.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
-          enabled.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "1")
+          enabled.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "1" ||
+          enabled.env_vars?.AI_PORTAL_READER_COMMENTS_EXPIRES_AT?.value !== testWindowExpiresAt)
         throw Error("Production comments-only flag verification failed.");
       await retryProductionDeployment(deployments);
       await waitForReaderCommentStatus(200);
@@ -370,6 +379,7 @@ export async function stageCloudflare() {
         AI_PORTAL_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED: {type: "plain_text", value: "0"},
         AI_PORTAL_READER_COMMENTS_ENABLED: {type: "plain_text", value: "0"},
+        AI_PORTAL_READER_COMMENTS_EXPIRES_AT: {type: "plain_text", value: ""},
       },
     },
   }});
@@ -379,6 +389,7 @@ export async function stageCloudflare() {
       verified.env_vars?.AI_PORTAL_FEEDBACK_ENABLED?.value !== "0" ||
       verified.env_vars?.NEXT_PUBLIC_ARTICLE_FEEDBACK_ENABLED?.value !== "0" ||
       verified.env_vars?.AI_PORTAL_READER_COMMENTS_ENABLED?.value !== "0" ||
+      verified.env_vars?.AI_PORTAL_READER_COMMENTS_EXPIRES_AT?.value !== "" ||
       !verified.env_vars?.TURNSTILE_SECRET_KEY)
     throw Error("Pages binding verification failed; DO NOT enable feedback.");
 
