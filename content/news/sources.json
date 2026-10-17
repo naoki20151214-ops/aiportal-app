@@ -36,6 +36,16 @@
       "priority": 2
     },
     {
+      "id": "aws-ai",
+      "name": "AWS Artificial Intelligence Blog",
+      "kind": "official-company",
+      "feedUrl": "https://aws.amazon.com/blogs/machine-learning/feed/",
+      "allowedHosts": [
+        "aws.amazon.com"
+      ],
+      "priority": 2
+    },
+    {
       "id": "microsoft",
       "name": "Microsoft Official Blog",
       "kind": "official-company",
