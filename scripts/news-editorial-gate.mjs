@@ -127,6 +127,12 @@ export function validateNewsEditorialReview(review, item) {
     reasons.push("Missing limitations and availability details");
   if (!limitedText(review?.whatChanges, 30, 1200))
     reasons.push("Missing description of what changes");
+  // Explicit reader-value statements prevent a catchy headline alone from
+  // passing the drafting gate. Text length is only a completeness check.
+  if (!limitedText(review?.headlineBeyond, 40, 1200))
+    reasons.push("Missing verified discovery beyond the headline");
+  if (!limitedText(review?.readerPayoff, 40, 1200))
+    reasons.push("Missing specific one-minute reader payoff");
   const checks = review?.checks;
   const requiredChecks = ["originalRead", "datesChecked", "claimsChecked",
     "limitationsChecked", "duplicationChecked", "independentContextConsidered"];
