@@ -55,6 +55,17 @@ jobs:
       - name: Triage candidate metadata for private human editorial review
         if: success()
         run: node scripts/triage-news-evidence.mjs
+      - name: Format Japanese human-review brief (no AI approval)
+        if: success()
+        run: node scripts/build-news-editorial-brief.mjs
+      - name: Save human-readable unverified candidate brief
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-editorial-brief-${{ github.run_id }}
+          path: artifacts/news-editorial-brief.md
+          if-no-files-found: warn
+          retention-days: 14
       - name: Save private draft-only editorial triage
         if: always()
         uses: actions/upload-artifact@v4

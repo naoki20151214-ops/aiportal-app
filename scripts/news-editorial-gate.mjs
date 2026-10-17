@@ -68,6 +68,7 @@ export function triageNewsEvidence(report, archive = /** @type {any} */ (null)) 
       candidateId: item.candidateId,
       sourceId: item.sourceId,
       rssTitle: item.rssTitle,
+      rssPublishedAt: item.rssPublishedAt,
       originalUrl: item.originalUrl,
       retrievalStatus: item.status,
       topicHints: topics,

@@ -58,3 +58,10 @@ NEWS-0090/0091 were published before this news release ledger; NEWS-0092 has its
 - `triage-news-evidence.mjs` compares candidate original URLs and exact normalized headlines against the Git-backed archive, including rejected material. Historical matches are editorial warning flags; they never suppress, approve or publish an item automatically.
 - A reviewer must now write `headlineBeyond` (verified new learning beyond the headline, 40+ characters) and `readerPayoff` (what someone concretely gains from a one-minute reading, 40+ characters). Both are required for private draft packet generation. Mechanical text completeness is not proof of editorial quality.
 - Scheduled collectors remain read-only; 09:00/18:00 reviewed-news publication, 20:00 evergreen publication, and approval queue semantics are unchanged.
+
+## 2026-10-18: human-readable daily editorial brief
+
+- The 07:00 / 16:00 JST read-only candidate workflow now produces `artifacts/news-editorial-brief.md` in addition to existing JSON artifacts.
+- The Japanese brief displays unverified RSS titles, source IDs, publisher dates, primary-page retrieval status, and exact-source/title historical overlap IDs.
+- It is a reading queue, not a recommendation, verified report, drafted article, owner approval, or public site content. It scores no unverified claims.
+- The scheduled workflow remains `contents: read` and never writes to main, article registry or approved publication queue.
