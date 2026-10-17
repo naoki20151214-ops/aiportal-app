@@ -19,7 +19,10 @@ test("公開記事にサンプル表記や仮本文が残っていない", () =>
     const content = [article.title, article.description, article.content].join("\n");
     assert.doesNotMatch(content, /サンプル記事|本文は仮|正式な解説や具体的な活用例は今後追加/);
     assert.doesNotMatch(content, /["']サンプル["']/);
-    assert.ok(article.content.length >= 1800, `${article.slug} の本文が短すぎます`);
+    // Educational lessons remain long-form. Editorially verified news is intentionally one-minute.
+    const minimum = article.type === "news" || article.category === "AIニュース" ? 350 : 1800;
+    assert.ok(article.content.length >= minimum, `${article.slug} の本文が短すぎます`);
+    if (article.id === "NEWS-0092") assert.ok(article.content.length <= 1150, "One-minute news has become too long");
   }
 });
 
