@@ -19,8 +19,13 @@
       "publishedAt": "2026-10-17",
       "updatedAt": "2026-10-17",
       "scheduledAtJst": null,
-      "sourceUrls": [],
-      "sourceIds": [],
+      "sourceUrls": [
+        "https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/",
+        "https://help.openai.com/en/articles/20001602-rosalind-academic-plan"
+      ],
+      "sourceIds": [
+        "openai"
+      ],
       "primarySource": "https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/",
       "ctaSlugs": [
         "ai-hallucination"
@@ -42,9 +47,13 @@
       "publishedAt": "2026-10-03",
       "updatedAt": "2026-10-03",
       "scheduledAtJst": null,
-      "sourceUrls": [],
+      "sourceUrls": [
+        "https://www.apple.com/jp/newsroom/2026/09/the-next-generation-of-apple-intelligence-is-available-today/",
+        "https://www.apple.com/jp/apple-intelligence/",
+        "https://www.apple.com/jp/newsroom/2026/06/apple-introduces-siri-ai-a-profoundly-more-capable-and-personal-assistant/"
+      ],
       "sourceIds": [],
-      "primarySource": null,
+      "primarySource": "https://www.apple.com/jp/newsroom/2026/09/the-next-generation-of-apple-intelligence-is-available-today/",
       "ctaSlugs": [],
       "image": "/images/article-placeholder.svg",
       "approvalState": null,
@@ -63,9 +72,17 @@
       "publishedAt": "2026-10-03",
       "updatedAt": "2026-10-03",
       "scheduledAtJst": null,
-      "sourceUrls": [],
-      "sourceIds": [],
-      "primarySource": null,
+      "sourceUrls": [
+        "https://openai.com/ja-JP/gpt-5/",
+        "https://openai.com/index/gpt-6-astra/",
+        "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+        "https://openai.com/index/introducing-gpt-6-1-sol/",
+        "https://openai.com/ja-JP/products/release-notes/"
+      ],
+      "sourceIds": [
+        "openai"
+      ],
+      "primarySource": "https://openai.com/ja-JP/gpt-5/",
       "ctaSlugs": [],
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=200&h=150&fit=crop",
       "approvalState": null,
