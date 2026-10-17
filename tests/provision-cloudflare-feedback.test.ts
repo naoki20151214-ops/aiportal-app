@@ -102,6 +102,9 @@ test("Cloudflare workflow is manually scoped and production test mode enables on
   assert.match(provisioner, /deployments\?env=production&per_page=25/);
   assert.match(provisioner, /Trusted main Production deployment retry requested after intake flags were verified OFF/);
   assert.match(provisioner, /Production reader-comment API verified HTTP 503/);
+  assert.match(provisioner, /const testWindowExpiresAt = new Date\(Date\.now\(\)\+10\*60\*1000\)\.toISOString\(\)/);
+  assert.match(provisioner, /AI_PORTAL_READER_COMMENTS_EXPIRES_AT: \{type: "plain_text", value: testWindowExpiresAt\}/);
+  assert.match(provisioner, /AI_PORTAL_READER_COMMENTS_EXPIRES_AT: \{type: "plain_text", value: ""\}/);
   assert.match(provisioner, /did not return the expected HTTP " \+ expectedStatus/);
   assert.match(provisioner, /turnstileHostname/);
   assert.match(provisioner, /readerCommentsRows/);
@@ -130,6 +133,8 @@ test("Preview Turnstile E2E is isolated, fail-safe, and cleans only its syntheti
   assert.match(e2e, /Cloudflare API \$\{method\} \$\{path\} failed/);
   assert.match(e2e, /Preview fail-key negative test wrote data to D1/);
   assert.match(e2e, /Preview restore verified: test mode OFF, intake OFF, real widget restored, GET returns HTTP 503/);
+  assert.match(e2e, /AI_PORTAL_READER_COMMENTS_EXPIRES_AT/);
+  assert.match(endpoint, /!windowOpen\(env\)/);
   assert.match(endpoint, /env\.AI_PORTAL_TURNSTILE_TEST_HOSTNAME===pageUrl\.hostname/);
   assert.match(endpoint, /result\.hostname==="example\.com"&&result\.action===undefined/);
   assert.match(e2e, /async function waitForDeployment\(/);
