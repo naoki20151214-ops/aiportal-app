@@ -71,6 +71,22 @@ test("Triage rejects untrusted reports, duplicate IDs and published statuses", (
   }), /Untrusted editorial candidate/);
 });
 
+test("Historical Git archive flags published and rejected repeats without silently suppressing them", () => {
+  const archive = {schemaVersion: 1, entries: [
+    {id: "NEWS-0093", status: "rejected", slug: "old-rejected",
+      title: "Different rejected headline", primarySource: url, sourceUrls: [url]},
+  ]};
+  const triage = triageNewsEvidence(report, archive);
+  assert.equal(triage.items.length, 2);
+  assert.deepEqual(triage.items[0].historicalMatches.map((x:{id:string})=>x.id), ["NEWS-0093"]);
+  assert.equal(triage.items[0].historicalMatchNeedsReview, true);
+  assert.equal(triage.items[0].rejectedHistoricalMatchNeedsReview, true);
+  assert.equal(triage.items[0].editorialDecision, "unreviewed");
+  assert.equal(triage.items[0].publicationEligible, false);
+  assert.equal(triage.items[1].historicalMatchNeedsReview, false);
+  assert.throws(()=>triageNewsEvidence(report,{schemaVersion:1,entries:null}),/Invalid canonical/);
+});
+
 test("A documented human review permits drafting only; never publication", () => {
   const triage = triageNewsEvidence(report).items[0];
   const value = validateNewsEditorialReview(sampleReview, triage);
