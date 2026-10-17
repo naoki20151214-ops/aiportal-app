@@ -34,6 +34,8 @@ const sampleReview = {
   reviewer: "Editorial QA", reviewedAt: "2026-10-16T01:00:00.000Z",
   whyItMatters: "This could influence what AI readers can use, subject to its actual published restrictions.",
   whatChanges: "The stated capabilities or availability may change for the relevant users.",
+  headlineBeyond: "The important verified insight is how the restrictions change what readers can actually use.",
+  readerPayoff: "After one minute, readers can check whether the announced feature is relevant to their own usage.",
   limitations: "Read availability restrictions and the conditions directly in the original source.",
   checks: {
     originalRead: true, datesChecked: true, claimsChecked: true,
@@ -111,6 +113,8 @@ test("A named reviewer, all checks and claim-to-source citations are required", 
   assert.equal(value.draftEligible, false);
   assert.equal(value.publicationEligible, false);
   assert.ok(value.reasons.length >= 3);
+  assert.equal(validateNewsEditorialReview({...sampleReview, headlineBeyond: ""}, triage).valid, false);
+  assert.equal(validateNewsEditorialReview({...sampleReview, readerPayoff: ""}, triage).valid, false);
   assert.equal(validateNewsEditorialReview({...sampleReview, decision: "published"}, triage).valid, false);
   assert.equal(validateNewsEditorialReview({...sampleReview, candidateId: anotherId}, triage).valid, false);
   assert.equal(validateNewsEditorialReview(sampleReview, {...triage, retrievalStatus: "fetch-failed"}).valid, false);
