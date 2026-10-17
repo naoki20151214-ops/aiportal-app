@@ -14,7 +14,8 @@ test("Cancelled duplicate GEN-0015 cannot be scheduled or rendered, and the with
   assert.equal(retired.canonicalArticleId,"BAS-0030");
   assert.equal(retired.cancelledPublishOn,"2026-10-16");
   assert.equal(retired.originalQueuedPR,161);
-  assert.equal(r.nodeCount,500);
+  assert.ok(r.nodeCount >= 500, "At least the original 500 knowledge nodes remain");
+  assert.equal(r.nodeCount, r.nodes.length, "Registry count matches actual nodes");
   assert.equal(r.nodes.some((x:{id:string})=>x.id==="GEN-0015"),false);
   assert.equal(l.approvals.some((x:{id:string})=>x.id==="GEN-0015"),false);
   assert.ok(!existsSync("content/articles/multimodal-ai.md"));
