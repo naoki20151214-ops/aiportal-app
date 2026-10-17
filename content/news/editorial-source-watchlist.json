@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Manual-only official newsroom discovery; NOT an RSS source registry or automated crawling permission",
+  "snapshotDate": "2026-10-18",
+  "enabledInScheduledIntake": false,
+  "publicationEligible": false,
+  "policy": "An official page establishes a potential primary source, not RSS availability, scraping permission, claims accuracy or publication rights. Do not schedule scraping, auto-create drafts, or publish from this list.",
+  "entries": [
+    {
+      "id": "deepseek",
+      "name": "DeepSeek Research & News",
+      "focus": "china-models",
+      "officialPage": "https://www.deepseek.com/en/news/",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "qwen",
+      "name": "Qwen Research",
+      "focus": "china-models",
+      "officialPage": "https://qwen.ai/research",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi Research Blog",
+      "focus": "china-models",
+      "officialPage": "https://www.kimi.com/en/blog/",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "glm",
+      "name": "Z.ai GLM Research",
+      "focus": "china-models",
+      "officialPage": "https://z.ai/blog/glm-5.2",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic Newsroom",
+      "focus": "models-and-ai-safety",
+      "officialPage": "https://www.anthropic.com/news",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "google-threat-intelligence",
+      "name": "Google Threat Intelligence",
+      "focus": "ai-cybersecurity",
+      "officialPage": "https://cloud.google.com/blog/topics/threat-intelligence",
+      "feedStatus": "publisher-links-third-party-rss;not-admitted",
+      "discovery": "manual-only"
+    },
+    {
+      "id": "microsoft-security",
+      "name": "Microsoft Security Blog",
+      "focus": "ai-cybersecurity",
+      "officialPage": "https://www.microsoft.com/en-us/security/blog/",
+      "feedStatus": "not-verified",
+      "discovery": "manual-only"
+    }
+  ]
+}

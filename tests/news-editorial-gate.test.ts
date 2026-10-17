@@ -34,6 +34,8 @@ const sampleReview = {
   reviewer: "Editorial QA", reviewedAt: "2026-10-16T01:00:00.000Z",
   whyItMatters: "This could influence what AI readers can use, subject to its actual published restrictions.",
   whatChanges: "The stated capabilities or availability may change for the relevant users.",
+  headlineBeyond: "The important verified insight is how the restrictions change what readers can actually use.",
+  readerPayoff: "After one minute, readers can check whether the announced feature is relevant to their own usage.",
   limitations: "Read availability restrictions and the conditions directly in the original source.",
   checks: {
     originalRead: true, datesChecked: true, claimsChecked: true,
@@ -71,6 +73,22 @@ test("Triage rejects untrusted reports, duplicate IDs and published statuses", (
   }), /Untrusted editorial candidate/);
 });
 
+test("Historical Git archive flags published and rejected repeats without silently suppressing them", () => {
+  const archive = {schemaVersion: 1, entries: [
+    {id: "NEWS-0093", status: "rejected", slug: "old-rejected",
+      title: "Different rejected headline", primarySource: url, sourceUrls: [url]},
+  ]};
+  const triage = triageNewsEvidence(report, archive);
+  assert.equal(triage.items.length, 2);
+  assert.deepEqual(triage.items[0].historicalMatches.map((x:{id:string})=>x.id), ["NEWS-0093"]);
+  assert.equal(triage.items[0].historicalMatchNeedsReview, true);
+  assert.equal(triage.items[0].rejectedHistoricalMatchNeedsReview, true);
+  assert.equal(triage.items[0].editorialDecision, "unreviewed");
+  assert.equal(triage.items[0].publicationEligible, false);
+  assert.equal(triage.items[1].historicalMatchNeedsReview, false);
+  assert.throws(()=>triageNewsEvidence(report,{schemaVersion:1,entries:null}),/Invalid canonical/);
+});
+
 test("A documented human review permits drafting only; never publication", () => {
   const triage = triageNewsEvidence(report).items[0];
   const value = validateNewsEditorialReview(sampleReview, triage);
@@ -95,9 +113,29 @@ test("A named reviewer, all checks and claim-to-source citations are required", 
   assert.equal(value.draftEligible, false);
   assert.equal(value.publicationEligible, false);
   assert.ok(value.reasons.length >= 3);
+  assert.equal(validateNewsEditorialReview({...sampleReview, headlineBeyond: ""}, triage).valid, false);
+  assert.equal(validateNewsEditorialReview({...sampleReview, readerPayoff: ""}, triage).valid, false);
   assert.equal(validateNewsEditorialReview({...sampleReview, decision: "published"}, triage).valid, false);
   assert.equal(validateNewsEditorialReview({...sampleReview, candidateId: anotherId}, triage).valid, false);
   assert.equal(validateNewsEditorialReview(sampleReview, {...triage, retrievalStatus: "fetch-failed"}).valid, false);
+});
+
+test("Official China-model and cybersecurity pages remain manual leads, not unapproved RSS intake", () => {
+  const watch = JSON.parse(readFileSync("content/news/editorial-source-watchlist.json", "utf8"));
+  const active = JSON.parse(readFileSync("content/news/sources.json", "utf8"));
+  assert.equal(watch.enabledInScheduledIntake,false);
+  assert.equal(watch.publicationEligible,false);
+  assert.equal(watch.entries.length,7);
+  assert.equal(active.sources.length,6);
+  const activeIds = new Set(active.sources.map((x:{id:string})=>x.id));
+  for(const entry of watch.entries) {
+    assert.equal(entry.discovery,"manual-only");
+    assert.ok(entry.feedStatus.includes("not-verified") || entry.feedStatus.includes("not-admitted"));
+    assert.ok(!activeIds.has(entry.id));
+    assert.equal(new URL(entry.officialPage).protocol,"https:");
+  }
+  assert.ok(watch.entries.some((x:{id:string})=>x.id==="qwen"));
+  assert.ok(watch.entries.some((x:{id:string})=>x.id==="google-threat-intelligence"));
 });
 
 test("Only read-only intake creates private triage, not the 20:00 learning publication workflow", () => {

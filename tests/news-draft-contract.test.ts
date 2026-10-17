@@ -25,6 +25,8 @@ const review={
   reviewedAt:"2026-10-16T05:00:00.000Z",
   whyItMatters:"This reviewed update can affect which AI features readers consider using.",
   whatChanges:"The reviewed claim describes a change in official product availability.",
+  headlineBeyond:"The original source explains how the capability differs beyond the advertised product name.",
+  readerPayoff:"The reader can identify which official usage limitations to check after reading for a minute.",
   limitations:"Check the relevant countries, dates and account limitations before relying on availability.",
   checks:{
     originalRead:true, datesChecked:true, claimsChecked:true,
@@ -91,6 +93,8 @@ test("Draft packet contains only reviewed claims, citations and explicit Japanes
   assert.equal(packet.publicationEligible,false);
   assert.equal(packet.humanJapaneseReviewRequired,true);
   assert.equal(packet.newsPublished,false);
+  assert.equal(packet.context.readerPayoff,review.readerPayoff);
+  assert.equal(packet.context.headlineBeyond,review.headlineBeyond);
   assert.match(packet.writingInstructions,/数値/);
   assert.match(packet.writingInstructions,/JSON/);
   assert.ok(!("rssTitle" in packet), "Unreviewed RSS headline must not appear as grounded claim");

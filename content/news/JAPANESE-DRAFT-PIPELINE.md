@@ -13,9 +13,10 @@
    `artifacts/news-editorial-triage.json`
 4. **人間の編集者**が元資料を読み、日付、利用地域・対象ユーザー、
    技術的な制約、独立した評価の有無と、原稿に使用してよい主張・出典を記録する。
-5. 編集者自身が読者の価値を4軸で評価（以下）。点数は**事実や品質の保証ではない**。
-6. すべての審査項目が揃った場合に限り、非公開のAI入力パケットを生成。
-7. 将来、AIが日本語原稿を作成したとしても、構造的な引用検証に加えて
+5. 編集者は、見出しに書いていない**新しい発見**（`headlineBeyond`）と、1分後に読者が得る**具体的な実益**（`readerPayoff`）を各40文字以上で説明する。片方でも説明できなければ下書き工程に進めない。どちらも形式上のチェックであり、価値の高さは人間が判断する。
+6. 編集者自身が読者の価値を4軸で評価（以下）。点数は**事実や品質の保証ではない**。
+7. すべての審査項目が揃った場合に限り、非公開のAI入力パケットを生成。
+8. 将来、AIが日本語原稿を作成したとしても、構造的な引用検証に加えて
    **別の編集者による事実確認と日本語レビューが必須**。自動公開は禁止。
 
 ## 編集者が記入する重要度（合計10点、暫定ルーブリック）
@@ -54,6 +55,8 @@
       "reviewedAt": "2026-10-16T05:00:00Z",
       "whyItMatters": "Explain with at least 40 characters why this change matters to ordinary readers.",
       "whatChanges": "Explain the concrete practical impact and who it applies to, in at least 30 characters.",
+      "headlineBeyond": "Describe a specific verified discovery not already given away in the headline, at least 40 characters.",
+      "readerPayoff": "Explain the concrete understanding or decision a reader gains in one minute, at least 40 characters.",
       "limitations": "Describe the verified conditions and what remains unknown.",
       "checks": {
         "originalRead": true,

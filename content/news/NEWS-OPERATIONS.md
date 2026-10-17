@@ -51,3 +51,10 @@ This is documentation only, **not an actual approval**. Never insert a candidate
 ## Note on legacy news
 
 NEWS-0090/0091 were published before this news release ledger; NEWS-0092 has its historical manual release log. The index labels unrecorded approvals as unknown, rather than fabricating sign-off provenance. A rejected NEWS-0093 is indexed through its final closed PR. The evergreen 20:00 JST article automation has not been modified.
+
+## 2026-10-18: source discovery and value-gate extension
+
+- The seven publisher pages in `content/news/editorial-source-watchlist.json` are manual-only discovery leads. No additional source is registered in `sources.json` without verified direct official feed, permissions and date checks.
+- `triage-news-evidence.mjs` compares candidate original URLs and exact normalized headlines against the Git-backed archive, including rejected material. Historical matches are editorial warning flags; they never suppress, approve or publish an item automatically.
+- A reviewer must now write `headlineBeyond` (verified new learning beyond the headline, 40+ characters) and `readerPayoff` (what someone concretely gains from a one-minute reading, 40+ characters). Both are required for private draft packet generation. Mechanical text completeness is not proof of editorial quality.
+- Scheduled collectors remain read-only; 09:00/18:00 reviewed-news publication, 20:00 evergreen publication, and approval queue semantics are unchanged.
