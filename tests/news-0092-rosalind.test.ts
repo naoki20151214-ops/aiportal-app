@@ -3,6 +3,7 @@ import {readFileSync,existsSync} from "node:fs";
 import {test} from "node:test";
 import path from "node:path";
 import {parse} from "yaml";
+import {validateNewsRelease} from "../scripts/validate-news-release.mjs";
 import {parseArticle,readArticles} from "../src/lib/article-content";
 
 const slug="gpt-rosalind-academic-plan";
@@ -11,16 +12,17 @@ const asset="public/images/news/"+slug+".webp";
 const news=readFileSync(articlePath,"utf8");
 const metadata=parseArticle(news,slug+".md");
 const registry=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
-test("One-minute Rosalind news is ready but NEVER prematurely public",()=>{
+test("One-minute Rosalind news is published only with news-specific immutable release proof",()=>{
   const node=registry.nodes.find((n:{id:string})=>n.id==="NEWS-0092");
   assert.ok(node);
   assert.equal(node.slug,slug);
-  assert.equal(node.status,"ready");
-  assert.equal(metadata.status,"ready");
+  assert.equal(node.status,"published");
+  assert.equal(metadata.status,"published");
   assert.equal(metadata.type,"news");
   assert.equal(metadata.category,"AIニュース");
   assert.equal(metadata.adPolicy,"off");
-  assert.ok(!readArticles("content/articles").some(a=>a.slug===slug));
+  assert.ok(readArticles("content/articles").some(a=>a.slug===slug));
+  assert.equal(validateNewsRelease().checked,1);
 });
 test("News is concise, sourced, linked and explains eligibility accurately",()=>{
   const body=metadata.content;
