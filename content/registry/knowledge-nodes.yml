@@ -6103,7 +6103,7 @@ nodes:
     category: "AIニュース"
     level: 0
     type: "news"
-    status: "ready"
+    status: "published"
     centerQuestion: "GPT-Rosalindの大学研究室向けプランは何を支援し、誰が利用できるのか？"
     prerequisites: []
     children: []

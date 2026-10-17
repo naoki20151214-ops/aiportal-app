@@ -6,7 +6,7 @@ description: "OpenAIが米国の大学研究室向けにGPT-Rosalindの無償プ
 category: "AIニュース"
 level: 0
 type: "news"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-17"
 updatedAt: "2026-10-17"
 author: "AI Portal編集部"

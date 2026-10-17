@@ -1,0 +1,14 @@
+schemaVersion: 1
+description: "News-specific manual release record. Independent from evergreen approvals."
+releases:
+  - id: "NEWS-0092"
+    slug: "gpt-rosalind-academic-plan"
+    publishOn: "2026-10-17"
+    releaseSlotJst: "2026-10-17T16:00:00+09:00"
+    approvedOn: "2026-10-17"
+    approvedBy: "site-owner"
+    decision: "published"
+    sourceReadyBlob: "3b3bcec5776ea4fa31c624cfd68bda4bfa26c62b"
+    heroSha256: "f9ba64724edd13a94aaa84638416d6043f5e50ae09744bee70d48dde5d650772"
+    primarySource: "https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/"
+    evidence: "User accepted the one-minute manuscript and the approved news infographic on 2026-10-17. Release is an independent, CI-gated PR."
