@@ -1,4 +1,4 @@
-# NEWS-0094｜非公開・一次情報確認メモ
+# NEWS-0094｜サイト未公開・一次情報確認メモ
 
 - 状態: `proposal-only / not-approved / not-published`
 - 発表日: 2026-10-14。根拠: Google DeepMind公式の日時表示
