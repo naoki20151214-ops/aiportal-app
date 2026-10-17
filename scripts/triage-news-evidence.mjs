@@ -14,7 +14,9 @@ const output = args.find(arg => arg.startsWith("--out="))?.slice(6) ||
 if (![input, output].every(value => /^artifacts\/[a-z0-9-]+\.json$/.test(value)) || input === output)
   throw new Error("Input and output must be distinct private artifacts/*.json files");
 const report = JSON.parse(fs.readFileSync(input, "utf8"));
-const triage = triageNewsEvidence(report);
+// Compare against Git-owned published and rejected history before drafting.
+const archive = JSON.parse(fs.readFileSync("content/news/news-archive.json", "utf8"));
+const triage = triageNewsEvidence(report, archive);
 fs.mkdirSync(path.dirname(output), {recursive: true});
 fs.writeFileSync(output, JSON.stringify(triage, null, 2) + "\n", "utf8");
 console.log("AI news private editorial queue: " + triage.items.length +
