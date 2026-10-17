@@ -117,3 +117,16 @@ test("News landing, home, footer, sitemap and news article detail all route to l
   assert.ok(article.includes("このニュースを理解するための基礎知識"));
   assert.ok(!news.includes("pending-primary-source-review"),"Unverified feed metadata must not be displayed");
 });
+
+
+test("Published news cards and news article pages use the article's approved thumbnail",()=>{
+  const news=readFileSync("src/app/news/page.tsx","utf8");
+  const article=readFileSync("src/app/articles/[slug]/page.tsx","utf8");
+  const home=readFileSync("src/components/article-portal.tsx","utf8");
+  assert.ok(news.includes("const published = getAllArticles()"));
+  assert.ok(news.includes("const news = published.filter"));
+  assert.ok(news.includes("src={item.thumbnail}"),"News listing shows each published article's real thumbnail");
+  assert.ok(article.includes('readerContext === "news"'),"Only news articles get a prominent hero image");
+  assert.ok(article.includes("src={article.thumbnail}"));
+  assert.ok(home.includes("articles.slice(0, 5)"),"Existing homepage featured/latest ordering is preserved");
+});
