@@ -22,7 +22,8 @@ const blob=(buffer:Buffer)=>createHash("sha1").update("blob "+buffer.length+"\0"
 test("GEN-0073 is approved for Oct 24 JST after its Oct 16 prerequisite, never premature",()=>{
   const reg=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
   const ledger=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
-  assert.equal(reg.nodeCount,500);
+  assert.ok(reg.nodeCount >= 500, "At least the original 500 knowledge nodes remain");
+  assert.equal(reg.nodeCount, reg.nodes.length, "Registry count matches actual nodes");
   const node=reg.nodes.find((x:{id:string})=>x.id===ID);
   assert.ok(node);
   assert.equal(node.slug,SLUG);

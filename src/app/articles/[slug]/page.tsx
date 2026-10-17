@@ -92,6 +92,12 @@ export default async function ArticlePage({ params }: Props) {
             </div>
             <p className="text-sm text-gray-600 leading-relaxed mt-5">{article.description}</p>
           </header>
+          {readerContext === "news" && (
+            <figure className="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+              {/* eslint-disable-next-line @next/next/no-img-element -- Editorial news article hero graphic. */}
+              <img src={article.thumbnail} alt="AIニュースのアイキャッチ画像" className="h-auto w-full" loading="eager" />
+            </figure>
+          )}
           <ArticleBody content={articleContent} article={article} />
           {learning.length > 0 && (
             <section aria-labelledby="news-learning-title" className="mt-10 rounded-2xl border border-sky-200 bg-sky-50 p-5 sm:p-6">

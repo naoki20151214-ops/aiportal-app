@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 500
+nodeCount: 501
 
 nodes:
   - id: "BAS-0001"
@@ -6096,4 +6096,16 @@ nodes:
     nextReading:
       - id: "BAS-0020"
         note: "複数のAttention Headで異なる計算を組み合わせる"
+    priority: "A"
+  - id: "NEWS-0092"
+    title: "AIが科学者の助手に！OpenAI、研究室向けの無償プランを発表"
+    slug: "gpt-rosalind-academic-plan"
+    category: "AIニュース"
+    level: 0
+    type: "news"
+    status: "ready"
+    centerQuestion: "GPT-Rosalindの大学研究室向けプランは何を支援し、誰が利用できるのか？"
+    prerequisites: []
+    children: []
+    related: ["BAS-0001","GEN-0004"]
     priority: "A"

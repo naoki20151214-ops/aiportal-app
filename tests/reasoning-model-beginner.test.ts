@@ -21,7 +21,8 @@ const blob=(b:Buffer)=>createHash("sha1").update("blob "+b.length+"\0").update(b
 
 test("GEN-0040 registered and scheduled with immutable editorial proof",()=>{
   const reg=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
-  assert.equal(reg.nodeCount,500);
+  assert.ok(reg.nodeCount >= 500, "At least the original 500 knowledge nodes remain");
+  assert.equal(reg.nodeCount, reg.nodes.length, "Registry count matches actual nodes");
   const node=reg.nodes.find((n:{id:string})=>n.id===ID);
   assert.ok(node);
   assert.equal(node.slug,SLUG);
