@@ -22,6 +22,19 @@ test("News feed registry lists only official, HTTPS, restricted publisher hosts"
   assert.throws(()=>validateSourceConfig({schemaVersion:1,sources:[
     {id:"bad",name:"Bad",allowedHosts:["example.com"],feedUrl:"http://example.com/rss"}
   ]}),/Unsafe/);
+  const aws=sources.filter((s:{id:string})=>s.id==="aws-ai");
+  assert.equal(aws.length,1,"Exactly one official AWS AI intake source is registered");
+  assert.equal(aws[0].feedUrl,"https://aws.amazon.com/blogs/machine-learning/feed/");
+  assert.deepEqual(aws[0].allowedHosts,["aws.amazon.com"]);
+  const awsCandidates=itemsFromFeed(aws[0],[
+    {title:"Building trust in AI agents: production evaluation",link:"https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/",isoDate:"2026-10-16T12:00:00Z"},
+    {title:"Malicious spoof news",link:"https://aws.amazon.com.evil.net/story",isoDate:"2026-10-16T12:00:00Z"},
+  ],new Date("2026-10-17T08:00:00Z"));
+  assert.equal(awsCandidates.length,1);
+  assert.equal(awsCandidates[0].verificationStatus,"pending-primary-source-review");
+  assert.equal(awsCandidates[0].sourceId,"aws-ai");
+  assert.equal(safeUrl("https://aws.amazon.com.evil.net/blogs/",aws[0].allowedHosts),null);
+  assert.equal(safeUrl("http://aws.amazon.com/blogs/",aws[0].allowedHosts),null);
   const deepmind=sources.find((s:{id:string})=>s.id==="deepmind");
   assert.deepEqual(deepmind?.redirectHosts,["blog.google"]);
   assert.equal(safeUrl("https://blog.google/official",[...deepmind.allowedHosts,...deepmind.redirectHosts]),

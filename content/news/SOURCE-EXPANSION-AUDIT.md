@@ -3,6 +3,19 @@
 Scope: candidates for future official news intake; NOT activated RSS feeds and
 NOT approval to reproduce or publish third-party material.
 
+## New source admission: AWS Artificial Intelligence Blog (2026-10-17)
+
+- Owner: Amazon Web Services (AWS), publisher's own blog, not an RSS mirror.
+- Official index: https://aws.amazon.com/blogs/machine-learning/
+- Publisher-operated feed: https://aws.amazon.com/blogs/machine-learning/feed/
+- Feed was reachable on 2026-10-17 as `application/rss+xml`; the publishing framework's crawler cannot render RSS XML and has **not** verified ingestion end-to-end. GitHub candidate workflow is the acceptance test.
+- Actual publisher article checked: 2026-10-16, "Building trust in AI agents: A production-ready evaluation framework with Amazon Bedrock AgentCore", https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/
+- Approved original URL host: `aws.amazon.com` only. No third-party host, wildcard, redirect exception, or feed converter.
+- Editorial relevance: AI agents and their production reliability. The broad official AWS blog includes sales material and tutorials; inclusion in feed is **not** newsworthiness and does **not** approve publication.
+- Rights: ingest only headline, canonical URL, timestamps, and bounded editorial excerpts. Do not republish AWS article prose, proprietary diagrams, screenshots, or AWS marks without a valid permission. Write an original Japanese summary with source attribution and an original illustration.
+- Review gate: dates, facts, scope of case studies, and independent corroboration must be checked individually. Intake remains private and read-only; any item is `pending-primary-source-review`, never automatically released.
+- Current scope: Exactly one new feed is activated; Anthropic, Meta, NVIDIA remain on HOLD pending feed/rights review.
+
 ## Source admission checks
 
 Before adding a source to `content/news/sources.json`:
