@@ -57,3 +57,20 @@ source-specific `redirectHosts` distinction was introduced.
 
 No existing or prospective headline is treated as a confirmed news report
 merely because the source site returned HTML.
+
+## 2026-10-18: China-model and AI-security official-page watchlist (manual only)
+
+`content/news/editorial-source-watchlist.json` lists seven verified publisher pages.
+These are manual discovery leads only: NOT active RSS feeds, permissions to crawl, or editorial approvals.
+
+| Scope | Publisher | Official primary page | Intake decision |
+| --- | --- | --- | --- |
+| China models | DeepSeek | https://www.deepseek.com/en/news/ | Manual; RSS and rights unverified |
+| China models | Qwen | https://qwen.ai/research | Manual; RSS and rights unverified. The old qwenlm.github.io blog states it is no longer updated |
+| China models | Kimi | https://www.kimi.com/en/blog/ | Manual; RSS and rights unverified |
+| China models | GLM / Z.ai | https://z.ai/blog/glm-5.2 | Manual primary article; official feed and index unverified |
+| AI safety | Anthropic | https://www.anthropic.com/news | Manual; RSS and rights unverified |
+| AI + cyber | Google Threat Intelligence | https://cloud.google.com/blog/topics/threat-intelligence | Official page links to a FeedBurner feed; not admitted to direct-host RSS allowlist |
+| AI + cyber | Microsoft Security | https://www.microsoft.com/en-us/security/blog/ | Manual; RSS and rights unverified |
+
+Editorial review must distinguish publisher claims from independent measurements. In cybersecurity, distinguish observed attacks, demonstrations, hypothetical risks and defensive advice. No text copying or automatic approval. The existing six RSS sources remain unchanged.
