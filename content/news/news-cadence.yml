@@ -1,0 +1,10 @@
+schemaVersion: 1
+timezone: "Asia/Tokyo"
+targetApprovedPostsPerDay: 2
+maximumPostsPerDay: 2
+slotsJst:
+  - "09:00"
+  - "18:00"
+publicationPolicy: "Publish only independently fact-checked, site-owner-approved news from an immutable ready manuscript. Empty slots remain empty; never invent a story."
+expansionPolicy: "Raise the cap only by a separate reviewed change after measuring reader engagement, source reliability and editorial capacity."
+evergreenPolicy: "The learning-article 20:00 JST approval workflow remains unchanged and has its own quota."
