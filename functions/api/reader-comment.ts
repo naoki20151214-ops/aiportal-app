@@ -28,7 +28,7 @@ const publishedSlugs=new Set<string>(Object.values(publishedArticleSlugById));
 const MAX_COMMENT_WINDOW_MS=10*60*1000;
 function windowOpen(env:ReaderEnvironment):boolean{
   const value=env.AI_PORTAL_READER_COMMENTS_EXPIRES_AT;
-  if(typeof value!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$/.test(value))return false;
+  if(typeof value!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$/.test(value))return false;
   const deadline=Date.parse(value);
   const remaining=deadline-Date.now();
   return Number.isFinite(deadline)&&remaining>0&&remaining<=MAX_COMMENT_WINDOW_MS;
