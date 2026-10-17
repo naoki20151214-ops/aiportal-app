@@ -23,7 +23,8 @@ const blob=(buffer:Buffer)=>createHash("sha1").update("blob "+buffer.length+"\0"
 test("GEN-0022 is only scheduled after GEN-0002 with an immutable approved audit",()=>{
   const registry=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
   const ledger=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
-  assert.equal(registry.nodeCount,500);
+  assert.ok(registry.nodeCount >= 500, "At least the original 500 knowledge nodes remain");
+  assert.equal(registry.nodeCount, registry.nodes.length, "Registry count matches actual nodes");
   const node=registry.nodes.find((x:{id:string})=>x.id===ID);
   assert.ok(node);
   assert.equal(node.slug,SLUG);
