@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: '0 0 * * *' # 09:00 JST
     - cron: '0 9 * * *' # 18:00 JST
+    - cron: '17 0 * * *' # 09:17 JST fallback, same owner/slot/SHA gates
+    - cron: '17 9 * * *' # 18:17 JST fallback, same owner/slot/SHA gates
   workflow_dispatch: # manual recovery; same clock, evidence and 2/day rules
 
 permissions:

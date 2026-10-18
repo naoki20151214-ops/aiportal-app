@@ -68,6 +68,22 @@ function validatedMedia(root,item,image){
   if(createHash("sha256").update(data).digest("hex")!==item.heroSha256)
     fail("hero differs from site-owner approval "+item.id);
 }
+// Each approved JST slot is an exclusive reservation. A delayed cron retry
+// must never consume a second story for the same 09:00/18:00 slot.
+export function assertUniqueNewsSlots(approvals) {
+  if (!Array.isArray(approvals)) fail("invalid slot ledger");
+  const seen=new Set();
+  for (const entry of approvals) {
+    const slot=entry?.scheduledAtJst;
+    if (typeof slot!=="string" ||
+        !/^\d{4}-\d\d-\d\dT(?:09:00|18:00):00\+09:00$/.test(slot) ||
+        !Number.isFinite(Date.parse(slot)))
+      fail("invalid scheduled news slot");
+    if (seen.has(slot)) fail("multiple news approvals for one slot "+slot);
+    seen.add(slot);
+  }
+}
+
 export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   if(!(now instanceof Date)||!Number.isFinite(now.getTime()))fail("invalid clock");
   const cadence=yaml(root,"content/news/news-cadence.yml");
@@ -82,6 +98,7 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
      !Array.isArray(history?.releases)||!Array.isArray(decisions?.decisions)||
      !Array.isArray(registry?.nodes)||registry.nodeCount!==registry.nodes.length)
     fail("malformed source-of-truth records or cadence");
+  assertUniqueNewsSlots(ledger.approvals);
   const today=japanDate(now);
   const publishedToday=history.releases.filter(x=>x.decision==="published"&&x.publishOn===today).length+
     ledger.approvals.filter(x=>x.decision==="published"&&x.publishedOn===today).length;
