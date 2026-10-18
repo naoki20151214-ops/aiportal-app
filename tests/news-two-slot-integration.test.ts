@@ -172,3 +172,32 @@ test("Synthetic ready stories with empty approval queue cannot be published",()=
     assert.equal(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'),true);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
+
+
+test("Missed news from yesterday is never silently backfilled on the next morning",()=>{
+  const {root}=fixture();
+  try{
+    const ledger=parse(read(root,"content/news/news-approval-queue.yml"));
+    ledger.approvals[0].scheduledAtJst="2026-10-18T09:00:00+09:00";
+    write(root,"content/news/news-approval-queue.yml",stringify(ledger));
+    const value=publishNews(root,{apply:true,now:new Date("2026-10-19T09:17:00+09:00")});
+    assert.equal(value.changed,false);
+    assert.equal(parse(read(root,"content/news/news-approval-queue.yml")).approvals[0].decision,"approved-for-publication");
+    assert.ok(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'));
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test("If 09:00 is missed, an 18:17 catch-up may release only the 18:00 story",()=>{
+  const {root}=fixture();
+  try{
+    const result=publishNews(root,{apply:true,now:new Date("2026-10-19T18:17:00+09:00")});
+    assert.equal(result.changed,true);
+    assert.equal(result.id,"NEWS-8002");
+    const ledger=parse(read(root,"content/news/news-approval-queue.yml"));
+    assert.equal(ledger.approvals[0].decision,"approved-for-publication");
+    assert.equal(ledger.approvals[1].decision,"published");
+    assert.equal(publishNews(root,{apply:true,now:new Date("2026-10-19T18:30:00+09:00")}).changed,false);
+    assert.ok(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'));
+    assert.ok(read(root,"content/articles/"+FIXTURES[1].slug+".md").includes('status: "published"'));
+  }finally{rmSync(root,{recursive:true,force:true});}
+});

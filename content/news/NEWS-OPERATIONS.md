@@ -86,3 +86,20 @@ GitHub documents that scheduled workflow starts near minute `:00` may be delayed
 - `assertUniqueNewsSlots` rejects multiple approvals reserved for the same date/time slot, including an already-published row plus a still-approved row. Delayed retries cannot release two stories assigned to one slot.
 - GitHub Actions `schedule` is still **best effort**, not a guaranteed time service. The extra triggers reduce single-event dependence, but do not establish an exact 09:00/18:00 SLA or production publication evidence.
 - Do not add an outside scheduler with GitHub write credentials or move the existing 20:00 evergreen workflow without separate security review.
+
+
+## 2026-10-18: missed-slot and stale-news publication boundary
+
+For every scheduled or delayed manual recovery run, `publish-news-queue.mjs` now
+selects an approval only if its immutable `scheduledAtJst` matches the **current
+Japan calendar day and active clock slot**: 09:00 between 09:00 and 17:59 JST,
+18:00 from 18:00 until 23:59 JST. An 18:xx retry does not publish a missed
+09:00 article; a next-day retry does not backfill yesterday's approval.
+The missed row remains explicitly owner-approved but **unpublished**, requiring
+a separate human decision and new immutable schedule if its newsworthiness
+persists. This is especially important for time-sensitive AI news.
+
+The two-per-day quota, one per originally approved slot, source/artwork SHA
+checks and manual owner approval remain mandatory. Passing a synthetic integration
+test does not establish a live Production publication. Do not change historical
+approval dates to force a backfill.
