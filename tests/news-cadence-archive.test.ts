@@ -7,7 +7,7 @@ import {parse} from "yaml";
 import {
   buildNewsArchive,archiveCsv,archiveJson,findNewsOverlaps,
 } from "../scripts/build-news-archive.mjs";
-import {chooseNewsRelease,publishNews} from "../scripts/publish-news-queue.mjs";
+import {chooseNewsRelease,publishNews,assertUniqueNewsSlots} from "../scripts/publish-news-queue.mjs";
 
 const read=(file:string)=>readFileSync(file,"utf8");
 
@@ -68,6 +68,34 @@ test("Twice-daily news slots are independent of the evergreen 20:00 publication 
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);
   assert.match(evergreen,/group: aiportal-approved-publication-main/);
 });
+test("Staggered recovery triggers retain original JST slots and independent evergreen gate",()=>{
+  const intake=parse(read(".github/workflows/news-candidates.yml"));
+  const publisher=parse(read(".github/workflows/publish-reviewed-news.yml"));
+  const evergreen=parse(read(".github/workflows/publish-approved.yml"));
+  assert.deepEqual(intake.on.schedule.map((x:{cron:string})=>x.cron),
+    ["0 22 * * *","0 7 * * *","17 22 * * *","17 7 * * *"]);
+  assert.deepEqual(publisher.on.schedule.map((x:{cron:string})=>x.cron),
+    ["0 0 * * *","0 9 * * *","17 0 * * *","17 9 * * *"]);
+  assert.equal(intake.permissions.contents,"read");
+  assert.equal(publisher.permissions.contents,"write");
+  assert.equal(evergreen.on.schedule[0].cron,"0 11 * * *");
+  assert.equal(publisher.concurrency.group,evergreen.concurrency.group);
+  assert.equal(publisher.concurrency["cancel-in-progress"],false);
+});
+
+test("Only one owner-approved news story may occupy any single Japan slot",()=>{
+  const morning={scheduledAtJst:"2026-10-18T09:00:00+09:00",decision:"approved-for-publication"};
+  const evening={scheduledAtJst:"2026-10-18T18:00:00+09:00",decision:"approved-for-publication"};
+  assert.doesNotThrow(()=>assertUniqueNewsSlots([]));
+  assert.doesNotThrow(()=>assertUniqueNewsSlots([morning,evening]));
+  assert.doesNotThrow(()=>assertUniqueNewsSlots([morning,{...morning,scheduledAtJst:"2026-10-19T09:00:00+09:00"}]));
+  assert.throws(()=>assertUniqueNewsSlots([morning,{...morning,decision:"published"}]),/multiple news approvals for one slot/);
+  assert.throws(()=>assertUniqueNewsSlots([evening,{...evening}]),/multiple news approvals for one slot/);
+  assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T09:17:00+09:00"}]),/invalid scheduled news slot/);
+  assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T08:59:00+09:00"}]),/invalid scheduled news slot/);
+  assert.throws(()=>assertUniqueNewsSlots([null]),/invalid scheduled news slot/);
+});
+
 test("Unapproved stories are never published, even when approval queue later contains accepted stories",()=>{
   const tmp=mkdtempSync(path.join(os.tmpdir(),"aiportal-news-queue-"));
   try{
