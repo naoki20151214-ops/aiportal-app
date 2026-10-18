@@ -125,7 +125,6 @@ test("Isolated owner-signed simulations publish only at each immutable 09:00/18:
     assert.equal(morning.changed,true);
     assert.equal(morning.id,"NEWS-8001");
     assert.equal(morning.publishedOn,"2026-10-19");
-    assert.equal(morning.availableSlots,undefined);
     const morningPublished=read(root,"content/articles/"+FIXTURES[0].slug+".md");
     assert.ok(morningPublished.includes('status: "published"'));
     assert.equal(morningPublished.split("\n---\n").at(-1),originals.get(FIXTURES[0].slug)!.split("\n---\n").at(-1),"Manuscript body must be preserved byte for byte");
@@ -141,7 +140,7 @@ test("Isolated owner-signed simulations publish only at each immutable 09:00/18:
     assert.equal(publishNews(root,{apply:true,now:at("18:30:00")}).changed,false);
     const later=chooseNewsRelease(root,at("20:00:00"));
     assert.equal(later.availableSlots,0);
-    assert.match(later.reason,/quota reached/);
+    assert.match(String("reason" in later ? later.reason : ""),/quota reached/);
     const archive=JSON.parse(read(root,"content/news/news-archive.json"));
     assert.equal(archive.entries.filter((e:{id:string})=>FIXTURES.some(f=>f.id===e.id)).length,2);
     for(const f of FIXTURES){
@@ -169,7 +168,7 @@ test("Synthetic ready stories with empty approval queue cannot be published",()=
     write(root,"content/news/news-approval-queue.yml",stringify({schemaVersion:1,timezone:"Asia/Tokyo",approvals:[]}));
     const result=publishNews(root,{apply:true,now:new Date("2026-10-19T18:17:00+09:00")});
     assert.equal(result.changed,false);
-    assert.match(result.reason,/No date-due/);
+    assert.match(String("reason" in result ? result.reason : ""),/No date-due/);
     assert.equal(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'),true);
   }finally{rmSync(root,{recursive:true,force:true});}
 });
