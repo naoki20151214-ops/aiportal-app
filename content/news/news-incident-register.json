@@ -47,17 +47,18 @@
       "status": "fix-in-review",
       "impactScope": "ci-only",
       "rootCauseStatus": "confirmed",
-      "symptom": "CI Verify Test failed after updating an incident from fix-in-review to monitoring; Lint and Build were skipped.",
+      "symptom": "CI Verify Test failed after updating an incident from fix-in-review to monitoring; Lint and Build were skipped. A following CI attempt also failed because severity=low was incorrectly rejected by a generic minimum-text-length assertion.",
       "observedError": "AssertionError: actual 'monitoring', expected 'fix-in-review' in tests/news-incident-policy.test.ts:36",
       "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39126608707",
       "failedCommand": "npm test",
-      "directCause": "The ledger lifecycle state was changed to monitoring after prior CI passed, but its unit test still hard-coded fix-in-review.",
-      "systemicCause": "The regression test asserted one mutable administrative status rather than the actual safety invariant: an incident cannot be resolved without the required proof.",
+      "directCause": "The ledger lifecycle state was changed to monitoring after prior CI passed, but its unit test still hard-coded fix-in-review. The next revision also applied a >3 character assertion to severity, incorrectly excluding the valid enum value 'low'.",
+      "systemicCause": "The regression test asserted one mutable administrative status rather than the actual safety invariant: an incident cannot be resolved without the required proof. Generic field-length validation was substituted for schema-aware validation of enumerated values.",
       "impact": "A PR-only CI failure; no scheduled workflow, live news collection, publication queue or Production delivery was changed by this failed test run.",
       "correctiveActions": [
         "Replace the hard-coded mutable status assertion with lifecycle invariants tied to verification evidence.",
         "Allow an explicitly documented production validation exemption for truly CI-only incidents, never for live intake or publication failures.",
-        "Require confirmed root cause and successful CI before closing a CI-only incident."
+        "Require confirmed root cause and successful CI before closing a CI-only incident.",
+        "Validate severity against its explicit enum values instead of a generic minimum-string-length assertion."
       ],
       "regressionTests": [
         "tests/news-incident-policy.test.ts"
@@ -70,9 +71,12 @@
         "ci": "pending",
         "productionRepeat": "not-applicable",
         "nonApplicableReason": "The failed check is a test assertion about a JSON incident status, not a Production workflow or content change.",
-        "evidence": "CI correction and associated incident validation pending."
+        "evidence": "CI fixes pending. Both the mutable lifecycle mismatch and valid three-letter severity failure are linked in this incident record."
       },
-      "repeatSignature": "AssertionError: hardcoded mutable incident status mismatches ledger lifecycle"
+      "repeatSignature": "AssertionError: hardcoded mutable incident status mismatches ledger lifecycle",
+      "relatedRunUrls": [
+        "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39127053437"
+      ]
     }
   ]
 }
