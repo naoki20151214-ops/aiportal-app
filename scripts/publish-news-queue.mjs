@@ -156,7 +156,17 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   }
   if(publishedToday>=cadence.maximumPostsPerDay)
     return {changed:false,reason:"News quota reached for "+today,availableSlots:0};
-  const eligible=candidates.filter(c=>Date.parse(c.row.scheduledAtJst)<=now.getTime())
+  // GitHub cron may be delayed or dropped. A retry may only release the
+  // currently active JST slot on its ORIGINAL date. Never backfill yesterday's
+  // missed news or empty the morning queue from an evening retry.
+  const hour=Number(new Intl.DateTimeFormat("en-GB",{
+    timeZone:"Asia/Tokyo",hour:"2-digit",hourCycle:"h23",
+  }).format(now));
+  const activeSlot=hour>=18 ? "18:00" : hour>=9 ? "09:00" : null;
+  const activeScheduledAt=activeSlot ? today+"T"+activeSlot+":00+09:00" : null;
+  const eligible=candidates.filter(c=>activeScheduledAt!==null &&
+    c.row.scheduledAtJst===activeScheduledAt &&
+    Date.parse(c.row.scheduledAtJst)<=now.getTime())
     .sort((a,b)=>a.row.scheduledAtJst.localeCompare(b.row.scheduledAtJst)||a.row.id.localeCompare(b.row.id));
   const selected=eligible[0];
   if(!selected)return {changed:false,reason:"No date-due, explicitly approved news",availableSlots:2-publishedToday};
