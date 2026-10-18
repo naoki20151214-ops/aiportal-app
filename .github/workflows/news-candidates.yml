@@ -84,3 +84,16 @@ jobs:
           path: artifacts/news-editorial-triage.json
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Record failed intake as an incident requiring investigation
+        if: failure()
+        run: |
+          {
+            echo '## AI Portal: incident investigation required'
+            echo "- Failed workflow: ${GITHUB_WORKFLOW}"
+            echo "- GitHub run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "- Commit SHA: ${GITHUB_SHA}"
+            echo '- Root cause: not yet determined from a failure exit status alone'
+            echo '- Required: record observed error, direct cause, systemic cause, recurrence regression, CI proof, and production repeat proof in content/news/news-incident-register.json'
+            echo '- Do not claim the failed run succeeded or publish unverified stories.'
+          } >> "$GITHUB_STEP_SUMMARY"
