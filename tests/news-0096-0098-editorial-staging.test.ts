@@ -24,6 +24,13 @@ const stories = [
     "origin": "https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source",
     "cta": "ai-hallucination",
     "expected": 356
+  },
+  {
+    "id": "NEWS-0099",
+    "path": "content/news/drafts/NEWS-0099-glm-legal-benchmark-meaning.md",
+    "origin": "https://autoclaw.z.ai/blog/model/GLM-Legal/",
+    "cta": "what-is-machine-learning",
+    "expected": 413
   }
 ];
 const read=(p:string)=>readFileSync(p,"utf8");
@@ -57,10 +64,10 @@ test("New evidence-based AI news proposals are substantive and never public or o
   }
 });
 
-test("New news topics differ from held proposals and news release schedule remains restricted",()=>{
+test("Four new news topics differ from held proposals and news release schedule remains restricted",()=>{
   const ids=stories.map(s=>s.id);
   assert.equal(new Set(ids).size,ids.length);
-  assert.deepEqual(ids,["NEWS-0096","NEWS-0097","NEWS-0098"]);
+  assert.deepEqual(ids,["NEWS-0096","NEWS-0097","NEWS-0098","NEWS-0099"]);
   const publisher=parse(read(".github/workflows/publish-reviewed-news.yml"));
   const evergreen=parse(read(".github/workflows/publish-approved.yml"));
   assert.deepEqual(publisher.on.schedule.map((x:{cron:string})=>x.cron),
