@@ -36,7 +36,43 @@
         "evidence": "PR branch Test/Lint/Build passed, including CLI syntax + zero-candidate invocation. Live nonempty scheduled intake remains unverified; do not mark resolved.",
         "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39126472321"
       },
-      "repeatSignature": "SyntaxError: Identifier 'bySource' has already been declared"
+      "repeatSignature": "SyntaxError: Identifier 'bySource' has already been declared",
+      "impactScope": "production-intake"
+    },
+    {
+      "id": "AI-NEWS-INC-20261018-002",
+      "discoveredAtJst": "2026-10-18T21:17:28+09:00",
+      "severity": "low",
+      "area": "ci-news-incident-policy",
+      "status": "fix-in-review",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "CI Verify Test failed after updating an incident from fix-in-review to monitoring; Lint and Build were skipped.",
+      "observedError": "AssertionError: actual 'monitoring', expected 'fix-in-review' in tests/news-incident-policy.test.ts:36",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39126608707",
+      "failedCommand": "npm test",
+      "directCause": "The ledger lifecycle state was changed to monitoring after prior CI passed, but its unit test still hard-coded fix-in-review.",
+      "systemicCause": "The regression test asserted one mutable administrative status rather than the actual safety invariant: an incident cannot be resolved without the required proof.",
+      "impact": "A PR-only CI failure; no scheduled workflow, live news collection, publication queue or Production delivery was changed by this failed test run.",
+      "correctiveActions": [
+        "Replace the hard-coded mutable status assertion with lifecycle invariants tied to verification evidence.",
+        "Allow an explicitly documented production validation exemption for truly CI-only incidents, never for live intake or publication failures.",
+        "Require confirmed root cause and successful CI before closing a CI-only incident."
+      ],
+      "regressionTests": [
+        "tests/news-incident-policy.test.ts"
+      ],
+      "productionFiles": [
+        "tests/news-incident-policy.test.ts"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/211",
+      "validation": {
+        "ci": "pending",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failed check is a test assertion about a JSON incident status, not a Production workflow or content change.",
+        "evidence": "CI correction and associated incident validation pending."
+      },
+      "repeatSignature": "AssertionError: hardcoded mutable incident status mismatches ledger lifecycle"
     }
   ]
 }
