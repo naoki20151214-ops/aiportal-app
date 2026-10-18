@@ -33,7 +33,9 @@ test("The real 2026-10-18 RSS intake incident records symptom, direct and system
   const failure=record.incidents.find((x:{id:string})=>x.id==="AI-NEWS-INC-20261018-001");
   assert.ok(failure);
   assert.equal(failure.rootCauseStatus,"confirmed");
-  assert.equal(failure.status,"fix-in-review");
+  assert.equal(failure.status,"monitoring");
+  assert.equal(failure.validation.ci,"success");
+  assert.match(failure.validation.ciRunUrl,/\/actions\/runs\/39126472321$/);
   assert.equal(failure.validation.productionRepeat,"pending");
   assert.match(failure.observedError,/bySource/);
   assert.match(failure.directCause,/twice/);
