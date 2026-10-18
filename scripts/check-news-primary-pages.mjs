@@ -52,7 +52,7 @@ const failuresByReason = Object.fromEntries(
     reason, results.filter(item => item.reason === reason).length,
   ])
 );
-const bySource = sources.map(source => {
+const sourceBreakdown = sources.map(source => {
   const group = results.filter(item => item.sourceId === source.id);
   return {sourceId: source.id, candidates: group.length,
     retrieved: group.filter(item => item.status === "retrieved-for-editorial-review").length,
@@ -68,7 +68,7 @@ const evidenceReport = {
   primaryClaimVerification: "not-performed",
   caveat: "Retrieved official web pages are evidence to review, NOT confirmation of claims. The editor must check original sources and publication conditions before any news is eligible.",
   summary: {candidates: results.length, retrieved, fetchFailed: results.length - retrieved,
-    failuresByReason, bySource},
+    failuresByReason, bySource: sourceBreakdown},
   results,
 };
 fs.mkdirSync(path.dirname(output), {recursive: true});
