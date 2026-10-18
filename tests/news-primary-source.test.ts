@@ -53,7 +53,7 @@ test("HTTPS, official host, redirects and max hops block off-site fetching", asy
   assert.equal(calls, 1);
   const looping = await fetchPrimaryPage(candidate, source, async () =>
     new Response(null, {status: 301, headers: {location: "/index/launch"}}));
-  assert.equal(looping.reason, "redirect-limit");
+  assert.equal(looping.reason, "redirect-cycle");
 });
 
 
