@@ -21,24 +21,40 @@ test("The real 2026-10-18 RSS intake incident records symptom, direct and system
     assert.ok(Array.isArray(item.regressionTests)&&item.regressionTests.length>0);
     assert.ok(item.regressionTests.every((x:string)=>x.startsWith("tests/")&&x.endsWith(".test.ts")));
     assert.ok(item.validation && ["pending","success","failure"].includes(item.validation.ci));
-    assert.ok(["pending","success","failure"].includes(item.validation.productionRepeat));
+    assert.ok(["pending","success","failure","not-applicable"].includes(item.validation.productionRepeat));
+    if(item.validation.productionRepeat==="not-applicable"){
+      assert.equal(item.impactScope,"ci-only");
+      assert.ok(typeof item.validation.nonApplicableReason==="string" && item.validation.nonApplicableReason.length>=40);
+    }
     assert.ok(["pending","confirmed"].includes(item.rootCauseStatus));
     if(item.status==="resolved"){
       assert.equal(item.rootCauseStatus,"confirmed");
       assert.equal(item.validation.ci,"success");
-      assert.equal(item.validation.productionRepeat,"success");
-      assert.ok(item.validation.productionEvidenceUrl?.startsWith("https://github.com/"));
+      assert.ok(item.validation.productionRepeat==="success" ||
+        (item.impactScope==="ci-only" && item.validation.productionRepeat==="not-applicable"));
+      if(item.validation.productionRepeat==="success")
+        assert.ok(item.validation.productionEvidenceUrl?.startsWith("https://github.com/"));
     }
   }
   const failure=record.incidents.find((x:{id:string})=>x.id==="AI-NEWS-INC-20261018-001");
   assert.ok(failure);
   assert.equal(failure.rootCauseStatus,"confirmed");
-  assert.equal(failure.status,"monitoring");
+  // Lifecycle labels will legitimately change as verification proceeds.
+  // Guard the invariant, not a mutable status string.
+  assert.ok(["fix-in-review","monitoring","resolved"].includes(failure.status));
+  if(failure.validation.productionRepeat!=="success")
+    assert.notEqual(failure.status,"resolved");
   assert.equal(failure.validation.ci,"success");
   assert.match(failure.validation.ciRunUrl,/\/actions\/runs\/39126472321$/);
   assert.equal(failure.validation.productionRepeat,"pending");
   assert.match(failure.observedError,/bySource/);
   assert.match(failure.directCause,/twice/);
+  const ciOnly=record.incidents.find((x:{id:string})=>x.id==="AI-NEWS-INC-20261018-002");
+  assert.ok(ciOnly);
+  assert.equal(ciOnly.impactScope,"ci-only");
+  assert.equal(ciOnly.validation.productionRepeat,"not-applicable");
+  assert.match(ciOnly.triggerRunUrl,/39126608707$/);
+  assert.match(ciOnly.directCause,/hard-coded fix-in-review/);
   assert.match(failure.systemicCause,/not parsed or executed/);
 });
 
