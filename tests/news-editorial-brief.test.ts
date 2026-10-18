@@ -11,6 +11,7 @@ const candidate={
   rssPublishedAt:"2026-10-18T00:00:00Z",
   originalUrl:"https://deepmind.google/blog/example",
   retrievalStatus:"retrieved-for-editorial-review",
+  retrievalFailureReason:null,
   historicalMatchNeedsReview:true,
   historicalMatches:[{id:"NEWS-0093",status:"rejected"}],
   editorialDecision:"unreviewed",publicationEligible:false,
@@ -25,6 +26,15 @@ test("Editorial brief shows historical rejected-news flags, date and a clear non
   assert.match(text,/公開対象外/);
   assert.match(text,/人間が先に確認する項目/);
   assert.doesNotMatch(text,/<script|\[malicious\]|\| title/);
+});
+
+test("An unverified inaccessible publisher reports a failure reason, never approval",()=>{
+  const denied={...candidate,retrievalStatus:"fetch-failed",
+    retrievalFailureReason:"http-403"};
+  const markdown=buildNewsEditorialBrief({...triage,items:[denied]});
+  assert.match(markdown,/http-403/);
+  assert.match(markdown,/公開対象外/);
+  assert.doesNotMatch(markdown,/記事が検証済み/);
 });
 
 test("No candidate and untrusted status both fail safely",()=>{
