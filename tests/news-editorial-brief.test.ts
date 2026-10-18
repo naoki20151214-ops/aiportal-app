@@ -47,7 +47,7 @@ test("No candidate and untrusted status both fail safely",()=>{
 test("Japanese brief is only a read-only artifact of twice-daily collection",()=>{
   const workflow=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(workflow.permissions.contents,"read");
-  assert.deepEqual(workflow.on.schedule.map((x:{cron:string})=>x.cron),["0 22 * * *","0 7 * * *"]);
+  assert.deepEqual(workflow.on.schedule.map((x:{cron:string})=>x.cron),["0 22 * * *","0 7 * * *","17 22 * * *","17 7 * * *"]);
   const steps=workflow.jobs.collect.steps;
   assert.ok(steps.some((x:{run?:string})=>String(x.run).includes("build-news-editorial-brief.mjs")));
   assert.ok(steps.some((x:{with?:{path?:string}})=>x.with?.path==="artifacts/news-editorial-brief.md"));
