@@ -6,9 +6,9 @@ description: "文章からどうして絵が作れるのか。町内会の清掃
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-17"
-updatedAt: "2026-10-17"
+status: "published"
+publishedAt: "2026-10-18"
+updatedAt: "2026-10-18"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/image-generation-ai/hero.svg"
 tags: ["画像生成AI", "テキストから画像", "拡散モデル", "Diffusion", "Imagen", "DALL·E", "プロンプト"]

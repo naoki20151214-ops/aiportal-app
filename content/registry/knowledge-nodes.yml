@@ -608,7 +608,7 @@ nodes:
     category: "生成AI"
     level: 1
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "テキストから画像を生成するAIはどのような仕組みと用途を持つのか？"
     prerequisites: ["GEN-0001","BAS-0030"]
     children: []
