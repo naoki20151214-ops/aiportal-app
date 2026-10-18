@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 501
+nodeCount: 502
 
 nodes:
   - id: "BAS-0001"
@@ -6108,4 +6108,16 @@ nodes:
     prerequisites: []
     children: []
     related: ["BAS-0001","GEN-0004"]
+    priority: "A"
+  - id: "NEWS-0096"
+    title: "AIの声は「選ぶ」から「作る」へ。OpenAIが音声生成の新機能を公開"
+    slug: "openai-prompt-to-voice"
+    category: "AIニュース"
+    level: 0
+    type: "news"
+    status: "published"
+    centerQuestion: "AIの音声生成は、既定音声の選択から言葉による独自音声設計へどう変わったか？"
+    prerequisites: ["GEN-0001"]
+    children: []
+    related: ["GEN-0018"]
     priority: "A"
