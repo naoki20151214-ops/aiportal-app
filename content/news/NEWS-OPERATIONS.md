@@ -76,3 +76,13 @@ Morning scheduled collection: run [39079617267](https://github.com/naoki20151214
 - RSS's `/index/<slug>` and OpenAI's localized `/ja-JP/index/<slug>` are now treated as a *possible duplicate* hint only. The 2026-10-18 intake missed English RSS NEWS-0092 even though a Japanese localized version was already published. No automated suppression or publication is performed.
 - The morning 09:00 publication workflow [39088339450](https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39088339450) ran after 10:57 JST due to GitHub schedule delay and correctly did nothing because the approval queue was empty. This is **not** a successful release test.
 - After merge, a new scheduled collection is needed to verify the real primary-page success rate and failure reasons. Test/Lint/Build passing alone does not establish production intake success.
+
+## 2026-10-18: safe staggered fallback for unreliable GitHub cron
+
+GitHub documents that scheduled workflow starts near minute `:00` may be delayed or dropped during high load. The repository observed no created 16:00 intake run or 18:00 publication run as of 18:53 JST on 2026-10-18 (not proof that they will never appear). The successful 09:00 release-control run started at about 10:57 JST and correctly published nothing because no owner approvals existed.
+
+- Keep original 07:00 and 16:00 JST **read-only candidate intake** and add 07:17 / 16:17 opportunities. Intake permissions remain `contents: read`, all items remain unverified and cannot be published.
+- Keep original 09:00 and 18:00 JST **publication opportunities** and add 09:17 / 18:17 catch-up triggers. These are *not* additional news slots: all triggers invoke the same immutable owner-approval and time/quota gates, serialized with the 20:00 evergreen publisher.
+- `assertUniqueNewsSlots` rejects multiple approvals reserved for the same date/time slot, including an already-published row plus a still-approved row. Delayed retries cannot release two stories assigned to one slot.
+- GitHub Actions `schedule` is still **best effort**, not a guaranteed time service. The extra triggers reduce single-event dependence, but do not establish an exact 09:00/18:00 SLA or production publication evidence.
+- Do not add an outside scheduler with GitHub write credentials or move the existing 20:00 evergreen workflow without separate security review.
