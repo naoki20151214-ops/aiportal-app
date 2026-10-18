@@ -11,11 +11,12 @@ test("The real 2026-10-18 RSS intake incident records symptom, direct and system
   for(const item of record.incidents){
     assert.match(item.id,/^AI-NEWS-INC-\d{8}-\d{3}$/);
     assert.ok(!ids.has(item.id));ids.add(item.id);
-    for(const field of ["discoveredAtJst","severity","area","status","rootCauseStatus",
+    for(const field of ["discoveredAtJst","area","status","rootCauseStatus",
       "symptom","observedError","triggerRunUrl","failedCommand","directCause",
       "systemicCause","impact","prUrl","repeatSignature"]){
       assert.ok(typeof item[field]==="string"&&item[field].length>3,`${item.id}: ${field}`);
     }
+    assert.ok(["low","medium","high","critical"].includes(item.severity),`${item.id}: invalid severity`);
     assert.match(item.triggerRunUrl,/^https:\/\/github\.com\/naoki20151214-ops\/aiportal-app\/actions\/runs\/\d+$/);
     assert.ok(Array.isArray(item.correctiveActions)&&item.correctiveActions.length>=2);
     assert.ok(Array.isArray(item.regressionTests)&&item.regressionTests.length>0);
