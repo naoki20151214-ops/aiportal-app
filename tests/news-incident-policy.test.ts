@@ -43,7 +43,7 @@ test("The real 2026-10-18 RSS intake incident records symptom, direct and system
 test("Read-only scheduled collector checks executable news CLI syntax before any RSS network requests",()=>{
   const workflow=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(workflow.permissions.contents,"read");
-  const steps=workflow.jobs.collect.steps as Array<{name:string;run?:string}>;
+  const steps=workflow.jobs.collect.steps as Array<{name:string;run?:string;if?:string}>;
   const syntaxIndex=steps.findIndex(x=>x.name==="Check production news CLI syntax before external requests");
   const intakeIndex=steps.findIndex(x=>x.name==="Collect only unverified official RSS metadata");
   assert.ok(syntaxIndex>=0 && syntaxIndex<intakeIndex);
@@ -52,5 +52,10 @@ test("Read-only scheduled collector checks executable news CLI syntax before any
     "triage-news-evidence.mjs","build-news-editorial-brief.mjs","publish-news-queue.mjs"]){
     assert.ok(String(step.run).includes("node --check scripts/"+filename));
   }
+  const diagnostic=steps.find(x=>x.name==="Record failed intake as an incident requiring investigation");
+  assert.equal(diagnostic?.if,"failure()");
+  assert.match(String(diagnostic?.run),/GITHUB_RUN_ID/);
+  assert.match(String(diagnostic?.run),/GITHUB_SHA/);
+  assert.match(String(diagnostic?.run),/news-incident-register.json/);
   assert.ok(!steps.some(x=>/git push|publish-news-queue\.mjs --apply/.test(String(x.run||""))));
 });
