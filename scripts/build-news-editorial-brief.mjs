@@ -43,7 +43,7 @@ export function buildNewsEditorialBrief(triage) {
     lines.push("",
       `### ${i+1}. ${clean(x.rssTitle) || "見出し不明"}`,
       `- 発信元ID: ${clean(x.sourceId) || "不明"}`,
-      `- 原文取得: ${status(x)}`,
+      `- 原文取得: ${status(x)}${x.retrievalStatus !== "retrieved-for-editorial-review" ? "（理由: "+clean(x.retrievalFailureReason || "unspecified")+"）" : ""}`,
       `- 取得元URL: ${typeof x.originalUrl === "string" && /^https:\/\/[^\s<>]+$/.test(x.originalUrl) ? x.originalUrl : "要確認"}`,
       `- 日時: ${/^\d{4}-\d\d-\d\dT/.test(x.rssPublishedAt ?? "") ? clean(x.rssPublishedAt) : "RSS日時の確認が必要"}`,
       `- 過去記事: ${overlapIds.length ? overlapIds.join(", ")+"（編集者が重複確認）" : "完全一致の警告なし（内容の重複未確認）"}`,

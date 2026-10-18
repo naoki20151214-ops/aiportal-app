@@ -70,6 +70,19 @@ export function extractPrimaryPageMetadata(html) {
   };
 }
 
+// Check redirect targets with the existing strict host policy, but preserve
+// the publisher's actual trailing slash. RSS canonicalization removes it;
+// applying that canonicalization to a live Location header can cause 301 loops.
+export function safePrimaryRedirectUrl(raw, hosts) {
+  const safe = safeUrl(raw, hosts);
+  if (!safe) return null;
+  const incoming = new URL(raw);
+  const target = new URL(safe);
+  if (incoming.pathname.length > 1 && incoming.pathname.endsWith("/"))
+    target.pathname += "/";
+  return target.toString();
+}
+
 async function boundedHtml(response) {
   const sizeHeader = Number(response.headers.get("content-length"));
   if (Number.isFinite(sizeHeader) && sizeHeader > MAX_PRIMARY_BYTES) throw new Error("html-too-large");
@@ -101,8 +114,11 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   let current = originalUrl;
+  const visited = new Set();
   try {
     for (let redirects = 0; redirects <= MAX_REDIRECTS; redirects++) {
+      if (visited.has(current)) throw new Error("redirect-cycle");
+      visited.add(current);
       const response = await fetchImpl(current, {
         redirect: "manual", signal: controller.signal,
         headers: {
@@ -116,13 +132,13 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
         // A publisher may redirect an article to another *explicitly approved*
         // official domain. Never accept these domains as direct RSS candidates.
         const redirectHosts = [...source.allowedHosts, ...(source.redirectHosts ?? [])];
-        const next = location ? safeUrl(new URL(location, current).href, redirectHosts) : null;
+        const next = location ? safePrimaryRedirectUrl(new URL(location, current).href, redirectHosts) : null;
         if (!next) throw new Error("unsafe-redirect");
         await response.body?.cancel().catch(() => {});
         current = next;
         continue;
       }
-      if (response.status !== 200) throw new Error("non-200-response");
+      if (response.status !== 200) throw new Error("http-" + response.status);
       const type = (response.headers.get("content-type") || "").toLowerCase();
       if (!/^(text\/html|application\/xhtml\+xml)(;|$)/.test(type))
         throw new Error("not-html");
@@ -141,10 +157,11 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
     }
     throw new Error("redirect-limit");
   } catch (error) {
-    const reasons = new Set(["redirect-limit", "unsafe-redirect", "non-200-response",
+    const reasons = new Set(["redirect-limit", "redirect-cycle", "unsafe-redirect",
       "not-html", "html-too-large", "empty-html-body", "missing-page-content"]);
     const reason = controller.signal.aborted ? "fetch-timeout" :
-      reasons.has(error?.message) ? error.message : "fetch-or-parse-error";
+            (reasons.has(error?.message) || /^http-[1-5]\d\d$/.test(error?.message ?? ""))
+        ? error.message : "fetch-or-parse-error";
     return {status: "fetch-failed", reason, editorialStatus: "unreviewed",
       claimVerification: "not-performed", publicationEligible: false};
   } finally {

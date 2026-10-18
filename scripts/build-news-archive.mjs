@@ -41,6 +41,11 @@ function normalizeUrl(url) {
     const u=new URL(url);
     if(u.protocol!=="https:"||u.username||u.password)return null;
     u.hash="";
+    // OpenAI's RSS can link to /index/<slug> while its localized release
+    // uses /ja-JP/index/<slug>. This is only a duplicate-review hint, never
+    // authorization to merge, suppress or publish a story.
+    if (u.hostname === "openai.com")
+      u.pathname=u.pathname.replace(/^\/[a-z]{2}-[A-Z]{2}(?=\/index\/)/,"");
     u.pathname=u.pathname.replace(/\/+$/,"")||"/";
     for(const name of [...u.searchParams.keys()])if(name.toLowerCase().startsWith("utm_"))u.searchParams.delete(name);
     return u.toString();

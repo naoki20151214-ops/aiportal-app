@@ -45,6 +45,19 @@ for (let i = 0; i < report.candidates.length; i += 4) {
 }
 
 const retrieved = results.filter(item => item.status === "retrieved-for-editorial-review").length;
+// Counts only: do not copy blocked publisher pages or log untrusted HTML.
+const failuresByReason = Object.fromEntries(
+  [...new Set(results.filter(item => item.status !== "retrieved-for-editorial-review")
+    .map(item => item.reason || "unspecified"))].sort().map(reason => [
+    reason, results.filter(item => item.reason === reason).length,
+  ])
+);
+const bySource = sources.map(source => {
+  const group = results.filter(item => item.sourceId === source.id);
+  return {sourceId: source.id, candidates: group.length,
+    retrieved: group.filter(item => item.status === "retrieved-for-editorial-review").length,
+    fetchFailed: group.filter(item => item.status !== "retrieved-for-editorial-review").length};
+});
 const evidenceReport = {
   schemaVersion: 1,
   status: "editorial-evidence-only",
@@ -54,11 +67,13 @@ const evidenceReport = {
   editorialApprovals: 0,
   primaryClaimVerification: "not-performed",
   caveat: "Retrieved official web pages are evidence to review, NOT confirmation of claims. The editor must check original sources and publication conditions before any news is eligible.",
-  summary: {candidates: results.length, retrieved, fetchFailed: results.length - retrieved},
+  summary: {candidates: results.length, retrieved, fetchFailed: results.length - retrieved,
+    failuresByReason, bySource},
   results,
 };
 fs.mkdirSync(path.dirname(output), {recursive: true});
 fs.writeFileSync(output, JSON.stringify(evidenceReport, null, 2) + "\n", "utf8");
 console.log("Private AI news primary-source review aid: pages retrieved=" + retrieved +
   "/" + results.length + "; claims verified=0; publishing=false");
+console.log("Editorial evidence failure categories: " + JSON.stringify(failuresByReason));
 if (results.length > 0 && retrieved === 0) process.exitCode = 1;

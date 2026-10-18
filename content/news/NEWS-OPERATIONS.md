@@ -65,3 +65,14 @@ NEWS-0090/0091 were published before this news release ledger; NEWS-0092 has its
 - The Japanese brief displays unverified RSS titles, source IDs, publisher dates, primary-page retrieval status, and exact-source/title historical overlap IDs.
 - It is a reading queue, not a recommendation, verified report, drafted article, owner approval, or public site content. It scores no unverified claims.
 - The scheduled workflow remains `contents: read` and never writes to main, article registry or approved publication queue.
+
+## 2026-10-18: live ingestion incident and guarded fix
+
+Morning scheduled collection: run [39079617267](https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39079617267), RSS feeds successful 6/6, 16 unverified candidates, 5/16 primary HTML pages retrieved; 5 redirect-limit failures (AWS 4 / DeepMind 1), 6 non-200 failures (OpenAI 6). These are **historical pre-fix figures**, not a post-fix success claim.
+
+- Root-cause evidence for redirect cases: the original RSS URL normalizer strips trailing slashes; before this patch it was also used on publisher `Location` headers, causing repeated redirects to a mandatory `/` path. The primary-page fetcher now preserves a safe redirected trailing slash while keeping HTTPS, no credentials, and allowed publisher host constraints. Redirect cycles are explicitly detected.
+- Non-200 OpenAI pages remain unverified and blocked. The importer records bounded `http-NNN` response categories rather than bypassing source controls or treating RSS metadata as proof.
+- Both raw JSON evidence and the Japanese editor brief include retrieval failure information to prioritize manual research without leaking page bodies.
+- RSS's `/index/<slug>` and OpenAI's localized `/ja-JP/index/<slug>` are now treated as a *possible duplicate* hint only. The 2026-10-18 intake missed English RSS NEWS-0092 even though a Japanese localized version was already published. No automated suppression or publication is performed.
+- The morning 09:00 publication workflow [39088339450](https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39088339450) ran after 10:57 JST due to GitHub schedule delay and correctly did nothing because the approval queue was empty. This is **not** a successful release test.
+- After merge, a new scheduled collection is needed to verify the real primary-page success rate and failure reasons. Test/Lint/Build passing alone does not establish production intake success.

@@ -39,6 +39,10 @@ test("Git-tracked JSON/CSV news archive equals the deterministic regenerated con
 });
 test("Source/normalized title detection catches previously published and rejected topics",()=>{
   const archive=buildNewsArchive();
+  // The official OpenAI RSS uses /index/ while the published article cites
+  // /ja-JP/index/. This MUST trigger human duplicate review (NEWS-0092).
+  assert.ok(findNewsOverlaps(archive,{originalUrl:"https://openai.com/index/introducing-the-rosalind-academic-plan"})
+    .some((x:{id:string})=>x.id==="NEWS-0092"));
   assert.ok(findNewsOverlaps(archive,{originalUrl:"https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/?utm_source=test"})
     .some((x:{id:string})=>x.id==="NEWS-0092"));
   assert.ok(findNewsOverlaps(archive,{originalUrl:"https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/"})

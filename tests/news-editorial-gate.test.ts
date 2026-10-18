@@ -63,6 +63,7 @@ test("Triage labels are review aids, never confirmations or authorization", () =
   assert.ok(triage.items[0].possibleDuplicateIds.includes(anotherId));
   assert.equal(triage.items[0].publicationEligible, false);
   assert.equal(triage.items[0].accuracyNeedsReview, true);
+  assert.equal(triage.items[0].rssPublishedAt,"2026-10-15T10:00:00.000Z");
 });
 
 test("Triage rejects untrusted reports, duplicate IDs and published statuses", () => {

@@ -3,7 +3,7 @@ import {readFileSync} from "node:fs";
 import {test} from "node:test";
 import {parse} from "yaml";
 import {
-  extractPrimaryPageMetadata, fetchPrimaryPage, MAX_PRIMARY_BYTES,
+  extractPrimaryPageMetadata, fetchPrimaryPage, MAX_PRIMARY_BYTES, safePrimaryRedirectUrl,
 } from "../scripts/news-primary-source-core.mjs";
 
 const candidate = {
@@ -53,7 +53,7 @@ test("HTTPS, official host, redirects and max hops block off-site fetching", asy
   assert.equal(calls, 1);
   const looping = await fetchPrimaryPage(candidate, source, async () =>
     new Response(null, {status: 301, headers: {location: "/index/launch"}}));
-  assert.equal(looping.reason, "redirect-limit");
+  assert.equal(looping.reason, "redirect-cycle");
 });
 
 
@@ -82,6 +82,46 @@ test("DeepMind RSS links may redirect to preapproved official Google blog only",
   const direct = await fetchPrimaryPage({...original, originalUrl: finalUrl},
     deepmind, async () => {throw Error("Direct alternate-domain feed URLs must never be fetched");});
   assert.equal(direct.reason, "unsafe-candidate-url");
+});
+
+test("Strict publisher redirect validation preserves mandatory trailing slash without opening new hosts", async () => {
+  const original = {...candidate,originalUrl:"https://aws.amazon.com/blogs/machine-learning/example"};
+  const aws={id:"aws-ai",allowedHosts:["aws.amazon.com"]};
+  const finalUrl="https://aws.amazon.com/blogs/machine-learning/example/";
+  assert.equal(safePrimaryRedirectUrl(finalUrl,aws.allowedHosts),finalUrl);
+  assert.equal(safePrimaryRedirectUrl("https://aws.amazon.com.evil.example/x/",aws.allowedHosts),null);
+  assert.equal(safePrimaryRedirectUrl("http://aws.amazon.com/example/",aws.allowedHosts),null);
+  assert.equal(safePrimaryRedirectUrl("https://bad@aws.amazon.com/example/",aws.allowedHosts),null);
+  const seen:string[]=[];
+  const response=await fetchPrimaryPage(original,aws,async input=>{
+    seen.push(String(input));
+    return seen.length===1
+      ? new Response(null,{status:301,headers:{location:finalUrl}})
+      : new Response(html,{status:200,headers:{"content-type":"text/html"}});
+  });
+  assert.equal(response.status,"retrieved-for-editorial-review");
+  if(!("finalUrl" in response))throw Error("Expected safe final URL");
+  assert.equal(response.finalUrl,finalUrl);
+  assert.deepEqual(seen,[original.originalUrl,finalUrl]);
+  assert.equal(response.publicationEligible,false);
+});
+
+test("Redirect cycles and HTTP blocks remain distinct safe failure reasons",async()=>{
+  let calls=0;
+  const cyc=await fetchPrimaryPage(candidate,source,async()=>{
+    calls++;
+    return new Response(null,{status:301,headers:{location:candidate.originalUrl}});
+  });
+  assert.equal(cyc.reason,"redirect-cycle");
+  assert.equal(calls,1);
+  let blocks=0;
+  const blocked=await fetchPrimaryPage(candidate,source,async()=>{
+    blocks++;
+    return new Response("Forbidden",{status:403});
+  });
+  assert.equal(blocked.reason,"http-403");
+  assert.equal(blocks,1);
+  assert.equal(blocked.publicationEligible,false);
 });
 
 test("Only bounded HTML is accepted; PDF and oversized responses are rejected", async () => {

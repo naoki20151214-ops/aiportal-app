@@ -71,6 +71,7 @@ export function triageNewsEvidence(report, archive = /** @type {any} */ (null)) 
       rssPublishedAt: item.rssPublishedAt,
       originalUrl: item.originalUrl,
       retrievalStatus: item.status,
+      retrievalFailureReason: item.status === "fetch-failed" ? (item.reason || "unspecified") : null,
       topicHints: topics,
       dateNeedsReview: pageDate === null || Math.abs(pageDate - rssDate) > 48 * 3600 * 1000,
       relevanceNeedsReview: true,
