@@ -33,6 +33,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Check production news CLI syntax before external requests
+        run: |
+          node --check scripts/collect-news-candidates.mjs
+          node --check scripts/check-news-primary-pages.mjs
+          node --check scripts/triage-news-evidence.mjs
+          node --check scripts/build-news-editorial-brief.mjs
+          node --check scripts/publish-news-queue.mjs
+
       - name: Collect only unverified official RSS metadata
         run: node scripts/collect-news-candidates.mjs --lookback-hours=72
       - name: Save private intake evidence, not public content
