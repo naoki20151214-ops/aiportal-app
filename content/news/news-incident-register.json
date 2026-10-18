@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "policy": "Every failed production/news workflow must have an incident entry. A detected failure may be recorded with rootCauseStatus=pending, but may only be marked resolved after confirmed cause, merged regression, passing CI and successful equivalent live run.",
+  "incidents": [
+    {
+      "id": "AI-NEWS-INC-20261018-001",
+      "discoveredAtJst": "2026-10-18T20:57:38+09:00",
+      "severity": "high",
+      "area": "scheduled-news-intake",
+      "status": "monitoring",
+      "rootCauseStatus": "confirmed",
+      "symptom": "Official RSS metadata intake succeeded (6/6 feeds, 13 candidates) but the primary-source extraction step stopped immediately with SyntaxError; downstream triage and Japanese brief were skipped.",
+      "observedError": "SyntaxError: Identifier 'bySource' has already been declared",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39125316952",
+      "failedCommand": "node scripts/check-news-primary-pages.mjs",
+      "directCause": "scripts/check-news-primary-pages.mjs declared const bySource twice at module scope: first as a publisher lookup Map and later as a diagnostic summary Array.",
+      "systemicCause": "The previous change passed unit tests and Next.js build because the standalone news intake CLI was not parsed or executed by the Verify pipeline; checks covered its imported helpers but not the actual entrypoint.",
+      "impact": "13 candidates were captured as an RSS-only artifact; official page verification, editorial triage, and briefing did not run. No article was approved or published.",
+      "correctiveActions": [
+        "Rename the diagnostic summary local to sourceBreakdown while preserving JSON field summary.bySource.",
+        "Run node --check on all production news and release CLIs as part of the default npm test.",
+        "Execute the real primary-source CLI in an isolated, zero-candidate, no-network smoke test.",
+        "Run a dedicated syntax gate before the scheduled news intake makes any network calls."
+      ],
+      "regressionTests": [
+        "tests/news-intake-cli-smoke.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/check-news-primary-pages.mjs",
+        ".github/workflows/news-candidates.yml"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/210",
+      "validation": {
+        "ci": "success",
+        "productionRepeat": "pending",
+        "evidence": "PR branch Test/Lint/Build passed, including CLI syntax + zero-candidate invocation. Live nonempty scheduled intake remains unverified; do not mark resolved.",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39126472321"
+      },
+      "repeatSignature": "SyntaxError: Identifier 'bySource' has already been declared"
+    }
+  ]
+}
