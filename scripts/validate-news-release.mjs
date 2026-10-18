@@ -30,15 +30,28 @@ export function validateNewsRelease(root=process.cwd(),now=new Date()){
     must(count<=1,"more than one news release per Japan date");
     must(row.approvedBy==="site-owner" && row.decision==="published" && row.approvedOn<=row.publishOn,"missing explicit owner news approval");
     must(typeof row.evidence==="string" && row.evidence.length>=50,"missing news approval evidence");
-    must(/^https:\/\/openai\.com\/ja-JP\/index\/introducing-the-rosalind-academic-plan\/$/.test(row.primarySource),"missing verified official source");
+    must(row.id==="NEWS-0092" || row.id==="NEWS-0096","unreviewed manual release identity");
     const node=registry.nodes.find(n=>n.id===row.id);
     must(node && node.slug===row.slug && node.status==="published" && node.type==="news","registry missing published news");
     const article=read(root,"content/articles/"+row.slug+".md");
     must(article.includes('id: "'+row.id+'"') && article.includes('status: "published"'),"not an approved published news article");
     must(article.includes('publishedAt: "'+row.publishOn+'"') && article.includes('updatedAt: "'+row.publishOn+'"'),"publication day mismatch");
     must(article.includes(row.primarySource),"original source missing from article");
-    must(article.includes("米国の大学研究室") && article.includes("別途利用承認"),"critical audience/approval limitations missing");
-    must(article.includes("](/articles/ai-hallucination)"),"approved CTA missing");
+    if(row.id==="NEWS-0092"){
+      must(row.primarySource==="https://openai.com/ja-JP/index/introducing-the-rosalind-academic-plan/","missing verified Rosalind source");
+      must(article.includes("米国の大学研究室") && article.includes("別途利用承認"),"Rosalind eligibility limitations missing");
+      must(article.includes("](/articles/ai-hallucination)"),"approved Rosalind CTA missing");
+    }else if(row.id==="NEWS-0096"){
+      must(row.primarySource==="https://openai.com/ja-JP/products/release-notes/","wrong voice news primary source");
+      const ownerApproved=read(root,"content/news/owner-approved-copy/NEWS-0096.md");
+      must(sha(ownerApproved)==="b75ec239e2fc957ab3816464779597fce4cbc559","owner-approved text changed");
+      must(article.includes(ownerApproved),"owner-approved NEWS-0096 body changed");
+      for(const claim of ["重要度：★★★☆☆（3/5）","新規性：高","API利用者全員","録音サンプルは不要","GPT-Live専用"]){
+        must(article.includes(claim),"approved voice-news limitation missing: "+claim);
+      }
+      must(article.includes("](/articles/what-is-generative-ai)"),"voice-news CTA missing");
+      must(article.includes("https://developers.openai.com/api/docs/guides/custom-voices"),"voice-news developer source missing");
+    }
     const before=article.replace('status: "published"','status: "ready"');
     must(sha(before)===row.sourceReadyBlob,"approved ready manuscript changed other than publication status");
     const hero=path.join(root,"public","images","news",row.slug+".webp");
