@@ -234,6 +234,83 @@
         "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189501974",
         "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189462864"
       ]
+    },
+    {
+      "severity": "low",
+      "rootCauseStatus": "confirmed",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39193695592",
+      "failedCommand": "npm test",
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/220",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39193934271",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failures occurred only in PR CI static test assertions or isolated temporary synthetic release fixtures, not a live news collector or any public site delivery.",
+        "evidence": "Final PR #220 Verify run #39193934271 passed Test, Lint and Build after the regressions were repaired; Production scheduled 07–23 cadence remains to be observed after merge."
+      },
+      "id": "AI-NEWS-INC-20261019-007",
+      "discoveredAtJst": "2026-10-19T12:14:53+09:00",
+      "area": "ci-hourly-news-schedule-tests",
+      "symptom": "The first staged hourly scheduling PR failed seven old tests that still asserted fixed twice-daily cron expressions and ignored the new 07–23 schedule.",
+      "observedError": "AssertionError: expected '0 22 * * *', actual '0 0-14,22-23 * * *'",
+      "directCause": "Six existing editorial/intake test files compared cron strings exactly to the former 07:00 and 16:00 intake triggers, even though the repository workflow had legitimately switched to hourly intake.",
+      "systemicCause": "The schedule was an incidental hardcoded expectation in several independent news draft and editorial isolation tests; no single shared policy assertion separated the immutable read-only and no-auto-publish safety requirements from the changeable collection cadence.",
+      "impact": "Only Test in review PR #220 failed and Lint/Build were skipped. Neither Production publication nor the main article registry and approval queues were changed.",
+      "correctiveActions": [
+        "Replaced obsolete cron equalities in all six tests with explicit hourly collection expectations while preserving read-only permissions and unchanged evergreen publishing checks.",
+        "Added dedicated 07–23 local-time schedule assertions and three-phase publishing safety coverage in tests/news-cadence-archive.test.ts and tests/news-hourly-rollout.test.ts."
+      ],
+      "regressionTests": [
+        "tests/news-cadence-archive.test.ts",
+        "tests/news-editorial-brief.test.ts",
+        "tests/news-draft-contract.test.ts",
+        "tests/news-foundation.test.ts",
+        "tests/news-editorial-gate.test.ts",
+        "tests/news-model-draft.test.ts",
+        "tests/news-primary-source.test.ts"
+      ],
+      "productionFiles": [
+        ".github/workflows/news-candidates.yml",
+        ".github/workflows/publish-reviewed-news.yml"
+      ],
+      "repeatSignature": "CI exact-cron assertions stale after approved hourly intake schedule change"
+    },
+    {
+      "severity": "low",
+      "rootCauseStatus": "confirmed",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39193695592",
+      "failedCommand": "npm test",
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/220",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39193934271",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failures occurred only in PR CI static test assertions or isolated temporary synthetic release fixtures, not a live news collector or any public site delivery.",
+        "evidence": "Final PR #220 Verify run #39193934271 passed Test, Lint and Build after the regressions were repaired; Production scheduled 07–23 cadence remains to be observed after merge."
+      },
+      "id": "AI-NEWS-INC-20261019-008",
+      "discoveredAtJst": "2026-10-19T12:14:53+09:00",
+      "area": "ci-hourly-news-synthetic-registry",
+      "symptom": "Seventeen-slot isolated integration failed after publishing two synthetic news stories because the third synthetic registry node could not be found by the existing production promotion parser.",
+      "observedError": "News release blocked: missing news Registry node NEWS-8302",
+      "directCause": "New integration fixture serialized the full parsed registry using yaml.stringify, which removed quoted ID formatting; the existing production registryBlock function expects canonical text containing an exact line for each quoted node ID.",
+      "systemicCause": "The original two-slot test fixture appends canonical literal Registry blocks but the new synthetic hourly test inadvertently reconstructed the whole Registry as generalized YAML, creating a representational incompatibility rather than a real missing node.",
+      "impact": "Only the new isolated temporary-directory integration test failed. No real Registry files, NEWS-0094 approved asset, or published article were touched.",
+      "correctiveActions": [
+        "Construct isolated fixture Registry nodes using canonical quoted-ID YAML while retaining the original main registry text and updating the declared nodeCount.",
+        "Reran simulated pilot-2, growth-6 and hourly-17 releases including quota, idempotency, no-backfill and SHA-change denial on the actual production publisher."
+      ],
+      "regressionTests": [
+        "tests/news-hourly-rollout.test.ts"
+      ],
+      "productionFiles": [
+        "tests/news-hourly-rollout.test.ts"
+      ],
+      "repeatSignature": "Synthetic Registry reserialization strips exact quoted news node ID required by release parser"
     }
   ]
 }
