@@ -1,0 +1,41 @@
+name: Verify New Official RSS Source (read only)
+on:
+  pull_request:
+    paths:
+      - 'content/news/sources.json'
+      - 'scripts/probe-news-rss-source.mjs'
+      - '.github/workflows/verify-new-news-rss.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: github.repository == 'naoki20151214-ops/aiportal-app' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout reviewed PR
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate probe CLI syntax
+        run: node --check scripts/probe-news-rss-source.mjs
+      - name: Independently verify Microsoft official security RSS
+        run: node scripts/probe-news-rss-source.mjs microsoft-security
+      - name: Save evidence; never approve or publish
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: microsoft-security-rss-onboarding-${{ github.run_id }}
+          path: artifacts/news-rss-onboarding-microsoft-security.json
+          retention-days: 14
+          if-no-files-found: warn
