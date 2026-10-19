@@ -60,10 +60,22 @@ const news0100Svg = fs.readFileSync(path.join(root,news0100SvgPath),"utf8");
 if (!news0100Svg.startsWith('<svg xmlns="http://www.w3.org/2000/svg"') ||
     /<script\b|<foreignObject\b|\bonload\s*=|<image\b|\bhref\s*=/i.test(news0100Svg))
   throw Error("Unsafe MIT NEWS-0100 source illustration");
-const news0100Webp = await sharp(Buffer.from(news0100Svg,"utf8"))
+const news0100Pixels = Buffer.from(news0100Svg,"utf8");
+let news0100Webp = await sharp(news0100Pixels)
   .resize({width:960,height:540,fit:"fill"})
-  .webp({quality:84,effort:6})
+  .webp({quality:90,effort:6})
   .toBuffer();
+// Some vector artwork compresses below the conservative 20KB media minimum.
+// Use deterministic lossless WebP of the SAME original SVG rather than
+// lowering media validation or introducing outside artwork.
+if(news0100Webp.length<20000){
+  console.log("NEWS-0100 WebP lossless fallback; first encode bytes:",news0100Webp.length);
+  news0100Webp = await sharp(news0100Pixels)
+    .resize({width:960,height:540,fit:"fill"})
+    .webp({lossless:true,effort:6})
+    .toBuffer();
+}
+console.log("NEWS-0100 WebP final bytes:",news0100Webp.length);
 if (news0100Webp.length < 20000 || news0100Webp.length > 500000 ||
     news0100Webp.subarray(0,4).toString("ascii")!=="RIFF" ||
     news0100Webp.subarray(8,12).toString("ascii")!=="WEBP")
