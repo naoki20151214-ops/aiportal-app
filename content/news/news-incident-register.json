@@ -189,6 +189,51 @@
         "evidence": "PR #204 follow-up commit 49f1732f87944bbbb8f870319956d5961f3ec762 passes actual GitHub Verify Test/Lint/Build, including editorial text-length gate. The news remains owner-unapproved and unpublished."
       },
       "repeatSignature": "NEWS-0094: proposal body exceeds test-defined 500 code-point cap after score or footnote"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-006",
+      "discoveredAtJst": "2026-10-19T11:21:07+09:00",
+      "severity": "low",
+      "area": "ci-queued-owner-news-release-gate",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "NEWS-0094 owner-approved ready news PR #219 failed at the duplicate-drafting gate because the historical editorial PR #204 was still open, despite the current article being owner approved and scheduled rather than a fresh draft.",
+      "observedError": "ARTICLE GATE BLOCKED: Duplicate drafting blocked: content/articles/on-device-scam-detection.md: NEWS-0094: PR history suggests prior work; investigate before starting",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189505990",
+      "failedCommand": "npm run article:ci -- --pr=219",
+      "directCause": "The NEWS-0096 duplicate-drafting exemption recognized status=published manual releases with an immutable manual ledger and base64 image, but not status=ready, owner-approved news bound to a validated future queue record and local image source.",
+      "systemicCause": "The prior CI-only fix (AI-NEWS-INC-20261019-003) covered one manual published path only; the authorized queued-ready news promotion path lacked a dedicated provenance exemption and regression test. Incremental branch commits triggered transient Verify failures before approval records, Registry, archive and CI gate changes were all present.",
+      "impact": "Review PR-only Verify failures; NEWS-0094 remained unpublished and outside main, NEWS-0096 approved article and media unchanged, no unauthorized publication or Production changes.",
+      "correctiveActions": [
+        "Added only a NEWS-0094-specific queued owner-release provenance check to the article start gate: requires immutable ready article Git Blob, exact approved copy, source SVG Blob, approved image SHA, official primary URL, exact 2026-10-19 18:00 JST slot and owner consent text.",
+        "Kept the general duplicate-drafting rejection for all unapproved drafts. The 18:00 publisher still verifies actual WebP bytes, SHA, article, CTA, time and two-post-per-day quota.",
+        "Verified real PR #219 GitHub article start gate, Test/Lint/Build and standalone media preparation pass for the staged owner-approved story; no CI bypass for a less-complete record.",
+        "Retained test coverage for both prepublication ready and postpublication published states to avoid a fixture-state collision with live release."
+      ],
+      "regressionTests": [
+        "tests/news-0094-owner-approved-queue.test.ts",
+        "tests/news-0096-owner-approved-copy.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/article-workflow.mjs"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/219",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189615225",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "Duplicate drafting gate executes only for pull request CI; the failure and narrow approved-queue exception were reverified in GitHub PR Verify and cannot be reproduced as a Production news publication without changing its state.",
+        "evidence": "PR #219 Validate/gate and Test/Lint/Build passed after the narrow queued-ready exception. Actual 18:00 JST publication is separately not yet verified and cannot be claimed here."
+      },
+      "repeatSignature": "ARTICLE GATE BLOCKED: prior news review PR treated authorized owner-approved release as duplicate fresh draft",
+      "relatedIncidentIds": [
+        "AI-NEWS-INC-20261019-003"
+      ],
+      "relatedRunUrls": [
+        "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189501974",
+        "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39189462864"
+      ]
     }
   ]
 }

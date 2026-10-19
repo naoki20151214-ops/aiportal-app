@@ -192,6 +192,41 @@ function writeReports(snapshot) {
   return compact;
 }
 
+// NEWS-0094 is a queued, owner-approved news release, not a fresh article draft.
+// This narrowly scoped exception never publishes: the regular JST publisher
+// still verifies image bytes, article SHA, date, per-day quota, and owner consent.
+function provenOwnerQueuedNews0094(articlePath, front) {
+  if(front?.id!=='NEWS-0094'||front?.slug!=='on-device-scam-detection'||
+     front?.status!=='ready')return false;
+  const root=ROOT, id='NEWS-0094';
+  const auditPath='content/news/editorial-audits/'+id+'.md';
+  const copyPath='content/news/owner-approved-copy/'+id+'.md';
+  const svgPath='content/news/assets/on-device-scam-detection.svg';
+  if(![auditPath,copyPath,svgPath].every(p=>fs.existsSync(path.join(root,p))))return false;
+  const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+  const queue=parse(read('content/news/news-approval-queue.yml'));
+  const approval=queue?.approvals?.find(x=>x.id===id && x.slug===front.slug &&
+    x.approvedBy==='site-owner' && x.decision==='approved-for-publication' &&
+    x.scheduledAtJst==='2026-10-19T18:00:00+09:00');
+  if(!approval || approval.originalUrl!=='https://deepmind.google/blog/on-device-ai-scam-detection-mddi/' ||
+     approval.sourceReadyBlob!=='c20f59f9e94808699e0d2d91de2518e27395edb9' ||
+     approval.heroSha256!=='128b57ca26a760ebd6b2aa80310df48bd139ee1a2f76e99ec00c072680657199' ||
+     approval.auditPath!==auditPath)return false;
+  const blob=data=>{const bytes=Buffer.from(data.replace(/\r\n/g,'\n'),'utf8');return createHash('sha1').update('blob '+bytes.length).update(Buffer.from([0])).update(bytes).digest('hex');};
+  const article=fs.readFileSync(articlePath,'utf8'),copy=read(copyPath),svg=read(svgPath),audit=read(auditPath);
+  if(blob(copy)!=='40c840a1a5d7160d0dcd2ddf0b4250fc74627b09' ||
+     blob(article)!==approval.sourceReadyBlob ||
+     blob(svg)!=='e5a35ccde4bb07d3ec626c105f85fb21e73ae663' ||
+     !article.endsWith(copy) ||
+     !article.includes(approval.originalUrl) ||
+     !article.includes('thumbnail: "/images/news/on-device-scam-detection.webp"') ||
+     !audit.includes(approval.sourceReadyBlob) ||
+     !audit.includes('e5a35ccde4bb07d3ec626c105f85fb21e73ae663') ||
+     !audit.includes(approval.heroSha256) ||
+     !audit.includes('どの画像か分かりませんが、僕大丈夫です'))return false;
+  return true;
+}
+
 // A finalized news release is not a fresh draft. Before bypassing a false
 // positive from an earlier unmerged review PR, verify exact owner-approved
 // article bytes, the signed manual release ledger, and immutable hero bytes.
@@ -254,6 +289,7 @@ async function gatePullRequest(snapshot) {
       const provenance=fs.existsSync(claim)?parse(fs.readFileSync(claim,'utf8')):null;
       if(provenance && (provenance.id!==front.id||!provenance.sourceRef))throw new Error('Malformed reuse provenance');
       const result=provenOwnerNewsRelease(local,front) ? 'OWNER-APPROVED-NEWS-RELEASE: SHA-verified article and image' :
+        provenOwnerQueuedNews0094(local,front) ? 'OWNER-APPROVED-QUEUED-NEWS-0094: immutable text, consent and asset source verified' :
         checkReuseProvenance({row,sourceRef:provenance?.sourceRef,incomingBranch:branch,incomingPrNumber:Number(prNum)});
       console.log(`${front.id}: ${result}`);
     }catch(e){errors.push(`${file.filename}: ${e.message}`);}
