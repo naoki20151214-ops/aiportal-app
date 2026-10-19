@@ -1,5 +1,5 @@
 schemaVersion: 1
-description: "Future news approvals only. Empty by default: RSS candidates and ready drafts are never approvals."
+description: "Owner-approved immutable READY news publish immediately after merge; old scheduledAtJst entries are audit history, not delivery reservations. Future approvals use approvedAtJst."
 timezone: "Asia/Tokyo"
 approvals:
   - id: "NEWS-0094"

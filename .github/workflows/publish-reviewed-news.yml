@@ -1,9 +1,15 @@
-name: Publish Reviewed AI News (staged hourly opportunities)
+name: Publish Approved AI News Immediately (no reservation or daily cap)
 on:
+  # Primary trigger: a reviewed PR merges a new immutable owner-approved
+  # READY news row into main. Never wait for the old 09:00/18:00 clocks.
+  push:
+    branches: [main]
+    paths:
+      - 'content/news/news-approval-queue.yml'
   schedule:
-    - cron: '0 0-14,22-23 * * *' # every JST hour 07..23; UTC day boundary handled by the publisher's JST clock
-    - cron: '17 0-14,22-23 * * *' # recovery attempt in same JST hour; NOT extra publication capacity
-  workflow_dispatch: # same source/approval/time/quota SHA gates, never an emergency bypass
+    - cron: '0 0-14,22-23 * * *' # redundant watchdog only; immediately publish pending approved news if a push event was delayed
+    - cron: '17 0-14,22-23 * * *' # watchdog retry; NOT a time reservation or cap
+  workflow_dispatch: # optional recovery, same immutable approved-text/image/source gate
 
 permissions:
   contents: write
@@ -32,9 +38,9 @@ jobs:
         run: npm ci
       - name: Prepare only locally approved news images
         run: node scripts/prepare-news-media.mjs
-      - name: Promote at most one date-due approved news article
+      - name: Promote all currently approved ready news (no daily cap, no waiting)
         id: release
-        run: node scripts/publish-news-queue.mjs --apply
+        run: node scripts/publish-news-queue.mjs --apply-immediate
       - name: Test and validate immutable news archive
         if: steps.release.outputs.changed == 'true'
         run: |
@@ -48,17 +54,15 @@ jobs:
         run: npm run build
       - name: Commit validated news and archive to main
         if: steps.release.outputs.changed == 'true'
-        env:
-          NEWS_SLUG: ${{ steps.release.outputs.slug }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "content/articles/${NEWS_SLUG}.md" content/registry/knowledge-nodes.yml content/news/news-approval-queue.yml content/news/news-archive.json content/news/news-archive.csv src/generated/published-article-slugs.ts
+          git add -- content/articles/ content/registry/knowledge-nodes.yml content/news/news-approval-queue.yml content/news/news-archive.json content/news/news-archive.csv src/generated/published-article-slugs.ts
           git diff --cached --quiet && exit 0
-          git commit -m "Publish vetted AI news in the scheduled JST slot"
+          git commit -m "Publish immutable owner-approved AI news immediately"
           git push origin HEAD:main
       - name: Report without creating filler news
         if: always()
         run: |
-          echo "An hourly workflow trigger does NOT create articles or approvals."
-          echo "Only independently verified, owner-approved and time-due articles publish."
+          echo "Push delivery publishes only previously owner-approved ready news; cron is a fallback, not a reservation."
+          echo "Original immutable article and WebP SHA, source, duplicate/CTA and CI checks remain mandatory. No daily cap."

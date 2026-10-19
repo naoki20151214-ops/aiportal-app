@@ -114,19 +114,24 @@ export function assertUniqueNewsSlots(approvals) {
   }
 }
 
-export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
+export function chooseNewsRelease(root=process.cwd(),now=new Date(),options={}) {
   if(!(now instanceof Date)||!Number.isFinite(now.getTime()))fail("invalid clock");
+  const immediate=options.immediate===true;
   const cadence=yaml(root,"content/news/news-cadence.yml");
   const ledger=yaml(root,"content/news/news-approval-queue.yml");
   const history=yaml(root,"content/news/news-publication-log.yml");
   const registry=yaml(root,"content/registry/knowledge-nodes.yml");
   const decisions=yaml(root,"content/news/news-editorial-decisions.yml");
   const active=activeNewsCadence(cadence);
+  if(immediate&&(cadence.publicationMode!=="immediate"||cadence.immediateNoDailyCap!==true))
+    fail("immediate publication requires explicit no-cap owner policy");
   if(ledger?.schemaVersion!==1||!Array.isArray(ledger.approvals)||
      !Array.isArray(history?.releases)||!Array.isArray(decisions?.decisions)||
      !Array.isArray(registry?.nodes)||registry.nodeCount!==registry.nodes.length)
     fail("malformed source-of-truth records or cadence");
-  assertUniqueNewsSlots(ledger.approvals);
+  // Historical immutable slot stamps remain in old approval records, but
+  // are never a release delay or daily quota under the owner's new policy.
+  if(!immediate) assertUniqueNewsSlots(ledger.approvals);
   const today=japanDate(now);
   const publishedToday=history.releases.filter(x=>x.decision==="published"&&x.publishOn===today).length+
     ledger.approvals.filter(x=>x.decision==="published"&&x.publishedOn===today).length;
@@ -139,12 +144,25 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
        !String(row.evidence||"").trim()||
        !/^[a-f0-9]{40}$/.test(row.sourceReadyBlob||"")||
        !/^[a-f0-9]{64}$/.test(row.heroSha256||"")||
-       !approvedUrl(row.originalUrl)||!validDate(row.scheduledAtJst?.slice(0,10)))
+       !approvedUrl(row.originalUrl)||
+       (!immediate && !validDate(row.scheduledAtJst?.slice(0,10))) ||
+       (immediate && row.approvedOn>today))
       fail("invalid or duplicate owner news approval "+String(row.id));
     seen.add(row.id);slugs.add(row.slug);
     const time=row.scheduledAtJst;
-    if(!validHourlySlot(time) || !Number.isFinite(Date.parse(time)))
-      fail("approved time not in one of the two Japan slots "+row.id);
+    if(!immediate && !validHourlySlot(time))
+      fail("invalid legacy scheduled news slot "+row.id);
+    if(immediate && time!==undefined && !validHourlySlot(time))
+      fail("invalid retained historical news slot "+row.id);
+    // New immediate approvals do not need a reserved slot. When their exact
+    // approval time is recorded, reject timestamps in the future.
+    if(immediate && time===undefined &&
+       (typeof row.approvedAtJst!=="string" ||
+        !/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d\+09:00$/.test(row.approvedAtJst) ||
+        !Number.isFinite(Date.parse(row.approvedAtJst)) ||
+        Date.parse(row.approvedAtJst)>now.getTime() ||
+        row.approvedAtJst.slice(0,10)!==row.approvedOn))
+      fail("new immediate approval needs validated real approval time "+row.id);
     if(row.auditPath!=="content/news/editorial-audits/"+row.id+".md"||
        !fs.existsSync(rootFile(root,row.auditPath)))
       fail("missing editorial audit "+row.id);
@@ -181,8 +199,17 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
         fail("CTA leads to unpublished lesson "+match[1]);
     candidates.push({row,node,rel,article,rawFrontmatter,originalPrefix,body,metadata});
   }
-  if(publishedToday>=active.maximumPostsPerDay)
+  if(!immediate && publishedToday>=active.maximumPostsPerDay)
     return {changed:false,reason:"News quota reached for "+today,availableSlots:0};
+  if(immediate) {
+    const selected=candidates.sort((a,b)=>
+      a.row.approvedOn.localeCompare(b.row.approvedOn) ||
+      String(a.row.approvedAtJst||a.row.scheduledAtJst||"").localeCompare(String(b.row.approvedAtJst||b.row.scheduledAtJst||"")) ||
+      a.row.id.localeCompare(b.row.id))[0];
+    if(!selected)return {changed:false,reason:"No immutable owner-approved ready news",availableSlots:null};
+    return {changed:false,eligible:selected.row.id,slug:selected.row.slug,
+      availableSlots:null,selected,today,ledger,registry};
+  }
   // GitHub cron may be delayed or dropped. A retry may only release the
   // currently active JST hour on its ORIGINAL date. Never backfill another
   // hour or yesterday's missed news from a later scheduled retry.
@@ -202,7 +229,7 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
     availableSlots:active.maximumPostsPerDay-publishedToday,selected,today,ledger,registry};
 }
 export function publishNews(root=process.cwd(),options={}) {
-  const result=chooseNewsRelease(root,options.now||new Date());
+  const result=chooseNewsRelease(root,options.now||new Date(),{immediate:options.immediate===true});
   if(!result.selected || !options.apply)return {...result,selected:undefined};
   const {selected:{row,rel,article,rawFrontmatter,originalPrefix,body,metadata},
     today,ledger}=result;
@@ -228,14 +255,37 @@ export function publishNews(root=process.cwd(),options={}) {
   fs.writeFileSync(rootFile(root,"content/news/news-archive.csv"),archiveCsv(archive));
   return {changed:true,id:row.id,slug:row.slug,publishedOn:today};
 }
+// One validated news per internal step, multiple ready approvals per run.
+// The Actions GITHUB_TOKEN push does not dispatch another push workflow,
+// so drain the whole already-approved batch and build/commit atomically.
+export function publishApprovedNewsImmediately(root=process.cwd(),options={}) {
+  const now=options.now||new Date();
+  if(!options.apply)return chooseNewsRelease(root,now,{immediate:true});
+  const published=[];
+  for(let i=0;i<100;i++){
+    const result=publishNews(root,{now,apply:true,immediate:true});
+    if(!result.changed)return {changed:published.length>0,
+      published,slug:published.at(-1)?.slug||null};
+    published.push({id:result.id,slug:result.slug,publishedOn:result.publishedOn});
+  }
+  // Fail the run instead of silently skipping owner-accepted material. The
+  // real approval queue should be far smaller; no daily output quota exists.
+  if(chooseNewsRelease(root,now,{immediate:true}).selected)
+    fail("over 100 approved news in one atomic run: split reviewed PR and rerun");
+  return {changed:true,published,slug:published.at(-1).slug};
+}
 const invoked=process.argv[1]&&fileURLToPath(import.meta.url)===path.resolve(process.argv[1]);
 if(invoked){
   const args=process.argv.slice(2);
-  if(args.length!==1||!["--check","--apply"].includes(args[0]))
-    fail("Usage: node scripts/publish-news-queue.mjs --check|--apply");
-  const r=publishNews(process.cwd(),{apply:args[0]==="--apply"});
+  if(args.length!==1||!["--check","--apply","--check-immediate","--apply-immediate"].includes(args[0]))
+    fail("Usage: node scripts/publish-news-queue.mjs --check|--apply|--check-immediate|--apply-immediate");
+  const immediate=args[0].endsWith("-immediate") ||
+    yaml(process.cwd(),"content/news/news-cadence.yml").publicationMode==="immediate";
+  const apply=args[0].startsWith("--apply");
+  const r=immediate?publishApprovedNewsImmediately(process.cwd(),{apply})
+    :publishNews(process.cwd(),{apply});
   console.log(JSON.stringify(r));
   if(process.env.GITHUB_OUTPUT)
-    fs.appendFileSync(process.env.GITHUB_OUTPUT,"changed="+Boolean(r.changed)+"\n"+
-      (r.slug?"slug="+r.slug+"\n":""));
+    fs.appendFileSync(process.env.GITHUB_OUTPUT,
+      "changed="+Boolean(r.changed)+"\n"+(r.slug?"slug="+r.slug+"\n":""));
 }
