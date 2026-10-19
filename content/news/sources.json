@@ -77,6 +77,39 @@
       ],
       "priority": 2,
       "editorialScope": "AI-related cybersecurity, agent security and AI misuse only; unrelated cybersecurity posts remain unapproved"
+    },
+    {
+      "id": "mit-ai",
+      "name": "MIT News: Artificial Intelligence",
+      "kind": "official-university",
+      "feedUrl": "https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml",
+      "allowedHosts": [
+        "news.mit.edu"
+      ],
+      "priority": 2,
+      "editorialScope": "Original MIT AI research news; no syndication of full text or CC BY-NC-ND images"
+    },
+    {
+      "id": "meta-engineering",
+      "name": "Engineering at Meta",
+      "kind": "official-company",
+      "feedUrl": "https://engineering.fb.com/feed/",
+      "allowedHosts": [
+        "engineering.fb.com"
+      ],
+      "priority": 2,
+      "editorialScope": "Only substantively relevant AI/ML, model systems and AI security engineering; exclude unrelated infrastructure and promotions"
+    },
+    {
+      "id": "cloudflare-blog",
+      "name": "Cloudflare Blog",
+      "kind": "official-company",
+      "feedUrl": "https://blog.cloudflare.com/rss/",
+      "allowedHosts": [
+        "blog.cloudflare.com"
+      ],
+      "priority": 2,
+      "editorialScope": "AI inference, Workers AI, AI-agent security and model operations only; unrelated networking/security entries require separate editorial rejection"
     }
   ]
 }
