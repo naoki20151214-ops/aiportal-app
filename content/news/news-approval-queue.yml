@@ -1,5 +1,5 @@
 schemaVersion: 1
-description: "Owner-approved immutable READY news publish immediately after merge; old scheduledAtJst entries are audit history, not delivery reservations. Future approvals use approvedAtJst."
+description: "Owner-approved READY news publish immediately after merge; legacy scheduledAtJst is historical only, never a reservation; new approvals use approvedAtJst. Restarted ready backlog safely after signed post-promotion CI repair on 2026-10-19."
 timezone: "Asia/Tokyo"
 approvals:
   - id: "NEWS-0094"
