@@ -346,6 +346,42 @@
         "evidence": "GitHub PR #222 Test/Lint/Build all success in run 39209075354 after canonical trailing-slash test correction; MIT, Meta, Cloudflare and existing Microsoft independent live RSS probes passed in run 39209075294. No code-level production RSS retrieval incident occurred; final ledger-only commit is rerun in CI before merge."
       },
       "repeatSignature": "RSS URL canonicalizer removes trailing slash while intake unit test expects unnormalized publisher feed URL"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-010",
+      "discoveredAtJst": "2026-10-19T16:13:28+09:00",
+      "severity": "low",
+      "area": "ci-news-image-webp-compression",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "The first NEWS-0100 release PR Verify stopped at pretest because its deterministic SVG-to-WebP image was smaller than the site's strict 20,000-byte image minimum.",
+      "observedError": "Error: NEWS-0100 image fails local immutable media standards",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39214524713",
+      "failedCommand": "npm test (pretest > node scripts/prepare-news-media.mjs)",
+      "directCause": "At the first quality-84 lossy encoding, relatively simple repository SVG imagery compressed too efficiently and failed the existing size floor checked before article publication.",
+      "systemicCause": "The new artwork publisher assumed one WebP quality setting would produce at least 20KB. Media validation was correctly fail-closed, but compression settings need a deterministic alternate for unusually compact SVG art.",
+      "impact": "Only review-branch Test was blocked; no main commit or Production publication occurred. Previously approved NEWS-0096 and queued NEWS-0094 untouched.",
+      "correctiveActions": [
+        "Encode the original self-owned SVG at WebP quality 90, with a deterministic lossless fallback ONLY if the encoded image still falls below 20KB; do not lower image safety bounds.",
+        "GitHub Verify run #39214715189 completed Test/Lint/Build successfully. Generated NEWS-0100 image is 25,162 bytes with SHA256 f3f66e1486aa0aada2d427169772170fb34822484388af930fe6c31ce0e47dfa.",
+        "Bind the exact CI-measured image SHA256 to the owner-delegated review audit and news queue. Add regression assertions for dimensions/RIFF-WEBP validity, bounded byte size and immutable file hash."
+      ],
+      "regressionTests": [
+        "tests/news-0100-mit-crystal-release.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/prepare-news-media.mjs"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/224",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39214715189",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failed image-size guard was exercised only in new review-PR media preparation and was remedied through GitHub CI before NEWS-0100 could be eligible for release. No Production request failed.",
+        "evidence": "Test/Lint/Build succeeded after WebP settings were corrected. The runtime logged 25,162-byte image and deterministic SHA256; eventual Production publication at 2026-10-20 JST is separate and not yet verified."
+      },
+      "repeatSignature": "New generated WebP under 20KB fails news media pretest before CI Test"
     }
   ]
 }
