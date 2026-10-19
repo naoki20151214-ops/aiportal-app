@@ -47,7 +47,15 @@ test("The real 2026-10-18 RSS intake incident records symptom, direct and system
     assert.notEqual(failure.status,"resolved");
   assert.equal(failure.validation.ci,"success");
   assert.match(failure.validation.ciRunUrl,/\/actions\/runs\/39126472321$/);
-  assert.equal(failure.validation.productionRepeat,"pending");
+  assert.ok(["pending","success"].includes(failure.validation.productionRepeat));
+  if (failure.validation.productionRepeat === "success") {
+    assert.equal(failure.status,"resolved");
+    assert.match(failure.validation.productionEvidenceUrl,
+      /^https:\/\/github\.com\/naoki20151214-ops\/aiportal-app\/actions\/runs\/\d+$/);
+    assert.match(failure.validation.evidence,/scheduled/);
+  } else {
+    assert.notEqual(failure.status,"resolved");
+  }
   assert.match(failure.observedError,/bySource/);
   assert.match(failure.directCause,/twice/);
   const ciOnly=record.incidents.find((x:{id:string})=>x.id==="AI-NEWS-INC-20261018-002");
