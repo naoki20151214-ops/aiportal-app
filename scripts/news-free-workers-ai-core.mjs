@@ -97,7 +97,12 @@ export async function requestFreeWorkersDraft(packet,opts={}){
   const request=workersFreeDraftRequest(packet);
   const url="https://api.cloudflare.com/client/v4/accounts/"+
     opts.accountId+"/ai/run/"+CF_FREE_MODEL;
-  const fetchImpl=opts.fetchImpl??fetch;
+  // This first stage is MOCK-ONLY. No ambient fetch() fallback means the
+  // repository cannot accidentally incur inference charges. A future reviewed
+  // PR may enable live calls only after exact billing state is verified.
+  if(typeof opts.fetchImpl!=="function")
+    throw Error("live-workers-inference-disabled-until-billing-audit");
+  const fetchImpl=opts.fetchImpl;
   let response;
   try{
     response=await fetchImpl(url,{
