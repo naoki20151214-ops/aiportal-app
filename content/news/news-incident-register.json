@@ -530,6 +530,41 @@
         "evidence": "Final code, CLI and mock tests completed Test, Lint and Build in PR #231 run 39226404458. All attempts were mocked/no network; provider parser safely rejected short output, malformed JSON and fenced Markdown. Real account plan and Workers AI inference were not exercised; Production validation after merge is still separate."
       },
       "repeatSignature": "LLM malformed JSON negative test has too few bytes to reach JSON decoder, returns size error rather than parse error"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-015",
+      "discoveredAtJst": "2026-10-19T18:23:37+09:00",
+      "severity": "low",
+      "area": "ci-zero-cost-official-evidence-type-narrowing",
+      "status": "fix-in-review",
+      "rootCauseStatus": "confirmed",
+      "impactScope": "ci-only",
+      "symptom": "GitHub Test/Lint of private first-party evidence anchors passed but TypeScript build rejected an assertion about pagePublishedAt in a test exercising a response union (fetched or blocked).",
+      "observedError": "tests/news-official-evidence-anchors.test.ts(91,23): TS2339 Property 'pagePublishedAt' does not exist on type containing early fetch-failed response.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39229518486",
+      "failedCommand": "npm run build",
+      "directCause": "The new test read absent.pagePublishedAt without a type narrowing check even though fetchPrimaryPage can return an early blocked object with no page metadata.",
+      "systemicCause": "Negative and positive source-fetch scenarios share a union return type. Node runtime assertions passed, but the compile-time TypeScript gate correctly demanded a discriminant before optional property access.",
+      "impact": "Only review PR type check failed; no change to main, public articles, owner approval records or external AI usage; no AI model calls or costs.",
+      "correctiveActions": [
+        "Use an explicit 'pagePublishedAt' in response test guard before reading metadata.",
+        "Retain fail-closed blocked fetch shape, same 384KB/12s caps, official-domain restriction and no semantic claim approval.",
+        "Rerun GitHub Test/Lint/Build and ensure on-main smoke run succeeds before asserting delivery."
+      ],
+      "regressionTests": [
+        "tests/news-official-evidence-anchors.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/news-official-evidence-anchors.mjs",
+        "scripts/news-primary-source-core.mjs"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/233",
+      "validation": {
+        "ci": "pending",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failure occurred only in a review-branch TypeScript test assertion and no new source extraction run had been deployed."
+      },
+      "repeatSignature": "Union fetchPrimaryPage return may be blocked; primary-page test accesses success metadata without narrowing"
     }
   ]
 }
