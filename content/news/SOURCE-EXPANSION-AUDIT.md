@@ -74,3 +74,18 @@ These are manual discovery leads only: NOT active RSS feeds, permissions to craw
 | AI + cyber | Microsoft Security | https://www.microsoft.com/en-us/security/blog/ | Manual; RSS and rights unverified |
 
 Editorial review must distinguish publisher claims from independent measurements. In cybersecurity, distinguish observed attacks, demonstrations, hypothetical risks and defensive advice. No text copying or automatic approval. The existing six RSS sources remain unchanged.
+
+## 2026-10-19: Microsoft Security official RSS onboarding (PR review)
+
+- **Goal**: broaden coverage of AI-enabled cyberattack, AI-agent risk and AI defense; not simply inflate irrelevant RSS counts.
+- **Official publisher**: Microsoft Security Blog, https://www.microsoft.com/en-us/security/blog/
+- **Publisher's feed**: https://www.microsoft.com/en-us/security/blog/feed/ (first-party URL under `www.microsoft.com`). Direct retrieval by a text-only browser yielded the `application/rss+xml` MIME type, but the browser could not render RSS as text; this alone is **not** end-to-end proof.
+- **Editorial links**: only `www.microsoft.com` and `microsoft.com` (HTTPS, no auth, no arbitrary redirect host). Any RSS item pointing elsewhere is rejected by the existing URL gate.
+- **Admission proof**: `scripts/probe-news-rss-source.mjs microsoft-security` in dedicated `verify-new-news-rss.yml` pull-request workflow, run in GitHub Actions with outbound network. Must pass HTTP status, RSS/Atom content type, bounded 2MB XML, nonempty parser items, trusted publisher article URLs and parseable item timestamps before main activation.
+- **Relevance and rights**: do not automatically regard general malware/security stories as AI news. Intake collects publisher titles/URLs/dates only; no commercial republishing of Microsoft's text, images or marks. News claims, affected products/regions, observed vs hypothetical threats and original sources require independent editorial review and original summaries.
+- **Quantity diagnosis**: `sourceResults[].feedEntries` is every item provided by that feed, `windowCandidates` is the subset eligible within 72 hours, and `excludedByReason` counts invalid URLs, short titles, undated/invalid dates, old items and future dates. Post-aggregation exact URL/title dedupe is separate. More feeds do not imply more **unique or verified** news.
+- **Existing downstream ceiling**: `check-news-primary-pages.mjs` refuses more than 100 candidates per run; the feed importer itself does not limit individual feed item count except the 2MB XML response limit. When growth approaches 100, design an explicit bounded backlog or pagination with no silent dropping rather than disabling safeguards.
+- **Onboarding status**: staged on PR, not confirmed Production intake until the actual GitHub PR probe **and** a post-merge scheduled run succeed. Do not claim either prematurely.
+
+**Still on HOLD**: DeepSeek, Qwen, Kimi, GLM/Z.ai and Anthropic newsroom pages without verified publisher-operated RSS. The Google Threat Intelligence link points to FeedBurner rather than its first-party domain. NVIDIA's published RSS terms restrict non-commercial use, so do not add NVIDIA without rights clearance. arXiv operates official daily category feeds, but these are high volume research submissions rather than independently corroborated corporate AI news and could overflow the existing 100-candidate next-stage ceiling.
+
