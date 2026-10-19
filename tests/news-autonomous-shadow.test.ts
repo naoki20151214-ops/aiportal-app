@@ -24,7 +24,7 @@ const good=(n=1)=>({
  rejectedHistoricalMatchNeedsReview:false,possibleDuplicateIds:[],
  editorialDecision:"unreviewed",publicationEligible:false,
 });
-const triage=(items:ReturnType<typeof good>[])=>({
+const triage=(items:Record<string,unknown>[])=>({
  schemaVersion:1,stage:"private-editorial-triage",
  publishingEnabled:false,newsApprovedCount:0,items,
 });
