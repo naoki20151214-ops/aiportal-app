@@ -1,6 +1,7 @@
 // Bounded private evidence for editors; fetching a page is NOT verification of any claim.
 // This module must never write public news, a registry, or an approval ledger.
 import { safeUrl } from "./news-candidate-core.mjs";
+import {extractOfficialTextAnchors} from "./news-official-evidence-anchors.mjs";
 
 export const MAX_PRIMARY_BYTES = 384000;
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
@@ -146,10 +147,13 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
       const page = extractPrimaryPageMetadata(html);
       if (!page.documentTitle && !page.headline && !page.leadExcerpt)
         throw new Error("missing-page-content");
+      // Only three short first-party paragraph prefixes are retained. This
+      // does NOT verify any statement or approve model drafting/publication.
+      const sourceEvidence=extractOfficialTextAnchors(html);
       return {
         status: "retrieved-for-editorial-review",
         finalUrl: current, httpStatus: response.status,
-        ...page,
+        ...page,sourceEvidence,
         editorialStatus: "unreviewed",
         claimVerification: "not-performed",
         publicationEligible: false,
