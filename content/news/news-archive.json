@@ -155,7 +155,7 @@
       "description": "MITが結晶の3次元配置と文章を結びつけるAIを発表。従来の文章中心AIとの違い、固体電池材料探索の研究結果、実用化前の注意点を解説。",
       "publishedAt": null,
       "updatedAt": "2026-10-20",
-      "scheduledAtJst": null,
+      "scheduledAtJst": "2026-10-20T09:00:00+09:00",
       "sourceUrls": [
         "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018"
       ],
@@ -167,8 +167,8 @@
         "what-is-multimodal"
       ],
       "image": "/images/news/mit-3d-crystal-materials-ai.webp",
-      "approvalState": null,
-      "approvalEvidence": null,
+      "approvalState": "approved-for-publication",
+      "approvalEvidence": "On 2026-10-19 the owner explicitly instructed AI Portal to select and publish one story among the 7 newly collected official RSS items. The editor selected the MIT 2026-10-18 crystal-structure AI research story, checked MIT's original release, wrote a bounded one-minute article and original visual, and documented delegated selection (not claim of exact owner copy review) in the editorial audit. Today already has NEWS-0096 and NEWS-0094 in 09/18 slots; earliest eligible release is 2026-10-20 09:00 JST.",
       "publishedReleaseAtJst": null,
       "articlePath": "content/articles/mit-3d-crystal-materials-ai.md",
       "articleUrl": null
