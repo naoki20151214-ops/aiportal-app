@@ -54,7 +54,6 @@ jobs:
         run: npm run build
       - name: Commit validated news and archive to main
         if: steps.release.outputs.changed == 'true'
-        env:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
