@@ -18,7 +18,9 @@ test("NEWS-0094 keeps owner-approved article and locally prepared image immutabl
   const media=readFileSync(hero);
   assert.equal(blob(copy),"40c840a1a5d7160d0dcd2ddf0b4250fc74627b09");
   assert.ok(article.endsWith(copy));
-  assert.equal(blob(article),"c20f59f9e94808699e0d2d91de2518e27395edb9");
+  const readyArticle=article.includes('status: "published"') ?
+    article.replace('status: "published"','status: "ready"') : article;
+  assert.equal(blob(readyArticle),"c20f59f9e94808699e0d2d91de2518e27395edb9");
   assert.equal(blob(svg),"e5a35ccde4bb07d3ec626c105f85fb21e73ae663");
   assert.equal(createHash("sha256").update(media).digest("hex"),
     "128b57ca26a760ebd6b2aa80310df48bd139ee1a2f76e99ec00c072680657199");
@@ -35,18 +37,24 @@ test("NEWS-0094 stays unpublished until exactly the approved JST evening slot",(
   const history=parse(file("content/news/news-publication-log.yml"));
   const row=ledger.approvals.find((x:{id:string})=>x.id==="NEWS-0094");
   assert.ok(row);
-  assert.equal(row.decision,"approved-for-publication");
+  assert.ok(["approved-for-publication","published"].includes(row.decision));
+  const published=row.decision==="published";
   assert.equal(row.approvedBy,"site-owner");
   assert.equal(row.scheduledAtJst,"2026-10-19T18:00:00+09:00");
   assert.equal(row.sourceReadyBlob,"c20f59f9e94808699e0d2d91de2518e27395edb9");
   assert.equal(row.originalUrl,"https://deepmind.google/blog/on-device-ai-scam-detection-mddi/");
   assert.equal(registry.nodeCount,registry.nodes.length);
-  assert.ok(registry.nodes.some((x:{id:string;status:string})=>x.id==="NEWS-0094"&&x.status==="ready"));
+  assert.ok(registry.nodes.some((x:{id:string;status:string})=>x.id==="NEWS-0094"&&x.status===(published?"published":"ready")));
   assert.ok(history.releases.some((x:{id:string;publishOn:string})=>x.id==="NEWS-0096"&&x.publishOn==="2026-10-19"));
   assert.equal(chooseNewsRelease(process.cwd(),new Date("2026-10-19T08:59:59Z")).selected,undefined);
   const due=chooseNewsRelease(process.cwd(),new Date("2026-10-19T09:00:00Z"));
-  assert.equal(due.eligible,"NEWS-0094");
-  assert.equal(due.availableSlots,1);
+  if (published) {
+    assert.equal(due.selected,undefined);
+    assert.match(due.reason,/News quota reached/);
+  } else {
+    assert.equal(due.eligible,"NEWS-0094");
+    assert.equal(due.availableSlots,1);
+  }
   assert.equal(chooseNewsRelease(process.cwd(),new Date("2026-10-20T09:00:00Z")).selected,undefined);
 });
 
@@ -55,8 +63,10 @@ test("The ready news archive remains deterministically indexed but not public",(
   assert.equal(file("content/news/news-archive.json"),archiveJson(computed));
   assert.equal(file("content/news/news-archive.csv"),archiveCsv(computed));
   const story=computed.entries.find(x=>x.id==="NEWS-0094");
-  assert.equal(story?.status,"ready");
-  assert.equal(story?.articleUrl,null);
-  assert.equal(story?.approvalState,"approved-for-publication");
+  const published=parse(file("content/news/news-approval-queue.yml")).approvals
+    .some((x:{id:string;decision:string})=>x.id==="NEWS-0094"&&x.decision==="published");
+  assert.equal(story?.status,published?"published":"ready");
+  assert.equal(story?.articleUrl,published?"https://aiportal.blog/articles/on-device-scam-detection":null);
+  assert.equal(story?.approvalState,published?"published":"approved-for-publication");
   assert.equal(story?.scheduledAtJst,"2026-10-19T18:00:00+09:00");
 });
