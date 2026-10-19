@@ -57,9 +57,10 @@ export function workersFreeDraftRequest(packet) {
 function unwrapCfResponse(body) {
   if(!body||body.success!==true)throw Error("free-model-provider-failure");
   const value=body.result?.response ?? body.result?.choices?.[0]?.message?.content;
-  if(typeof value!=="string"||value.length<20||value.length>55000)
-    throw Error("free-model-malformed-response");
+  if(typeof value!=="string")throw Error("free-model-malformed-response");
   if(value.trimStart().startsWith("\`\`\`"))throw Error("free-model-not-raw-json");
+  if(value.length<20||value.length>55000)
+    throw Error("free-model-malformed-response");
   let parsed;
   try{parsed=JSON.parse(value);}catch{throw Error("free-model-invalid-json");}
   return parsed;
