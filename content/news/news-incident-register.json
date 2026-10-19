@@ -459,6 +459,41 @@
         "evidence": "GitHub main dc6c4111bd6582d98f8f8b37c73ae53643a8563d: both news articles status published 2026-10-19, news approval queue and archive published. Cloudflare Pages check success for this commit. End-to-end HTTP of pages/hero/CTA cannot be measured with available network and is explicitly not claimed."
       },
       "repeatSignature": "News post-promotion CI compares owner approved ready Git Blob against modified published frontmatter or assumes prepublication fixtures"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-013",
+      "discoveredAtJst": "2026-10-19T17:29:18+09:00",
+      "severity": "low",
+      "area": "ci-autonomous-shadow-fixture-types",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "In initial autonomous research shadow PR #230, node tests and ESLint succeeded, but the production TypeScript build rejected the intentionally varied malformed-candidate fixture arrays.",
+      "observedError": "TS2322 in tests/news-autonomous-shadow.test.ts:66:52/72/81 — specific ReturnType<typeof good> inferred retrievalFailureReason:null and empty arrays; variants held for 403/rejected-history/possible-duplicate were not assignable.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39222926217",
+      "failedCommand": "npm run build",
+      "directCause": "The test's helper triage(items:ReturnType<typeof good>[]) inferred narrow property types from the one happy-path fixture and rejected test variants.",
+      "systemicCause": "An intentionally fail-closed test suite needs realistic variations including error strings and nonempty evidence warnings; TypeScript's inferred happy-path literal types were not explicitly widened.",
+      "impact": "Only PR type-check failure. No production RSS collector, live article, owner queue, generated draft or publication changed.",
+      "correctiveActions": [
+        "Widen only the test helper to Record<string,unknown>[] while leaving strict runtime input validation and publication-disabled policy unchanged.",
+        "Require full GitHub Verify Test/Lint/Build on final PR SHA and independently observe a real scheduled shadow run after merging."
+      ],
+      "regressionTests": [
+        "tests/news-autonomous-shadow.test.ts"
+      ],
+      "productionFiles": [
+        "tests/news-autonomous-shadow.test.ts"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/230",
+      "validation": {
+        "ci": "success",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The failure occurred solely in a new PR regression-test fixture TypeScript type annotation, not in a live collector or production release.",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39223297219",
+        "evidence": "GitHub #39223297219 completed with Test, Lint and Build all successful. The source of the failure was limited to a narrow test helper type. The nonpublishing autonomous shortlist remains in shadow mode; a live scheduled test after main merge is separate and has not yet been observed."
+      },
+      "repeatSignature": "Heterogeneous held-candidate fixtures passed to test helper with narrow happy-path ReturnType"
     }
   ]
 }

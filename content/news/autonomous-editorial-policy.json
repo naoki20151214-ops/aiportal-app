@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "mode": "shadow",
+  "ownerDirection": "2026-10-19: owner approves the goal of independently checked, high-quality AI news posting without reviewing every finished article",
+  "permissionBoundary": "A future autonomous production-release lane requires separately tested evidence-based editorial approval. Never label model output as site-owner signed approval or convert existing manual approvals.",
+  "automaticDraftingEnabled": false,
+  "automaticPublicationEnabled": false,
+  "officialSourceRegistry": "content/news/sources.json",
+  "maxResearchCandidatesPerRun": 6,
+  "minResearchPriorityScore": 4,
+  "lookbackHours": 72,
+  "mandatoryFutureGates": [
+    "Official original page and independently checked original publication date",
+    "Factual claim-to-primary-source evidence plus material restrictions",
+    "Meaning-based duplicate/rejected-topic screening beyond identical URLs",
+    "Multi-pass independent critical review; contradictions or evidence gaps BLOCK",
+    "One-minute original Japanese copy with clear conclusion and baseline difference",
+    "Original licensed/owned illustration with validated WebP SHA256",
+    "Published prerequisites, source URLs, article registry, immutable manuscript SHA",
+    "Deterministic Test/Lint/Build, publication rollback and post-deploy verification",
+    "Cost and request limits and a per-provider error circuit-breaker (not a daily publication quota)"
+  ],
+  "safeFallback": "No autonomous publication if any prerequisite is missing or ambiguous. Skip news rather than invent facts."
+}
