@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 503
+nodeCount: 504
 
 nodes:
   - id: "BAS-0001"
@@ -6130,6 +6130,19 @@ nodes:
     type: "news"
     status: "ready"
     centerQuestion: "スマホ内で二段階の詐欺検知を行うと会話の外部送信や電池消費をどう抑えられるか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["BAS-0002"]
+    priority: "A"
+
+  - id: "NEWS-0100"
+    title: "AIが結晶の「立体構造」を理解。MITが新材料探索の研究を発表"
+    slug: "mit-3d-crystal-materials-ai"
+    category: "AIニュース"
+    level: 0
+    type: "news"
+    status: "ready"
+    centerQuestion: "MITの新研究は、文章だけのAIと原子の3次元構造を理解するAIで材料探索をどう変えるか？"
     prerequisites: ["BAS-0002"]
     children: []
     related: ["BAS-0002"]
