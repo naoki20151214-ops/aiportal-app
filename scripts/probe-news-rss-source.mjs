@@ -61,9 +61,10 @@ try{
   if(validUrl===0)throw Error("No item links on trusted publisher hosts");
   if(validDated===0)throw Error("No parseable per-item publication dates");
   const recent=itemsFromFeed(source,entries,now,168);
+  const recent72=itemsFromFeed(source,entries,now,72);
   report={...report,status:"pass",mime: mime.split(";")[0],downloadedBytes:bytes,
     feedEntries:entries.length,validOfficialLinks:validUrl,validDatedItems:validDated,
-    candidatesWithin7Days:recent.length,
+    candidatesWithin72Hours:recent72.length,candidatesWithin7Days:recent.length,
     caveat:"Publisher-provided feed metadata only. Do not treat item counts as unique confirmed news or approved content."};
 }catch(error){
   report={...report,errorCategory:String(error?.message||"unknown").slice(0,130)};
