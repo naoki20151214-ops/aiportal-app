@@ -119,7 +119,7 @@ test("Untrusted output, fictitious citations, attempted publish, HTML and markdo
   for(const d of bads)
     assert.throws(()=>validateFreeModelOutput(JSON.parse(mockJSON(d)),packet),/quality-contract-failed/);
   assert.throws(()=>validateFreeModelOutput({success:false,result:{response:JSON.stringify(draft)}},packet),/provider-failure/);
-  assert.throws(()=>validateFreeModelOutput({success:true,result:{response:"{not JSON"}},packet),/invalid-json/);
+  assert.throws(()=>validateFreeModelOutput({success:true,result:{response:"{ not-valid-json with longer explanatory failure content"}},packet),/invalid-json/);
   assert.throws(()=>validateFreeModelOutput({success:true,result:{response:"" }},packet),/malformed-response/);
   assert.throws(()=>validateFreeModelOutput({success:true,result:{response:"\`\`\`json\n{}\n\`\`\`"}},packet),/not-raw-json/);
   assert.throws(()=>workersFreeDraftRequest({...packet,claims:[]}),/invalid-private-packet/);
@@ -167,6 +167,6 @@ test("RSS and immediate publish workflows never call any Cloudflare AI model",()
     }
   }
   const cli=readFileSync("scripts/news-free-workers-ai-preview.mjs","utf8");
-  assert.ok(!cli.includes("--execute")===false);
+  assert.match(cli,/NO --execute option/);
   assert.ok(!/CLOUDFLARE_API_TOKEN|CLOUDFLARE_ACCOUNT_ID|git push|content\/articles\//.test(cli));
 });
