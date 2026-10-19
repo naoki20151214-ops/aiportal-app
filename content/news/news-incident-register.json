@@ -419,6 +419,46 @@
         "evidence": "2026-10-19 GitHub PR run 39217055472 completed with Test/Lint/Build all successful after the explicit result-kind guard. Actual immediate publisher production behavior is separately pending observation."
       },
       "repeatSignature": "News immediate batch test accesses union member without TS result narrowing"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-012",
+      "discoveredAtJst": "2026-10-19T16:42:07+09:00",
+      "severity": "medium",
+      "area": "production-immediate-news-postpromotion-ci",
+      "status": "resolved",
+      "rootCauseStatus": "confirmed",
+      "impactScope": "production-release-workflow",
+      "symptom": "First immediate-release GitHub Actions run promoted owner-approved NEWS-0094 and NEWS-0100 on its temporary runner, then failed its mandatory Test step, deliberately preventing GitHub main/Cloudflare publication.",
+      "observedError": "5 post-promotion regression failures in news-0094-owner-approved-queue.test.ts, news-0100-mit-crystal-release.test.ts and news-immediate-publication.test.ts; assertions expected immutable ready article blob or ready fixture while publisher correctly promoted statuses to published.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39217564472",
+      "failedCommand": "npm test (in Publish Approved AI News Immediately workflow, after promotion in temporary runner)",
+      "directCause": "NEWS-0094 regression compared original ready article SHA against the modified published article SHA; NEWS-0100 regression reconstructed only the status but not the original publishedAt/updatedAt ready dates; the new simulated immediate-release test copied the current already-published files after the first promotion rather than constructing a deterministic signed ready fixture.",
+      "systemicCause": "Approval SHA checks were designed around ready pre-publication state. Publishing multiple queued news in one execution exposed post-promotion and post-publication source-tree invariants that the existing isolated test setup did not model.",
+      "impact": "Safe stop only: the original failed run did not commit its temporary published files or modify GitHub main; NEWS-0094 and NEWS-0100 remained ready until a separate verified retry. Delayed delivery; no unverified content was published.",
+      "correctiveActions": [
+        "PR #226 fixed NEWS-0094 post-promotion SHA comparison to reconstruct the exact approved ready blob; NEWS-0100 also restores historical ready publishedAt and updatedAt frontmatter before hash comparison.",
+        "PR #226 rebuilt the isolated immediate release fixture from either ready or published repository states, restoring approved queue decisions, article metadata and Registry node status only in a temporary directory. No real source or editorial approval was edited.",
+        "PR #226 Verify Test/Lint/Build run #39218012827 succeeded, and recovery PR #227 changed only queue description to retrigger the push-triggered workflow without changing approved article/image SHA or source evidence.",
+        "Recovery release GitHub Actions #39218592906 passed promotion, all tests, lint, build and push; commit dc6c4111bd6582d98f8f8b37c73ae53643a8563d shows both NEWS-0094/0100 published, with Cloudflare Pages production deployment success. Direct external site HTTP remains unverified due environment DNS restrictions."
+      ],
+      "regressionTests": [
+        "tests/news-0094-owner-approved-queue.test.ts",
+        "tests/news-0100-mit-crystal-release.test.ts",
+        "tests/news-immediate-publication.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/publish-news-queue.mjs",
+        ".github/workflows/publish-reviewed-news.yml"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/226",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39218012827",
+        "productionRepeat": "success",
+        "productionEvidenceUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39218592906",
+        "evidence": "GitHub main dc6c4111bd6582d98f8f8b37c73ae53643a8563d: both news articles status published 2026-10-19, news approval queue and archive published. Cloudflare Pages check success for this commit. End-to-end HTTP of pages/hero/CTA cannot be measured with available network and is explicitly not claimed."
+      },
+      "repeatSignature": "News post-promotion CI compares owner approved ready Git Blob against modified published frontmatter or assumes prepublication fixtures"
     }
   ]
 }
