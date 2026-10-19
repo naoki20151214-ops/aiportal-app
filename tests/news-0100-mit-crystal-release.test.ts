@@ -20,8 +20,13 @@ test("MIT news copy, first-party source and self-owned graphic remain immutable"
   const vector=read("content/news/assets/"+slug+".svg");
   const hero=readFileSync("public/images/news/"+slug+".webp");
   const audit=read("content/news/editorial-audits/"+id+".md");
+  // Source-ready SHA is pinned to the original staging date. Actual
+  // immediate publication intentionally changes only status/dated frontmatter.
   const ready=article.includes('status: "published"')
-    ? article.replace('status: "published"','status: "ready"') : article;
+    ? article.replace('status: "published"','status: "ready"')
+        .replace(/^publishedAt: "[^"]+"$/m,'publishedAt: "2026-10-20"')
+        .replace(/^updatedAt: "[^"]+"$/m,'updatedAt: "2026-10-20"')
+    : article;
   assert.equal(hash(copy),"88d559a54fa8c6aa2c89428ab21d1abb69b0827d");
   assert.equal(hash(ready),readySha);
   assert.ok(article.endsWith(copy));

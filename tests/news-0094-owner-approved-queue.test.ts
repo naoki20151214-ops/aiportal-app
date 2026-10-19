@@ -28,7 +28,7 @@ test("NEWS-0094 keeps owner-approved article and locally prepared image immutabl
   assert.equal(media.subarray(8,12).toString(),"WEBP");
   assert.ok(media.length>=20000 && media.length<=500000);
   assert.match(audit,/どの画像か分かりませんが、僕大丈夫です/);
-  assert.ok(audit.includes(blob(copy)) && audit.includes(blob(article)) && audit.includes(blob(svg)));
+  assert.ok(audit.includes(blob(copy)) && audit.includes(blob(readyArticle)) && audit.includes(blob(svg)));
 });
 
 test("NEWS-0094 stays unpublished until exactly the approved JST evening slot",()=>{
