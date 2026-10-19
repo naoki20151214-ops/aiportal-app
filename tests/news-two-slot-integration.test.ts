@@ -9,10 +9,10 @@ import {chooseNewsRelease, publishNews} from "../scripts/publish-news-queue.mjs"
 
 const FIXTURES = [
   {id:"NEWS-8001", slug:"test-reviewed-morning-news",
-    slot:"2026-10-19T09:00:00+09:00",
+    slot:"2026-10-21T09:00:00+09:00",
     originalUrl:"https://openai.com/index/synthetic-morning-story"},
   {id:"NEWS-8002", slug:"test-reviewed-evening-news",
-    slot:"2026-10-19T18:00:00+09:00",
+    slot:"2026-10-21T18:00:00+09:00",
     originalUrl:"https://openai.com/index/synthetic-evening-story"},
 ];
 const read = (root:string,p:string)=>readFileSync(path.join(root,p),"utf8");
@@ -81,8 +81,8 @@ function fixture(){
       'level: 0',
       'type: "news"',
       'status: "ready"',
-      'publishedAt: "2026-10-19"',
-      'updatedAt: "2026-10-19"',
+      'publishedAt: "2026-10-21"',
+      'updatedAt: "2026-10-21"',
       'author: "QA fixture"',
       'thumbnail: "/images/news/'+f.slug+'.webp"',
       'adPolicy: "off"',
@@ -100,7 +100,7 @@ function fixture(){
     const audit="Synthetic audit for isolated test only. Never suitable for real editorial approval.\n";
     write(root,"content/news/editorial-audits/"+f.id+".md",audit);
     approvals.push({
-      id:f.id,slug:f.slug,approvedOn:"2026-10-18",approvedBy:"site-owner",
+      id:f.id,slug:f.slug,approvedOn:"2026-10-20",approvedBy:"site-owner",
       evidence:"SYNTHETIC FIXTURE ONLY: Test data, not a real approval or editorial review.",
       decision:"approved-for-publication",scheduledAtJst:f.slot,
       sourceReadyBlob:gitBlobSha(md),
@@ -116,7 +116,7 @@ function fixture(){
 test("Isolated owner-signed simulations publish only at each immutable 09:00/18:00 slot",()=>{
   const {root,originals}=fixture();
   try{
-    const at=(clock:string)=>new Date("2026-10-19T"+clock+"+09:00");
+    const at=(clock:string)=>new Date("2026-10-21T"+clock+"+09:00");
     const logOriginal=read(root,"content/news/news-publication-log.yml");
     const nope=publishNews(root,{apply:true,now:at("08:59:59")});
     assert.equal(nope.changed,false,"08:59 may not release the morning news");
@@ -124,7 +124,7 @@ test("Isolated owner-signed simulations publish only at each immutable 09:00/18:
     const morning=publishNews(root,{apply:true,now:at("09:17:00")});
     assert.equal(morning.changed,true);
     assert.equal(morning.id,"NEWS-8001");
-    assert.equal(morning.publishedOn,"2026-10-19");
+    assert.equal(morning.publishedOn,"2026-10-21");
     const morningPublished=read(root,"content/articles/"+FIXTURES[0].slug+".md");
     assert.ok(morningPublished.includes('status: "published"'));
     assert.equal(morningPublished.split("\n---\n").at(-1),originals.get(FIXTURES[0].slug)!.split("\n---\n").at(-1),"Manuscript body must be preserved byte for byte");
@@ -133,7 +133,7 @@ test("Isolated owner-signed simulations publish only at each immutable 09:00/18:
     const evening=publishNews(root,{apply:true,now:at("18:17:00")});
     assert.equal(evening.changed,true);
     assert.equal(evening.id,"NEWS-8002");
-    assert.equal(evening.publishedOn,"2026-10-19");
+    assert.equal(evening.publishedOn,"2026-10-21");
     assert.equal(read(root,"content/news/news-publication-log.yml"),logOriginal,"Historical log must not be rewritten");
     const ledger=parse(read(root,"content/news/news-approval-queue.yml"));
     assert.deepEqual(ledger.approvals.map((a:{decision:string})=>a.decision),["published","published"]);
@@ -146,7 +146,7 @@ test("Isolated owner-signed simulations publish only at each immutable 09:00/18:
     for(const f of FIXTURES){
       const e=archive.entries.find((x:{id:string})=>x.id===f.id);
       assert.equal(e?.status,"published");
-      assert.equal(e?.publishedAt,"2026-10-19");
+      assert.equal(e?.publishedAt,"2026-10-21");
       assert.ok(read(root,"content/articles/"+f.slug+".md").includes(f.originalUrl));
     }
   }finally{rmSync(root,{recursive:true,force:true});}
@@ -157,7 +157,7 @@ test("An altered synthetic approved manuscript fails closed without promotion",(
   try{
     const p="content/articles/"+FIXTURES[0].slug+".md";
     write(root,p,read(root,p)+"\nThe approved document has been changed.\n");
-    assert.throws(()=>publishNews(root,{apply:true,now:new Date("2026-10-19T09:17:00+09:00")}),/ready manuscript was altered/);
+    assert.throws(()=>publishNews(root,{apply:true,now:new Date("2026-10-21T09:17:00+09:00")}),/ready manuscript was altered/);
     assert.equal(parse(read(root,"content/news/news-approval-queue.yml")).approvals[0].decision,"approved-for-publication");
   }finally{rmSync(root,{recursive:true,force:true});}
 });
@@ -166,7 +166,7 @@ test("Synthetic ready stories with empty approval queue cannot be published",()=
   const {root}=fixture();
   try{
     write(root,"content/news/news-approval-queue.yml",stringify({schemaVersion:1,timezone:"Asia/Tokyo",approvals:[]}));
-    const result=publishNews(root,{apply:true,now:new Date("2026-10-19T18:17:00+09:00")});
+    const result=publishNews(root,{apply:true,now:new Date("2026-10-21T18:17:00+09:00")});
     assert.equal(result.changed,false);
     assert.match(String("reason" in result ? result.reason : ""),/No date-due/);
     assert.equal(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'),true);
@@ -178,9 +178,9 @@ test("Missed news from yesterday is never silently backfilled on the next mornin
   const {root}=fixture();
   try{
     const ledger=parse(read(root,"content/news/news-approval-queue.yml"));
-    ledger.approvals[0].scheduledAtJst="2026-10-18T09:00:00+09:00";
+    ledger.approvals[0].scheduledAtJst="2026-10-20T09:00:00+09:00";
     write(root,"content/news/news-approval-queue.yml",stringify(ledger));
-    const value=publishNews(root,{apply:true,now:new Date("2026-10-19T09:17:00+09:00")});
+    const value=publishNews(root,{apply:true,now:new Date("2026-10-21T09:17:00+09:00")});
     assert.equal(value.changed,false);
     assert.equal(parse(read(root,"content/news/news-approval-queue.yml")).approvals[0].decision,"approved-for-publication");
     assert.ok(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'));
@@ -190,13 +190,13 @@ test("Missed news from yesterday is never silently backfilled on the next mornin
 test("If 09:00 is missed, an 18:17 catch-up may release only the 18:00 story",()=>{
   const {root}=fixture();
   try{
-    const result=publishNews(root,{apply:true,now:new Date("2026-10-19T18:17:00+09:00")});
+    const result=publishNews(root,{apply:true,now:new Date("2026-10-21T18:17:00+09:00")});
     assert.equal(result.changed,true);
     assert.equal(result.id,"NEWS-8002");
     const ledger=parse(read(root,"content/news/news-approval-queue.yml"));
     assert.equal(ledger.approvals[0].decision,"approved-for-publication");
     assert.equal(ledger.approvals[1].decision,"published");
-    assert.equal(publishNews(root,{apply:true,now:new Date("2026-10-19T18:30:00+09:00")}).changed,false);
+    assert.equal(publishNews(root,{apply:true,now:new Date("2026-10-21T18:30:00+09:00")}).changed,false);
     assert.ok(read(root,"content/articles/"+FIXTURES[0].slug+".md").includes('status: "ready"'));
     assert.ok(read(root,"content/articles/"+FIXTURES[1].slug+".md").includes('status: "published"'));
   }finally{rmSync(root,{recursive:true,force:true});}
