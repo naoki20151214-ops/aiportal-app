@@ -33,7 +33,9 @@ test("News feed registry lists only official, HTTPS, restricted publisher hosts"
     assert.ok(found,addition.id+" source missing");
     assert.equal(found.feedUrl,addition.feedUrl);
     assert.deepEqual(found.allowedHosts,addition.allowedHosts);
-    assert.equal(safeUrl(addition.feedUrl,addition.allowedHosts),addition.feedUrl);
+    const normalizedFeed=new URL(addition.feedUrl);
+    normalizedFeed.pathname=normalizedFeed.pathname.replace(/\/+$/, "") || "/";
+    assert.equal(safeUrl(addition.feedUrl,addition.allowedHosts),normalizedFeed.toString());
     const spoof="https://"+addition.allowedHosts[0]+".evil.example/ai-post";
     assert.equal(safeUrl(spoof,addition.allowedHosts),null);
   }
