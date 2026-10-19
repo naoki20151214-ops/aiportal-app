@@ -465,7 +465,7 @@
       "discoveredAtJst": "2026-10-19T17:29:18+09:00",
       "severity": "low",
       "area": "ci-autonomous-shadow-fixture-types",
-      "status": "fix-in-review",
+      "status": "resolved",
       "impactScope": "ci-only",
       "rootCauseStatus": "confirmed",
       "symptom": "In initial autonomous research shadow PR #230, node tests and ESLint succeeded, but the production TypeScript build rejected the intentionally varied malformed-candidate fixture arrays.",
@@ -487,9 +487,11 @@
       ],
       "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/230",
       "validation": {
-        "ci": "pending",
+        "ci": "success",
         "productionRepeat": "not-applicable",
-        "nonApplicableReason": "The failure occurred solely in a new PR regression-test fixture TypeScript type annotation, not in a live collector or production release."
+        "nonApplicableReason": "The failure occurred solely in a new PR regression-test fixture TypeScript type annotation, not in a live collector or production release.",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39223297219",
+        "evidence": "GitHub #39223297219 completed with Test, Lint and Build all successful. The source of the failure was limited to a narrow test helper type. The nonpublishing autonomous shortlist remains in shadow mode; a live scheduled test after main merge is separate and has not yet been observed."
       },
       "repeatSignature": "Heterogeneous held-candidate fixtures passed to test helper with narrow happy-path ReturnType"
     }
