@@ -61,7 +61,6 @@ function fixture(){
     mkdirSync(path.dirname(p(root,image)),{recursive:true});
     copyFileSync(image,p(root,image));
   }
-  }
   put(root,"content/registry/knowledge-nodes.yml",registry);
   return root;
 }
