@@ -494,6 +494,40 @@
         "evidence": "GitHub #39223297219 completed with Test, Lint and Build all successful. The source of the failure was limited to a narrow test helper type. The nonpublishing autonomous shortlist remains in shadow mode; a live scheduled test after main merge is separate and has not yet been observed."
       },
       "repeatSignature": "Heterogeneous held-candidate fixtures passed to test helper with narrow happy-path ReturnType"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-014",
+      "discoveredAtJst": "2026-10-19T17:53:33+09:00",
+      "severity": "low",
+      "area": "ci-free-workers-draft-error-classification-test",
+      "status": "fix-in-review",
+      "rootCauseStatus": "confirmed",
+      "impactScope": "ci-only",
+      "symptom": "Free Workers AI mock adapter PR #231 fails a new boundary regression test because the deliberately malformed model-output fixture is fewer than the 20 characters required to enter JSON parser.",
+      "observedError": "AssertionError [ERR_ASSERTION]: expected /invalid-json/ but received Error: free-model-malformed-response, in tests/news-free-workers-ai.test.ts:122.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39225880621",
+      "failedCommand": "npm test",
+      "directCause": "The invalid JSON sample was only 9 characters; the provider response adapter safely rejected it at its output-size validation before reaching the requested JSON parse error category.",
+      "systemicCause": "Negative test expected a deeper rejection path while violating an earlier declared input precondition. Failure codes are both safe blocks, but tests should independently exercise malformed size, fenced markdown and parse failures.",
+      "impact": "Only mocked PR test failed; no live Cloudflare inference request occurred, no external API cost, no published article or approval changed.",
+      "correctiveActions": [
+        "Use a deliberately invalid JSON string longer than 20 characters to test parser rejection.",
+        "Check forbidden Markdown code fences before the length restriction so short and long fenced outputs return an explicit model-not-raw-json failure.",
+        "Keep the strict requirement that every invalid model response is blocked without draft publishing."
+      ],
+      "regressionTests": [
+        "tests/news-free-workers-ai.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/news-free-workers-ai-core.mjs"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/231",
+      "validation": {
+        "ci": "pending",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "This error arises only from a mocked invalid model output fixture; real external model/API use was not attempted."
+      },
+      "repeatSignature": "LLM malformed JSON negative test has too few bytes to reach JSON decoder, returns size error rather than parse error"
     }
   ]
 }
