@@ -80,6 +80,8 @@ test("Free-plan proof AND credentials required before any attempt; paid-plan mus
     await assert.rejects(()=>requestFreeWorkersDraft(packet,creds),/free-plan-account-not-independently-confirmed|missing-free-plan-credentials/);
   }
   assert.equal(calls,0);
+  await assert.rejects(()=>requestFreeWorkersDraft(packet,credentials),
+    /live-workers-inference-disabled-until-billing-audit/);
   await assert.rejects(()=>requestFreeWorkersDraft({...packet,publicationEligible:true},
     {...credentials,fetchImpl:fake}),/invalid-private-packet/);
   assert.equal(calls,0);
