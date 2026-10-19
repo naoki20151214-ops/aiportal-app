@@ -104,4 +104,11 @@ This entry is **proposal evidence**, not proof of sustained delivery or article 
 - Meta Engineering's official site links to RSS; Cloudflare's publisher-hosted RSS endpoint returns RSS XML. The XML was not yet ingested and validated by the GitHub runtime at the time of proposing these URLs.
 - All three source domains are exact HTTPS allowlists. No third-party mirror, wildcard or unsafe redirect introduced. The existing per-feed 2MB limit, 72-hour default, deduplication and downstream 100-candidate ceiling are unchanged.
 - All collected metadata stays `pending-primary-source-review`, non-public and never an article approval. The existing 2-news/day safety phase is unchanged. First-party feeds **do not authorize commercial copying or bypass editorial or copyright checks**.
+- **Live onboarding evidence (2026-10-19 15:15 JST)**: [GitHub Actions #39208780052](https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39208780052). Each returned HTTP RSS/XML on allowed first-party hosts with a parseable publication date and canonical article URL for every item:
+  - `mit-ai`: 513413 bytes, feed 50 items, official URLs 50/50, dated 50/50, 72-hour candidates 2, 7-day candidates 9.
+  - `meta-engineering`: 206218 bytes, feed 9 items, official URLs 9/9, dated 9/9, 72-hour candidates 0, 7-day candidates 7.
+  - `cloudflare-blog`: 307170 bytes, feed 20 items, official URLs 20/20, dated 20/20, 72-hour candidates 1, 7-day candidates 9.
+  - Existing `microsoft-security` control also passed: 10 feed items, 1 within 72 hours.
+- **Interpretation:** 79 raw feed items in the three new feeds yielded 3 in the latest 72 hours before cross-feed duplicate or editorial relevance checks. Zero in one window does not imply a dead feed. Live ingestion on main remains separately unverified.
+
 - **Validation procedure:** `verify-new-news-rss.yml` probes each new source independently for HTTP/XML/size bounds, at least one parsed item, first-party article URL and publication timestamp; source-specific pass/fail evidence is retained in 14-day private artifacts. GitHub Verify must pass Test/Lint/Build on the final PR SHA. After merge, a scheduled intake must demonstrate actual run behavior; success of PR probes alone is not sustained reliability.
