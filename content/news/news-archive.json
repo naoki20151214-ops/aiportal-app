@@ -2,13 +2,41 @@
   "schemaVersion": 1,
   "sourceOfTruth": "GitHub main + content/news",
   "summary": {
-    "total": 4,
-    "published": 3,
+    "total": 5,
+    "published": 4,
     "ready": 0,
     "review": 0,
     "rejected": 1
   },
   "entries": [
+    {
+      "id": "NEWS-0096",
+      "slug": "openai-prompt-to-voice",
+      "title": "AIの声は「選ぶ」から「作る」へ。OpenAIが音声生成の新機能を公開",
+      "status": "published",
+      "topic": "AIの音声生成は、既定音声の選択から言葉による独自音声設計へどう変わったか？",
+      "description": "OpenAIが文章から独自の音声を作るPrompt-to-voiceを公開。従来の録音・既定音声との違い、利用料金、API向けの制限を1分で理解する。",
+      "publishedAt": "2026-10-19",
+      "updatedAt": "2026-10-19",
+      "scheduledAtJst": null,
+      "sourceUrls": [
+        "https://openai.com/ja-JP/products/release-notes/",
+        "https://developers.openai.com/api/docs/guides/custom-voices"
+      ],
+      "sourceIds": [
+        "openai"
+      ],
+      "primarySource": "https://openai.com/ja-JP/products/release-notes/",
+      "ctaSlugs": [
+        "what-is-generative-ai"
+      ],
+      "image": "/images/news/openai-prompt-to-voice.webp",
+      "approvalState": "published",
+      "approvalEvidence": "Owner approved exact final one-minute text on 2026-10-19 and approved the original watercolor before/after voice illustration in the immediately subsequent user message. This release binds the unchanged approved copy and a WebP conversion of that approved illustration. Manual isolated CI-gated PR used because workflow_dispatch action is unavailable.",
+      "publishedReleaseAtJst": "2026-10-19T09:00:00+09:00",
+      "articlePath": "content/articles/openai-prompt-to-voice.md",
+      "articleUrl": "https://aiportal.blog/articles/openai-prompt-to-voice"
+    },
     {
       "id": "NEWS-0092",
       "slug": "gpt-rosalind-academic-plan",
