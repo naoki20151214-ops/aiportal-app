@@ -78,6 +78,80 @@
       "relatedRunUrls": [
         "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39127053437"
       ]
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-003",
+      "discoveredAtJst": "2026-10-19T09:02:04+09:00",
+      "severity": "medium",
+      "area": "ci-editorial-release-gate",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "The NEWS-0096 owner-approved publication PR was rejected by the duplicate-drafting gate before Tests could run, because the previous Draft PR #212 remained open.",
+      "observedError": "ARTICLE GATE BLOCKED: Duplicate drafting blocked: content/articles/openai-prompt-to-voice.md: NEWS-0096: PR history suggests prior work",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39178898892",
+      "failedCommand": "npm run article:ci -- --pr=214",
+      "directCause": "checkReuseProvenance checked earlier unmerged PR history for all new articles; the approved manual release of the same work had no recognized release-specific provenance path.",
+      "systemicCause": "The duplicate-drafting safety gate had tests for fresh-draft rejection and branch reuse, but none for a legitimate editor- and owner-approved article promoted from an existing review PR with immutable manuscript and image signatures.",
+      "impact": "PR-only block; no unauthorized main changes or production article publication. Approval and media checks remained intact.",
+      "correctiveActions": [
+        "Added provenOwnerNewsRelease to production start gate to require explicit historic owner approval and exact verified ready manuscript Git blob, approved copy text and WebP SHA before exempting a news release.",
+        "Kept normal duplicate drafting rejection for all drafts without complete owner-approved signed release provenance.",
+        "Confirmed release path passes actual GitHub PR article:ci as well as Test/Lint/Build."
+      ],
+      "regressionTests": [
+        "tests/news-0096-owner-approved-copy.test.ts",
+        "tests/news-0092-rosalind.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/article-workflow.mjs"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/214",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39179262309",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "This defect affects the PR duplicate-drafting gate only; the gate's correct release exception was verified in the actual GitHub CI PR run, not a live production collector.",
+        "evidence": "PR #214 verify run #39179262309: OWNER-APPROVED-NEWS-RELEASE: SHA-verified article and image; all Test/Lint/Build successful. Merged main Verify #39179409422 and Cloudflare Pages checks completed successfully."
+      },
+      "repeatSignature": "ARTICLE GATE BLOCKED: prior news review PR misidentified as unauthorized duplicate release"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-004",
+      "discoveredAtJst": "2026-10-19T09:05:21+09:00",
+      "severity": "low",
+      "area": "ci-isolated-news-fixture",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "Following corrected editorial approval provenance, synthetic two-slot news integration failed on the expected second release of a day.",
+      "observedError": "tests/news-two-slot-integration.test.ts line 134: AssertionError false !== true; expected synthetic evening release.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39179112552",
+      "failedCommand": "npm test",
+      "directCause": "The synthetic fixture used 2026-10-19 as its test day, which now coincided with NEWS-0096's real published-on date; the historical log consumed one of the two allowed daily slots, causing the synthetic second story to be blocked correctly.",
+      "systemicCause": "The fixture reused the repository's actual historical publication ledger and a fixed calendar day, without isolating its test dates from future real production releases.",
+      "impact": "Only PR CI test failure. The two-news-per-day safety quota correctly prevented a third simulated release; no real news publication was involved.",
+      "correctiveActions": [
+        "Moved synthetic tests to 2026-10-21, with 2026-10-20 as their prior day, avoiding collisions with historic manual releases.",
+        "Retained the genuine 2/day production quota; did not weaken it.",
+        "Require future integration tests to avoid fixed historical live-published dates and check whether their fixture day is independent of the current historic ledger."
+      ],
+      "regressionTests": [
+        "tests/news-two-slot-integration.test.ts",
+        "tests/news-cadence-archive.test.ts"
+      ],
+      "productionFiles": [
+        "tests/news-two-slot-integration.test.ts"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/214",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39179262309",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "A synthetic fixture collision cannot be replayed in Production; the correct quota behavior and adjusted isolated fixture were verified by GitHub CI.",
+        "evidence": "PR #214 verify run #39179262309 and merged main run #39179409422 passed after fixture separation."
+      },
+      "repeatSignature": "news two-slot integration fixture collides with real published news on fixed synthetic date"
     }
   ]
 }
