@@ -25,6 +25,10 @@ test("News feed registry lists only official, HTTPS, restricted publisher hosts"
   const aws=sources.filter((s:{id:string})=>s.id==="aws-ai");
   assert.equal(aws.length,1,"Exactly one official AWS AI intake source is registered");
   assert.equal(aws[0].feedUrl,"https://aws.amazon.com/blogs/machine-learning/feed/");
+  const ms=sources.find((s:{id:string})=>s.id==="microsoft-security");
+  assert.equal(ms?.feedUrl,"https://www.microsoft.com/en-us/security/blog/feed/");
+  assert.deepEqual(ms?.allowedHosts,["www.microsoft.com","microsoft.com"]);
+  assert.equal(safeUrl("https://www.microsoft.com.evil.example/article",ms.allowedHosts),null);
   assert.deepEqual(aws[0].allowedHosts,["aws.amazon.com"]);
   const awsCandidates=itemsFromFeed(aws[0],[
     {title:"Building trust in AI agents: production evaluation",link:"https://aws.amazon.com/blogs/machine-learning/building-trust-in-ai-agents-a-production-ready-evaluation-framework-with-amazon-bedrock-agentcore/",isoDate:"2026-10-16T12:00:00Z"},
