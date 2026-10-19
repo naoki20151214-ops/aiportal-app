@@ -83,19 +83,28 @@ export function safePrimaryRedirectUrl(raw, hosts) {
   return target.toString();
 }
 
+// Bound memory and network usage even on multi-megabyte official web pages.
+// A prefix only is useful for private discovery, never a complete fact check.
 async function boundedHtml(response) {
-  const sizeHeader = Number(response.headers.get("content-length"));
-  if (Number.isFinite(sizeHeader) && sizeHeader > MAX_PRIMARY_BYTES) throw new Error("html-too-large");
+  const declared = Number(response.headers.get("content-length"));
   if (!response.body) throw new Error("empty-html-body");
   const reader = response.body.getReader();
   const buffers = [];
-  let total = 0;
+  let total = 0, truncated = false;
   try {
     while (true) {
       const {done, value} = await reader.read();
       if (done) break;
+      const remaining = MAX_PRIMARY_BYTES - total;
+      if (value.byteLength > remaining) {
+        if (remaining > 0) {
+          buffers.push(value.subarray(0, remaining));
+          total += remaining;
+        }
+        truncated = true;
+        break;
+      }
       total += value.byteLength;
-      if (total > MAX_PRIMARY_BYTES) throw new Error("html-too-large");
       buffers.push(value);
     }
   } finally {
@@ -104,7 +113,10 @@ async function boundedHtml(response) {
   const body = new Uint8Array(total);
   let cursor = 0;
   for (const item of buffers) { body.set(item, cursor); cursor += item.byteLength; }
-  return new TextDecoder("utf-8", {fatal: false}).decode(body);
+  return {
+    html: new TextDecoder("utf-8", {fatal: false}).decode(body),
+    truncated: truncated || (Number.isFinite(declared) && declared > MAX_PRIMARY_BYTES),
+  };
 }
 
 export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
@@ -142,13 +154,14 @@ export async function fetchPrimaryPage(candidate, source, fetchImpl = fetch) {
       const type = (response.headers.get("content-type") || "").toLowerCase();
       if (!/^(text\/html|application\/xhtml\+xml)(;|$)/.test(type))
         throw new Error("not-html");
-      const html = await boundedHtml(response);
+      const {html, truncated} = await boundedHtml(response);
       const page = extractPrimaryPageMetadata(html);
       if (!page.documentTitle && !page.headline && !page.leadExcerpt)
-        throw new Error("missing-page-content");
+        throw new Error(truncated ? "html-too-large" : "missing-page-content");
       return {
         status: "retrieved-for-editorial-review",
         finalUrl: current, httpStatus: response.status,
+        pageCoverage: truncated ? "bounded-prefix-only" : "complete-response",
         ...page,
         editorialStatus: "unreviewed",
         claimVerification: "not-performed",

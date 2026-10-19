@@ -7,8 +7,9 @@ import {fileURLToPath} from "node:url";
 const clean = value => String(value ?? "").normalize("NFKC")
   .replace(/[\u0000-\u001f\u007f]/g, " ").replace(/[<>[\]()*_`|#~!]/g, " ")
   .replace(/\s+/g, " ").trim().slice(0, 210);
-const status = item => item.retrievalStatus === "retrieved-for-editorial-review"
-  ? "元ページ取得・主張未検証" : "元ページ取得失敗";
+const status = item => item.retrievalStatus !== "retrieved-for-editorial-review"
+  ? "元ページ取得失敗" : item.pageCoverage === "bounded-prefix-only"
+    ? "元ページ先頭のみ取得・全文および主張は未検証" : "元ページ取得・主張未検証";
 
 export function buildNewsEditorialBrief(triage) {
   if (!triage || triage.schemaVersion !== 1 ||

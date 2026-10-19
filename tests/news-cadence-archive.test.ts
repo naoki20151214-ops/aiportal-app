@@ -59,13 +59,13 @@ test("Staged news hourly opportunities retain an independent evergreen 20:00 pub
   assert.deepEqual(news.phases["growth-6"].slotsJst,["07:00","09:00","12:00","15:00","18:00","21:00"]);
   assert.deepEqual(news.phases["hourly-17"].slotsJst,Array.from({length:17},(_,i)=>String(i+7).padStart(2,"0")+":00"));
   const workflow=read(".github/workflows/publish-reviewed-news.yml");
-  assert.match(workflow,/cron: '0 0-14,22-23 \* \* \*'/);
-  assert.match(workflow,/cron: '17 0-14,22-23 \* \* \*'/);
+  assert.match(workflow,/cron: '11 0-14,22-23 \* \* \*'/);
+  assert.match(workflow,/cron: '41 0-14,22-23 \* \* \*'/);
   assert.match(workflow,/group: aiportal-approved-publication-main/);
   assert.match(workflow,/publish-news-queue\.mjs --apply/);
   assert.doesNotMatch(workflow,/auto-publish-approved\.mjs/);
   const intake=read(".github/workflows/news-candidates.yml");
-  assert.match(intake,/cron: '0 0-14,22-23 \* \* \*'/);
+  assert.match(intake,/cron: '7 0-14,22-23 \* \* \*'/);
   assert.doesNotMatch(intake,/publish-news-queue\.mjs --apply/);
   const evergreen=read(".github/workflows/publish-approved.yml");
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);
@@ -76,12 +76,13 @@ test("Staggered recovery triggers retain original JST slots and independent ever
   const publisher=parse(read(".github/workflows/publish-reviewed-news.yml"));
   const evergreen=parse(read(".github/workflows/publish-approved.yml"));
   assert.deepEqual(intake.on.schedule.map((x:{cron:string})=>x.cron),
-    ["0 0-14,22-23 * * *"]);
+    ["7 0-14,22-23 * * *","37 0-14,22-23 * * *"]);
   assert.deepEqual(publisher.on.schedule.map((x:{cron:string})=>x.cron),
-    ["0 0-14,22-23 * * *","17 0-14,22-23 * * *"]);
+    ["11 0-14,22-23 * * *","41 0-14,22-23 * * *"]);
   assert.equal(intake.permissions.contents,"read");
   assert.equal(publisher.permissions.contents,"write");
-  assert.equal(evergreen.on.schedule[0].cron,"0 11 * * *");
+  assert.deepEqual(evergreen.on.schedule.map((x:{cron:string})=>x.cron),
+    ["0 11 * * *","29 11 * * *"]);
   assert.equal(publisher.concurrency.group,evergreen.concurrency.group);
   assert.equal(publisher.concurrency["cancel-in-progress"],false);
 });
