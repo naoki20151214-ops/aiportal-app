@@ -12,7 +12,11 @@ jobs:
   probe:
     if: github.repository == 'naoki20151214-ops/aiportal-app' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [microsoft-security, mit-ai, meta-engineering, cloudflare-blog]
     steps:
       - name: Checkout reviewed PR
         uses: actions/checkout@v4
@@ -27,13 +31,13 @@ jobs:
         run: npm ci
       - name: Validate probe CLI syntax
         run: node --check scripts/probe-news-rss-source.mjs
-      - name: Independently verify Microsoft official security RSS
-        run: node scripts/probe-news-rss-source.mjs microsoft-security
+      - name: Independently verify publisher RSS and dated official links
+        run: node scripts/probe-news-rss-source.mjs ${{ matrix.source }}
       - name: Save evidence; never approve or publish
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: microsoft-security-rss-onboarding-${{ github.run_id }}
-          path: artifacts/news-rss-onboarding-microsoft-security.json
+          name: official-rss-${{ matrix.source }}-${{ github.run_id }}
+          path: artifacts/news-rss-onboarding-${{ matrix.source }}.json
           retention-days: 14
           if-no-files-found: warn

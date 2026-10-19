@@ -311,6 +311,41 @@
         "tests/news-hourly-rollout.test.ts"
       ],
       "repeatSignature": "Synthetic Registry reserialization strips exact quoted news node ID required by release parser"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-009",
+      "discoveredAtJst": "2026-10-19T15:15:31+09:00",
+      "severity": "low",
+      "area": "ci-rss-feed-url-normalization-test",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "Initial three-RSS onboarding PR #222 Test failed even though all four live publisher RSS probes passed; one URL assertion expected trailing slash preservation.",
+      "observedError": "AssertionError [ERR_ASSERTION]: actual 'https://engineering.fb.com/feed', expected 'https://engineering.fb.com/feed/'",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39208780025",
+      "failedCommand": "npm test",
+      "directCause": "New test asserted exact feedUrl equality after passing it through safeUrl. The existing trusted URL normalizer strips trailing slashes for non-root paths, but the test compared against the original feed URL.",
+      "systemicCause": "Pre-commit CI test overlooked the documented distinction between the original fetch URL (which must keep the slash) and a normalized canonical metadata URL; earlier URL normalization edge cases were not reused in onboarding test design.",
+      "impact": "Review PR-only test failure. Live RSS onboarding probe passed independently and no new source, article or public queue was changed in main.",
+      "correctiveActions": [
+        "Use existing safeUrl semantics to compare with a separately canonicalized URL rather than remove the existing host/credential constraints or change the real feed endpoint.",
+        "Retain byte-level first-party URL and date validation in independent GitHub Actions probe and rerun final Test/Lint/Build."
+      ],
+      "regressionTests": [
+        "tests/news-foundation.test.ts"
+      ],
+      "productionFiles": [
+        "tests/news-foundation.test.ts"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/222",
+      "validation": {
+        "ci": "success",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "The mismatch concerns only the expected output of a pull-request unit test and does not affect production RSS fetches, allowed hosts, or publication.",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39209075354",
+        "evidence": "GitHub PR #222 Test/Lint/Build all success in run 39209075354 after canonical trailing-slash test correction; MIT, Meta, Cloudflare and existing Microsoft independent live RSS probes passed in run 39209075294. No code-level production RSS retrieval incident occurred; final ledger-only commit is rerun in CI before merge."
+      },
+      "repeatSignature": "RSS URL canonicalizer removes trailing slash while intake unit test expects unnormalized publisher feed URL"
     }
   ]
 }

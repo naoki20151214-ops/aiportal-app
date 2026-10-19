@@ -22,6 +22,23 @@ test("News feed registry lists only official, HTTPS, restricted publisher hosts"
   assert.throws(()=>validateSourceConfig({schemaVersion:1,sources:[
     {id:"bad",name:"Bad",allowedHosts:["example.com"],feedUrl:"http://example.com/rss"}
   ]}),/Unsafe/);
+  const additions=[
+    {id:"mit-ai",feedUrl:"https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml",allowedHosts:["news.mit.edu"]},
+    {id:"meta-engineering",feedUrl:"https://engineering.fb.com/feed/",allowedHosts:["engineering.fb.com"]},
+    {id:"cloudflare-blog",feedUrl:"https://blog.cloudflare.com/rss/",allowedHosts:["blog.cloudflare.com"]},
+  ];
+  assert.equal(sources.length,10,"Exactly three official RSS sources were added to the prior seven");
+  for(const addition of additions) {
+    const found=sources.find((x:{id:string})=>x.id===addition.id);
+    assert.ok(found,addition.id+" source missing");
+    assert.equal(found.feedUrl,addition.feedUrl);
+    assert.deepEqual(found.allowedHosts,addition.allowedHosts);
+    const normalizedFeed=new URL(addition.feedUrl);
+    normalizedFeed.pathname=normalizedFeed.pathname.replace(/\/+$/, "") || "/";
+    assert.equal(safeUrl(addition.feedUrl,addition.allowedHosts),normalizedFeed.toString());
+    const spoof="https://"+addition.allowedHosts[0]+".evil.example/ai-post";
+    assert.equal(safeUrl(spoof,addition.allowedHosts),null);
+  }
   const aws=sources.filter((s:{id:string})=>s.id==="aws-ai");
   assert.equal(aws.length,1,"Exactly one official AWS AI intake source is registered");
   assert.equal(aws[0].feedUrl,"https://aws.amazon.com/blogs/machine-learning/feed/");
