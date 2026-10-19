@@ -7,7 +7,7 @@ import {parse} from "yaml";
 import {
   buildNewsArchive,archiveCsv,archiveJson,findNewsOverlaps,
 } from "../scripts/build-news-archive.mjs";
-import {chooseNewsRelease,publishNews,assertUniqueNewsSlots} from "../scripts/publish-news-queue.mjs";
+import {chooseNewsRelease,publishNews,assertUniqueNewsSlots,activeNewsCadence} from "../scripts/publish-news-queue.mjs";
 
 const read=(file:string)=>readFileSync(file,"utf8");
 
@@ -49,20 +49,23 @@ test("Source/normalized title detection catches previously published and rejecte
     .some((x:{id:string;status:string})=>x.id==="NEWS-0093"&&x.status==="rejected"));
   assert.deepEqual(findNewsOverlaps(archive,{title:"Completely unrelated brand new story"}),[]);
 });
-test("Twice-daily news slots are independent of the evergreen 20:00 publication cap",()=>{
+test("Staged news hourly opportunities retain an independent evergreen 20:00 publication cap",()=>{
   const news=parse(read("content/news/news-cadence.yml"));
   assert.equal(news.timezone,"Asia/Tokyo");
-  assert.equal(news.maximumPostsPerDay,2);
-  assert.deepEqual(news.slotsJst,["09:00","18:00"]);
+  assert.equal(news.schemaVersion,2);
+  assert.equal(news.activePhase,"pilot-2");
+  assert.equal(activeNewsCadence(news).maximumPostsPerDay,2);
+  assert.deepEqual(activeNewsCadence(news).slotsJst,["09:00","18:00"]);
+  assert.deepEqual(news.phases["growth-6"].slotsJst,["07:00","09:00","12:00","15:00","18:00","21:00"]);
+  assert.deepEqual(news.phases["hourly-17"].slotsJst,Array.from({length:17},(_,i)=>String(i+7).padStart(2,"0")+":00"));
   const workflow=read(".github/workflows/publish-reviewed-news.yml");
-  assert.match(workflow,/cron: '0 0 \* \* \*'/);
-  assert.match(workflow,/cron: '0 9 \* \* \*'/);
+  assert.match(workflow,/cron: '0 0-14,22-23 \* \* \*'/);
+  assert.match(workflow,/cron: '17 0-14,22-23 \* \* \*'/);
   assert.match(workflow,/group: aiportal-approved-publication-main/);
   assert.match(workflow,/publish-news-queue\.mjs --apply/);
   assert.doesNotMatch(workflow,/auto-publish-approved\.mjs/);
   const intake=read(".github/workflows/news-candidates.yml");
-  assert.match(intake,/cron: '0 22 \* \* \*'/);
-  assert.match(intake,/cron: '0 7 \* \* \*'/);
+  assert.match(intake,/cron: '0 0-14,22-23 \* \* \*'/);
   assert.doesNotMatch(intake,/publish-news-queue\.mjs --apply/);
   const evergreen=read(".github/workflows/publish-approved.yml");
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);
@@ -73,9 +76,9 @@ test("Staggered recovery triggers retain original JST slots and independent ever
   const publisher=parse(read(".github/workflows/publish-reviewed-news.yml"));
   const evergreen=parse(read(".github/workflows/publish-approved.yml"));
   assert.deepEqual(intake.on.schedule.map((x:{cron:string})=>x.cron),
-    ["0 22 * * *","0 7 * * *","17 22 * * *","17 7 * * *"]);
+    ["0 0-14,22-23 * * *"]);
   assert.deepEqual(publisher.on.schedule.map((x:{cron:string})=>x.cron),
-    ["0 0 * * *","0 9 * * *","17 0 * * *","17 9 * * *"]);
+    ["0 0-14,22-23 * * *","17 0-14,22-23 * * *"]);
   assert.equal(intake.permissions.contents,"read");
   assert.equal(publisher.permissions.contents,"write");
   assert.equal(evergreen.on.schedule[0].cron,"0 11 * * *");
@@ -92,7 +95,14 @@ test("Only one owner-approved news story may occupy any single Japan slot",()=>{
   assert.throws(()=>assertUniqueNewsSlots([morning,{...morning,decision:"published"}]),/multiple news approvals for one slot/);
   assert.throws(()=>assertUniqueNewsSlots([evening,{...evening}]),/multiple news approvals for one slot/);
   assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T09:17:00+09:00"}]),/invalid scheduled news slot/);
+  assert.doesNotThrow(()=>assertUniqueNewsSlots([
+    {scheduledAtJst:"2026-10-18T07:00:00+09:00"},
+    {scheduledAtJst:"2026-10-18T23:00:00+09:00"},
+  ]));
   assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T08:59:00+09:00"}]),/invalid scheduled news slot/);
+  assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T06:00:00+09:00"}]),/invalid scheduled news slot/);
+  assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T23:17:00+09:00"}]),/invalid scheduled news slot/);
+  assert.throws(()=>assertUniqueNewsSlots([{scheduledAtJst:"2026-10-18T00:00:00+09:00"}]),/invalid scheduled news slot/);
   assert.throws(()=>assertUniqueNewsSlots([null]),/invalid scheduled news slot/);
 });
 
