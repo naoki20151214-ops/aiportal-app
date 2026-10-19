@@ -39,6 +39,8 @@ jobs:
           node --check scripts/publish-news-queue.mjs
           node --check scripts/news-autonomous-shadow.mjs
           node --check scripts/news-autonomous-shadow-core.mjs
+          node --check scripts/news-free-source-dossiers.mjs
+          node --check scripts/news-free-source-dossiers-core.mjs
 
       - name: Collect only unverified official RSS metadata
         run: node scripts/collect-news-candidates.mjs --lookback-hours=72
@@ -70,6 +72,18 @@ jobs:
       - name: Independently prioritize official candidate RESEARCH (shadow; no drafts or approvals)
         if: success()
         run: node scripts/news-autonomous-shadow.mjs
+      - name: Record bounded first-party source excerpts for independent review (free, no model)
+        if: success()
+        run: node scripts/news-free-source-dossiers.mjs
+      - name: Save private source dossiers without accepting any claim
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-free-source-dossiers-${{ github.run_id }}
+          path: artifacts/news-free-source-dossiers.json
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save private autonomous research shortlist, never publish
         if: always()
         uses: actions/upload-artifact@v4
