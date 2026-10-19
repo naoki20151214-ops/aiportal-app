@@ -5,7 +5,7 @@ import { test } from "node:test";
 import { parse } from "yaml";
 import {
   safeUrl, normalizeTitle, duplicateTitleKey, validateSourceConfig,
-  itemsFromFeed, deduplicateCandidates, shouldShowInNews, validJapanDate,
+  itemsFromFeed, summarizeFeedEligibility, deduplicateCandidates, shouldShowInNews, validJapanDate,
 } from "../scripts/news-candidate-core.mjs";
 import { newsLearningLinks } from "../src/lib/news-learning-links";
 import { readArticles } from "../src/lib/article-content";
@@ -76,6 +76,27 @@ test("Candidate intake rejects missing dates, old stories, future time and untru
   assert.equal(candidates[0].verificationStatus,"pending-primary-source-review");
   assert.equal(candidates[0].publisher,"Official Publisher");
   assert.ok(!("articleBody" in candidates[0]),"RSS metadata must not copy full articles");
+});
+
+test("RSS diagnostics separate publisher entries from recent accepted candidates",()=>{
+  const entries=[
+    {title:"Official new AI feature",link:"https://openai.com/news/new",isoDate:"2026-10-14T22:00:00Z"},
+    {title:"Official update without date",link:"https://openai.com/news/undated"},
+    {title:"Archived company announcement",link:"https://openai.com/news/old",isoDate:"2024-01-01T00:00:00Z"},
+    {title:"Article scheduled far ahead",link:"https://openai.com/news/future",isoDate:"2026-11-01T00:00:00Z"},
+    {title:"Hostile redirect example",link:"https://openai.com.attacker.test/news",isoDate:"2026-10-14T22:00:00Z"},
+    {title:"short",link:"https://openai.com/news/short",isoDate:"2026-10-14T22:00:00Z"},
+  ];
+  const report=summarizeFeedEligibility(source,entries,clock,72);
+  assert.equal(report.feedEntries,6);
+  assert.equal(report.windowCandidates,1);
+  assert.deepEqual(report.excludedByReason,{
+    "invalid-official-url":1,"short-title":1,"missing-or-invalid-date":1,
+    "older-than-lookback":1,"future-date":1,
+  });
+  assert.deepEqual(report.candidates,itemsFromFeed(source,entries,clock,72));
+  assert.ok(report.candidates.every((x:{verificationStatus:string})=>
+    x.verificationStatus==="pending-primary-source-review"));
 });
 
 test("Exact URL or normalized-title duplicates are excluded, not asserted to be semantic review",()=>{
