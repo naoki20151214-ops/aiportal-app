@@ -1,7 +1,7 @@
 schemaVersion: 1
 
 generatedFrom: "AI Portal Master Content Registry v1"
-nodeCount: 502
+nodeCount: 503
 
 nodes:
   - id: "BAS-0001"
@@ -6120,4 +6120,17 @@ nodes:
     prerequisites: ["GEN-0001"]
     children: []
     related: ["GEN-0018"]
+    priority: "A"
+
+  - id: "NEWS-0094"
+    title: "詐欺を見抜くAI、会話を外に送らない？ シンガポールで開発中の仕組み"
+    slug: "on-device-scam-detection"
+    category: "AIニュース"
+    level: 0
+    type: "news"
+    status: "ready"
+    centerQuestion: "スマホ内で二段階の詐欺検知を行うと会話の外部送信や電池消費をどう抑えられるか？"
+    prerequisites: ["BAS-0002"]
+    children: []
+    related: ["BAS-0002"]
     priority: "A"
