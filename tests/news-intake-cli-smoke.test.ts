@@ -39,7 +39,7 @@ test("Actual primary page CLI executes an empty, private intake without network 
     assert.deepEqual(report.summary.failuresByReason,{});
     assert.equal(report.summary.candidates,0);
     assert.equal(report.summary.retrieved,0);
-    assert.equal(report.summary.bySource.length,7);
+    assert.equal(report.summary.bySource.length,10);
     assert.ok(report.summary.bySource.every((item:{candidates:number})=>item.candidates===0));
   }finally{rmSync(tmp,{recursive:true,force:true});}
 });
