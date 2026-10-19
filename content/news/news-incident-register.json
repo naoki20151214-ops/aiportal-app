@@ -419,6 +419,47 @@
         "evidence": "2026-10-19 GitHub PR run 39217055472 completed with Test/Lint/Build all successful after the explicit result-kind guard. Actual immediate publisher production behavior is separately pending observation."
       },
       "repeatSignature": "News immediate batch test accesses union member without TS result narrowing"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-012",
+      "discoveredAtJst": "2026-10-19T16:41:38+09:00",
+      "severity": "medium",
+      "area": "production-news-immediate-post-promotion-regression",
+      "status": "resolved",
+      "impactScope": "production-release",
+      "rootCauseStatus": "confirmed",
+      "symptom": "The first push-triggered immediate news publication run correctly selected and locally promoted both approved NEWS-0094 and NEWS-0100, but pre-commit Test stopped because several test fixtures wrongly assumed articles were still in their pre-release ready state.",
+      "observedError": "NEWS-0094 immutable test referenced blob(article) after status changed; NEWS-0100 sourceReadyBlob mismatch after publishedAt changed from next-day reserved date to the actual immediate date; three immediate batch fixture tests started with checkout articles already promoted to published.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39217564472",
+      "failedCommand": "Publish Approved AI News Immediately > npm test after script/publish-news-queue.mjs --apply-immediate",
+      "directCause": "Four test descriptions produced five failures after successful local article promotion: NEWS-0094 test verified the published Git Blob instead of the signed READY source; NEWS-0100 test restored status only but not the originally signed publication-date frontmatter; the new immediate fixture copied the already-promoted checkout rather than the historical READY manuscript and approval records.",
+      "systemicCause": "Prior regression tests were written for a scheduled publisher with a known future READY state; first end-to-end production simulation did not exercise those tests on an already-promoted working tree before the new push workflow was merged.",
+      "impact": "Safe pre-commit rejection of two already approved news; no corrupted or partially committed main, articles stayed ready on main until the corrected second run. User-visible publication was delayed pending exact test fixes.",
+      "correctiveActions": [
+        "PR #226 updated both signed-copy assertions to reconstruct the precise approved READY Git Blob from published frontmatter, including MIT's originally signed 2026-10-20 ready dates, without modifying article text or image bytes.",
+        "PR #226 updated immediate batch regression fixtures to reconstruct historical owner-approved READY copies, approval status and Registry nodes in isolated temporary directories whether the checkout starts ready or published.",
+        "GitHub Verify Test/Lint/Build succeeded on PR #226 (run #39218012827) and PR #227 (run #39218341387); no approval record or image SHAs were changed.",
+        "After PR #227 triggered a new push workflow, actual production run #39218592906 completed promotion, Test/Lint/Build and successful Git main push; both NEWS-0094 and NEWS-0100 became published on SHA dc6c4111bd6582d98f8f8b37c73ae53643a8563d. Cloudflare Pages Production check on that SHA succeeded.",
+        "Direct external HTTP requests for the two articles and images were not possible in the execution environment due to DNS resolution failure; keep HTTP 200 confirmation separate from GitHub and Cloudflare success."
+      ],
+      "regressionTests": [
+        "tests/news-0094-owner-approved-queue.test.ts",
+        "tests/news-0100-mit-crystal-release.test.ts",
+        "tests/news-immediate-publication.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/publish-news-queue.mjs",
+        ".github/workflows/publish-reviewed-news.yml"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/226",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39218012827",
+        "productionRepeat": "success",
+        "productionEvidenceUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39218592906",
+        "evidence": "Completed production publish run 39218592906 has promotion success, Test/Lint/Build success and Git main push success; final main SHA dc6c4111bd6582d98f8f8b37c73ae53643a8563d shows both published. Cloudflare Pages check success. Actual article/hero HTTP 200 not verified."
+      },
+      "repeatSignature": "Post-promotion immediate publisher tests assume an owner-approved ready source remains unpromoted or keep its superseded scheduled date"
     }
   ]
 }
