@@ -196,7 +196,7 @@ function writeReports(snapshot) {
 // positive from an earlier unmerged review PR, verify exact owner-approved
 // article bytes, the signed manual release ledger, and immutable hero bytes.
 function provenOwnerNewsRelease(articlePath,front) {
-  if(!/^NEWS-\\d{4}$/.test(front?.id||'')||front.status!=='published')return false;
+  if(!/^NEWS-\d{4}$/.test(front?.id||'')||front.status!=='published')return false;
   const slug=front.slug,root=ROOT;
   const audit=`content/news/editorial-audits/${front.id}.md`;
   const approved=`content/news/owner-approved-copy/${front.id}.md`;
@@ -211,10 +211,10 @@ function provenOwnerNewsRelease(articlePath,front) {
   if(!article.includes(fs.readFileSync(path.join(root,approved),'utf8')) ||
      !article.includes(release.primarySource) ||
      !article.includes('status: "published"'))return false;
-  const ready=article.replace('status: "published"','status: "ready"').replace(/\\r\\n/g,'\\n');
+  const ready=article.replace('status: "published"','status: "ready"');
   const bytes=Buffer.from(ready,'utf8');
-  const blob=createHash('sha1').update('blob '+bytes.length+'\\0').update(bytes).digest('hex');
-  const b64=fs.readFileSync(path.join(root,asset),'utf8').replace(/\\s+/g,'');
+  const blob=createHash('sha1').update('blob '+bytes.length).update(Buffer.from([0])).update(bytes).digest('hex');
+  const b64=fs.readFileSync(path.join(root,asset),'utf8').replaceAll(String.fromCharCode(10),'').replaceAll(String.fromCharCode(13),'');
   const hero=Buffer.from(b64,'base64');
   return blob===release.sourceReadyBlob &&
     createHash('sha256').update(hero).digest('hex')===release.heroSha256 &&
