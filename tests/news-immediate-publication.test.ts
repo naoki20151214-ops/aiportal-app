@@ -22,13 +22,47 @@ function fixture(){
     "content/news/news-approval-queue.yml","content/news/news-editorial-decisions.yml",
     "content/news/sources.json","content/registry/knowledge-nodes.yml",
   ])put(root,rel,readFileSync(rel,"utf8"));
+
+  // Production workflow checks its own post-promotion tree; tests also run
+  // on main after publication. Reconstruct the *historically approved READY*
+  // fixture, without ever changing actual main files or their signed SHA.
+  const queueFile="content/news/news-approval-queue.yml";
+  const queue=parse(get(root,queueFile));
+  for(const row of queue.approvals){
+    if(news.some(item=>item.id===row.id)){
+      row.decision="approved-for-publication";
+      delete row.publishedOn;
+    }
+  }
+  put(root,queueFile,stringify(queue));
+  let registry=get(root,"content/registry/knowledge-nodes.yml");
   for(const {id,slug} of news){
-    for(const rel of ["content/articles/"+slug+".md","content/news/editorial-audits/"+id+".md"])
+    const marker='\n  - id: "'+id+'"\n';
+    const start=registry.indexOf(marker);
+    if(start<0)throw Error("Missing fixture Registry "+id);
+    const next=registry.indexOf("\n  - id:",start+marker.length);
+    const end=next<0?registry.length:next;
+    const fragment=registry.slice(start,end).replace('status: "published"','status: "ready"');
+    registry=registry.slice(0,start)+fragment+registry.slice(end);
+    const articlePath="content/articles/"+slug+".md";
+    let article=readFileSync(articlePath,"utf8");
+    if(article.includes('status: "published"')){
+      article=article.replace('status: "published"','status: "ready"');
+      if(id==="NEWS-0100")article=article
+        .replace(/^publishedAt: "[^"]+"$/m,'publishedAt: "2026-10-20"')
+        .replace(/^updatedAt: "[^"]+"$/m,'updatedAt: "2026-10-20"');
+    }
+    const row=queue.approvals.find((x:{id:string})=>x.id===id);
+    assert.ok(row);
+    put(root,articlePath,article);
+    for(const rel of ["content/news/editorial-audits/"+id+".md"])
       put(root,rel,readFileSync(rel,"utf8"));
     const image="public/images/news/"+slug+".webp";
     mkdirSync(path.dirname(p(root,image)),{recursive:true});
     copyFileSync(image,p(root,image));
   }
+  }
+  put(root,"content/registry/knowledge-nodes.yml",registry);
   return root;
 }
 
