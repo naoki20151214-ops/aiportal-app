@@ -126,8 +126,8 @@ test("Official China-model and cybersecurity pages remain manual leads, not unap
   const active = JSON.parse(readFileSync("content/news/sources.json", "utf8"));
   assert.equal(watch.enabledInScheduledIntake,false);
   assert.equal(watch.publicationEligible,false);
-  assert.equal(watch.entries.length,7);
-  assert.equal(active.sources.length,6);
+  assert.equal(watch.entries.length,6);
+  assert.equal(active.sources.length,7);
   const activeIds = new Set(active.sources.map((x:{id:string})=>x.id));
   for(const entry of watch.entries) {
     assert.equal(entry.discovery,"manual-only");
