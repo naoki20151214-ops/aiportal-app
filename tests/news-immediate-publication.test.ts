@@ -50,6 +50,8 @@ test("Immediate owner policy has no daily quota, 09/18 reservation or next-day w
     const preview=chooseNewsRelease(root,jstNow,{immediate:true});
     assert.equal(preview.eligible,"NEWS-0094");
     const result=publishApprovedNewsImmediately(root,{now:jstNow,apply:true});
+    if(!("published" in result) || !Array.isArray(result.published))
+      throw new Error("Expected applied immediate batch");
     assert.deepEqual(result.published.map((x:{id:string})=>x.id),["NEWS-0094","NEWS-0100"]);
     assert.equal(result.published.length,2);
     assert.deepEqual(parse(get(root,"content/news/news-approval-queue.yml")).approvals
