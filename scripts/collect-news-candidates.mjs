@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Parser from "rss-parser";
 import {
-  validateSourceConfig, itemsFromFeed, deduplicateCandidates,
+  validateSourceConfig, summarizeFeedEligibility, deduplicateCandidates,
   DEFAULT_LOOKBACK_HOURS, safeUrl,
 } from "./news-candidate-core.mjs";
 
@@ -44,11 +44,12 @@ for (const source of sources) {
     if (Buffer.byteLength(xml, "utf8") > 2000000)
       throw new Error("Official feed content too large");
     const feed = await parser.parseString(xml);
-    const items = itemsFromFeed(source, feed.items, now, lookbackHours);
-    all.push(...items);
+    const eligible = summarizeFeedEligibility(source, feed.items, now, lookbackHours);
+    all.push(...eligible.candidates);
     results.push({
       sourceId: source.id, status: "ok",
-      feedEntries: feed.items?.length || 0, windowCandidates: items.length,
+      feedEntries: eligible.feedEntries, windowCandidates: eligible.windowCandidates,
+      excludedByReason: eligible.excludedByReason,
     });
   } catch (error) {
     results.push({
@@ -74,5 +75,9 @@ fs.writeFileSync(output, JSON.stringify(report, null, 2) + "\n", "utf8");
 console.log("AI news intake: " + report.status + ", feed success=" +
   results.filter((s) => s.status === "ok").length + "/" + sources.length +
   ", pending=" + candidates.length + ", duplicates=" + report.exactDuplicateCount);
+for(const result of results)if(result.status==="ok")
+  console.log("RSS source " + result.sourceId + ": entries=" + result.feedEntries +
+    " eligible=" + result.windowCandidates +
+    " excluded=" + JSON.stringify(result.excludedByReason));
 console.log("Private artifact written: " + output);
 if (report.status === "no-usable-sources") process.exitCode = 1;
