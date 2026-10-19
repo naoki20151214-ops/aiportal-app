@@ -37,6 +37,8 @@ jobs:
           node --check scripts/triage-news-evidence.mjs
           node --check scripts/build-news-editorial-brief.mjs
           node --check scripts/publish-news-queue.mjs
+          node --check scripts/news-autonomous-shadow.mjs
+          node --check scripts/news-autonomous-shadow-core.mjs
 
       - name: Collect only unverified official RSS metadata
         run: node scripts/collect-news-candidates.mjs --lookback-hours=72
@@ -65,6 +67,18 @@ jobs:
       - name: Format Japanese human-review brief (no AI approval)
         if: success()
         run: node scripts/build-news-editorial-brief.mjs
+      - name: Independently prioritize official candidate RESEARCH (shadow; no drafts or approvals)
+        if: success()
+        run: node scripts/news-autonomous-shadow.mjs
+      - name: Save private autonomous research shortlist, never publish
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-news-autonomous-shadow-${{ github.run_id }}
+          path: artifacts/news-autonomous-research-shadow.json
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save human-readable unverified candidate brief
         if: always()
         uses: actions/upload-artifact@v4
