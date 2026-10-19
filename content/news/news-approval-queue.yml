@@ -1,27 +1,42 @@
 schemaVersion: 1
-description: "Owner-approved READY news publish immediately after merge; legacy scheduledAtJst is historical only, never a reservation; new approvals use approvedAtJst. Restarted ready backlog safely after signed post-promotion CI repair on 2026-10-19."
-timezone: "Asia/Tokyo"
+description: Owner-approved READY news publish immediately after merge; legacy
+  scheduledAtJst is historical only, never a reservation; new approvals use
+  approvedAtJst. Restarted ready backlog safely after signed post-promotion CI
+  repair on 2026-10-19.
+timezone: Asia/Tokyo
 approvals:
-  - id: "NEWS-0094"
-    slug: "on-device-scam-detection"
-    approvedOn: "2026-10-19"
-    approvedBy: "site-owner"
-    evidence: "2026-10-19 site owner explicitly approved the exact NEWS-0094 article and accepted the editor's image selection despite not identifying the preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot remains gated."
-    decision: "approved-for-publication"
-    scheduledAtJst: "2026-10-19T18:00:00+09:00"
-    sourceReadyBlob: "c20f59f9e94808699e0d2d91de2518e27395edb9"
-    heroSha256: "128b57ca26a760ebd6b2aa80310df48bd139ee1a2f76e99ec00c072680657199"
-    originalUrl: "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/"
-    auditPath: "content/news/editorial-audits/NEWS-0094.md"
-
-  - id: "NEWS-0100"
-    slug: "mit-3d-crystal-materials-ai"
-    approvedOn: "2026-10-19"
-    approvedBy: "site-owner"
-    evidence: "On 2026-10-19 the owner explicitly instructed AI Portal to select and publish one story among the 7 newly collected official RSS items. The editor selected the MIT 2026-10-18 crystal-structure AI research story, checked MIT's original release, wrote a bounded one-minute article and original visual, and documented delegated selection (not claim of exact owner copy review) in the editorial audit. Today already has NEWS-0096 and NEWS-0094 in 09/18 slots; earliest eligible release is 2026-10-20 09:00 JST."
-    decision: "approved-for-publication"
-    scheduledAtJst: "2026-10-20T09:00:00+09:00"
-    sourceReadyBlob: "9b2b5f138c71a911f088735c96bfefa0bd39d553"
-    heroSha256: "f3f66e1486aa0aada2d427169772170fb34822484388af930fe6c31ce0e47dfa"
-    originalUrl: "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018"
-    auditPath: "content/news/editorial-audits/NEWS-0100.md"
+  - id: NEWS-0094
+    slug: on-device-scam-detection
+    approvedOn: 2026-10-19
+    approvedBy: site-owner
+    evidence: 2026-10-19 site owner explicitly approved the exact NEWS-0094 article
+      and accepted the editor's image selection despite not identifying the
+      preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and
+      official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot
+      remains gated.
+    decision: published
+    scheduledAtJst: 2026-10-19T18:00:00+09:00
+    sourceReadyBlob: c20f59f9e94808699e0d2d91de2518e27395edb9
+    heroSha256: 128b57ca26a760ebd6b2aa80310df48bd139ee1a2f76e99ec00c072680657199
+    originalUrl: https://deepmind.google/blog/on-device-ai-scam-detection-mddi/
+    auditPath: content/news/editorial-audits/NEWS-0094.md
+    publishedOn: 2026-10-19
+  - id: NEWS-0100
+    slug: mit-3d-crystal-materials-ai
+    approvedOn: 2026-10-19
+    approvedBy: site-owner
+    evidence: On 2026-10-19 the owner explicitly instructed AI Portal to select and
+      publish one story among the 7 newly collected official RSS items. The
+      editor selected the MIT 2026-10-18 crystal-structure AI research story,
+      checked MIT's original release, wrote a bounded one-minute article and
+      original visual, and documented delegated selection (not claim of exact
+      owner copy review) in the editorial audit. Today already has NEWS-0096 and
+      NEWS-0094 in 09/18 slots; earliest eligible release is 2026-10-20 09:00
+      JST.
+    decision: published
+    scheduledAtJst: 2026-10-20T09:00:00+09:00
+    sourceReadyBlob: 9b2b5f138c71a911f088735c96bfefa0bd39d553
+    heroSha256: f3f66e1486aa0aada2d427169772170fb34822484388af930fe6c31ce0e47dfa
+    originalUrl: https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018
+    auditPath: content/news/editorial-audits/NEWS-0100.md
+    publishedOn: 2026-10-19

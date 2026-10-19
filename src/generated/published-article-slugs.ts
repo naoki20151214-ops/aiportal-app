@@ -51,5 +51,8 @@ export const publishedArticleSlugById = {
   "GEN-0046": "ai-grounding",
   "GEN-0047": "ai-citations",
   "BAS-0101": "query-key-value",
-  "NEWS-0092": "gpt-rosalind-academic-plan"
+  "NEWS-0092": "gpt-rosalind-academic-plan",
+  "NEWS-0096": "openai-prompt-to-voice",
+  "NEWS-0094": "on-device-scam-detection",
+  "NEWS-0100": "mit-3d-crystal-materials-ai"
 } as const;

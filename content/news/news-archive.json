@@ -3,12 +3,39 @@
   "sourceOfTruth": "GitHub main + content/news",
   "summary": {
     "total": 7,
-    "published": 4,
-    "ready": 2,
+    "published": 6,
+    "ready": 0,
     "review": 0,
     "rejected": 1
   },
   "entries": [
+    {
+      "id": "NEWS-0094",
+      "slug": "on-device-scam-detection",
+      "title": "詐欺を見抜くAI、会話を外に送らない？ シンガポールで開発中の仕組み",
+      "status": "published",
+      "topic": "スマホ内で二段階の詐欺検知を行うと会話の外部送信や電池消費をどう抑えられるか？",
+      "description": "DeepMindとシンガポールGovTechが開発する、会話を外部に送らずに詐欺を見抜くオンデバイスAI。二段階検知の仕組みと未提供の注意点を解説。",
+      "publishedAt": "2026-10-19",
+      "updatedAt": "2026-10-19",
+      "scheduledAtJst": "2026-10-19T18:00:00+09:00",
+      "sourceUrls": [
+        "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/"
+      ],
+      "sourceIds": [
+        "deepmind"
+      ],
+      "primarySource": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+      "ctaSlugs": [
+        "what-is-machine-learning"
+      ],
+      "image": "/images/news/on-device-scam-detection.webp",
+      "approvalState": "published",
+      "approvalEvidence": "2026-10-19 site owner explicitly approved the exact NEWS-0094 article and accepted the editor's image selection despite not identifying the preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot remains gated.",
+      "publishedReleaseAtJst": null,
+      "articlePath": "content/articles/on-device-scam-detection.md",
+      "articleUrl": "https://aiportal.blog/articles/on-device-scam-detection"
+    },
     {
       "id": "NEWS-0096",
       "slug": "openai-prompt-to-voice",
@@ -36,6 +63,33 @@
       "publishedReleaseAtJst": "2026-10-19T09:00:00+09:00",
       "articlePath": "content/articles/openai-prompt-to-voice.md",
       "articleUrl": "https://aiportal.blog/articles/openai-prompt-to-voice"
+    },
+    {
+      "id": "NEWS-0100",
+      "slug": "mit-3d-crystal-materials-ai",
+      "title": "AIが結晶の「立体構造」を理解。MITが新材料探索の研究を発表",
+      "status": "published",
+      "topic": "MITの新研究は、文章だけのAIと原子の3次元構造を理解するAIで材料探索をどう変えるか？",
+      "description": "MITが結晶の3次元配置と文章を結びつけるAIを発表。従来の文章中心AIとの違い、固体電池材料探索の研究結果、実用化前の注意点を解説。",
+      "publishedAt": "2026-10-19",
+      "updatedAt": "2026-10-19",
+      "scheduledAtJst": "2026-10-20T09:00:00+09:00",
+      "sourceUrls": [
+        "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018"
+      ],
+      "sourceIds": [
+        "mit-ai"
+      ],
+      "primarySource": "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018",
+      "ctaSlugs": [
+        "what-is-multimodal"
+      ],
+      "image": "/images/news/mit-3d-crystal-materials-ai.webp",
+      "approvalState": "published",
+      "approvalEvidence": "On 2026-10-19 the owner explicitly instructed AI Portal to select and publish one story among the 7 newly collected official RSS items. The editor selected the MIT 2026-10-18 crystal-structure AI research story, checked MIT's original release, wrote a bounded one-minute article and original visual, and documented delegated selection (not claim of exact owner copy review) in the editorial audit. Today already has NEWS-0096 and NEWS-0094 in 09/18 slots; earliest eligible release is 2026-10-20 09:00 JST.",
+      "publishedReleaseAtJst": null,
+      "articlePath": "content/articles/mit-3d-crystal-materials-ai.md",
+      "articleUrl": "https://aiportal.blog/articles/mit-3d-crystal-materials-ai"
     },
     {
       "id": "NEWS-0092",
@@ -118,60 +172,6 @@
       "publishedReleaseAtJst": null,
       "articlePath": "content/articles/openai-gpt5-training.md",
       "articleUrl": "https://aiportal.blog/articles/openai-gpt5-training"
-    },
-    {
-      "id": "NEWS-0094",
-      "slug": "on-device-scam-detection",
-      "title": "詐欺を見抜くAI、会話を外に送らない？ シンガポールで開発中の仕組み",
-      "status": "ready",
-      "topic": "スマホ内で二段階の詐欺検知を行うと会話の外部送信や電池消費をどう抑えられるか？",
-      "description": "DeepMindとシンガポールGovTechが開発する、会話を外部に送らずに詐欺を見抜くオンデバイスAI。二段階検知の仕組みと未提供の注意点を解説。",
-      "publishedAt": null,
-      "updatedAt": "2026-10-19",
-      "scheduledAtJst": "2026-10-19T18:00:00+09:00",
-      "sourceUrls": [
-        "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/"
-      ],
-      "sourceIds": [
-        "deepmind"
-      ],
-      "primarySource": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
-      "ctaSlugs": [
-        "what-is-machine-learning"
-      ],
-      "image": "/images/news/on-device-scam-detection.webp",
-      "approvalState": "approved-for-publication",
-      "approvalEvidence": "2026-10-19 site owner explicitly approved the exact NEWS-0094 article and accepted the editor's image selection despite not identifying the preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot remains gated.",
-      "publishedReleaseAtJst": null,
-      "articlePath": "content/articles/on-device-scam-detection.md",
-      "articleUrl": null
-    },
-    {
-      "id": "NEWS-0100",
-      "slug": "mit-3d-crystal-materials-ai",
-      "title": "AIが結晶の「立体構造」を理解。MITが新材料探索の研究を発表",
-      "status": "ready",
-      "topic": "MITの新研究は、文章だけのAIと原子の3次元構造を理解するAIで材料探索をどう変えるか？",
-      "description": "MITが結晶の3次元配置と文章を結びつけるAIを発表。従来の文章中心AIとの違い、固体電池材料探索の研究結果、実用化前の注意点を解説。",
-      "publishedAt": null,
-      "updatedAt": "2026-10-20",
-      "scheduledAtJst": "2026-10-20T09:00:00+09:00",
-      "sourceUrls": [
-        "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018"
-      ],
-      "sourceIds": [
-        "mit-ai"
-      ],
-      "primarySource": "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018",
-      "ctaSlugs": [
-        "what-is-multimodal"
-      ],
-      "image": "/images/news/mit-3d-crystal-materials-ai.webp",
-      "approvalState": "approved-for-publication",
-      "approvalEvidence": "On 2026-10-19 the owner explicitly instructed AI Portal to select and publish one story among the 7 newly collected official RSS items. The editor selected the MIT 2026-10-18 crystal-structure AI research story, checked MIT's original release, wrote a bounded one-minute article and original visual, and documented delegated selection (not claim of exact owner copy review) in the editorial audit. Today already has NEWS-0096 and NEWS-0094 in 09/18 slots; earliest eligible release is 2026-10-20 09:00 JST.",
-      "publishedReleaseAtJst": null,
-      "articlePath": "content/articles/mit-3d-crystal-materials-ai.md",
-      "articleUrl": null
     },
     {
       "id": "NEWS-0093",

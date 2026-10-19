@@ -6,7 +6,7 @@ description: "DeepMindとシンガポールGovTechが開発する、会話を外
 category: "AIニュース"
 level: 0
 type: "news"
-status: "ready"
+status: "published"
 publishedAt: "2026-10-19"
 updatedAt: "2026-10-19"
 author: "AI Portal編集部"

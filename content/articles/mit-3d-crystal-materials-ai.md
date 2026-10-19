@@ -6,9 +6,9 @@ description: "MITが結晶の3次元配置と文章を結びつけるAIを発表
 category: "AIニュース"
 level: 0
 type: "news"
-status: "ready"
-publishedAt: "2026-10-20"
-updatedAt: "2026-10-20"
+status: "published"
+publishedAt: "2026-10-19"
+updatedAt: "2026-10-19"
 author: "AI Portal編集部"
 thumbnail: "/images/news/mit-3d-crystal-materials-ai.webp"
 tags: ["MIT", "マルチモーダルAI", "材料科学", "結晶", "研究"]
