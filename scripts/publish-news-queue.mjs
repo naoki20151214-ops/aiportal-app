@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Two-slot JST news publisher (independent from evergreen 20:00 workflow).
+ * Staged JST hourly news publisher (independent from evergreen 20:00 workflow).
  * NEVER converts an RSS candidate, draft, review, or merely-ready story to public.
  * Requires an explicit site-owner-approved record bound to immutable bytes.
  */
@@ -68,15 +68,45 @@ function validatedMedia(root,item,image){
   if(createHash("sha256").update(data).digest("hex")!==item.heroSha256)
     fail("hero differs from site-owner approval "+item.id);
 }
-// Each approved JST slot is an exclusive reservation. A delayed cron retry
-// must never consume a second story for the same 09:00/18:00 slot.
+// Each Japan-local hour is an exclusive reservation. A delayed retry must
+// never consume another story from a previously elapsed hour.
+const hours=(from,to)=>Array.from({length:to-from+1},(_,i)=>
+  String(from+i).padStart(2,"0")+":00");
+const CANONICAL_NEWS_PHASES={
+  "pilot-2":{maximumPostsPerDay:2,slotsJst:["09:00","18:00"]},
+  "growth-6":{maximumPostsPerDay:6,slotsJst:["07:00","09:00","12:00","15:00","18:00","21:00"]},
+  "hourly-17":{maximumPostsPerDay:17,slotsJst:hours(7,23)},
+};
+const validHourlySlot=(raw)=>
+  typeof raw==="string" && /^\d{4}-\d{2}-\d{2}T(?:0[7-9]|1\d|2[0-3]):00:00\+09:00$/.test(raw) &&
+  validDate(raw.slice(0,10)) && Number.isFinite(Date.parse(raw));
+export function activeNewsCadence(cadence) {
+  if(cadence?.schemaVersion!==2 || cadence?.timezone!=="Asia/Tokyo" ||
+     !Object.hasOwn(CANONICAL_NEWS_PHASES,cadence.activePhase) ||
+     !cadence.phases || Object.keys(cadence.phases).sort().join(",")!==
+       Object.keys(CANONICAL_NEWS_PHASES).sort().join(",") ||
+     cadence.hourlyWindowJst!=="07:00-23:00")
+    fail("malformed staged news cadence");
+  for(const [phase,expected] of Object.entries(CANONICAL_NEWS_PHASES)){
+    const actual=cadence.phases[phase];
+    if(actual?.maximumPostsPerDay!==expected.maximumPostsPerDay ||
+       JSON.stringify(actual.slotsJst)!==JSON.stringify(expected.slotsJst) ||
+       actual.slotsJst.length!==actual.maximumPostsPerDay)
+      fail("unsafe or unreviewed news phase limits: "+phase);
+  }
+  const active=cadence.phases[cadence.activePhase];
+  if(cadence.targetApprovedPostsPerDay!==active.maximumPostsPerDay)
+    fail("active target mismatches approved rollout phase");
+  return active;
+}
+
 export function assertUniqueNewsSlots(approvals) {
   if (!Array.isArray(approvals)) fail("invalid slot ledger");
   const seen=new Set();
   for (const entry of approvals) {
     const slot=entry?.scheduledAtJst;
     if (typeof slot!=="string" ||
-        !/^\d{4}-\d\d-\d\dT(?:09:00|18:00):00\+09:00$/.test(slot) ||
+        !validHourlySlot(slot) ||
         !Number.isFinite(Date.parse(slot)))
       fail("invalid scheduled news slot");
     if (seen.has(slot)) fail("multiple news approvals for one slot "+slot);
@@ -91,10 +121,8 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   const history=yaml(root,"content/news/news-publication-log.yml");
   const registry=yaml(root,"content/registry/knowledge-nodes.yml");
   const decisions=yaml(root,"content/news/news-editorial-decisions.yml");
-  if(cadence?.schemaVersion!==1||cadence.timezone!=="Asia/Tokyo"||
-     cadence.maximumPostsPerDay!==2||
-     JSON.stringify(cadence.slotsJst)!==JSON.stringify(["09:00","18:00"])||
-     ledger?.schemaVersion!==1||!Array.isArray(ledger.approvals)||
+  const active=activeNewsCadence(cadence);
+  if(ledger?.schemaVersion!==1||!Array.isArray(ledger.approvals)||
      !Array.isArray(history?.releases)||!Array.isArray(decisions?.decisions)||
      !Array.isArray(registry?.nodes)||registry.nodeCount!==registry.nodes.length)
     fail("malformed source-of-truth records or cadence");
@@ -115,8 +143,7 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
       fail("invalid or duplicate owner news approval "+String(row.id));
     seen.add(row.id);slugs.add(row.slug);
     const time=row.scheduledAtJst;
-    if(!/^\d{4}-\d{2}-\d{2}T(?:09:00|18:00):00\+09:00$/.test(time)||
-       !Number.isFinite(Date.parse(time)))
+    if(!validHourlySlot(time) || !Number.isFinite(Date.parse(time)))
       fail("approved time not in one of the two Japan slots "+row.id);
     if(row.auditPath!=="content/news/editorial-audits/"+row.id+".md"||
        !fs.existsSync(rootFile(root,row.auditPath)))
@@ -154,7 +181,7 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
         fail("CTA leads to unpublished lesson "+match[1]);
     candidates.push({row,node,rel,article,rawFrontmatter,originalPrefix,body,metadata});
   }
-  if(publishedToday>=cadence.maximumPostsPerDay)
+  if(publishedToday>=active.maximumPostsPerDay)
     return {changed:false,reason:"News quota reached for "+today,availableSlots:0};
   // GitHub cron may be delayed or dropped. A retry may only release the
   // currently active JST slot on its ORIGINAL date. Never backfill yesterday's
@@ -162,14 +189,15 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   const hour=Number(new Intl.DateTimeFormat("en-GB",{
     timeZone:"Asia/Tokyo",hour:"2-digit",hourCycle:"h23",
   }).format(now));
-  const activeSlot=hour>=18 ? "18:00" : hour>=9 ? "09:00" : null;
-  const activeScheduledAt=activeSlot ? today+"T"+activeSlot+":00+09:00" : null;
+  const activeSlot=hour>=7 && hour<=23 ? String(hour).padStart(2,"0")+":00" : null;
+  const permittedSlot=activeSlot && active.slotsJst.includes(activeSlot) ? activeSlot : null;
+  const activeScheduledAt=permittedSlot ? today+"T"+permittedSlot+":00+09:00" : null;
   const eligible=candidates.filter(c=>activeScheduledAt!==null &&
     c.row.scheduledAtJst===activeScheduledAt &&
     Date.parse(c.row.scheduledAtJst)<=now.getTime())
     .sort((a,b)=>a.row.scheduledAtJst.localeCompare(b.row.scheduledAtJst)||a.row.id.localeCompare(b.row.id));
   const selected=eligible[0];
-  if(!selected)return {changed:false,reason:"No date-due, explicitly approved news",availableSlots:2-publishedToday};
+  if(!selected)return {changed:false,reason:"No date-due, explicitly approved news",availableSlots:active.maximumPostsPerDay-publishedToday};
   return {changed:false,eligible:selected.row.id,slug:selected.row.slug,
     availableSlots:2-publishedToday,selected,today,ledger,registry};
 }
