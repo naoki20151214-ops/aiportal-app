@@ -138,7 +138,7 @@ test("No model request is attempted for absent key, unknown model or invalid hum
 test("No schedule, approval ledger or public article paths were changed to run LLM",()=>{
   const intake=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(intake.permissions.contents,"read");
-  assert.equal(intake.on.schedule[0].cron,"0 22 * * *");
+  assert.equal(intake.on.schedule[0].cron,"0 0-14,22-23 * * *");
   const publisher=parse(readFileSync(".github/workflows/publish-approved.yml","utf8"));
   assert.equal(publisher.on.schedule[0].cron,"0 11 * * *");
   for(const content of [readFileSync("scripts/generate-private-news-draft.mjs","utf8"),

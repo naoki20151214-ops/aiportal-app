@@ -143,7 +143,7 @@ test("Only read-only intake creates private triage, not the 20:00 learning publi
   const intake = parse(readFileSync(".github/workflows/news-candidates.yml", "utf8"));
   const steps = intake.jobs.collect.steps as Array<{run?:string; with?:{path?:string}}>;
   assert.equal(intake.permissions.contents, "read");
-  assert.equal(intake.on.schedule[0].cron, "0 22 * * *");
+  assert.equal(intake.on.schedule[0].cron, "0 0-14,22-23 * * *");
   assert.ok(steps.some(s=>String(s.run || "").includes("triage-news-evidence.mjs")));
   assert.ok(steps.some(s=>s.with?.path === "artifacts/news-editorial-triage.json"));
   assert.ok(!steps.some(s => /git push|auto-publish-approved|article-approval-log/.test(String(s.run || ""))));

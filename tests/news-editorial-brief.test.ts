@@ -44,10 +44,10 @@ test("No candidate and untrusted status both fail safely",()=>{
   assert.throws(()=>buildNewsEditorialBrief({...triage,items:[{...candidate,editorialDecision:"approved"}]}),/Untrusted/);
 });
 
-test("Japanese brief is only a read-only artifact of twice-daily collection",()=>{
+test("Japanese brief is only a read-only artifact of JST-hourly collection",()=>{
   const workflow=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(workflow.permissions.contents,"read");
-  assert.deepEqual(workflow.on.schedule.map((x:{cron:string})=>x.cron),["0 22 * * *","0 7 * * *","17 22 * * *","17 7 * * *"]);
+  assert.deepEqual(workflow.on.schedule.map((x:{cron:string})=>x.cron),["0 0-14,22-23 * * *"]);
   const steps=workflow.jobs.collect.steps;
   assert.ok(steps.some((x:{run?:string})=>String(x.run).includes("build-news-editorial-brief.mjs")));
   assert.ok(steps.some((x:{with?:{path?:string}})=>x.with?.path==="artifacts/news-editorial-brief.md"));

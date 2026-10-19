@@ -1,16 +1,13 @@
-name: Publish Reviewed AI News (two daily slots)
+name: Publish Reviewed AI News (staged hourly opportunities)
 on:
   schedule:
-    - cron: '0 0 * * *' # 09:00 JST
-    - cron: '0 9 * * *' # 18:00 JST
-    - cron: '17 0 * * *' # 09:17 JST fallback, same owner/slot/SHA gates
-    - cron: '17 9 * * *' # 18:17 JST fallback, same owner/slot/SHA gates
-  workflow_dispatch: # manual recovery; same clock, evidence and 2/day rules
+    - cron: '0 0-14,22-23 * * *' # every JST hour 07..23; UTC day boundary handled by the publisher's JST clock
+    - cron: '17 0-14,22-23 * * *' # recovery attempt in same JST hour; NOT extra publication capacity
+  workflow_dispatch: # same source/approval/time/quota SHA gates, never an emergency bypass
 
 permissions:
   contents: write
 
-# Must remain serialized with the evergreen publisher's 20:00 JST main push.
 concurrency:
   group: aiportal-approved-publication-main
   cancel-in-progress: false
@@ -63,5 +60,5 @@ jobs:
       - name: Report without creating filler news
         if: always()
         run: |
-          echo "News slots never create articles or approvals."
-          echo "Only owner-approved ready stories can be published."
+          echo "An hourly workflow trigger does NOT create articles or approvals."
+          echo "Only independently verified, owner-approved and time-due articles publish."

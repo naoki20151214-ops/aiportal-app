@@ -129,13 +129,13 @@ test("Unknown claim IDs, injected HTML, links, missing sections and publication 
   assert.equal(validateGeneratedJapaneseDraft(wrong,packet).valid,false);
 });
 
-test("News draft packet CLI is manual only; scheduled intake and 20:00 publisher are unchanged",()=>{
+test("News draft packet CLI is manual only; hourly read-only intake and 20:00 evergreen publisher stay separate",()=>{
   const cli=readFileSync("scripts/prepare-news-draft-packets.mjs","utf8");
   assert.ok(cli.includes("private-japanese-news-draft-packets"));
   assert.ok(!/git push|content\/articles\/|publish-approved|article-approval-log/.test(cli));
   const intake=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(intake.permissions.contents,"read");
-  assert.equal(intake.on.schedule[0].cron,"0 22 * * *");
+  assert.equal(intake.on.schedule[0].cron,"0 0-14,22-23 * * *");
   assert.ok(!intake.jobs.collect.steps.some((s:{run?:string})=>/prepare-news-draft-packets/.test(String(s.run||""))));
   const pub=parse(readFileSync(".github/workflows/publish-approved.yml","utf8"));
   assert.equal(pub.on.schedule[0].cron,"0 11 * * *");

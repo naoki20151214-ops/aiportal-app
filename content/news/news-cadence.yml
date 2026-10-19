@@ -1,10 +1,18 @@
-schemaVersion: 1
+schemaVersion: 2
 timezone: "Asia/Tokyo"
+activePhase: "pilot-2"
+phases:
+  pilot-2:
+    maximumPostsPerDay: 2
+    slotsJst: ["09:00", "18:00"]
+  growth-6:
+    maximumPostsPerDay: 6
+    slotsJst: ["07:00", "09:00", "12:00", "15:00", "18:00", "21:00"]
+  hourly-17:
+    maximumPostsPerDay: 17
+    slotsJst: ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
 targetApprovedPostsPerDay: 2
-maximumPostsPerDay: 2
-slotsJst:
-  - "09:00"
-  - "18:00"
-publicationPolicy: "Publish only independently fact-checked, site-owner-approved news from an immutable ready manuscript. Empty slots remain empty; never invent a story."
-expansionPolicy: "Raise the cap only by a separate reviewed change after measuring reader engagement, source reliability and editorial capacity."
-evergreenPolicy: "The learning-article 20:00 JST approval workflow remains unchanged and has its own quota."
+publicationPolicy: "Release only independently checked, owner-approved immutable news; empty slots remain empty, no made-up posts."
+expansionPolicy: "Changing activePhase requires its own reviewed PR and evidence: source quality, review capacity, archive/dedup accuracy, working media/CTA gates and reliable scheduled live runs. Do not auto-promote on elapsed time or merely passing CI."
+hourlyWindowJst: "07:00-23:00"
+evergreenPolicy: "The 20:00 JST learning-article automation retains its independent once-per-day quota and shared GitHub main concurrency lock."
