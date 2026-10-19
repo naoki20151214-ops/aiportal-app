@@ -45,6 +45,10 @@ for (let i = 0; i < report.candidates.length; i += 4) {
 }
 
 const retrieved = results.filter(item => item.status === "retrieved-for-editorial-review").length;
+const withTextAnchors = results.filter(item =>
+  item.sourceEvidence?.status === "private-source-paragraphs-extracted").length;
+const totalEvidenceExcerpts = results.reduce((sum,item)=>
+  sum+(item.sourceEvidence?.paragraphExcerpts?.length || 0),0);
 // Counts only: do not copy blocked publisher pages or log untrusted HTML.
 const failuresByReason = Object.fromEntries(
   [...new Set(results.filter(item => item.status !== "retrieved-for-editorial-review")
@@ -67,7 +71,8 @@ const evidenceReport = {
   editorialApprovals: 0,
   primaryClaimVerification: "not-performed",
   caveat: "Retrieved official web pages are evidence to review, NOT confirmation of claims. The editor must check original sources and publication conditions before any news is eligible.",
-  summary: {candidates: results.length, retrieved, fetchFailed: results.length - retrieved,
+  summary: {candidates: results.length, retrieved, withTextAnchors,
+    totalEvidenceExcerpts, fetchFailed: results.length - retrieved,
     failuresByReason, bySource: sourceBreakdown},
   results,
 };
