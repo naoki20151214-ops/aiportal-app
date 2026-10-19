@@ -184,8 +184,8 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   if(publishedToday>=active.maximumPostsPerDay)
     return {changed:false,reason:"News quota reached for "+today,availableSlots:0};
   // GitHub cron may be delayed or dropped. A retry may only release the
-  // currently active JST slot on its ORIGINAL date. Never backfill yesterday's
-  // missed news or empty the morning queue from an evening retry.
+  // currently active JST hour on its ORIGINAL date. Never backfill another
+  // hour or yesterday's missed news from a later scheduled retry.
   const hour=Number(new Intl.DateTimeFormat("en-GB",{
     timeZone:"Asia/Tokyo",hour:"2-digit",hourCycle:"h23",
   }).format(now));
@@ -199,7 +199,7 @@ export function chooseNewsRelease(root=process.cwd(),now=new Date()) {
   const selected=eligible[0];
   if(!selected)return {changed:false,reason:"No date-due, explicitly approved news",availableSlots:active.maximumPostsPerDay-publishedToday};
   return {changed:false,eligible:selected.row.id,slug:selected.row.slug,
-    availableSlots:2-publishedToday,selected,today,ledger,registry};
+    availableSlots:active.maximumPostsPerDay-publishedToday,selected,today,ledger,registry};
 }
 export function publishNews(root=process.cwd(),options={}) {
   const result=chooseNewsRelease(root,options.now||new Date());
