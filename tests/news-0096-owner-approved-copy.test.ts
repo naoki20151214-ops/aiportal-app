@@ -20,15 +20,16 @@ test("NEWS-0096 owner-accepted headline, rating and body remain immutable",()=>{
   assert.ok(copy.endsWith("作った声もGPT-Live専用です。"));
 });
 
-test("NEWS-0096 owner accepts article but image and Production publication remain separately gated",()=>{
+test("NEWS-0096 article and image owner approvals are immutable and manually released",()=>{
   const audit=readFileSync("content/news/editorial-audits/NEWS-0096.md","utf8");
   assert.ok(audit.includes(sha()));
-  assert.match(audit,/画像未承認/);
+  assert.match(audit,/オーナーが直前に生成された/);
+  assert.match(audit,/98bc9a25f4683edf9387725529e66493961f3af4d1a7cbd4416561f9aae174b9/);
   assert.match(audit,/公開許可を兼ねる/);
   const registry=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
   const queue=parse(readFileSync("content/news/news-approval-queue.yml","utf8"));
   const archive=JSON.parse(readFileSync("content/news/news-archive.json","utf8"));
-  assert.equal(registry.nodes.some((node:{id:string})=>node.id==="NEWS-0096"),false);
+  assert.equal(registry.nodes.some((node:{id:string;status:string})=>node.id==="NEWS-0096" && node.status==="published"),true);
   assert.equal(queue.approvals.some((a:{id:string})=>a.id==="NEWS-0096"),false);
-  assert.equal(archive.entries.some((item:{id:string})=>item.id==="NEWS-0096"),false);
+  assert.equal(archive.entries.some((item:{id:string;status:string})=>item.id==="NEWS-0096" && item.status==="published"),true);
 });
