@@ -1,4 +1,15 @@
 schemaVersion: 1
 description: "Future news approvals only. Empty by default: RSS candidates and ready drafts are never approvals."
 timezone: "Asia/Tokyo"
-approvals: []
+approvals:
+  - id: "NEWS-0094"
+    slug: "on-device-scam-detection"
+    approvedOn: "2026-10-19"
+    approvedBy: "site-owner"
+    evidence: "2026-10-19 site owner explicitly approved the exact NEWS-0094 article and accepted the editor's image selection despite not identifying the preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot remains gated."
+    decision: "approved-for-publication"
+    scheduledAtJst: "2026-10-19T18:00:00+09:00"
+    sourceReadyBlob: "c20f59f9e94808699e0d2d91de2518e27395edb9"
+    heroSha256: "128b57ca26a760ebd6b2aa80310df48bd139ee1a2f76e99ec00c072680657199"
+    originalUrl: "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/"
+    auditPath: "content/news/editorial-audits/NEWS-0094.md"
