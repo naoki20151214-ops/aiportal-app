@@ -500,7 +500,7 @@
       "discoveredAtJst": "2026-10-19T17:53:33+09:00",
       "severity": "low",
       "area": "ci-free-workers-draft-error-classification-test",
-      "status": "fix-in-review",
+      "status": "resolved",
       "rootCauseStatus": "confirmed",
       "impactScope": "ci-only",
       "symptom": "Free Workers AI mock adapter PR #231 fails a new boundary regression test because the deliberately malformed model-output fixture is fewer than the 20 characters required to enter JSON parser.",
@@ -523,9 +523,11 @@
       ],
       "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/231",
       "validation": {
-        "ci": "pending",
+        "ci": "success",
         "productionRepeat": "not-applicable",
-        "nonApplicableReason": "This error arises only from a mocked invalid model output fixture; real external model/API use was not attempted."
+        "nonApplicableReason": "This error arises only from a mocked invalid model output fixture; real external model/API use was not attempted.",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39226404458",
+        "evidence": "Final code, CLI and mock tests completed Test, Lint and Build in PR #231 run 39226404458. All attempts were mocked/no network; provider parser safely rejected short output, malformed JSON and fenced Markdown. Real account plan and Workers AI inference were not exercised; Production validation after merge is still separate."
       },
       "repeatSignature": "LLM malformed JSON negative test has too few bytes to reach JSON decoder, returns size error rather than parse error"
     }
