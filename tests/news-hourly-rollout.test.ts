@@ -67,8 +67,31 @@ function fixture(phase:"pilot-2"|"growth-6"|"hourly-17"){
       originalUrl,auditPath:"content/news/editorial-audits/"+id+".md",
     });
   }
-  registry.nodeCount=registry.nodes.length;
-  write(root,"content/registry/knowledge-nodes.yml",stringify(registry));
+  // Keep the canonical quoted ID layout: the real publisher locates a
+  // Registry block using the exact YAML '  - id: "NEWS-xxxx"' syntax.
+  const originalRegistry=read(root,"content/registry/knowledge-nodes.yml");
+  const countMatch=originalRegistry.match(/^nodeCount: (\d+)$/m);
+  assert.ok(countMatch);
+  const appended=registry.nodes.slice(-hours.length).map((node:{
+    id:string;title:string;slug:string;centerQuestion:string
+  })=>[
+    '  - id: "'+node.id+'"',
+    '    title: "'+node.title+'"',
+    '    slug: "'+node.slug+'"',
+    '    category: "AIニュース"',
+    '    level: 0',
+    '    type: "news"',
+    '    status: "ready"',
+    '    centerQuestion: "'+node.centerQuestion+'"',
+    '    prerequisites: ["BAS-0002"]',
+    '    children: []',
+    '    related: []',
+    '    priority: "A"',
+    '',
+  ].join("\n")).join("\n");
+  const newRegistry=originalRegistry.replace(/^nodeCount: \d+$/m,
+    "nodeCount: "+(Number(countMatch[1])+hours.length)).trimEnd()+"\n"+appended+"\n";
+  write(root,"content/registry/knowledge-nodes.yml",newRegistry);
   write(root,"content/news/news-approval-queue.yml",
     stringify({schemaVersion:1,timezone:"Asia/Tokyo",approvals}));
   return {root,approvals};
