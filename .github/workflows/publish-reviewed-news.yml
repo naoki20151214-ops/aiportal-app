@@ -7,8 +7,8 @@ on:
     paths:
       - 'content/news/news-approval-queue.yml'
   schedule:
-    - cron: '0 0-14,22-23 * * *' # redundant watchdog only; immediately publish pending approved news if a push event was delayed
-    - cron: '17 0-14,22-23 * * *' # watchdog retry; NOT a time reservation or cap
+    - cron: '11 0-14,22-23 * * *' # fallback watchdog, only already approved news
+    - cron: '41 0-14,22-23 * * *' # independent fallback; push still publishes immediately
   workflow_dispatch: # optional recovery, same immutable approved-text/image/source gate
 
 permissions:

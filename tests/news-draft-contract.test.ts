@@ -135,7 +135,7 @@ test("News draft packet CLI is manual only; hourly read-only intake and 20:00 ev
   assert.ok(!/git push|content\/articles\/|publish-approved|article-approval-log/.test(cli));
   const intake=parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(intake.permissions.contents,"read");
-  assert.equal(intake.on.schedule[0].cron,"0 0-14,22-23 * * *");
+  assert.equal(intake.on.schedule[0].cron,"7 0-14,22-23 * * *");
   assert.ok(!intake.jobs.collect.steps.some((s:{run?:string})=>/prepare-news-draft-packets/.test(String(s.run||""))));
   const pub=parse(readFileSync(".github/workflows/publish-approved.yml","utf8"));
   assert.equal(pub.on.schedule[0].cron,"0 11 * * *");

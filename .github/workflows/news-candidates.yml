@@ -2,7 +2,8 @@ name: AI News Candidate Intake (private and read-only)
 
 on:
   schedule:
-    - cron: '0 0-14,22-23 * * *' # once per JST hour from 07:00 through 23:00 (private RSS metadata only)
+    - cron: '7 0-14,22-23 * * *' # primary 07:07–23:07 JST; avoid top-of-hour load
+    - cron: '37 0-14,22-23 * * *' # redundant intake; artifacts remain private
   workflow_dispatch:
 
 permissions:

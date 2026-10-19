@@ -133,7 +133,7 @@ test("Pending feed candidates are never approved news and no release API exists"
   assert.equal(shouldShowInNews("approved-and-published"),true);
   const workflow = parse(readFileSync(".github/workflows/news-candidates.yml","utf8"));
   assert.equal(workflow.permissions.contents,"read");
-  assert.equal(workflow.on.schedule[0].cron,"0 0-14,22-23 * * *");
+  assert.equal(workflow.on.schedule[0].cron,"7 0-14,22-23 * * *");
   const job=workflow.jobs.collect;
   assert.ok(job.steps.some((s:{run?:string})=>String(s.run||"").includes("collect-news-candidates.mjs")));
   assert.ok(!job.steps.some((s:{run?:string})=>/git push|auto-publish-approved|publish-approved/.test(String(s.run||""))));

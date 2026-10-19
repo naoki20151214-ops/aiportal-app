@@ -157,7 +157,7 @@ test("Primary-page evidence is in private read-only intake, not the 20:00 public
     step.with?.path === "artifacts/news-primary-evidence.json"));
   assert.ok(!steps.some((step: {run?: string}) =>
     /git push|auto-publish-approved|publish-approved|article-approval-log/.test(String(step.run || ""))));
-  assert.equal(workflow.on.schedule[0].cron, "0 0-14,22-23 * * *");
+  assert.equal(workflow.on.schedule[0].cron, "7 0-14,22-23 * * *");
   const publish = parse(readFileSync(".github/workflows/publish-approved.yml", "utf8"));
   assert.equal(publish.on.schedule[0].cron, "0 11 * * *");
   assert.ok(!readFileSync("scripts/check-news-primary-pages.mjs", "utf8").includes("content/articles/"));

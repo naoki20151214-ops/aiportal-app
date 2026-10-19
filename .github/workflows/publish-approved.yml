@@ -1,7 +1,8 @@
 name: Publish Editor-Approved Articles
 on:
   schedule:
-    - cron: '0 11 * * *' # 20:00 Asia/Tokyo (11:00 UTC), one approved article per Japan day
+    - cron: '0 11 * * *' # primary 20:00 JST learning article
+    - cron: '29 11 * * *' # 20:29 JST fallback; publication itself is idempotent
   workflow_dispatch: # incident recovery; same publishOn and max-one-per-day rules
 permissions:
   contents: write
