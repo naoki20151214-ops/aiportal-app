@@ -33,7 +33,7 @@ const news0094Source = "content/news/assets/on-device-scam-detection.svg";
 const news0094Destination = "public/images/news/on-device-scam-detection.webp";
 const rawSvg = fs.readFileSync(path.join(root,news0094Source),"utf8");
 if (!rawSvg.includes('<svg xmlns="http://www.w3.org/2000/svg"') ||
-    /<script\\b|<foreignObject\\b|\\bonload\\s*=|<image\\b|\\bhref\\s*=/i.test(rawSvg))
+    /<script\b|<foreignObject\b|\bonload\s*=|<image\b|\bhref\s*=/i.test(rawSvg))
   throw Error("Unsafe NEWS-0094 local vector source");
 const news0094Media = await sharp(Buffer.from(rawSvg,"utf8"))
   .resize({width:960,height:540,fit:"fill"})
