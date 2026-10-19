@@ -2,7 +2,6 @@
 // Explicit no-network preview for a human-reviewed private news packet.
 // There is intentionally NO --execute option. No Cloudflare/paid API calls.
 import fs from "node:fs";
-import path from "node:path";
 import {freeDraftPreview} from "./news-free-workers-ai-core.mjs";
 
 const args=process.argv.slice(2);
