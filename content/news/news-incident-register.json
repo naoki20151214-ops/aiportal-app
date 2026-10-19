@@ -153,6 +153,42 @@
         "evidence": "PR #214 verify run #39179262309 and merged main run #39179409422 passed after fixture separation."
       },
       "repeatSignature": "news two-slot integration fixture collides with real published news on fixed synthetic date"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-005",
+      "discoveredAtJst": "2026-10-19T09:47:34+09:00",
+      "severity": "low",
+      "area": "ci-news-editorial-length",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "Editorial PR #204's first NEWS-0094 importance-first revision failed Test with manuscript 503 code points against the 350–500 editorial limit. Lint and Build skipped.",
+      "observedError": "AssertionError [ERR_ASSERTION]: NEWS-0094: 503 characters",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39182295174",
+      "failedCommand": "npm test",
+      "directCause": "The editorial preflight counted only the story body before the trailing importance-scale disclaimer (457 code points), while the real test counted everything between the proposal header and sources heading, including the importance score and disclaimer: 503 total.",
+      "systemicCause": "The author's pre-commit character-count check was not performed using the exact range defined by tests/news-editorial-proposals.test.ts; including metadata/disclaimer pushed the proposal just beyond the hard gate.",
+      "impact": "Draft-review CI only. NEWS-0094 remained outside the public article registry, approval queue, and production news; no data loss, unauthorized publication, or change to NEWS-0096.",
+      "correctiveActions": [
+        "Shortened the NEWS-0094 proposal to 494 code points using the same exact slice as the production editorial test, retaining the importance-first conclusion and all safety caveats.",
+        "Read back the GitHub branch file and counted the full test-defined source interval before the final commit; kept the strict 350–500 check unchanged.",
+        "Confirmed subsequent PR #204 Verify Test/Lint/Build pass without moving this unapproved story into any public release queue."
+      ],
+      "regressionTests": [
+        "tests/news-editorial-proposals.test.ts"
+      ],
+      "productionFiles": [
+        "content/news/drafts/NEWS-0094-on-device-scam-detection.md"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/204",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39182332361",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "This failure was a 503-character editorial-proposal assertion in a review-only PR; it did not run or change any production collector, publication, or Cloudflare delivery.",
+        "evidence": "PR #204 follow-up commit 49f1732f87944bbbb8f870319956d5961f3ec762 passes actual GitHub Verify Test/Lint/Build, including editorial text-length gate. The news remains owner-unapproved and unpublished."
+      },
+      "repeatSignature": "NEWS-0094: proposal body exceeds test-defined 500 code-point cap after score or footnote"
     }
   ]
 }
