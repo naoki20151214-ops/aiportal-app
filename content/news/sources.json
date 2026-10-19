@@ -65,6 +65,18 @@
         "huggingface.co"
       ],
       "priority": 3
+    },
+    {
+      "id": "microsoft-security",
+      "name": "Microsoft Security Blog",
+      "kind": "official-company",
+      "feedUrl": "https://www.microsoft.com/en-us/security/blog/feed/",
+      "allowedHosts": [
+        "www.microsoft.com",
+        "microsoft.com"
+      ],
+      "priority": 2,
+      "editorialScope": "AI-related cybersecurity, agent security and AI misuse only; unrelated cybersecurity posts remain unapproved"
     }
   ]
 }

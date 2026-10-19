@@ -58,27 +58,47 @@ export function validateSourceConfig(config) {
   return config.sources;
 }
 
-export function itemsFromFeed(source, feedItems, now = new Date(), lookbackHours = DEFAULT_LOOKBACK_HOURS) {
-  if (!(now instanceof Date) || Number.isNaN(now.getTime()) ||
-      !Number.isInteger(lookbackHours) || lookbackHours < 1 || lookbackHours > 168)
+// Preserve the exact original candidate rules while making rejection reasons
+// observable. Filtered RSS entries are not lost or silently called successes.
+export function summarizeFeedEligibility(source,feedItems,now=new Date(),
+    lookbackHours=DEFAULT_LOOKBACK_HOURS) {
+  if(!(now instanceof Date)||Number.isNaN(now.getTime())||
+     !Number.isInteger(lookbackHours)||lookbackHours<1||lookbackHours>168)
     throw new Error("Invalid candidate window");
-  const min = now.getTime() - lookbackHours * 3600000;
-  return (Array.isArray(feedItems) ? feedItems : []).flatMap((item) => {
-    const url = safeUrl(item?.link, source.allowedHosts);
-    const title = normalizeTitle(item?.title);
-    const dateRaw = item?.isoDate || item?.pubDate;
-    const time = typeof dateRaw === "string" ? Date.parse(dateRaw) : NaN;
-    // Reject undated items and future-dated items, never guess a publication date.
-    if (!url || title.length < 10 || !Number.isFinite(time) || time < min ||
-        time > now.getTime() + 5 * 60000) return [];
-    return [{
-      id: createHash("sha256").update(url).digest("hex").slice(0, 24),
-      sourceId: source.id, publisher: source.name,
-      title, originalUrl: url, publishedAt: new Date(time).toISOString(),
-      discoveredBy: "official-feed-metadata",
-      verificationStatus: "pending-primary-source-review",
-    }];
-  });
+  const items=Array.isArray(feedItems)?feedItems:[];
+  const cutoff=now.getTime()-lookbackHours*3600000;
+  const excludedByReason={
+    "invalid-official-url":0,"short-title":0,"missing-or-invalid-date":0,
+    "older-than-lookback":0,"future-date":0,
+  };
+  const candidates=[];
+  for(const item of items) {
+    const url=safeUrl(item?.link,source.allowedHosts);
+    const title=normalizeTitle(item?.title);
+    const raw=item?.isoDate||item?.pubDate;
+    const ts=typeof raw==="string"?Date.parse(raw):NaN;
+    let reason;
+    if(!url)reason="invalid-official-url";
+    else if(title.length<10)reason="short-title";
+    else if(!Number.isFinite(ts))reason="missing-or-invalid-date";
+    else if(ts<cutoff)reason="older-than-lookback";
+    else if(ts>now.getTime()+5*60000)reason="future-date";
+    if(reason){excludedByReason[reason]++;continue;}
+    candidates.push({
+      id:createHash("sha256").update(url).digest("hex").slice(0,24),
+      sourceId:source.id,publisher:source.name,
+      title,originalUrl:url,publishedAt:new Date(ts).toISOString(),
+      discoveredBy:"official-feed-metadata",
+      verificationStatus:"pending-primary-source-review",
+    });
+  }
+  return {feedEntries:items.length,windowCandidates:candidates.length,
+    excludedByReason,candidates};
+}
+
+export function itemsFromFeed(source,feedItems,now=new Date(),
+    lookbackHours=DEFAULT_LOOKBACK_HOURS) {
+  return summarizeFeedEligibility(source,feedItems,now,lookbackHours).candidates;
 }
 
 export function deduplicateCandidates(candidates) {

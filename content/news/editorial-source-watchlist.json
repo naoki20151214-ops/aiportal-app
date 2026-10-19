@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Manual-only official newsroom discovery; NOT an RSS source registry or automated crawling permission",
-  "snapshotDate": "2026-10-18",
+  "snapshotDate": "2026-10-19",
   "enabledInScheduledIntake": false,
   "publicationEligible": false,
   "policy": "An official page establishes a potential primary source, not RSS availability, scraping permission, claims accuracy or publication rights. Do not schedule scraping, auto-create drafts, or publish from this list.",
@@ -52,14 +52,6 @@
       "focus": "ai-cybersecurity",
       "officialPage": "https://cloud.google.com/blog/topics/threat-intelligence",
       "feedStatus": "publisher-links-third-party-rss;not-admitted",
-      "discovery": "manual-only"
-    },
-    {
-      "id": "microsoft-security",
-      "name": "Microsoft Security Blog",
-      "focus": "ai-cybersecurity",
-      "officialPage": "https://www.microsoft.com/en-us/security/blog/",
-      "feedStatus": "not-verified",
       "discovery": "manual-only"
     }
   ]
