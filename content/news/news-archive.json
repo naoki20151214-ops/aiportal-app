@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "sourceOfTruth": "GitHub main + content/news",
   "summary": {
-    "total": 5,
+    "total": 6,
     "published": 4,
-    "ready": 0,
+    "ready": 1,
     "review": 0,
     "rejected": 1
   },
@@ -118,6 +118,33 @@
       "publishedReleaseAtJst": null,
       "articlePath": "content/articles/openai-gpt5-training.md",
       "articleUrl": "https://aiportal.blog/articles/openai-gpt5-training"
+    },
+    {
+      "id": "NEWS-0094",
+      "slug": "on-device-scam-detection",
+      "title": "詐欺を見抜くAI、会話を外に送らない？ シンガポールで開発中の仕組み",
+      "status": "ready",
+      "topic": "スマホ内で二段階の詐欺検知を行うと会話の外部送信や電池消費をどう抑えられるか？",
+      "description": "DeepMindとシンガポールGovTechが開発する、会話を外部に送らずに詐欺を見抜くオンデバイスAI。二段階検知の仕組みと未提供の注意点を解説。",
+      "publishedAt": null,
+      "updatedAt": "2026-10-19",
+      "scheduledAtJst": "2026-10-19T18:00:00+09:00",
+      "sourceUrls": [
+        "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/"
+      ],
+      "sourceIds": [
+        "deepmind"
+      ],
+      "primarySource": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+      "ctaSlugs": [
+        "what-is-machine-learning"
+      ],
+      "image": "/images/news/on-device-scam-detection.webp",
+      "approvalState": "approved-for-publication",
+      "approvalEvidence": "2026-10-19 site owner explicitly approved the exact NEWS-0094 article and accepted the editor's image selection despite not identifying the preview. Immutable copy blob, local SVG blob, CI-generated WebP SHA and official DeepMind 2026-10-14 source audited in NEWS-0094.md. 18:00 slot remains gated.",
+      "publishedReleaseAtJst": null,
+      "articlePath": "content/articles/on-device-scam-detection.md",
+      "articleUrl": null
     },
     {
       "id": "NEWS-0093",
