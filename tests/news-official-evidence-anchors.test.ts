@@ -88,6 +88,7 @@ test("No inferred evidence when original page is forbidden, too large, unsafe or
   assert.equal(spoof.reason,"unsafe-candidate-url");
   const absent=await fetchPrimaryPage(candidate,source,async()=>new Response(
     "<main><p>"+intro+"</p></main>",{headers:{"content-type":"text/html"}}));
+  if(!("pagePublishedAt" in absent))throw Error("Expected source metadata on HTTP 200");
   assert.equal(absent.pagePublishedAt,null);
   if(!("sourceEvidence" in absent))throw Error("Expected nonempty local quote");
   assert.equal(absent.sourceEvidence.factsVerified,false);
