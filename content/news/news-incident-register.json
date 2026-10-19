@@ -382,6 +382,43 @@
         "evidence": "Test/Lint/Build succeeded after WebP settings were corrected. The runtime logged 25,162-byte image and deterministic SHA256; eventual Production publication at 2026-10-20 JST is separate and not yet verified."
       },
       "repeatSignature": "New generated WebP under 20KB fails news media pretest before CI Test"
+    },
+    {
+      "id": "AI-NEWS-INC-20261019-011",
+      "discoveredAtJst": "2026-10-19T16:34:47+09:00",
+      "severity": "low",
+      "area": "ci-news-immediate-release-types",
+      "status": "resolved",
+      "impactScope": "ci-only",
+      "rootCauseStatus": "confirmed",
+      "symptom": "The initial PR #225 implementation of immediate news publishing passed unit tests and lint but failed the Next.js TypeScript production build while compiling a new batch-release regression test.",
+      "observedError": "TS2339: Property 'published' does not exist on the union return type of publishApprovedNewsImmediately, reported at tests/news-immediate-publication.test.ts:53-54.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39216800915",
+      "failedCommand": "npm run build",
+      "directCause": "New regression test accessed result.published without narrowing the typed union of a possible preview-result and the applied immediate-batch result.",
+      "systemicCause": "The TypeScript build performs stricter static analysis than node:test and ESLint; new helper returns a union by design but its corresponding test lacked discriminated refinement.",
+      "impact": "CI-only initial branch failure, no changes to GitHub main or live publication, queue remained approved pending test completion.",
+      "correctiveActions": [
+        "Added explicit TypeScript 'published in result' and Array.isArray guards before asserting the approved batch contents; did not loosen the fail-closed publication type or origin/approval checks.",
+        "Reran real GitHub Verify Test, Lint, Build at #39217055472 and confirmed all succeeded including the exact new regression tests.",
+        "Keep Next.js production type-check as a mandatory PR gate before switching publication workflow on main."
+      ],
+      "regressionTests": [
+        "tests/news-immediate-publication.test.ts"
+      ],
+      "productionFiles": [
+        "scripts/publish-news-queue.mjs",
+        ".github/workflows/publish-reviewed-news.yml"
+      ],
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/225",
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39217055472",
+        "productionRepeat": "not-applicable",
+        "nonApplicableReason": "This is a compile-time union-narrowing failure in a PR-only TypeScript regression test. It did not run or fail in Production; CI's Build checks the same type constraint before main merge.",
+        "evidence": "2026-10-19 GitHub PR run 39217055472 completed with Test/Lint/Build all successful after the explicit result-kind guard. Actual immediate publisher production behavior is separately pending observation."
+      },
+      "repeatSignature": "News immediate batch test accesses union member without TS result narrowing"
     }
   ]
 }
