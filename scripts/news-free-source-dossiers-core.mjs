@@ -81,6 +81,8 @@ export function buildFreeResearchDossiers(shadow,evidence,sources,policy){
     if(e.status!=="retrieved-for-editorial-review"||
        e.claimVerification!=="not-performed" || e.editorialStatus!=="unreviewed")
       reasons.push("primary-html-not-retrieved-or-unreviewed");
+    if(e.pageCoverage === "bounded-prefix-only")
+      reasons.push("partial-primary-html-requires-full-human-reading");
     const redirectHosts=[...src.allowedHosts,...(src.redirectHosts||[])];
     const target=typeof e.finalUrl==="string"?safeUrl(e.finalUrl,redirectHosts):null;
     if(!target) reasons.push("untrusted-final-official-url");

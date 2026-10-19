@@ -59,13 +59,13 @@ test("Staged news hourly opportunities retain an independent evergreen 20:00 pub
   assert.deepEqual(news.phases["growth-6"].slotsJst,["07:00","09:00","12:00","15:00","18:00","21:00"]);
   assert.deepEqual(news.phases["hourly-17"].slotsJst,Array.from({length:17},(_,i)=>String(i+7).padStart(2,"0")+":00"));
   const workflow=read(".github/workflows/publish-reviewed-news.yml");
-  assert.match(workflow,/cron: '0 0-14,22-23 \* \* \*'/);
+  assert.match(workflow,/cron: '11 0-14,22-23 \* \* \*'/);
   assert.match(workflow,/cron: '41 0-14,22-23 \* \* \*'/);
   assert.match(workflow,/group: aiportal-approved-publication-main/);
   assert.match(workflow,/publish-news-queue\.mjs --apply/);
   assert.doesNotMatch(workflow,/auto-publish-approved\.mjs/);
   const intake=read(".github/workflows/news-candidates.yml");
-  assert.match(intake,/cron: '0 0-14,22-23 \* \* \*'/);
+  assert.match(intake,/cron: '7 0-14,22-23 \* \* \*'/);
   assert.doesNotMatch(intake,/publish-news-queue\.mjs --apply/);
   const evergreen=read(".github/workflows/publish-approved.yml");
   assert.match(evergreen,/cron: '0 11 \* \* \*'/);

@@ -124,17 +124,26 @@ test("Redirect cycles and HTTP blocks remain distinct safe failure reasons",asyn
   assert.equal(blocked.publicationEligible,false);
 });
 
-test("Only bounded HTML is accepted; PDF and oversized responses are rejected", async () => {
+test("Only bounded prefix metadata is used; oversized pages are explicitly incomplete", async () => {
   const pdf = await fetchPrimaryPage(candidate, source, async () =>
     new Response("PDF", {headers: {"content-type": "application/pdf"}}));
   assert.equal(pdf.reason, "not-html");
   const oversized = await fetchPrimaryPage(candidate, source, async () =>
-    new Response(html, {headers: {
+    new Response(html + "x".repeat(MAX_PRIMARY_BYTES), {headers: {
       "content-type": "text/html",
-      "content-length": String(MAX_PRIMARY_BYTES + 1),
+      "content-length": String(MAX_PRIMARY_BYTES + html.length),
     }}));
-  assert.equal(oversized.reason, "html-too-large");
+  assert.equal(oversized.status, "retrieved-for-editorial-review");
+  if (!("pageCoverage" in oversized)) throw Error("Expected bounded coverage");
+  assert.equal(oversized.pageCoverage, "bounded-prefix-only");
   assert.equal(oversized.publicationEligible, false);
+  assert.equal(oversized.claimVerification, "not-performed");
+  const noMetadata = await fetchPrimaryPage(candidate, source, async () =>
+    new Response("x".repeat(MAX_PRIMARY_BYTES + 1), {
+      headers: {"content-type": "text/html"},
+    }));
+  assert.equal(noMetadata.reason, "html-too-large");
+  assert.equal(noMetadata.publicationEligible, false);
 });
 
 test("Missing publication date cannot be silently inferred from RSS", async () => {
