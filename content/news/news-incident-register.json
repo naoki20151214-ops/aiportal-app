@@ -530,6 +530,73 @@
         "evidence": "Final code, CLI and mock tests completed Test, Lint and Build in PR #231 run 39226404458. All attempts were mocked/no network; provider parser safely rejected short output, malformed JSON and fenced Markdown. Real account plan and Workers AI inference were not exercised; Production validation after merge is still separate."
       },
       "repeatSignature": "LLM malformed JSON negative test has too few bytes to reach JSON decoder, returns size error rather than parse error"
+    },
+    {
+      "discoveredAtJst": "2026-10-19T22:18:22+09:00",
+      "severity": "medium",
+      "status": "monitoring",
+      "rootCauseStatus": "pending",
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/234",
+      "id": "AI-NEWS-INC-20261019-015",
+      "area": "production-scheduled-workflow-reliability",
+      "impactScope": "production-scheduler",
+      "symptom": "2026-10-19 JST scheduled intake and news watchdog runs started long after intended cron slots; by the 22:xx JST inspection there was no 2026-10-19 JST scheduled learning publication run at all.",
+      "observedError": "Missing 2026-10-19 20:00 JST publish-approved.yml schedule run as of inspection; existing scheduled news runs were observed at 09:14/11:14/18:33/18:55 JST instead of their former slots.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39230990512",
+      "failedCommand": "GitHub hosted schedule trigger (no failing shell command; trigger delivery is external)",
+      "directCause": "Unconfirmed. A missing or delayed GitHub schedule dispatch cannot be conclusively attributed to runner time, load, or actor configuration from workflow logs.",
+      "systemicCause": "GitHub officially documents that top-of-hour scheduled Actions may run late or be dropped under high load. The previous cron jobs used minute 00 and had no second intake or learning-article recovery opportunity.",
+      "impact": "Editorial news candidate intake was late. No evidence of an unauthorized publication. No 2026-10-19 learning article approval publishOn entry was found; no specific overdue article is asserted.",
+      "correctiveActions": [
+        "PR #234 moves news collection to 07/37 and approved-news watchdogs to 11/41 minutes after each hour.",
+        "PR #234 retains learning publication at 20:00 JST and adds a 20:29 fallback, relying on the existing one-per-JST-day idempotence gate.",
+        "Collect real scheduled-run timestamps after the next delivery window; evaluate an independent external scheduler if timing remains unreliable."
+      ],
+      "regressionTests": [
+        "tests/news-cadence-archive.test.ts",
+        "tests/news-editorial-brief.test.ts"
+      ],
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39257861328",
+        "productionRepeat": "pending",
+        "evidence": "PR #234 and merged main passed Test/Lint/Build; Cloudflare deploy passed. New :07/:37/:11/:41 and 20:29 schedule behavior has NOT been observed live."
+      },
+      "repeatSignature": "Scheduled GitHub Actions missing or running outside expected JST window"
+    },
+    {
+      "discoveredAtJst": "2026-10-19T22:18:22+09:00",
+      "severity": "medium",
+      "status": "monitoring",
+      "rootCauseStatus": "pending",
+      "prUrl": "https://github.com/naoki20151214-ops/aiportal-app/pull/234",
+      "id": "AI-NEWS-INC-20261019-016",
+      "area": "production-primary-page-evidence-coverage",
+      "impactScope": "production-intake",
+      "symptom": "18:33 JST primary evidence collection retrieved 4 of 7 official pages; two oversized HTML pages and one HTTP 403 were not retrievable under the old rule.",
+      "observedError": "artifacts/news-primary-evidence.json summary: retrieved=4/7, failuresByReason: html-too-large=2, http-403=1.",
+      "triggerRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39230990512",
+      "failedCommand": "node scripts/check-news-primary-pages.mjs (completed successfully with individual page retrieval failures)",
+      "directCause": "Local MAX_PRIMARY_BYTES=384000 previously rejected oversized responses outright. A publisher's HTTP 403 separately prevented access; whether it blocks this specific agent or all programmatic readers is unconfirmed.",
+      "systemicCause": "The local evidence collector treated safe bounded metadata and complete HTML as an all-or-nothing case. Publisher access decisions cannot be fixed safely by bypassing 403 restrictions.",
+      "impact": "Some candidates lack original-page evidence, so independent source checking is incomplete. All candidates remain unverified and unpublished; partial previews remain barred from complete-source dossiers.",
+      "correctiveActions": [
+        "PR #234 collects bounded HTML prefix metadata and records full versus partial retrieval separately.",
+        "PR #234 blocks truncated source-page evidence from being treated as a complete first-party citation dossier.",
+        "Keep HTTP 403 categorized and blocked; only use explicitly permitted official access or human review, not evasion.",
+        "Inspect a later scheduled intake artifact to measure complete/partial/403 counts before resolving."
+      ],
+      "regressionTests": [
+        "tests/news-primary-source.test.ts",
+        "tests/news-editorial-gate.test.ts"
+      ],
+      "validation": {
+        "ci": "success",
+        "ciRunUrl": "https://github.com/naoki20151214-ops/aiportal-app/actions/runs/39257861328",
+        "productionRepeat": "pending",
+        "evidence": "All PR #234 and main CI checks passed; the new bounded-preview logic has not yet been exercised by a scheduled production intake."
+      },
+      "repeatSignature": "Official source html-too-large and http-403 failures reduce first-party editorial evidence coverage"
     }
   ]
 }
