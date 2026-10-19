@@ -22,7 +22,7 @@ test("One-minute Rosalind news is published only with news-specific immutable re
   assert.equal(metadata.category,"AIニュース");
   assert.equal(metadata.adPolicy,"off");
   assert.ok(readArticles("content/articles").some(a=>a.slug===slug));
-  assert.equal(validateNewsRelease().checked,1);
+  assert.equal(validateNewsRelease().checked,2);
 });
 test("News is concise, sourced, linked and explains eligibility accurately",()=>{
   const body=metadata.content;

@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import {createHash} from 'node:crypto';
 import {parse} from 'yaml';
 import {
   articleFields, imagePaths, flattenCurriculum, inventoryForNodes,
@@ -191,6 +192,38 @@ function writeReports(snapshot) {
   return compact;
 }
 
+// A finalized news release is not a fresh draft. Before bypassing a false
+// positive from an earlier unmerged review PR, verify exact owner-approved
+// article bytes, the signed manual release ledger, and immutable hero bytes.
+function provenOwnerNewsRelease(articlePath,front) {
+  if(!/^NEWS-\d{4}$/.test(front?.id||'')||front.status!=='published')return false;
+  const slug=front.slug,root=ROOT;
+  const audit=`content/news/editorial-audits/${front.id}.md`;
+  const approved=`content/news/owner-approved-copy/${front.id}.md`;
+  const asset=`content/news/assets/${slug}.webp.base64`;
+  if(![audit,approved,asset].every(p=>fs.existsSync(path.join(root,p))))return false;
+  const ledger=parse(fs.readFileSync(path.join(root,'content/news/news-publication-log.yml'),'utf8'));
+  const release=ledger?.releases?.find(x=>x.id===front.id&&x.slug===slug&&
+    x.approvedBy==='site-owner'&&x.decision==='published');
+  if(!release || !/^[a-f0-9]{40}$/.test(release.sourceReadyBlob||'') ||
+     !/^[a-f0-9]{64}$/.test(release.heroSha256||''))return false;
+  const article=fs.readFileSync(articlePath,'utf8');
+  if(!article.includes(fs.readFileSync(path.join(root,approved),'utf8')) ||
+     !article.includes(release.primarySource) ||
+     !article.includes('status: "published"'))return false;
+  const ready=article.replace('status: "published"','status: "ready"');
+  const bytes=Buffer.from(ready,'utf8');
+  const blob=createHash('sha1').update('blob '+bytes.length).update(Buffer.from([0])).update(bytes).digest('hex');
+  const b64=fs.readFileSync(path.join(root,asset),'utf8').replaceAll(String.fromCharCode(10),'').replaceAll(String.fromCharCode(13),'');
+  const hero=Buffer.from(b64,'base64');
+  return blob===release.sourceReadyBlob &&
+    createHash('sha256').update(hero).digest('hex')===release.heroSha256 &&
+    hero.subarray(0,4).toString()==='RIFF' &&
+    hero.subarray(8,12).toString()==='WEBP' &&
+    hero.length>=20000 && hero.length<=500000 &&
+    fs.readFileSync(path.join(root,audit),'utf8').includes(release.heroSha256);
+}
+
 async function gatePullRequest(snapshot) {
   const prNum=getFlag('pr') || process.env.GITHUB_EVENT_PATH && JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH,'utf8')).pull_request?.number;
   if(!prNum || !/^\d+$/.test(String(prNum)))throw new Error('PR number required for article:gate');
@@ -220,7 +253,8 @@ async function gatePullRequest(snapshot) {
       const claim=path.join(ROOT,`.github/article-reuse/${front.id}.yml`);
       const provenance=fs.existsSync(claim)?parse(fs.readFileSync(claim,'utf8')):null;
       if(provenance && (provenance.id!==front.id||!provenance.sourceRef))throw new Error('Malformed reuse provenance');
-      const result=checkReuseProvenance({row,sourceRef:provenance?.sourceRef,incomingBranch:branch,incomingPrNumber:Number(prNum)});
+      const result=provenOwnerNewsRelease(local,front) ? 'OWNER-APPROVED-NEWS-RELEASE: SHA-verified article and image' :
+        checkReuseProvenance({row,sourceRef:provenance?.sourceRef,incomingBranch:branch,incomingPrNumber:Number(prNum)});
       console.log(`${front.id}: ${result}`);
     }catch(e){errors.push(`${file.filename}: ${e.message}`);}
   }

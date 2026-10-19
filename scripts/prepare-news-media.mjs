@@ -9,6 +9,8 @@ const root=process.cwd();
 const assets=[
   ["content/news/assets/gpt-rosalind-academic-plan.webp.base64",
    "public/images/news/gpt-rosalind-academic-plan.webp"],
+  ["content/news/assets/openai-prompt-to-voice.webp.base64",
+   "public/images/news/openai-prompt-to-voice.webp"],
 ];
 for(const [source,dest] of assets){
   const input=fs.readFileSync(path.join(root,source),"utf8").replace(/\s+/g,"");
