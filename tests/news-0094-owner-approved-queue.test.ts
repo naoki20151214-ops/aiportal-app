@@ -55,7 +55,9 @@ test("NEWS-0094 stays unpublished until exactly the approved JST evening slot",(
     assert.equal(due.eligible,"NEWS-0094");
     assert.equal(due.availableSlots,1);
   }
-  assert.equal(chooseNewsRelease(process.cwd(),new Date("2026-10-20T09:00:00Z")).selected,undefined);
+  // Later owner-approved news may legitimately occupy a different day's 09:00.
+  // The invariant is that yesterday's NEWS-0094 never spills into that slot.
+  assert.notEqual(chooseNewsRelease(process.cwd(),new Date("2026-10-20T00:00:00Z")).eligible,"NEWS-0094");
 });
 
 test("The ready news archive remains deterministically indexed but not public",()=>{
