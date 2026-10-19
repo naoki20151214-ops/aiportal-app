@@ -1,5 +1,10 @@
 schemaVersion: 2
 timezone: "Asia/Tokyo"
+# Active news publication has no JST time reservation or daily cap.
+# The pilot-2/growth-6/hourly-17 records below are retained as
+# historical technical test profiles, NOT live publication constraints.
+publicationMode: "immediate"
+immediateNoDailyCap: true
 activePhase: "pilot-2"
 phases:
   pilot-2:
@@ -12,7 +17,7 @@ phases:
     maximumPostsPerDay: 17
     slotsJst: ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"]
 targetApprovedPostsPerDay: 2
-publicationPolicy: "Release only independently checked, owner-approved immutable news; empty slots remain empty, no made-up posts."
-expansionPolicy: "Changing activePhase requires its own reviewed PR and evidence: source quality, review capacity, archive/dedup accuracy, working media/CTA gates and reliable scheduled live runs. Do not auto-promote on elapsed time or merely passing CI."
+publicationPolicy: "Release immediately after a reviewed owner-approved ready manuscript and SHA-verified original media enter GitHub main; no daily number cap and no reserved time. Never publish RSS-only or unreviewed candidates."
+expansionPolicy: "Time-slot pilot phases are historical fixtures only while publicationMode is immediate; expand editorial volume only with independent primary-source and quality evidence."
 hourlyWindowJst: "07:00-23:00"
 evergreenPolicy: "The 20:00 JST learning-article automation retains its independent once-per-day quota and shared GitHub main concurrency lock."
