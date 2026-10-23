@@ -46,7 +46,7 @@ assert.equal(approval.publishOn,"2026-10-18");
 assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
 if(node.status==="published"){
   // A delayed scheduled run publishes on the actual JST date, not the original reservation.
-  assert.match(approval.publishedOn,/^\\d{4}-\\d{2}-\\d{2}$/);
+  assert.match(approval.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
   assert.ok(approval.publishedOn>=approval.publishOn,"Actual publication predates the approved slot");
   assert.equal(article.publishedAt,approval.publishedOn);
   assert.equal(article.updatedAt,approval.publishedOn);
