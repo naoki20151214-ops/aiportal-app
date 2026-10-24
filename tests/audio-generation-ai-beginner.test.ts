@@ -19,7 +19,7 @@ const FIGURES:Record<string,string>={
 };
 const sha=(data:Buffer)=>createHash("sha1").update("blob "+data.length+"\0").update(data).digest("hex");
 
-test("GEN-0018 has approved immutable source, valid published prerequisites and a future reservation",()=>{
+test("GEN-0018 has approved immutable source, valid prerequisites and state-aware publication dates",()=>{
 const registry=parse(readFileSync("content/registry/knowledge-nodes.yml","utf8"));
 const ledger=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
 const node=registry.nodes.find((x:{id:string})=>x.id===ID);
@@ -34,7 +34,6 @@ assert.ok(["ready","published"].includes(node.status));
 const article=readAllArticles("content/articles").find(x=>x.id===ID);
 assert.ok(article);
 assert.equal(article.status,node.status);
-assert.equal(article.publishedAt,"2026-10-18");
 const approval=ledger.approvals.find((x:{id:string})=>x.id===ID);
 assert.ok(approval);
 assert.equal(approval.approvedBy,"editorial-qa");
@@ -45,6 +44,16 @@ assert.equal(approval.editorialAuditPath,"content/editorial-audits/GEN-0018.yml"
 assert.equal(approval.editorialAuditBlob,AUDIT_SHA);
 assert.equal(approval.publishOn,"2026-10-18");
 assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
+if(node.status==="published"){
+  // A delayed scheduled run publishes on the actual JST date, not the original reservation.
+  assert.match(approval.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(approval.publishedOn>=approval.publishOn,"Actual publication predates the approved slot");
+  assert.equal(article.publishedAt,approval.publishedOn);
+  assert.equal(article.updatedAt,approval.publishedOn);
+}else{
+  assert.equal(approval.publishedOn,undefined);
+  assert.equal(article.publishedAt,approval.publishOn);
+}
 const auditBuffer=readFileSync(approval.editorialAuditPath);
 assert.equal(sha(auditBuffer),AUDIT_SHA);
 const report=parse(auditBuffer.toString("utf8"));
