@@ -6,9 +6,9 @@ description: "音声生成AIを町内会の清掃案内の読み上げで学ぶ�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-18"
-updatedAt: "2026-10-18"
+status: "published"
+publishedAt: "2026-10-24"
+updatedAt: "2026-10-24"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/audio-generation-ai/hero.svg"
 tags: ["音声生成AI", "音声合成", "Text-to-Speech", "TTS", "WaveNet", "AudioLM", "MusicGen", "AudioGen"]

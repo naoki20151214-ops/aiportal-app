@@ -421,7 +421,7 @@ approvals:
     publishOn: 2026-10-18
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0018-audio-generation-20261014
     originalReviewArticleBlob: 32bd18899ba893c9dae35ed505dbb42c1a8f01f3
     sourceArticleBlob: 56407a2df3790ea7a43fde396765b7979c632e9e
@@ -441,6 +441,7 @@ approvals:
       from the earlier multimodal primer BAS-0030. Both prerequisites GEN-0001
       and BAS-0030 are published. Publication is authorized no sooner than the
       Oct 18 JST 20:00 daily queue slot.
+    publishedOn: 2026-10-24
   - id: GEN-0019
     slug: what-is-chatgpt
     approvedOn: 2026-10-14

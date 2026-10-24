@@ -28,6 +28,7 @@ export const publishedArticleSlugById = {
   "GEN-0013": "hybrid-search",
   "GEN-0016": "image-generation-ai",
   "GEN-0017": "video-generation-ai",
+  "GEN-0018": "audio-generation-ai",
   "GEN-0090": "chatgpt-search",
   "GEN-0091": "gemini-long-context",
   "GEN-0092": "luma-dream-machine",
