@@ -137,7 +137,7 @@ export function readAllArticles(directory: string): Article[] {
 
 export function readArticles(directory: string): Article[] {
   return readAllArticles(directory)
-    .filter((article) => article.status === "published")
+    .filter((article) => article.status === "published" || article.status === "review")
     .sort((a, b) =>
       b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug),
     );
