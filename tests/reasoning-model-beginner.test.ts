@@ -35,7 +35,7 @@ test("GEN-0040 registered and scheduled with immutable editorial proof",()=>{
   const art=readAllArticles("content/articles").find(x=>x.id===ID);
   assert.ok(art);
   assert.equal(art.status,node.status);
-  assert.equal(art.publishedAt,"2026-10-23");
+  
   const log=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
   const row=log.approvals.find((r:{id:string})=>r.id===ID);
   assert.ok(row);
@@ -47,6 +47,16 @@ test("GEN-0040 registered and scheduled with immutable editorial proof",()=>{
   assert.equal(row.editorialAuditBlob,AUDIT_SHA);
   assert.equal(row.publishOn,"2026-10-23");
   assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(row.publishedOn>=row.publishOn,"Published before the approved date");
+  assert.equal(art.publishedAt,row.publishedOn);
+  assert.equal(art.updatedAt,row.publishedOn);
+ }else{
+  assert.equal(row.publishedOn,undefined);
+  assert.equal(art.publishedAt,row.publishOn);
+ }
   const aud=readFileSync(row.editorialAuditPath);
   assert.equal(blob(aud),AUDIT_SHA);
   const report=parse(aud.toString("utf8"));
