@@ -37,7 +37,7 @@ test("GEN-0022 is only scheduled after GEN-0002 with an immutable approved audit
   const article=readAllArticles("content/articles").find(x=>x.id===ID);
   assert.ok(article);
   assert.equal(article.status,node.status);
-  assert.equal(article.publishedAt,"2026-10-22");
+  
   const row=ledger.approvals.find((x:{id:string})=>x.id===ID);
   assert.ok(row);
   assert.equal(row.approvedBy,"editorial-qa");
@@ -48,6 +48,16 @@ test("GEN-0022 is only scheduled after GEN-0002 with an immutable approved audit
   assert.equal(row.editorialAuditBlob,AUDIT_SHA);
   assert.equal(row.publishOn,"2026-10-22");
   assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(row.publishedOn>=row.publishOn,"Published before the approved date");
+  assert.equal(article.publishedAt,row.publishedOn);
+  assert.equal(article.updatedAt,row.publishedOn);
+ }else{
+  assert.equal(row.publishedOn,undefined);
+  assert.equal(article.publishedAt,row.publishOn);
+ }
   const audit=readFileSync(row.editorialAuditPath);
   assert.equal(blob(audit),AUDIT_SHA);
   const report=parse(audit.toString("utf8"));

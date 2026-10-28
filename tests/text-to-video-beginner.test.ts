@@ -38,7 +38,7 @@ test("GEN-0073 is approved for Oct 24 JST after its Oct 16 prerequisite, never p
   const source=readAllArticles("content/articles").find(a=>a.id===ID);
   assert.ok(source);
   assert.equal(source.status,node.status);
-  assert.equal(source.publishedAt,"2026-10-24");
+  
   const row=ledger.approvals.find((x:{id:string})=>x.id===ID);
   assert.ok(row);
   assert.equal(row.approvedBy,"editorial-qa");
@@ -49,6 +49,16 @@ test("GEN-0073 is approved for Oct 24 JST after its Oct 16 prerequisite, never p
   assert.equal(row.editorialAuditPath,"content/editorial-audits/GEN-0073.yml");
   assert.equal(row.publishOn,"2026-10-24");
   assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(row.publishedOn>=row.publishOn,"Published before the approved date");
+  assert.equal(source.publishedAt,row.publishedOn);
+  assert.equal(source.updatedAt,row.publishedOn);
+ }else{
+  assert.equal(row.publishedOn,undefined);
+  assert.equal(source.publishedAt,row.publishOn);
+ }
   const parentRow=ledger.approvals.find((x:{id:string})=>x.id==="GEN-0017");
   assert.ok(parentRow);
   assert.equal(parentRow.publishOn,"2026-10-16");

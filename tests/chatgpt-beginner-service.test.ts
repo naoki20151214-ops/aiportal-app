@@ -39,7 +39,7 @@ test("GEN-0019 review, ready, audit and scheduled publication record are SHA-pin
   assert.ok(doc);
   assert.equal(doc.slug, SLUG);
   assert.equal(doc.status, node.status);
-  assert.equal(doc.publishedAt,"2026-10-19");
+  
   const approval = ledger.approvals.find((a:{id:string}) => a.id === ID);
   assert.ok(approval);
   assert.equal(approval.approvedBy, "editorial-qa");
@@ -50,6 +50,16 @@ test("GEN-0019 review, ready, audit and scheduled publication record are SHA-pin
   assert.equal(approval.editorialAuditPath,"content/editorial-audits/GEN-0019.yml");
   assert.equal(approval.editorialAuditBlob,AUDIT_SHA);
   assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(approval.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(approval.publishedOn>=approval.publishOn,"Published before the approved date");
+  assert.equal(doc.publishedAt,approval.publishedOn);
+  assert.equal(doc.updatedAt,approval.publishedOn);
+ }else{
+  assert.equal(approval.publishedOn,undefined);
+  assert.equal(doc.publishedAt,approval.publishOn);
+ }
   const auditBytes = readFileSync(approval.editorialAuditPath);
   assert.equal(blobSha(auditBytes), AUDIT_SHA);
   const audit = parse(auditBytes.toString("utf8"));

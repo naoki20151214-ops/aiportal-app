@@ -31,7 +31,7 @@ test("GEN-0021 scheduled approval is source-SHA bound, audited and supported by 
  const doc=readAllArticles("content/articles").find(x=>x.id===ID);
  assert.ok(doc);
  assert.equal(doc.status,node.status);
- assert.equal(doc.publishedAt,"2026-10-21");
+ 
  const approval=l.approvals.find((x:{id:string})=>x.id===ID);
  assert.ok(approval);
  assert.equal(approval.approvedBy,"editorial-qa");
@@ -42,6 +42,16 @@ test("GEN-0021 scheduled approval is source-SHA bound, audited and supported by 
  assert.equal(approval.editorialAuditPath,"content/editorial-audits/GEN-0021.yml");
  assert.equal(approval.editorialAuditBlob,AUDIT_SHA);
  assert.equal(approval.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(approval.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(approval.publishedOn>=approval.publishOn,"Published before the approved date");
+  assert.equal(doc.publishedAt,approval.publishedOn);
+  assert.equal(doc.updatedAt,approval.publishedOn);
+ }else{
+  assert.equal(approval.publishedOn,undefined);
+  assert.equal(doc.publishedAt,approval.publishOn);
+ }
  const audit=readFileSync(approval.editorialAuditPath);
  assert.equal(gitBlob(audit),AUDIT_SHA);
  const details=parse(audit.toString("utf8"));
