@@ -448,7 +448,7 @@ approvals:
     publishOn: 2026-10-19
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0019-chatgpt-20261014
     originalReviewArticleBlob: a66d4b815d65faef367a38fa00cdafcb76295e81
     sourceArticleBlob: 5c312d213a2ecfe382764768776ae565389a0b7c
@@ -467,6 +467,7 @@ approvals:
       LLM model/mechanism primer. Both required prerequisites, GEN-0001 and
       GEN-0002, are published. The article may publish on or after 2026-10-19
       20:00 JST, not immediately upon approval merge.
+    publishedOn: 2026-10-29
   - id: GEN-0020
     slug: what-is-claude
     approvedOn: 2026-10-14

@@ -6,9 +6,9 @@ description: "ChatGPTとは何かを、町内会の公園清掃案内を作る�
 category: "生成AI"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-19"
-updatedAt: "2026-10-19"
+status: "published"
+publishedAt: "2026-10-29"
+updatedAt: "2026-10-29"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/chatgpt/hero.svg"
 tags: ["ChatGPT", "OpenAI", "生成AI", "LLM", "AIチャット", "AI検索", "データ管理"]
