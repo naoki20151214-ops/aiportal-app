@@ -33,7 +33,7 @@ test("GEN-0020 ready manuscript, dated delegation and prerequisites are SHA-cons
  const article=readAllArticles("content/articles").find(x=>x.id===ID);
  assert.ok(article);
  assert.equal(article.status,node.status);
- assert.equal(article.publishedAt,"2026-10-20");
+ 
  const row=ledger.approvals.find((x:{id:string})=>x.id===ID);
  assert.ok(row);
  assert.equal(row.approvedBy,"editorial-qa");
@@ -44,6 +44,16 @@ test("GEN-0020 ready manuscript, dated delegation and prerequisites are SHA-cons
  assert.equal(row.editorialAuditBlob,AUDIT_SHA);
  assert.equal(row.publishOn,"2026-10-20");
  assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(row.publishedOn>=row.publishOn,"Published before the approved date");
+  assert.equal(article.publishedAt,row.publishedOn);
+  assert.equal(article.updatedAt,row.publishedOn);
+ }else{
+  assert.equal(row.publishedOn,undefined);
+  assert.equal(article.publishedAt,row.publishOn);
+ }
  const bytes=readFileSync(row.editorialAuditPath);
  assert.equal(blob(bytes),AUDIT_SHA);
  const audit=parse(bytes.toString("utf8"));
