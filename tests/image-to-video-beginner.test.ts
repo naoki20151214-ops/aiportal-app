@@ -33,7 +33,22 @@ test("GEN-0074 original manuscript is ready and its prerequisite is scheduled",(
  const article=readAllArticles("content/articles").find(a=>a.id===ID);
  assert.ok(article);
  assert.equal(article.status,node.status);
- assert.equal(article.publishedAt,"2026-10-25");
+ const ledger=parse(readFileSync("content/registry/article-approval-log.yml","utf8"));
+ const row=ledger.approvals.find((x:{id:string})=>x.id===ID);
+ assert.ok(row);
+ assert.equal(row.publishOn,"2026-10-25");
+ assert.equal(row.decision,node.status==="published"?"published":"approved-for-publication");
+ if(node.status==="published"){
+  // Delayed scheduled delivery must use the actual JST publication date.
+  assert.match(row.publishedOn,/^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(row.publishedOn>=row.publishOn,"Published before the approved date");
+  assert.equal(article.publishedAt,row.publishedOn);
+  assert.equal(article.updatedAt,row.publishedOn);
+ }else{
+  assert.equal(row.publishedOn,undefined);
+  assert.equal(article.publishedAt,row.publishOn);
+ }
+ 
  const src=readFileSync("content/articles/image-to-video.md");
  if(node.status==="ready")assert.equal(blob(src),READY_SHA);
  const audit=readFileSync("content/editorial-audits/GEN-0074.yml");
