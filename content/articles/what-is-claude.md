@@ -6,9 +6,9 @@ description: "AnthropicのClaudeとは何かを、町内会の清掃案内作り
 category: "生成AI"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-20"
-updatedAt: "2026-10-20"
+status: "published"
+publishedAt: "2026-10-30"
+updatedAt: "2026-10-30"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/claude/hero.svg"
 tags: ["Claude", "Anthropic", "生成AI", "AIアシスタント", "文章作成", "ハルシネーション"]

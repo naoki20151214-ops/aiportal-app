@@ -656,7 +656,7 @@ nodes:
     category: "生成AI"
     level: 0
     type: "concept"
-    status: "ready"
+    status: "published"
     centerQuestion: "Claudeは何ができ、ChatGPTなどとどう使い分けられるのか？"
     prerequisites: ["GEN-0001","GEN-0002"]
     children: []

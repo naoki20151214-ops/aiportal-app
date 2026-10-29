@@ -30,6 +30,7 @@ export const publishedArticleSlugById = {
   "GEN-0017": "video-generation-ai",
   "GEN-0018": "audio-generation-ai",
   "GEN-0019": "what-is-chatgpt",
+  "GEN-0020": "what-is-claude",
   "GEN-0090": "chatgpt-search",
   "GEN-0091": "gemini-long-context",
   "GEN-0092": "luma-dream-machine",

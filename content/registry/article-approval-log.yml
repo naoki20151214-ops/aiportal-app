@@ -474,7 +474,7 @@ approvals:
     publishOn: 2026-10-20
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0020-claude-20261014
     originalReviewArticleBlob: 246931503db2402576f69765c50be00b21c8640c
     sourceArticleBlob: b905c17f51509cd371907c1dfb0ce80a41c1a885
@@ -495,6 +495,7 @@ approvals:
       unsupported invented location details. Prerequisites GEN-0001 and GEN-0002
       are published. Publication is due on or after 2026-10-20 20:00 JST only by
       the daily scheduler and never on approval-PR merge.
+    publishedOn: 2026-10-30
   - id: GEN-0021
     slug: what-is-gemini
     approvedOn: 2026-10-14
