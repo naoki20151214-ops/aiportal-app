@@ -6,9 +6,9 @@ description: "GoogleのAIアシスタントGeminiを、町内会の清掃案内�
 category: "生成AI"
 level: 0
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-21"
-updatedAt: "2026-10-21"
+status: "published"
+publishedAt: "2026-10-31"
+updatedAt: "2026-10-31"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/what-is-gemini/hero.svg"
 tags: ["Gemini", "Google", "生成AI", "Google Drive", "Gmail", "AIアシスタント"]

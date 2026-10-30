@@ -502,7 +502,7 @@ approvals:
     publishOn: 2026-10-21
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0021-gemini-20261014
     originalReviewArticleBlob: ab23fe678d2db45223bf244e86a4693e381d9991
     sourceArticleBlob: 4e4f7998460c6246df3233ad5b66087eb2eb6ef8
@@ -522,6 +522,7 @@ approvals:
       external modification and emphasizes version checks and permissions.
       Publish no earlier than 2026-10-21 20:00 JST; do not release on approval
       PR merge."
+    publishedOn: 2026-10-31
   - id: GEN-0022
     slug: ai-search
     approvedOn: 2026-10-15
