@@ -6,9 +6,9 @@ description: "リンクを探す検索と、検索した資料を読んで答え
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-22"
-updatedAt: "2026-10-22"
+status: "published"
+publishedAt: "2026-11-01"
+updatedAt: "2026-11-01"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/ai-search/hero.svg"
 tags: ["AI検索", "検索エンジン", "AI Mode", "AI Overviews", "ChatGPT Search", "出典確認", "RAG"]

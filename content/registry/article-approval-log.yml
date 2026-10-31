@@ -529,7 +529,7 @@ approvals:
     publishOn: 2026-10-22
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0022-ai-search-20261015
     originalReviewArticleBlob: c1a9462b96318ee66bed58e35ce2e65d8a18fe4e
     sourceArticleBlob: a8c0af526a90067bbc5a12d23fdd8b0c040fb970
@@ -544,6 +544,7 @@ approvals:
       paper. All eight editorial gates passed, internal score 91/100. No
       independent human or model review claimed. Reserve 2026-10-22 20:00 JST
       after the existing six pending slots.
+    publishedOn: 2026-11-01
   - id: GEN-0040
     slug: reasoning-model
     approvedOn: 2026-10-15
