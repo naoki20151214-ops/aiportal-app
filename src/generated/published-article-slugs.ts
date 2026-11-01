@@ -53,6 +53,7 @@ export const publishedArticleSlugById = {
   "BAS-0056": "probability-for-ai",
   "GEN-0035": "zero-shot-prompting",
   "GEN-0036": "few-shot-prompting",
+  "GEN-0040": "reasoning-model",
   "GEN-0046": "ai-grounding",
   "GEN-0047": "ai-citations",
   "BAS-0101": "query-key-value",

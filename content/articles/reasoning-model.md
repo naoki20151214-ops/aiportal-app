@@ -6,9 +6,9 @@ description: "37箱の本を台車で運ぶ問題を題材に、Reasoning Model�
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-23"
-updatedAt: "2026-10-23"
+status: "published"
+publishedAt: "2026-11-02"
+updatedAt: "2026-11-02"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/reasoning-model/hero.svg"
 tags: ["Reasoning Model", "推論モデル", "LLM", "強化学習", "テスト時の計算", "思考時間", "問題解決"]
