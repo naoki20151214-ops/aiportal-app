@@ -6,9 +6,9 @@ description: "『朝のパン屋の動画を作って』ではなぜ意図どお
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-24"
-updatedAt: "2026-10-24"
+status: "published"
+publishedAt: "2026-11-03"
+updatedAt: "2026-11-03"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/text-to-video/hero.svg"
 tags: ["Text-to-Video", "テキストから動画", "プロンプト", "カメラワーク", "被写体", "動画生成", "ショット"]

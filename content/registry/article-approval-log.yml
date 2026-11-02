@@ -573,7 +573,7 @@ approvals:
     publishOn: 2026-10-24
     approvedBy: editorial-qa
     delegation: site-owner-standing-policy-2026-10-13
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0073-text-to-video-20261015
     originalReviewArticleBlob: 77ca6f31262f80015a6c72bc531bb7b2e1dfbb7e
     sourceArticleBlob: cf5732db0e9050966de2033e7c87917427b4f4f4
@@ -590,6 +590,7 @@ approvals:
       without claiming independent human or model review. Queue after GEN-0017
       at or after JST 20:00 on 2026-10-24; dependency must be published before
       release.
+    publishedOn: 2026-11-03
   - id: GEN-0074
     slug: image-to-video
     approvedOn: 2026-10-15
