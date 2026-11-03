@@ -6,9 +6,9 @@ description: "海辺の灯台の写真を動画にしたら、写真に写って
 category: "生成AI"
 level: 1
 type: "concept"
-status: "ready"
-publishedAt: "2026-10-25"
-updatedAt: "2026-10-25"
+status: "published"
+publishedAt: "2026-11-04"
+updatedAt: "2026-11-04"
 author: "AI Portal編集部"
 thumbnail: "/images/articles/image-to-video/hero.svg"
 tags: ["Image-to-Video", "画像から動画", "写真を動かす", "開始フレーム", "参照画像", "カメラワーク", "動画生成"]

@@ -596,7 +596,7 @@ approvals:
     approvedOn: 2026-10-15
     publishOn: 2026-10-25
     approvedBy: site-owner
-    decision: approved-for-publication
+    decision: published
     sourceRef: new/GEN-0074-image-to-video-20261015
     originalReviewArticleBlob: f2db86d26b7600ef34c6e1289358589d2af2f5e8
     sourceArticleBlob: 36da383b9429272dd9330fa9ee9efb3fcc2f644f
@@ -606,3 +606,4 @@ approvals:
     editorialChanges: None; SHA-bound original article body and illustrations retained
     evidence: Explicit site-owner acceptance (合格しました) in ChatGPT on 2026-10-15;
       schedule Oct 25 at 20:00 JST without immediate publication.
+    publishedOn: 2026-11-04

@@ -57,6 +57,7 @@ export const publishedArticleSlugById = {
   "GEN-0046": "ai-grounding",
   "GEN-0047": "ai-citations",
   "GEN-0073": "text-to-video",
+  "GEN-0074": "image-to-video",
   "BAS-0101": "query-key-value",
   "NEWS-0092": "gpt-rosalind-academic-plan",
   "NEWS-0096": "openai-prompt-to-voice",
