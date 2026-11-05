@@ -8,6 +8,7 @@ import TrackedArticleLink from "@/components/tracked-article-link";
 import ArticleDifficulty from "@/components/article-difficulty";
 import RelatedArticles from "@/components/related-articles";
 import { newsLearningLinks } from "@/lib/news-learning-links";
+import JsonLd from "@/components/json-ld";
 import SiteFooter from "@/components/site-footer";
 import { getRelatedArticles } from "@/lib/related-articles";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
@@ -59,8 +60,36 @@ export default async function ArticlePage({ params }: Props) {
   const nextReading = getNextReadingMarkdown(article.id);
   const articleContent = linkPublishedReadingTargets(nextReading ? `${article.content}\n\n${nextReading}` : article.content);
 
+  const isNews = readerContext === "news";
+  const articleUrl = absoluteUrl(`/articles/${article.slug}`);
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": isNews ? "NewsArticle" : "Article",
+      headline: article.title,
+      description: article.description,
+      image: [absoluteUrl(article.thumbnail)],
+      datePublished: `${article.publishedAt}T00:00:00+09:00`,
+      dateModified: `${article.updatedAt}T00:00:00+09:00`,
+      author: { "@type": "Organization", name: article.author },
+      publisher: { "@type": "Organization", name: siteName, url: absoluteUrl("/") },
+      mainEntityOfPage: articleUrl,
+      inLanguage: "ja",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "トップ", item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: "記事一覧", item: absoluteUrl("/articles") },
+        { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
+      {structuredData.map((data, index) => <JsonLd key={index} data={data} />)}
       <header className="border-b border-gray-200 sticky top-0 bg-white z-50">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
           <Link href="/" className="text-2xl font-black tracking-tighter text-blue-700">AI PORTAL</Link>
@@ -76,7 +105,7 @@ export default async function ArticlePage({ params }: Props) {
           <span aria-hidden="true" className="mx-2">›</span>
           <Link href="/articles" className="hover:text-blue-700 hover:underline">記事一覧</Link>
           <span aria-hidden="true" className="mx-2">›</span>
-          <span aria-current="page">記事</span>
+          <span aria-current="page">{article.title}</span>
         </nav>
         <article>
           <header className="border-b border-gray-200 pb-6 mb-8">
@@ -95,7 +124,7 @@ export default async function ArticlePage({ params }: Props) {
           {readerContext === "news" && (
             <figure className="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
               {/* eslint-disable-next-line @next/next/no-img-element -- Editorial news article hero graphic. */}
-              <img src={article.thumbnail} alt="AIニュースのアイキャッチ画像" className="h-auto w-full" loading="eager" />
+              <img src={article.thumbnail} alt={article.title} className="h-auto w-full" loading="eager" />
             </figure>
           )}
           <ArticleBody content={articleContent} article={article} />
